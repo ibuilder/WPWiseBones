@@ -267,7 +267,7 @@ function wpb_admin_options_page() {
             <div>
                 <strong><?php esc_html_e( 'WPWiseBones Shortcodes plugin is active!', 'wpwisebones' ); ?></strong>
                 &mdash;
-                <a href="<?php echo esc_url( admin_url( 'plugins.php?page=wpwisebones-shortcodes' ) ); ?>">
+                <a href="<?php echo esc_url( admin_url( 'plugins.php?page=wisebones-shortcodes' ) ); ?>">
                     <?php esc_html_e( 'View Shortcode Reference', 'wpwisebones' ); ?>
                 </a>
             </div>
@@ -276,7 +276,7 @@ function wpb_admin_options_page() {
         <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:14px 18px;margin-bottom:20px">
             <strong>&#9888; <?php esc_html_e( 'Shortcodes plugin not installed', 'wpwisebones' ); ?></strong><br>
             <p style="margin:.5rem 0"><?php esc_html_e( 'This theme works with a free companion plugin that adds 17 Bootstrap 5 shortcodes: alerts, buttons, cards, tabs, accordions, modals, countdown timers, post grids, and more.', 'wpwisebones' ); ?></p>
-            <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'update.php?action=install-plugin&plugin=wpwisebones-shortcodes' ), 'install-plugin_wpwisebones-shortcodes' ) ); ?>" class="button button-primary">
+            <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'update.php?action=install-plugin&plugin=wisebones-shortcodes' ), 'install-plugin_wisebones-shortcodes' ) ); ?>" class="button button-primary">
                 &#8659; <?php esc_html_e( 'Install WPWiseBones Shortcodes', 'wpwisebones' ); ?>
             </a>
             &nbsp;

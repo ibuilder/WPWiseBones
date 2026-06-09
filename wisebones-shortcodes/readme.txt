@@ -1,9 +1,9 @@
-=== WPWiseBones Shortcodes ===
+=== WiseBones Shortcodes ===
 Contributors:      wpwisebones
-Tags:              shortcodes, bootstrap, bootstrap-5, buttons, cards, accordion, tabs, modal, countdown
+Tags:              shortcodes, bootstrap, bootstrap-5, cards, accordion
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.0
+Stable tag:        1.0.1
 Requires PHP:      8.0
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -44,7 +44,7 @@ Built and maintained by [wprealwise.com](https://wprealwise.com).
 
 == Installation ==
 
-1. Upload the `wpwisebones-shortcodes` folder to `/wp-content/plugins/`
+1. Upload the `wisebones-shortcodes` folder to `/wp-content/plugins/`
 2. Activate via **Plugins > Installed Plugins**
 3. Use any shortcode in your posts, pages, or widgets
 

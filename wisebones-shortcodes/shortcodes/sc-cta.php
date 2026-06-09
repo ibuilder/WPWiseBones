@@ -12,9 +12,9 @@ add_shortcode( 'wpb_cta', 'wpb_sc_cta' );
 
 function wpb_sc_cta( array $atts, ?string $content = null ): string {
     $a = shortcode_atts( [
-        'heading'    => __( 'Ready to Get Started?', 'wpwisebones' ),
+        'heading'    => __( 'Ready to Get Started?', 'wisebones-shortcodes' ),
         'subtext'    => '',
-        'btn_text'   => __( 'Learn More', 'wpwisebones' ),
+        'btn_text'   => __( 'Learn More', 'wisebones-shortcodes' ),
         'btn_url'    => '#',
         'btn_style'  => 'light',
         'btn2_text'  => '',

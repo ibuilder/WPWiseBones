@@ -18,8 +18,8 @@ function wpb_sc_modal( array $atts, ?string $content = null ): string {
 
     $a = shortcode_atts( [
         'id'         => '',
-        'title'      => __( 'Modal Title', 'wpwisebones' ),
-        'btn_text'   => __( 'Open', 'wpwisebones' ),
+        'title'      => __( 'Modal Title', 'wisebones-shortcodes' ),
+        'btn_text'   => __( 'Open', 'wisebones-shortcodes' ),
         'btn_style'  => 'primary',
         'size'       => '',   // sm | lg | xl
         'scrollable' => 'false',
@@ -39,9 +39,9 @@ function wpb_sc_modal( array $atts, ?string $content = null ): string {
     $html .= '<div class="modal fade ' . esc_attr( $a['class'] ) . '" id="' . esc_attr( $modal_id ) . '" tabindex="-1" aria-labelledby="' . esc_attr( $modal_id ) . 'Label" aria-hidden="true">';
     $html .= '<div class="' . esc_attr( $dialog_cls ) . '"><div class="modal-content">';
     $html .= '<div class="modal-header"><h5 class="modal-title" id="' . esc_attr( $modal_id ) . 'Label">' . esc_html( $a['title'] ) . '</h5>';
-    $html .= '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="' . esc_attr__( 'Close', 'wpwisebones' ) . '"></button></div>';
+    $html .= '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="' . esc_attr__( 'Close', 'wisebones-shortcodes' ) . '"></button></div>';
     $html .= '<div class="modal-body">' . wp_kses_post( do_shortcode( $content ) ) . '</div>';
-    $html .= '<div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . esc_html__( 'Close', 'wpwisebones' ) . '</button></div>';
+    $html .= '<div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . esc_html__( 'Close', 'wisebones-shortcodes' ) . '</button></div>';
     $html .= '</div></div></div>';
 
     return $html;

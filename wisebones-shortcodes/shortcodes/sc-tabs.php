@@ -54,7 +54,7 @@ function wpb_sc_tab( array $atts, ?string $content = null ): string {
     $tab_id++;
 
     $a = shortcode_atts( [
-        'title'  => __( 'Tab', 'wpwisebones' ),
+        'title'  => __( 'Tab', 'wisebones-shortcodes' ),
         'icon'   => '',
         'active' => 'false',
     ], $atts, 'wpb_tab' );

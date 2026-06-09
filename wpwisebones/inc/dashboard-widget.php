@@ -128,7 +128,7 @@ function wpb_dashboard_widget_render() {
                 <strong>&#9888; <?php esc_html_e( "WPWiseBones Shortcodes not installed", "wpwisebones" ); ?></strong><br>
                 <?php esc_html_e( "Install the free companion plugin to unlock 17 Bootstrap shortcodes.", "wpwisebones" ); ?>
             </div>
-            <a href="<?php echo esc_url( wp_nonce_url( admin_url( "update.php?action=install-plugin&plugin=wpwisebones-shortcodes" ), "install-plugin_wpwisebones-shortcodes" ) ); ?>" class="button button-primary button-small">
+            <a href="<?php echo esc_url( wp_nonce_url( admin_url( "update.php?action=install-plugin&plugin=wisebones-shortcodes" ), "install-plugin_wisebones-shortcodes" ) ); ?>" class="button button-primary button-small">
                 &#8659; <?php esc_html_e( "Install Now", "wpwisebones" ); ?>
             </a>
         </div>
@@ -137,7 +137,7 @@ function wpb_dashboard_widget_render() {
             <span style="color:#0f5132;font-size:1.1rem">&#10003;</span>
             <strong style="color:#0f5132"><?php esc_html_e( "WPWiseBones Shortcodes: Active", "wpwisebones" ); ?></strong>
             &nbsp;&mdash;&nbsp;
-            <a href="<?php echo esc_url( admin_url( "plugins.php?page=wpwisebones-shortcodes" ) ); ?>" style="font-size:.82rem"><?php esc_html_e( "View Reference", "wpwisebones" ); ?></a>
+            <a href="<?php echo esc_url( admin_url( "plugins.php?page=wisebones-shortcodes" ) ); ?>" style="font-size:.82rem"><?php esc_html_e( "View Reference", "wpwisebones" ); ?></a>
         </div>
         <?php endif; ?>
 

@@ -8,14 +8,14 @@
  *
  * Plugin: WPWiseBones Shortcodes
  * Plugin URI: https://wprealwise.com/wpwisebones#shortcodes
- * Plugin slug: wpwisebones-shortcodes
+ * Plugin slug: wisebones-shortcodes
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /* ── Constants ───────────────────────────────────────────────── */
 
-define( 'WPB_COMPANION_SLUG',    'wpwisebones-shortcodes/wpwisebones-shortcodes.php' );
+define( 'WPB_COMPANION_SLUG',    'wisebones-shortcodes/wisebones-shortcodes.php' );
 define( 'WPB_COMPANION_VERSION', '1.0.0' );
 define( 'WPB_COMPANION_URL',     WPB_THEME_URL . '#shortcodes' );
 
@@ -53,8 +53,8 @@ function wpb_companion_notice() {
     }
 
     $install_url = wp_nonce_url(
-        admin_url( 'update.php?action=install-plugin&plugin=wpwisebones-shortcodes' ),
-        'install-plugin_wpwisebones-shortcodes'
+        admin_url( 'update.php?action=install-plugin&plugin=wisebones-shortcodes' ),
+        'install-plugin_wisebones-shortcodes'
     );
 
     $dismiss_url = wp_nonce_url(
@@ -135,7 +135,7 @@ function wpb_admin_bar_companion_status( WP_Admin_Bar $bar ) {
             'parent' => 'wpb-theme',
             'id'     => 'wpb-shortcodes',
             'title'  => '&#10003; ' . __( 'Shortcodes Active', 'wpwisebones' ),
-            'href'   => admin_url( 'plugins.php?page=wpwisebones-shortcodes' ),
+            'href'   => admin_url( 'plugins.php?page=wisebones-shortcodes' ),
         ] );
     } else {
         $bar->add_node( [
@@ -143,8 +143,8 @@ function wpb_admin_bar_companion_status( WP_Admin_Bar $bar ) {
             'id'     => 'wpb-shortcodes',
             'title'  => '&#43; ' . __( 'Install Shortcodes Plugin', 'wpwisebones' ),
             'href'   => wp_nonce_url(
-                admin_url( 'update.php?action=install-plugin&plugin=wpwisebones-shortcodes' ),
-                'install-plugin_wpwisebones-shortcodes'
+                admin_url( 'update.php?action=install-plugin&plugin=wisebones-shortcodes' ),
+                'install-plugin_wisebones-shortcodes'
             ),
         ] );
     }

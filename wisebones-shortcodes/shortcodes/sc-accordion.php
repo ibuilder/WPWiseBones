@@ -42,7 +42,7 @@ function wpb_sc_accordion_item( array $atts, ?string $content = null ): string {
     $item_id++;
 
     $a = shortcode_atts( [
-        'title' => __( 'Item', 'wpwisebones' ),
+        'title' => __( 'Item', 'wisebones-shortcodes' ),
         'open'  => 'false',
     ], $atts, 'wpb_accordion_item' );
 

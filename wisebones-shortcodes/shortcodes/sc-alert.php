@@ -38,7 +38,7 @@ function wpb_sc_alert( array $atts, ?string $content = null ): string {
     if ( $a['heading'] ) $html .= '<strong>' . esc_html( $a['heading'] ) . '</strong> ';
     $html .= wp_kses_post( do_shortcode( $content ) );
     if ( 'true' === $a['dismissible'] ) {
-        $html .= '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' . esc_attr__( 'Close', 'wpwisebones' ) . '"></button>';
+        $html .= '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' . esc_attr__( 'Close', 'wisebones-shortcodes' ) . '"></button>';
     }
     $html .= '</div>';
 

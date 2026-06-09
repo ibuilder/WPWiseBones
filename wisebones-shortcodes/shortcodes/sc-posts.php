@@ -25,7 +25,7 @@ function wpb_sc_posts( array $atts ): string {
         'show_thumb'   => 'true',
         'show_author'  => 'false',
         'image_size'   => 'wpb-card',
-        'btn_text'     => __( 'Read More', 'wpwisebones' ),
+        'btn_text'     => __( 'Read More', 'wisebones-shortcodes' ),
         'class'        => '',
     ], $atts, 'wpb_posts' );
 
@@ -47,7 +47,7 @@ function wpb_sc_posts( array $atts ): string {
     $posts = new WP_Query( $query_args );
 
     if ( ! $posts->have_posts() ) {
-        return '<p class="text-muted">' . esc_html__( 'No posts found.', 'wpwisebones' ) . '</p>';
+        return '<p class="text-muted">' . esc_html__( 'No posts found.', 'wisebones-shortcodes' ) . '</p>';
     }
 
     $col_map = [ '1' => '12', '2' => '6', '3' => '4', '4' => '3', '6' => '2' ];

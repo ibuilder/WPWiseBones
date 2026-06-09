@@ -27,10 +27,10 @@ function wpb_sc_countdown( array $atts ): string {
         $html .= '<h4 class="mb-3">' . esc_html( $a['label'] ) . '</h4>';
     }
     $html .= '<div class="wpb-countdown" id="' . $id . '" data-date="' . esc_attr( $a['date'] ) . '">';
-    $html .= '<div class="unit"><span class="num" id="' . $id . '_d">00</span><span class="label">' . esc_html__( 'Days', 'wpwisebones' ) . '</span></div>';
-    $html .= '<div class="unit"><span class="num" id="' . $id . '_h">00</span><span class="label">' . esc_html__( 'Hours', 'wpwisebones' ) . '</span></div>';
-    $html .= '<div class="unit"><span class="num" id="' . $id . '_m">00</span><span class="label">' . esc_html__( 'Minutes', 'wpwisebones' ) . '</span></div>';
-    $html .= '<div class="unit"><span class="num" id="' . $id . '_s">00</span><span class="label">' . esc_html__( 'Seconds', 'wpwisebones' ) . '</span></div>';
+    $html .= '<div class="unit"><span class="num" id="' . $id . '_d">00</span><span class="label">' . esc_html__( 'Days', 'wisebones-shortcodes' ) . '</span></div>';
+    $html .= '<div class="unit"><span class="num" id="' . $id . '_h">00</span><span class="label">' . esc_html__( 'Hours', 'wisebones-shortcodes' ) . '</span></div>';
+    $html .= '<div class="unit"><span class="num" id="' . $id . '_m">00</span><span class="label">' . esc_html__( 'Minutes', 'wisebones-shortcodes' ) . '</span></div>';
+    $html .= '<div class="unit"><span class="num" id="' . $id . '_s">00</span><span class="label">' . esc_html__( 'Seconds', 'wisebones-shortcodes' ) . '</span></div>';
     $html .= '</div></div>';
 
     return $html;
