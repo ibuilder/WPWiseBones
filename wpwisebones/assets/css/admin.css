@@ -1,0 +1,26 @@
+/*
+ * WPWiseBones â€“ admin.css
+ */
+
+.wpb-admin-header { border-radius: 4px; }
+
+.wpb-admin-header a { color: #fff !important; }
+
+/* Meta boxes */
+#bsk_layout_meta select,
+#bsk_page_header_meta input[type="text"],
+#bsk_page_header_meta input[type="url"] {
+    width: 100%;
+}
+
+#bsk_page_header_meta .form-table th {
+    width: 200px;
+}
+
+/* Options page */
+.wrap .wpb-shortcode-ref code {
+    background: #f0f0f1;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+}

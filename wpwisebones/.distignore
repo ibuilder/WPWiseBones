@@ -1,0 +1,26 @@
+﻿# Files excluded from distributable zip (npm run zip)
+
+# Dev tooling
+node_modules
+.git
+.gitignore
+.distignore
+package.json
+package-lock.json
+npm-debug.log
+scripts
+
+# Source maps
+assets/vendor/css/bootstrap.min.css.map
+assets/vendor/js/bootstrap.bundle.min.js.map
+
+# Logs / OS junk
+*.log
+*.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace

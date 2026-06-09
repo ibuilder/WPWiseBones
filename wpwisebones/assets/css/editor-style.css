@@ -1,0 +1,14 @@
+/*
+ * Editor styles – loaded in Gutenberg and Classic Editor.
+ */
+
+body { font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.75; color: #212529; max-width: 720px; margin: 0 auto; padding: 2rem; }
+h1,h2,h3,h4,h5,h6 { font-weight: 700; line-height: 1.25; }
+a { color: #0d6efd; }
+blockquote { border-left: 4px solid #0d6efd; padding-left: 1rem; color: #6c757d; font-style: italic; }
+code { background: #f8f9fa; padding: .15em .4em; border-radius: .25em; font-size: .9em; }
+pre { background: #212529; color: #f8f8f2; padding: 1rem; border-radius: .5rem; overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #dee2e6; padding: .5rem .75rem; }
+th { background: #f8f9fa; font-weight: 600; }
+img { max-width: 100%; height: auto; }

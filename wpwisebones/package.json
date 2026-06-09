@@ -1,0 +1,22 @@
+{
+  "name": "wpwisebones",
+  "version": "1.0.1",
+  "description": "WPWiseBones â€” comprehensive WordPress starter theme built on Bootstrap 5",
+  "author": "WPWiseBones <hello@wprealwise.com> (https://wprealwise.com)",
+  "homepage": "https://wprealwise.com",
+  "license": "GPL-2.0-or-later",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "5.3.3",
+    "bootstrap-icons": "1.11.3"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1"
+  },
+  "scripts": {
+    "sync": "node scripts/sync-vendor.js",
+    "pot": "php C:\\Server\\wp-cli.phar i18n make-pot . languages/wpwisebones.pot --domain=wpwisebones --allow-root",
+    "zip": "node scripts/make-zip.js",
+    "preflight": "node scripts/preflight.js"
+  }
+}

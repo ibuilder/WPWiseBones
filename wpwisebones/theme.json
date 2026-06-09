@@ -1,0 +1,94 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 2,
+    "settings": {
+        "appearanceTools": true,
+        "color": {
+            "palette": [
+                { "name": "Primary",   "slug": "primary",   "color": "#0d6efd" },
+                { "name": "Secondary", "slug": "secondary", "color": "#6c757d" },
+                { "name": "Success",   "slug": "success",   "color": "#198754" },
+                { "name": "Danger",    "slug": "danger",    "color": "#dc3545" },
+                { "name": "Warning",   "slug": "warning",   "color": "#ffc107" },
+                { "name": "Info",      "slug": "info",      "color": "#0dcaf0" },
+                { "name": "Dark",      "slug": "dark",      "color": "#212529" },
+                { "name": "Light",     "slug": "light",     "color": "#f8f9fa" },
+                { "name": "White",     "slug": "white",     "color": "#ffffff" }
+            ],
+            "custom": true,
+            "customDuotone": false,
+            "customGradient": true,
+            "defaultPalette": false,
+            "defaultGradients": false
+        },
+        "typography": {
+            "customFontSize": true,
+            "fontSizes": [
+                { "name": "Small",       "slug": "small",        "size": "0.875rem" },
+                { "name": "Normal",      "slug": "normal",       "size": "1rem"     },
+                { "name": "Medium",      "slug": "medium",       "size": "1.25rem"  },
+                { "name": "Large",       "slug": "large",        "size": "1.5rem"   },
+                { "name": "Extra Large", "slug": "x-large",      "size": "2rem"     },
+                { "name": "Display",     "slug": "display",      "size": "3rem"     }
+            ],
+            "lineHeight": true,
+            "dropCap": false
+        },
+        "spacing": {
+            "blockGap": true,
+            "margin": true,
+            "padding": true,
+            "units": [ "px", "%", "em", "rem", "vw", "vh" ]
+        },
+        "layout": {
+            "contentSize": "720px",
+            "wideSize": "1200px"
+        },
+        "blocks": {
+            "core/button": {
+                "color": {
+                    "background": true,
+                    "text": true
+                }
+            }
+        }
+    },
+    "styles": {
+        "color": {
+            "background": "#ffffff",
+            "text": "#212529"
+        },
+        "typography": {
+            "fontSize": "1rem",
+            "lineHeight": "1.75"
+        },
+        "elements": {
+            "link": {
+                "color": { "text": "#0d6efd" },
+                ":hover": { "color": { "text": "#0a58ca" } }
+            },
+            "h1": { "typography": { "fontSize": "2.5rem", "fontWeight": "700" } },
+            "h2": { "typography": { "fontSize": "2rem",   "fontWeight": "700" } },
+            "h3": { "typography": { "fontSize": "1.75rem","fontWeight": "600" } },
+            "h4": { "typography": { "fontSize": "1.5rem", "fontWeight": "600" } },
+            "h5": { "typography": { "fontSize": "1.25rem","fontWeight": "600" } },
+            "h6": { "typography": { "fontSize": "1rem",   "fontWeight": "600" } }
+        }
+    },
+    "customTemplates": [
+        {
+            "name": "full-width",
+            "title": "Full Width",
+            "postTypes": [ "page" ]
+        },
+        {
+            "name": "landing",
+            "title": "Landing Page",
+            "postTypes": [ "page" ]
+        }
+    ],
+    "templateParts": [
+        { "name": "header", "title": "Header", "area": "header" },
+        { "name": "footer", "title": "Footer", "area": "footer" }
+    ]
+}

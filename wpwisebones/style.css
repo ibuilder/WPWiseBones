@@ -1,0 +1,323 @@
+/*
+Theme Name:        WPWiseBones
+Theme URI:         https://wprealwise.com/wpwisebones
+Author:            WPWiseBones
+Author URI:        https://wprealwise.com
+Description:       A comprehensive WordPress starter theme built on Bootstrap 5. Includes custom shortcodes, widgets, admin options, and full block/classic editor support.
+Version:           1.0.1
+Requires at least: 6.0
+Tested up to:      7.0
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       wpwisebones
+Tags:              custom-logo, custom-menu, custom-background, custom-header, featured-images, threaded-comments, translation-ready, full-width-template, left-sidebar, right-sidebar, blog, one-column, two-columns
+*/
+
+/* Copyright (C) 2025 WPWiseBones (https://wprealwise.com)
+ * Released under the GNU GPL v2 or later
+ * https://www.gnu.org/licenses/gpl-2.0.html
+ */
+
+/* ============================================================
+   BASE / GLOBAL
+   ============================================================ */
+
+:root {
+    --bs-primary:   #0d6efd;
+    --bs-secondary: #6c757d;
+    --bs-body-font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --wpb-header-height: 72px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--bs-body-font-family);
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #212529;
+    background: #fff;
+    margin: 0;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--bs-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ============================================================
+   SKIP LINK
+   ============================================================ */
+.skip-link {
+    position: absolute;
+    top: -9999px;
+    left: 0;
+    z-index: 9999;
+    padding: .5rem 1rem;
+    background: #000;
+    color: #fff;
+    font-size: .875rem;
+}
+.skip-link:focus { top: 0; }
+
+/* ============================================================
+   SITE HEADER
+   ============================================================ */
+/* Header base — always rendered, never sticky by default */
+.site-header {
+    position: relative;
+    width: 100%;
+    z-index: 1030;
+    background: #fff;
+    border-bottom: 1px solid rgba(0,0,0,.08);
+    height: var(--wpb-header-height);
+}
+
+/* ── Sticky header ─────────────────────────────────────────────
+   body.sticky-header class is added by wpb_body_classes()
+   when Customizer > Header Settings > Sticky Header is ON.
+   ──────────────────────────────────────────────────────────── */
+body.sticky-header .site-header {
+    position: fixed;
+    top: 0;
+}
+body.sticky-header {
+    padding-top: var(--wpb-header-height);
+}
+
+/* ── Admin bar offsets ─────────────────────────────────────────
+   WordPress admin bar is position:fixed at top:0, height 32px.
+   We must push our fixed header below it unconditionally.
+   ──────────────────────────────────────────────────────────── */
+
+/* Admin bar present: offset the sticky header */
+body.admin-bar.sticky-header .site-header {
+    top: 32px;
+}
+/* Admin bar present: body also needs extra top padding */
+body.admin-bar.sticky-header {
+    padding-top: calc(var(--wpb-header-height) + 32px);
+}
+/* Customizer preview iframe — admin bar is inside the iframe */
+.customize-partial-edit-shortcuts-shown.admin-bar .site-header {
+    top: 32px;
+}
+
+/* WordPress pushes html down by 32px when admin bar is active.
+   For non-sticky (relative) headers, account for this too so
+   the header is never hidden behind the admin bar. */
+body.admin-bar:not(.sticky-header) {
+    padding-top: 0;
+}
+body.admin-bar:not(.sticky-header) .site-header {
+    top: 0;
+    position: relative;
+}
+
+/* Mobile: admin bar is 46px tall */
+@media screen and (max-width: 782px) {
+    body.admin-bar.sticky-header .site-header {
+        top: 46px;
+    }
+    body.admin-bar.sticky-header {
+        padding-top: calc(60px + 46px);
+    }
+}
+
+
+.site-branding .site-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.site-branding .site-description {
+    font-size: .75rem;
+    color: var(--bs-secondary);
+    margin: 0;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.main-navigation .nav-link { font-weight: 500; }
+.main-navigation .dropdown-menu { border: none; box-shadow: 0 .5rem 1rem rgba(0,0,0,.1); }
+
+/* ============================================================
+   HERO / BANNER
+   ============================================================ */
+.wpb-hero {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, var(--bs-primary) 0%, #6610f2 100%);
+    color: #fff;
+}
+
+/* ============================================================
+   CONTENT AREA
+   ============================================================ */
+#content { padding: 3rem 0; }
+
+.entry-header .entry-title { font-size: 2rem; font-weight: 700; }
+.entry-meta { font-size: .875rem; color: var(--bs-secondary); }
+.entry-content { line-height: 1.8; }
+.entry-content h2,
+.entry-content h3,
+.entry-content h4 { margin-top: 2rem; }
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.widget { margin-bottom: 2rem; }
+.widget-title {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    border-bottom: 2px solid var(--bs-primary);
+    padding-bottom: .5rem;
+    margin-bottom: 1rem;
+}
+
+/* ============================================================
+   CARDS / BLOG LOOP
+   ============================================================ */
+.post-card { transition: transform .2s, box-shadow .2s; }
+.post-card:hover { transform: translateY(-3px); box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.12) !important; }
+.post-card .card-img-top { height: 200px; object-fit: cover; }
+
+/* ============================================================
+   PAGINATION
+   ============================================================ */
+.pagination .page-link { color: var(--bs-primary); }
+.pagination .page-item.active .page-link {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+/* ============================================================
+   COMMENTS
+   ============================================================ */
+.comment-list { padding: 0; list-style: none; }
+.comment-body { background: #f8f9fa; border-radius: .5rem; padding: 1rem; margin-bottom: 1rem; }
+.comment-author .fn { font-weight: 700; }
+
+/* ============================================================
+   SHORTCODE STYLES
+   ============================================================ */
+
+/* [bsk_alert] */
+.wpb-alert-shortcode { margin: 1rem 0; }
+
+/* [bsk_button] */
+.wpb-btn-shortcode { display: inline-block; margin: .25rem; }
+
+/* [bsk_card] */
+.wpb-card-shortcode { margin: 1rem 0; }
+
+/* [bsk_accordion] */
+.wpb-accordion-shortcode { margin: 1rem 0; }
+
+/* [bsk_tabs] */
+.wpb-tabs-shortcode { margin: 1rem 0; }
+
+/* [bsk_columns] */
+.wpb-columns { margin: 1.5rem 0; }
+
+/* [bsk_cta] */
+.wpb-cta {
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    margin: 2rem 0;
+    background: linear-gradient(135deg, var(--bs-primary), #6610f2);
+    color: #fff;
+    text-align: center;
+}
+
+/* [bsk_icon_box] */
+.wpb-icon-box { text-align: center; padding: 1.5rem; }
+.wpb-icon-box .icon { font-size: 2.5rem; margin-bottom: .75rem; }
+
+/* [bsk_progress] */
+.wpb-progress-wrap { margin-bottom: 1rem; }
+.wpb-progress-wrap label { display: flex; justify-content: space-between; margin-bottom: .25rem; font-size: .875rem; }
+
+/* [bsk_testimonial] */
+.wpb-testimonial { background: #f8f9fa; border-left: 4px solid var(--bs-primary); padding: 1.5rem; border-radius: .5rem; margin: 1rem 0; }
+.wpb-testimonial .author { font-weight: 700; margin-top: .75rem; font-size: .875rem; }
+
+/* [bsk_countdown] */
+.wpb-countdown { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.wpb-countdown .unit { text-align: center; background: var(--bs-primary); color: #fff; border-radius: .5rem; padding: .75rem 1.25rem; min-width: 70px; }
+.wpb-countdown .num { font-size: 2rem; font-weight: 700; display: block; line-height: 1; }
+.wpb-countdown .label { font-size: .7rem; text-transform: uppercase; opacity: .8; }
+
+/* ============================================================
+   WIDGET STYLES
+   ============================================================ */
+.wpb-widget-recent-posts .rp-item { display: flex; gap: .75rem; margin-bottom: .75rem; }
+.wpb-widget-recent-posts .rp-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: .25rem; flex-shrink: 0; }
+.wpb-widget-recent-posts .rp-title { font-size: .875rem; font-weight: 600; }
+.wpb-widget-recent-posts .rp-date { font-size: .75rem; color: var(--bs-secondary); }
+
+.wpb-widget-social a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: var(--bs-primary); color: #fff; margin: .2rem; font-size: .875rem; }
+.wpb-widget-social a:hover { opacity: .85; text-decoration: none; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+    background: #1a1a2e;
+    color: #adb5bd;
+    padding: 3rem 0 0;
+}
+.site-footer a { color: #adb5bd; }
+.site-footer a:hover { color: #fff; }
+.site-footer .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 1rem 0;
+    margin-top: 2rem;
+    font-size: .875rem;
+}
+
+/* ============================================================
+   BACK TO TOP
+   ============================================================ */
+#back-to-top {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+}
+#back-to-top.visible { opacity: 1; pointer-events: auto; }
+
+/* ============================================================
+   BREADCRUMBS
+   ============================================================ */
+.wpb-breadcrumbs { background: #f8f9fa; padding: .75rem 0; }
+.wpb-breadcrumbs .breadcrumb { margin: 0; font-size: .875rem; }
+
+/* ============================================================
+   PAGE TEMPLATES
+   ============================================================ */
+.template-full-width #content { padding: 0; }
+.template-landing .site-header,
+.template-landing .site-footer { display: none !important; }
+
+/* ============================================================
+   RESPONSIVE UTILITIES
+   ============================================================ */
+@media (max-width: 767.98px) {
+    :root { --wpb-header-height: 60px; }
+    .site-header { height: 60px; }
+    body.sticky-header { padding-top: 60px; }
+    .wpb-hero { padding: 3rem 0; }
+    #content { padding: 2rem 0; }
+}
