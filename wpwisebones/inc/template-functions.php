@@ -78,7 +78,7 @@ function wpb_breadcrumbs() {
         }
         $out .= '<li class="breadcrumb-item active">' . esc_html( get_the_title() ) . '</li>';
     } elseif ( is_search() ) {
-        /* translators: %s: search query string */
+        /* translators: %s: search query */
         $out .= '<li class="breadcrumb-item active">' . sprintf( esc_html__( 'Search: %s', 'wpwisebones' ), get_search_query() ) . '</li>';
     } elseif ( is_404() ) {
         $out .= '<li class="breadcrumb-item active">' . esc_html__( '404 Not Found', 'wpwisebones' ) . '</li>';

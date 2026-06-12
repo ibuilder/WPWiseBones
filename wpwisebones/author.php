@@ -37,7 +37,7 @@ $author     = get_queried_object();
                                 <?php endif; ?>
                                 <span><i class="bi bi-file-post me-1"></i>
                                     <?php printf(
-                                        /* translators: %d: post count */
+                                        /* translators: %d: number of posts */
                                         esc_html( _n( '%d post', '%d posts', (int) count_user_posts( $author_id ), 'wpwisebones' ) ),
                                         (int) count_user_posts( $author_id )
                                     ); ?>

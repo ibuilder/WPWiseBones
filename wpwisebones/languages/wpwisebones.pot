@@ -1,38 +1,36 @@
-﻿# Copyright (C) 2026 WPWiseBones
+# Copyright (C) 2026 WPWiseBones
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPWiseBones 1.0.0\n"
+"Project-Id-Version: WPWiseBones 1.0.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/wpwisebones\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-06T04:03:37+00:00\n"
+"POT-Creation-Date: 2026-06-11T10:59:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wpwisebones\n"
 
 #. Theme Name of the theme
+#. Author of the theme
 #: style.css
 #: inc/customizer.php:14
+#: inc/dashboard-widget.php:79
+#: inc/setup.php:134
 msgid "WPWiseBones"
 msgstr ""
 
 #. Theme URI of the theme
 #: style.css
-msgid "https://github.com/yourname/wpwisebones"
+msgid "https://wprealwise.com/wpwisebones"
 msgstr ""
 
 #. Description of the theme
 #: style.css
 msgid "A comprehensive WordPress starter theme built on Bootstrap 5. Includes custom shortcodes, widgets, admin options, and full block/classic editor support."
-msgstr ""
-
-#. Author of the theme
-#: style.css
-msgid "WPWiseBones"
 msgstr ""
 
 #. Author URI of the theme
@@ -55,6 +53,25 @@ msgstr ""
 #: 404.php:19
 msgid "Go Back"
 msgstr ""
+
+#: attachment.php:24
+msgid "Download File"
+msgstr ""
+
+#. translators: %s: parent post title
+#: attachment.php:44
+#, php-format
+msgid "Back to: %s"
+msgstr ""
+
+#. translators: %d: number of posts
+#: author.php:41
+#: category.php:27
+#, php-format
+msgid "%d post"
+msgid_plural "%d posts"
+msgstr[0] ""
+msgstr[1] ""
 
 #. translators: %s: number of comments
 #: comments.php:19
@@ -109,7 +126,7 @@ msgstr ""
 msgid "Footer menu"
 msgstr ""
 
-#: footer.php:58
+#: footer.php:62
 msgid "Back to top"
 msgstr ""
 
@@ -122,126 +139,200 @@ msgstr ""
 msgid "Loadingâ€¦"
 msgstr ""
 
-#: header.php:30
+#: header.php:25
 msgid "Skip to content"
 msgstr ""
 
-#: header.php:64
+#: header.php:59
 msgid "Toggle navigation"
 msgstr ""
 
-#: header.php:70
+#: header.php:65
 msgid "Primary menu"
 msgstr ""
 
-#: inc/admin/admin-page.php:12
+#: inc/admin/admin-page.php:18
 msgid "WPWiseBones Options"
 msgstr ""
 
-#: inc/admin/admin-page.php:13
+#: inc/admin/admin-page.php:19
+#: inc/companion-plugin.php:122
+#: inc/dashboard-widget.php:104
+#: inc/dashboard-widget.php:230
 msgid "Theme Options"
 msgstr ""
 
-#: inc/admin/admin-page.php:30
+#: inc/admin/admin-page.php:36
 msgid "General Settings"
 msgstr ""
 
-#: inc/admin/admin-page.php:36
+#: inc/admin/admin-page.php:42
 msgid "Enable Preloader"
 msgstr ""
 
-#: inc/admin/admin-page.php:37
+#: inc/admin/admin-page.php:43
 msgid "Enable Smooth Scroll"
 msgstr ""
 
-#: inc/admin/admin-page.php:38
+#: inc/admin/admin-page.php:44
 msgid "Back to Top Button"
 msgstr ""
 
-#: inc/admin/admin-page.php:39
+#: inc/admin/admin-page.php:45
 msgid "Show Breadcrumbs"
 msgstr ""
 
-#: inc/admin/admin-page.php:40
+#: inc/admin/admin-page.php:46
 msgid "Show Author Box on Singles"
 msgstr ""
 
-#: inc/admin/admin-page.php:41
+#: inc/admin/admin-page.php:47
 msgid "Show Related Posts"
 msgstr ""
 
-#: inc/admin/admin-page.php:42
+#: inc/admin/admin-page.php:48
 msgid "Show Reading Time"
 msgstr ""
 
-#: inc/admin/admin-page.php:43
+#: inc/admin/admin-page.php:49
 msgid "Show Social Share Buttons"
 msgstr ""
 
-#: inc/admin/admin-page.php:44
+#: inc/admin/admin-page.php:50
 msgid "Posts Per Page (archive)"
 msgstr ""
 
-#: inc/admin/admin-page.php:45
+#: inc/admin/admin-page.php:51
 msgid "Excerpt Word Count"
 msgstr ""
 
-#: inc/admin/admin-page.php:46
-#: inc/customizer.php:188
+#: inc/admin/admin-page.php:52
+#: inc/customizer.php:194
 msgid "Copyright Text"
 msgstr ""
 
-#: inc/admin/admin-page.php:47
+#: inc/admin/admin-page.php:53
 msgid "Custom CSS"
 msgstr ""
 
-#: inc/admin/admin-page.php:48
+#: inc/admin/admin-page.php:54
 msgid "Custom JS (head)"
 msgstr ""
 
-#: inc/admin/admin-page.php:49
+#: inc/admin/admin-page.php:55
 msgid "Custom JS (footer)"
 msgstr ""
 
-#: inc/admin/admin-page.php:66
+#: inc/admin/admin-page.php:72
 msgid "Performance"
 msgstr ""
 
-#: inc/admin/admin-page.php:72
+#: inc/admin/admin-page.php:78
 msgid "Disable WordPress Emojis"
 msgstr ""
 
-#: inc/admin/admin-page.php:73
+#: inc/admin/admin-page.php:79
 msgid "Disable WordPress oEmbeds"
 msgstr ""
 
-#: inc/admin/admin-page.php:74
+#: inc/admin/admin-page.php:80
 msgid "Disable XML-RPC"
 msgstr ""
 
-#: inc/admin/admin-page.php:75
+#: inc/admin/admin-page.php:81
 msgid "Remove Version Query Strings"
 msgstr ""
 
-#: inc/admin/admin-page.php:76
+#: inc/admin/admin-page.php:82
 msgid "Defer Non-Essential Scripts"
 msgstr ""
 
-#: inc/admin/admin-page.php:199
+#: inc/admin/admin-page.php:236
+msgid "Configure your theme or use the"
+msgstr ""
+
+#: inc/admin/admin-page.php:237
+#: inc/companion-plugin.php:129
+#: inc/dashboard-widget.php:97
+msgid "Customizer"
+msgstr ""
+
+#: inc/admin/admin-page.php:238
+msgid "for live preview."
+msgstr ""
+
+#: inc/admin/admin-page.php:243
+msgid "Built &amp; maintained by"
+msgstr ""
+
+#: inc/admin/admin-page.php:254
 msgid "Save Options"
 msgstr ""
 
-#: inc/admin/admin-page.php:204
+#: inc/admin/admin-page.php:261
+msgid "Companion Plugin: WPWiseBones Shortcodes"
+msgstr ""
+
+#: inc/admin/admin-page.php:267
+msgid "WPWiseBones Shortcodes plugin is active!"
+msgstr ""
+
+#: inc/admin/admin-page.php:270
+msgid "View Shortcode Reference"
+msgstr ""
+
+#: inc/admin/admin-page.php:276
+msgid "Shortcodes plugin not installed"
+msgstr ""
+
+#: inc/admin/admin-page.php:277
+msgid "This theme works with a free companion plugin that adds 17 Bootstrap 5 shortcodes: alerts, buttons, cards, tabs, accordions, modals, countdown timers, post grids, and more."
+msgstr ""
+
+#: inc/admin/admin-page.php:279
+msgid "Install WPWiseBones Shortcodes"
+msgstr ""
+
+#: inc/admin/admin-page.php:283
+#: inc/companion-plugin.php:79
+#: inc/customizer.php:152
+#: template-parts/header/hero.php:9
+msgid "Learn More"
+msgstr ""
+
+#: inc/admin/admin-page.php:288
+msgid "Available Shortcodes (requires companion plugin)"
+msgstr ""
+
+#: inc/admin/admin-page.php:289
+msgid "Install the WPWiseBones Shortcodes plugin to use the following shortcodes in your posts, pages, and widgets."
+msgstr ""
+
+#: inc/admin/admin-page.php:291
 msgid "Shortcode Reference"
 msgstr ""
 
-#: inc/admin/admin-page.php:206
+#: inc/admin/admin-page.php:293
 msgid "Shortcode"
 msgstr ""
 
-#: inc/admin/admin-page.php:206
+#: inc/admin/admin-page.php:293
 #: inc/widgets/widget-cta-banner.php:45
 msgid "Description"
+msgstr ""
+
+#: inc/admin/admin-page.php:328
+msgid "A professional Bootstrap 5 WordPress starter theme."
+msgstr ""
+
+#: inc/admin/admin-page.php:336
+msgid "Documentation"
+msgstr ""
+
+#. translators: %s: wprealwise.com link
+#: inc/admin/admin-page.php:352
+#, php-format
+msgid "WPWiseBones &mdash; crafted with &#10084; by %s"
 msgstr ""
 
 #: inc/admin/meta-boxes.php:14
@@ -295,6 +386,34 @@ msgstr ""
 
 #: inc/admin/meta-boxes.php:70
 msgid "Upload"
+msgstr ""
+
+#: inc/companion-plugin.php:69
+msgid "WPWiseBones: Unlock 17 Bootstrap Shortcodes"
+msgstr ""
+
+#: inc/companion-plugin.php:71
+msgid "Install the free WPWiseBones Shortcodes companion plugin to add Bootstrap alerts, cards, tabs, accordions, modals, countdown timers, and more to your posts and pages."
+msgstr ""
+
+#: inc/companion-plugin.php:76
+msgid "Install Plugin"
+msgstr ""
+
+#: inc/companion-plugin.php:82
+msgid "Dismiss"
+msgstr ""
+
+#: inc/companion-plugin.php:116
+msgid "WPWiseBones Theme Options"
+msgstr ""
+
+#: inc/companion-plugin.php:137
+msgid "Shortcodes Active"
+msgstr ""
+
+#: inc/companion-plugin.php:144
+msgid "Install Shortcodes Plugin"
 msgstr ""
 
 #: inc/customizer.php:22
@@ -362,12 +481,6 @@ msgstr ""
 msgid "Hero Sub-heading"
 msgstr ""
 
-#: inc/customizer.php:152
-#: inc/shortcodes/sc-cta.php:17
-#: template-parts/header/hero.php:9
-msgid "Learn More"
-msgstr ""
-
 #: inc/customizer.php:157
 #: inc/widgets/widget-cta-banner.php:46
 msgid "Button Text"
@@ -382,60 +495,182 @@ msgstr ""
 msgid "Footer Settings"
 msgstr ""
 
-#: inc/customizer.php:199
+#: inc/customizer.php:186
+msgid "All rights reserved."
+msgstr ""
+
+#: inc/customizer.php:205
 msgid "Footer Widget Columns"
 msgstr ""
 
-#: inc/customizer.php:211
+#: inc/customizer.php:217
 msgid "Show Back to Top Button"
 msgstr ""
 
-#: inc/customizer.php:220
+#: inc/customizer.php:226
 msgid "Brand Colours"
 msgstr ""
 
-#: inc/customizer.php:226
+#: inc/customizer.php:232
 msgid "Primary Colour"
 msgstr ""
 
-#: inc/customizer.php:227
+#: inc/customizer.php:233
 msgid "Secondary Colour"
 msgstr ""
 
-#: inc/customizer.php:228
+#: inc/customizer.php:234
 msgid "Accent Colour"
 msgstr ""
 
-#: inc/customizer.php:229
+#: inc/customizer.php:235
 msgid "Header Background"
 msgstr ""
 
-#: inc/customizer.php:230
+#: inc/customizer.php:236
 msgid "Footer Background"
 msgstr ""
 
-#: inc/customizer.php:249
+#: inc/customizer.php:255
 msgid "Typography"
 msgstr ""
 
-#: inc/customizer.php:255
+#: inc/customizer.php:261
 msgid "System Font Stack"
 msgstr ""
 
-#: inc/customizer.php:274
+#: inc/customizer.php:280
 msgid "Body Font"
 msgstr ""
 
-#: inc/customizer.php:286
+#: inc/customizer.php:292
 msgid "Heading Font"
 msgstr ""
 
-#: inc/customizer.php:298
+#: inc/customizer.php:304
 msgid "Base Font Size (px)"
 msgstr ""
 
-#: inc/customizer.php:308
+#: inc/customizer.php:314
 msgid "Social Links"
+msgstr ""
+
+#. translators: %s: theme version
+#: inc/dashboard-widget.php:21
+#, php-format
+msgid "WPWiseBones — Getting Started (v%s)"
+msgstr ""
+
+#. translators: %s: wprealwise.com link
+#: inc/dashboard-widget.php:83
+#, php-format
+msgid "Bootstrap 5 WordPress starter — by %s"
+msgstr ""
+
+#: inc/dashboard-widget.php:98
+msgid "Colours, fonts, layout, hero"
+msgstr ""
+
+#: inc/dashboard-widget.php:105
+msgid "SEO, performance, custom CSS/JS"
+msgstr ""
+
+#: inc/dashboard-widget.php:111
+msgid "Menus"
+msgstr ""
+
+#: inc/dashboard-widget.php:112
+msgid "Primary, Footer, Top Bar"
+msgstr ""
+
+#: inc/dashboard-widget.php:118
+msgid "Widgets"
+msgstr ""
+
+#: inc/dashboard-widget.php:119
+msgid "Sidebar, footer columns, header"
+msgstr ""
+
+#: inc/dashboard-widget.php:128
+msgid "WPWiseBones Shortcodes not installed"
+msgstr ""
+
+#: inc/dashboard-widget.php:129
+msgid "Install the free companion plugin to unlock 17 Bootstrap shortcodes."
+msgstr ""
+
+#: inc/dashboard-widget.php:132
+msgid "Install Now"
+msgstr ""
+
+#: inc/dashboard-widget.php:138
+msgid "WPWiseBones Shortcodes: Active"
+msgstr ""
+
+#: inc/dashboard-widget.php:140
+msgid "View Reference"
+msgstr ""
+
+#: inc/dashboard-widget.php:146
+msgid "Shortcodes — click to copy (requires companion plugin)"
+msgstr ""
+
+#: inc/dashboard-widget.php:180
+msgid "Widget Areas:"
+msgstr ""
+
+#: inc/dashboard-widget.php:183
+#: inc/sidebars.php:20
+msgid "Primary Sidebar"
+msgstr ""
+
+#: inc/dashboard-widget.php:184
+msgid "Footer ×4 columns"
+msgstr ""
+
+#: inc/dashboard-widget.php:185
+msgid "Header"
+msgstr ""
+
+#: inc/dashboard-widget.php:186
+#: inc/sidebars.php:52
+msgid "Before Content"
+msgstr ""
+
+#: inc/dashboard-widget.php:187
+#: inc/sidebars.php:59
+msgid "After Content"
+msgstr ""
+
+#: inc/dashboard-widget.php:188
+#: inc/sidebars.php:38
+msgid "Shop Sidebar"
+msgstr ""
+
+#. translators: 1: PHP version, 2: WP version, 3: asset mode
+#: inc/dashboard-widget.php:202
+#, php-format
+msgid "PHP %1$s &nbsp;·&nbsp; WordPress %2$s &nbsp;·&nbsp; Assets: %3$s"
+msgstr ""
+
+#: inc/dashboard-widget.php:206
+msgid "Local vendor"
+msgstr ""
+
+#: inc/dashboard-widget.php:207
+msgid "CDN (jsDelivr)"
+msgstr ""
+
+#: inc/dashboard-widget.php:213
+msgid "Switch to local for CSP compliance"
+msgstr ""
+
+#: inc/dashboard-widget.php:226
+msgid "Docs"
+msgstr ""
+
+#: inc/dashboard-widget.php:228
+msgid "Support"
 msgstr ""
 
 #: inc/enqueue.php:105
@@ -443,8 +678,15 @@ msgid "An error occurred."
 msgstr ""
 
 #: inc/nav-menus.php:103
-#: inc/template-functions.php:47
+#: inc/template-functions.php:48
 msgid "Home"
+msgstr ""
+
+#. translators: %s: search query
+#: inc/seo.php:65
+#: inc/template-functions.php:82
+#, php-format
+msgid "Search: %s"
 msgstr ""
 
 #: inc/setup.php:57
@@ -491,60 +733,56 @@ msgstr ""
 msgid "White"
 msgstr ""
 
-#: inc/shortcodes/sc-accordion.php:45
-msgid "Item"
+#: inc/setup.php:116
+msgid "Outline"
 msgstr ""
 
-#: inc/shortcodes/sc-alert.php:41
-#: inc/shortcodes/sc-modal.php:42
-#: inc/shortcodes/sc-modal.php:44
-msgid "Close"
+#: inc/setup.php:117
+msgid "Pill"
 msgstr ""
 
-#: inc/shortcodes/sc-countdown.php:30
-msgid "Days"
+#: inc/setup.php:118
+msgid "Rounded"
 msgstr ""
 
-#: inc/shortcodes/sc-countdown.php:31
-msgid "Hours"
+#: inc/setup.php:119
+msgid "Shadow"
 msgstr ""
 
-#: inc/shortcodes/sc-countdown.php:32
-msgid "Minutes"
+#: inc/setup.php:120
+msgid "Bordered"
 msgstr ""
 
-#: inc/shortcodes/sc-countdown.php:33
-msgid "Seconds"
+#: inc/setup.php:121
+msgid "Card"
 msgstr ""
 
-#: inc/shortcodes/sc-cta.php:15
-msgid "Ready to Get Started?"
+#: inc/setup.php:122
+msgid "Checkmarks"
 msgstr ""
 
-#: inc/shortcodes/sc-modal.php:21
-msgid "Modal Title"
+#: inc/setup.php:138
+msgid "Hero Section"
 msgstr ""
 
-#: inc/shortcodes/sc-modal.php:22
-msgid "Open"
+#: inc/setup.php:139
+msgid "A full-width hero section with heading, text and button."
 msgstr ""
 
-#: inc/shortcodes/sc-posts.php:28
-#: template-parts/content/content-post.php:35
-#: template-parts/content/content-search.php:13
-msgid "Read More"
+#: inc/setup.php:146
+msgid "Two-Column Features"
 msgstr ""
 
-#: inc/shortcodes/sc-posts.php:50
-msgid "No posts found."
+#: inc/setup.php:147
+msgid "Two columns of feature content with headings."
 msgstr ""
 
-#: inc/shortcodes/sc-tabs.php:57
-msgid "Tab"
+#: inc/setup.php:154
+msgid "Call to Action"
 msgstr ""
 
-#: inc/sidebars.php:20
-msgid "Primary Sidebar"
+#: inc/setup.php:155
+msgid "Centered heading, text and a prominent button."
 msgstr ""
 
 #: inc/sidebars.php:22
@@ -563,10 +801,6 @@ msgstr ""
 msgid "Footer widget area column %d."
 msgstr ""
 
-#: inc/sidebars.php:38
-msgid "Shop Sidebar"
-msgstr ""
-
 #: inc/sidebars.php:40
 msgid "Appears on WooCommerce shop pages."
 msgstr ""
@@ -579,57 +813,43 @@ msgstr ""
 msgid "Appears in the site header (right side)."
 msgstr ""
 
-#: inc/sidebars.php:52
-msgid "Before Content"
-msgstr ""
-
 #: inc/sidebars.php:54
 msgid "Full-width area above the main content/sidebar row."
-msgstr ""
-
-#: inc/sidebars.php:59
-msgid "After Content"
 msgstr ""
 
 #: inc/sidebars.php:61
 msgid "Full-width area below the main content/sidebar row."
 msgstr ""
 
-#: inc/template-functions.php:45
+#: inc/template-functions.php:46
 msgid "Breadcrumb"
 msgstr ""
 
-#. translators: %s: search query string
-#: inc/template-functions.php:81
-#, php-format
-msgid "Search: %s"
-msgstr ""
-
-#: inc/template-functions.php:83
+#: inc/template-functions.php:84
 msgid "404 Not Found"
 msgstr ""
 
-#: inc/template-functions.php:100
+#: inc/template-functions.php:101
 msgid "Page"
 msgstr ""
 
-#: inc/template-functions.php:103
+#: inc/template-functions.php:104
 msgid "Posts navigation"
 msgstr ""
 
-#: inc/template-functions.php:126
+#: inc/template-functions.php:127
 msgid "Edit"
 msgstr ""
 
 #. translators: %d: estimated reading time in minutes
-#: inc/template-functions.php:135
+#: inc/template-functions.php:136
 #, php-format
 msgid "%d min read"
 msgid_plural "%d mins read"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/template-functions.php:152
+#: inc/template-functions.php:153
 msgid "Share:"
 msgstr ""
 
@@ -642,7 +862,7 @@ msgid "Related Posts"
 msgstr ""
 
 #: inc/widgets/widget-cta-banner.php:13
-msgid "BSK: CTA Banner"
+msgid "WPB: CTA Banner"
 msgstr ""
 
 #: inc/widgets/widget-cta-banner.php:14
@@ -670,7 +890,7 @@ msgid "BG Colour (BS name)"
 msgstr ""
 
 #: inc/widgets/widget-recent-posts.php:13
-msgid "BSK: Recent Posts"
+msgid "WPB: Recent Posts"
 msgstr ""
 
 #: inc/widgets/widget-recent-posts.php:14
@@ -699,7 +919,7 @@ msgid "Show date"
 msgstr ""
 
 #: inc/widgets/widget-social-links.php:24
-msgid "BSK: Social Links"
+msgid "WPB: Social Links"
 msgstr ""
 
 #: inc/widgets/widget-social-links.php:25
@@ -725,6 +945,18 @@ msgstr ""
 msgid "Search Results for: %s"
 msgstr ""
 
+#: searchform.php:12
+msgid "Search for:"
+msgstr ""
+
+#: searchform.php:18
+msgid "Search&hellip;"
+msgstr ""
+
+#: searchform.php:22
+msgid "Search"
+msgstr ""
+
 #: sidebar.php:17
 msgid "About"
 msgstr ""
@@ -745,10 +977,110 @@ msgstr ""
 msgid "Edit Page"
 msgstr ""
 
+#: template-parts/content/content-post.php:35
+#: template-parts/content/content-search.php:13
+msgid "Read More"
+msgstr ""
+
 #: template-parts/content/content-single.php:40
 msgid "Continue readingâ€¦"
 msgstr ""
 
 #: template-parts/content/content-single.php:42
 msgid "Pages:"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Primary"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Secondary"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Success"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Danger"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Warning"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Info"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Dark"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Light"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Normal"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Medium"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Extra Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Display"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Full Width"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Landing Page"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Header"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Footer"
 msgstr ""

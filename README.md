@@ -21,7 +21,7 @@ wpbones/
 
 ## Theme — WPWiseBones
 
-**Version:** 1.0.1  
+**Version:** 1.0.2  
 **Folder / Text Domain / Slug:** `wpwisebones`  
 **PHP Prefix:** `wpb_` (functions) · `WPB_` (constants) · `wpb-` (CSS/HTML)  
 **License:** GPL-2.0-or-later  
@@ -166,6 +166,9 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 
 ### Theme (wpwisebones)
 
+#### 1.0.2
+- Fixed: Removed `remove_action('rest_api_init','wp_oembed_register_route')` — plugin territory per WP.org Theme Check
+
 #### 1.0.1
 - Fixed: Admin bar overlapping sticky header — header now correctly positioned below 32px (desktop) / 46px (mobile) admin bar
 - Fixed: Body padding-top adjusted when admin bar + sticky header are both active
@@ -187,11 +190,15 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 - `theme.json` for block editor
 - Translation-ready (`.pot` included)
 
-### Plugin (wpwisebones-shortcodes)
+### Plugin (wisebones-shortcodes)
+
+#### 1.0.1
+- Fixed: Admin notice now correctly renders theme install link as HTML
+- Fixed: Cleaned up duplicate theme-detection notice registration
 
 #### 1.0.0
 - Initial release — 17 Bootstrap 5 shortcodes
-- Admin shortcode reference page (Plugins → WPWiseBones Shortcodes)
+- Admin shortcode reference page (Plugins → WiseBones Shortcodes)
 - Theme detection notice with one-click install link
 
 ---

@@ -39,7 +39,10 @@ $container = get_theme_mod( 'wpb_container_width', 'container' );
                         <p class="mt-3">
                             <a href="<?php echo esc_url( get_permalink( $parent_id ) ); ?>" class="btn btn-outline-secondary btn-sm">
                                 <i class="bi bi-arrow-left me-1"></i>
-                                <?php printf( esc_html__( 'Back to: %s', 'wpwisebones' ), esc_html( get_the_title( $parent_id ) ) ); ?>
+                                <?php
+                                /* translators: %s: parent post title */
+                                printf( esc_html__( 'Back to: %s', 'wpwisebones' ), esc_html( get_the_title( $parent_id ) ) );
+                                ?>
                             </a>
                         </p>
                     <?php endif; ?>

@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPB_VERSION',   '1.0.1' );
+define( 'WPB_VERSION',   '1.0.2' );
 define( 'WPB_DIR',       get_template_directory() );
 define( 'WPB_URI',       get_template_directory_uri() );
 define( 'WPB_INC',       WPB_DIR . '/inc/' );

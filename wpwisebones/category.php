@@ -23,7 +23,7 @@ $category = get_queried_object();
                         <span class="badge bg-primary fs-6"><i class="bi bi-folder me-1"></i><?php single_cat_title(); ?></span>
                         <span class="text-muted small">
                             <?php printf(
-                                /* translators: %d: number of posts in category */
+                                /* translators: %d: number of posts */
                                 esc_html( _n( '%d post', '%d posts', (int) $category->count, 'wpwisebones' ) ),
                                 (int) $category->count
                             ); ?>

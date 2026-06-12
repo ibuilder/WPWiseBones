@@ -154,7 +154,6 @@ function wpb_apply_performance_options() {
     }
 
     if ( ! empty( $o['disable_embeds'] ) ) {
-        remove_action( 'rest_api_init', 'wp_oembed_register_route' );
         add_filter( 'embed_oembed_discover', '__return_false' );
         remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
         add_filter( 'rewrite_rules_array', 'wpb_disable_embeds_rewrites' );

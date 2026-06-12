@@ -57,20 +57,6 @@ foreach ( $wpbs_shortcodes as $file ) {
 
 /* ── Admin notice if WPWiseBones theme is not active ───────── */
 
-add_action( 'admin_notices', 'wpbs_theme_notice' );
-function wpbs_theme_notice() {
-    $theme = wp_get_theme();
-    if ( 'wpwisebones' !== $theme->get_template() ) {
-        echo '<div class="notice notice-warning"><p>';
-        printf(
-            /* translators: %s: theme name link */
-            esc_html__( 'WiseBones Shortcodes works best with the %s theme.', 'wisebones-shortcodes' ),
-            '<a href="' . esc_url( admin_url( 'themes.php' ) ) . '">WPWiseBones</a>'
-        );
-        echo '</p></div>';
-    }
-}
-
 /* ── Shortcode reference page in admin ─────────────────────── */
 
 add_action( 'admin_menu', 'wpbs_admin_menu' );
@@ -133,52 +119,45 @@ function wpbs_reference_page() {
 }
 
 
-/* -- Theme cross-reference link -- */
+/* ── Theme cross-reference helpers ─────────────────────────── */
 
-/**
- * Returns the URL to install/view the WPWiseBones theme.
- */
-function wpbs_get_theme_url(): string {
-    return admin_url( "theme-install.php?search=wpwisebones" );
-}
-
-/**
- * Returns true if the WPWiseBones theme (or a child) is active.
- */
 function wpbs_theme_active(): bool {
-    $theme = wp_get_theme();
-    return in_array( $theme->get_template(), [ "wpwisebones" ], true );
+    return 'wpwisebones' === wp_get_theme()->get_template();
 }
 
-/* -- Enrich the admin notice with theme install link -- */
-remove_action( "admin_notices", "wpbs_theme_notice" );
-add_action( "admin_notices", "wpbs_theme_notice_v2" );
+/* ── Admin notice when WPWiseBones theme is not active ──────── */
 
-function wpbs_theme_notice_v2() {
+add_action( 'admin_notices', 'wpbs_theme_notice' );
+
+function wpbs_theme_notice() {
     if ( wpbs_theme_active() ) {
         return;
     }
 
     $screen = get_current_screen();
-    if ( ! $screen || ! in_array( $screen->id, [ "dashboard", "themes", "plugins" ], true ) ) {
+    if ( ! $screen || ! in_array( $screen->id, [ 'dashboard', 'themes', 'plugins' ], true ) ) {
         return;
     }
 
-    $theme_url = admin_url( "theme-install.php?search=wpwisebones" );
+    $theme_url = esc_url( admin_url( 'theme-install.php?search=wpwisebones' ) );
+    $learn_url = esc_url( 'https://wprealwise.com/wpwisebones' );
     ?>
     <div class="notice notice-info is-dismissible">
         <p>
-            <strong>WiseBones Shortcodes</strong> &mdash;
+            <strong><?php esc_html_e( 'WiseBones Shortcodes', 'wisebones-shortcodes' ); ?></strong> &mdash;
             <?php
             printf(
-                /* translators: %s: theme link */
-                esc_html__( "This plugin is designed for the %s theme. Install it for the full Bootstrap 5 experience.", "wisebones-shortcodes" ),
-                "<a href=" . esc_url( $theme_url ) . "><strong>WPWiseBones</strong></a>"
+                /* translators: %s: WPWiseBones theme hyperlink */
+                wp_kses(
+                    __( 'This plugin is designed for the %s theme. Install it for the full Bootstrap 5 experience.', 'wisebones-shortcodes' ),
+                    [ 'a' => [ 'href' => [], 'target' => [], 'rel' => [] ], 'strong' => [] ]
+                ),
+                '<a href="' . $theme_url . '"><strong>WPWiseBones</strong></a>'
             );
             ?>
             &nbsp;&mdash;&nbsp;
-            <a href="https://wprealwise.com/wpwisebones" target="_blank" rel="noopener noreferrer">
-                <?php esc_html_e( "Learn more at wprealwise.com", "wisebones-shortcodes" ); ?>
+            <a href="<?php echo $learn_url; ?>" target="_blank" rel="noopener noreferrer">
+                <?php esc_html_e( 'Learn more at wprealwise.com', 'wisebones-shortcodes' ); ?>
             </a>
         </p>
     </div>

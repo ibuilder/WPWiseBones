@@ -1,7 +1,7 @@
 WPWiseBones
 ================
 
-Version:        1.0.1
+Version:        1.0.2
 Requires WP:    6.0+
 Tested up to:      7.0
 Requires PHP:   8.0+
@@ -127,6 +127,20 @@ Once installed, you get 17 shortcodes:
 [wpb_row] / [wpb_col]  [wpb_cta]  [wpb_icon_box]  [wpb_progress]
 [wpb_testimonial]  [wpb_countdown]  [wpb_posts]  [wpb_modal]
 [wpb_badge]  [wpb_divider]  [wpb_map]  [wpb_contact_info]
+== Changelog ==
+
+= 1.0.2 =
+* Fixed: Removed `remove_action( 'rest_api_init', 'wp_oembed_register_route' )` (plugin territory per WP.org Theme Check)
+
+= 1.0.1 =
+* Fixed: Admin bar overlapping sticky header — header now correctly positioned below admin bar (32px desktop / 46px mobile)
+* Fixed: Customizer CSS output with null-safe hex color fallbacks
+* Added: Selective refresh partials for site title, tagline, logo, hero, footer copyright
+* Improved: Customizer live preview JS for colours, hero, and font size
+
+= 1.0.0 =
+* Initial production release
+
 == Credits ==
 
 Theme by WPWiseBones — https://wprealwise.com

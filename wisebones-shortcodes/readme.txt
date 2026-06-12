@@ -75,12 +75,20 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 
 == Changelog ==
 
+= 1.0.1 =
+* Fixed: Admin notice now correctly renders theme install link as HTML
+* Fixed: Cleaned up duplicate theme-detection notice registration
+* Tested up to WordPress 7.0
+
 = 1.0.0 =
 * Initial release — 17 Bootstrap 5 shortcodes
 * Admin shortcode reference page (Plugins > WPWiseBones Shortcodes)
 * Theme detection notice with one-click install link
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Minor bug fix: admin notice link rendering.
 
 = 1.0.0 =
 Initial release.
