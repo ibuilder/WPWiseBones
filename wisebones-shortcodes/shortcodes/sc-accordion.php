@@ -11,10 +11,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_accordion',      'wpb_sc_accordion' );
-add_shortcode( 'wpb_accordion_item', 'wpb_sc_accordion_item' );
+add_shortcode( 'wpb_accordion',      'wpbs_sc_accordion' );
+add_shortcode( 'wpb_accordion_item', 'wpbs_sc_accordion_item' );
 
-function wpb_sc_accordion( array $atts, ?string $content = null ): string {
+function wpbs_sc_accordion( array $atts, ?string $content = null ): string {
     static $accordion_id = 0;
     $accordion_id++;
 
@@ -28,7 +28,7 @@ function wpb_sc_accordion( array $atts, ?string $content = null ): string {
     if ( $a['class'] ) $classes[] = esc_attr( $a['class'] );
 
     // Pass accordion ID to child shortcodes via global
-    $GLOBALS['wpb_current_accordion'] = 'wpbAccordion' . $accordion_id;
+    $GLOBALS['wpbs_current_accordion'] = 'wpbAccordion' . $accordion_id;
 
     $html  = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '" id="wpbAccordion' . $accordion_id . '">';
     $html .= do_shortcode( $content );
@@ -37,7 +37,7 @@ function wpb_sc_accordion( array $atts, ?string $content = null ): string {
     return $html;
 }
 
-function wpb_sc_accordion_item( array $atts, ?string $content = null ): string {
+function wpbs_sc_accordion_item( array $atts, ?string $content = null ): string {
     static $item_id = 0;
     $item_id++;
 
@@ -46,7 +46,7 @@ function wpb_sc_accordion_item( array $atts, ?string $content = null ): string {
         'open'  => 'false',
     ], $atts, 'wpb_accordion_item' );
 
-    $parent  = $GLOBALS['wpb_current_accordion'] ?? 'wpbAccordion';
+    $parent  = $GLOBALS['wpbs_current_accordion'] ?? 'wpbAccordion';
     $id      = 'wpbItem' . $item_id;
     $is_open = 'true' === $a['open'];
 

@@ -48,10 +48,10 @@ $wpbs_shortcodes = [
     'sc-contact-info.php',
 ];
 
-foreach ( $wpbs_shortcodes as $file ) {
-    $path = WPBS_DIR . 'shortcodes/' . $file;
-    if ( file_exists( $path ) ) {
-        require_once $path;
+foreach ( $wpbs_shortcodes as $wpbs_file ) {
+    $wpbs_path = WPBS_DIR . 'shortcodes/' . $wpbs_file;
+    if ( file_exists( $wpbs_path ) ) {
+        require_once $wpbs_path;
     }
 }
 
@@ -139,8 +139,6 @@ function wpbs_theme_notice() {
         return;
     }
 
-    $theme_url = esc_url( admin_url( 'theme-install.php?search=wpwisebones' ) );
-    $learn_url = esc_url( 'https://wprealwise.com/wpwisebones' );
     ?>
     <div class="notice notice-info is-dismissible">
         <p>
@@ -152,11 +150,11 @@ function wpbs_theme_notice() {
                     __( 'This plugin is designed for the %s theme. Install it for the full Bootstrap 5 experience.', 'wisebones-shortcodes' ),
                     [ 'a' => [ 'href' => [], 'target' => [], 'rel' => [] ], 'strong' => [] ]
                 ),
-                '<a href="' . $theme_url . '"><strong>WPWiseBones</strong></a>'
+                '<a href="' . esc_url( admin_url( 'theme-install.php?search=wpwisebones' ) ) . '"><strong>WPWiseBones</strong></a>'
             );
             ?>
             &nbsp;&mdash;&nbsp;
-            <a href="<?php echo $learn_url; ?>" target="_blank" rel="noopener noreferrer">
+            <a href="<?php echo esc_url( 'https://wprealwise.com/wpwisebones' ); ?>" target="_blank" rel="noopener noreferrer">
                 <?php esc_html_e( 'Learn more at wprealwise.com', 'wisebones-shortcodes' ); ?>
             </a>
         </p>

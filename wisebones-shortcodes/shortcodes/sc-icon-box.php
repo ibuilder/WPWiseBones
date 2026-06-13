@@ -10,9 +10,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_icon_box', 'wpb_sc_icon_box' );
+add_shortcode( 'wpb_icon_box', 'wpbs_sc_icon_box' );
 
-function wpb_sc_icon_box( array $atts, ?string $content = null ): string {
+function wpbs_sc_icon_box( array $atts, ?string $content = null ): string {
     $a = shortcode_atts( [
         'icon'    => 'bi-star',
         'title'   => '',

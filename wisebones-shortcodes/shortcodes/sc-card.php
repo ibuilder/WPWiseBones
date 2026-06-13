@@ -10,9 +10,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_card', 'wpb_sc_card' );
+add_shortcode( 'wpb_card', 'wpbs_sc_card' );
 
-function wpb_sc_card( array $atts, ?string $content = null ): string {
+function wpbs_sc_card( array $atts, ?string $content = null ): string {
     $a = shortcode_atts( [
         'title'    => '',
         'subtitle' => '',

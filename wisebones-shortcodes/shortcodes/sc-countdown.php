@@ -8,9 +8,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_countdown', 'wpb_sc_countdown' );
+add_shortcode( 'wpb_countdown', 'wpbs_sc_countdown' );
 
-function wpb_sc_countdown( array $atts ): string {
+function wpbs_sc_countdown( array $atts ): string {
     static $count = 0;
     $count++;
 

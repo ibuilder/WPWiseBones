@@ -8,9 +8,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_cta', 'wpb_sc_cta' );
+add_shortcode( 'wpb_cta', 'wpbs_sc_cta' );
 
-function wpb_sc_cta( array $atts, ?string $content = null ): string {
+function wpbs_sc_cta( array $atts, ?string $content = null ): string {
     $a = shortcode_atts( [
         'heading'    => __( 'Ready to Get Started?', 'wisebones-shortcodes' ),
         'subtext'    => '',

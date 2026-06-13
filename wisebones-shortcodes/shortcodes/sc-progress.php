@@ -9,9 +9,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_progress', 'wpb_sc_progress' );
+add_shortcode( 'wpb_progress', 'wpbs_sc_progress' );
 
-function wpb_sc_progress( array $atts ): string {
+function wpbs_sc_progress( array $atts ): string {
     $a = shortcode_atts( [
         'label'    => '',
         'value'    => '0',

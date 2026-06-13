@@ -17,9 +17,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_button', 'wpb_sc_button' );
+add_shortcode( 'wpb_button', 'wpbs_sc_button' );
 
-function wpb_sc_button( array $atts, ?string $content = null ): string {
+function wpbs_sc_button( array $atts, ?string $content = null ): string {
     $a = shortcode_atts( [
         'url'      => '#',
         'style'    => 'primary',

@@ -15,9 +15,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_alert', 'wpb_sc_alert' );
+add_shortcode( 'wpb_alert', 'wpbs_sc_alert' );
 
-function wpb_sc_alert( array $atts, ?string $content = null ): string {
+function wpbs_sc_alert( array $atts, ?string $content = null ): string {
     $a = shortcode_atts( [
         'type'        => 'primary',
         'dismissible' => 'false',

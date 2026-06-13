@@ -10,9 +10,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_posts', 'wpb_sc_posts' );
+add_shortcode( 'wpb_posts', 'wpbs_sc_posts' );
 
-function wpb_sc_posts( array $atts ): string {
+function wpbs_sc_posts( array $atts ): string {
     $a = shortcode_atts( [
         'count'        => '3',
         'category'     => '',

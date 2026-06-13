@@ -11,10 +11,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_row', 'wpb_sc_row' );
-add_shortcode( 'wpb_col', 'wpb_sc_col' );
+add_shortcode( 'wpb_row', 'wpbs_sc_row' );
+add_shortcode( 'wpb_col', 'wpbs_sc_col' );
 
-function wpb_sc_row( array $atts, ?string $content = null ): string {
+function wpbs_sc_row( array $atts, ?string $content = null ): string {
     $a = shortcode_atts( [
         'gutter' => '4',
         'align'  => '',    // start|center|end
@@ -30,7 +30,7 @@ function wpb_sc_row( array $atts, ?string $content = null ): string {
     return '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . do_shortcode( $content ) . '</div>';
 }
 
-function wpb_sc_col( array $atts, ?string $content = null ): string {
+function wpbs_sc_col( array $atts, ?string $content = null ): string {
     $a = shortcode_atts( [
         'size'  => '',   // 1-12 or blank for auto
         'md'    => '',

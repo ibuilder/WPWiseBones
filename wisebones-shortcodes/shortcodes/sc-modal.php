@@ -10,9 +10,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_modal', 'wpb_sc_modal' );
+add_shortcode( 'wpb_modal', 'wpbs_sc_modal' );
 
-function wpb_sc_modal( array $atts, ?string $content = null ): string {
+function wpbs_sc_modal( array $atts, ?string $content = null ): string {
     static $count = 0;
     $count++;
 

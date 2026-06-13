@@ -10,9 +10,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_testimonial', 'wpb_sc_testimonial' );
+add_shortcode( 'wpb_testimonial', 'wpbs_sc_testimonial' );
 
-function wpb_sc_testimonial( array $atts, ?string $content = null ): string {
+function wpbs_sc_testimonial( array $atts, ?string $content = null ): string {
     $a = shortcode_atts( [
         'author' => '',
         'role'   => '',
