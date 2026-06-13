@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPB_VERSION',   '1.0.2' );
+define( 'WPB_VERSION',   '1.0.3' );
 define( 'WPB_DIR',       get_template_directory() );
 define( 'WPB_URI',       get_template_directory_uri() );
 define( 'WPB_INC',       WPB_DIR . '/inc/' );
@@ -36,6 +36,7 @@ $wpb_includes = [
     'woocommerce.php',
     'dashboard-widget.php',
     'companion-plugin.php',
+    'demo-importer.php',
 ];
 
 foreach ( $wpb_includes as $file ) {

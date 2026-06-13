@@ -1,7 +1,7 @@
 WPWiseBones
 ================
 
-Version:        1.0.2
+Version:        1.0.3
 Requires WP:    6.0+
 Tested up to:      7.0
 Requires PHP:   8.0+
@@ -131,6 +131,13 @@ Once installed, you get 17 shortcodes:
 
 = 1.0.2 =
 * Fixed: Removed `remove_action( 'rest_api_init', 'wp_oembed_register_route' )` (plugin territory per WP.org Theme Check)
+
+= 1.0.3 =
+* Added: One-click Demo Content Importer (Appearance → Demo Content)
+* Added: 4 pages, 6 posts, nav menu, widget setup, customizer presets via importer
+* Added: GD-generated placeholder images — no external HTTP required
+* Added: Shortcode-aware demo content (uses [wpb_*] when companion plugin active)
+* Added: Clean reset — all demo content tagged _wpb_demo=1 for complete removal
 
 = 1.0.1 =
 * Fixed: Admin bar overlapping sticky header — header now correctly positioned below admin bar (32px desktop / 46px mobile)
