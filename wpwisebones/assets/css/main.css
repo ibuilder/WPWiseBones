@@ -128,6 +128,30 @@
     z-index: 100000;
 }
 
+/* ============================================================
+   FOCUS / KEYBOARD NAVIGATION (WP.org accessibility requirement)
+   ============================================================ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.nav-link:focus-visible,
+.btn:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid var(--bs-primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(13,110,253,.25);
+}
+
+/* Remove default outline only when :focus-visible is supported */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+    outline: none;
+}
+
 /* .gallery-caption — WordPress gallery captions */
 .gallery-caption {
     display: block;

@@ -2,20 +2,20 @@
 /**
  * Enqueue scripts and styles.
  *
- * Set WPB_LOCAL_ASSETS to true in wp-config.php to serve Bootstrap from the
- * local vendor/ directory instead of the CDN:
+ * Bootstrap is served from local vendor/ by default (WP.org requires no remote
+ * resources without user consent). To use the jsDelivr CDN instead, add this
+ * to wp-config.php:
  *
- *   define( 'WPB_LOCAL_ASSETS', true );
+ *   define( 'WPB_LOCAL_ASSETS', false );
  *
- * The local copies are committed to /assets/vendor/ and are always safe to use
- * with strict Content-Security-Policy headers that block external CDNs.
+ * Local copies are in /assets/vendor/ — always safe under strict CSP headers.
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /** Whether to serve Bootstrap/Icons from local vendor files (true) or CDN (false). */
 if ( ! defined( 'WPB_LOCAL_ASSETS' ) ) {
-    define( 'WPB_LOCAL_ASSETS', false );
+    define( 'WPB_LOCAL_ASSETS', true );
 }
 
 add_action( 'wp_enqueue_scripts', 'wpb_enqueue_assets' );

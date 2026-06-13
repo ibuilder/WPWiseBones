@@ -350,7 +350,7 @@ function wpb_admin_footer_credit( string $text ): string {
         return sprintf(
             /* translators: %s: wprealwise.com link */
             __( 'WPWiseBones &mdash; crafted with &#10084; by %s', 'wpwisebones' ),
-            '<a href=WPB_AUTHOR_URL target="_blank" rel="noopener noreferrer">wprealwise.com</a>'
+            '<a href="' . esc_url( WPB_AUTHOR_URL ) . '" target="_blank" rel="noopener noreferrer">wprealwise.com</a>'
         );
     }
     return $text;

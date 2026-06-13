@@ -1,7 +1,7 @@
 WPWiseBones
 ================
 
-Version:        1.0.3
+Version:        1.0.4
 Requires WP:    6.0+
 Tested up to:      7.0
 Requires PHP:   8.0+
@@ -21,7 +21,7 @@ Built and maintained by WPWiseBones.com — https://wprealwise.com
 
 == Features ==
 
-Bootstrap 5 (CDN or local vendor — toggle with WPB_LOCAL_ASSETS constant)
+Bootstrap 5 (local vendor by default; CDN opt-in via WPB_LOCAL_ASSETS constant)
 Bootstrap Icons 1.11
 theme.json for block editor color/font/layout sync
 17 Shortcodes (see Shortcode Reference below)
@@ -70,9 +70,10 @@ Translation-ready (.pot included)
 
 == Local Bootstrap Assets (CSP / No-CDN) ==
 
-By default Bootstrap is loaded from jsDelivr CDN. To serve locally:
+Bootstrap is served from local vendor/ by default (WP.org compliance). To use
+the jsDelivr CDN instead, add to wp-config.php:
 
-  define( 'WPB_LOCAL_ASSETS', true );   // in wp-config.php
+  define( 'WPB_LOCAL_ASSETS', false );  // in wp-config.php
 
 Local copies are in assets/vendor/ (synced via: npm run sync).
 
@@ -131,6 +132,16 @@ Once installed, you get 17 shortcodes:
 
 = 1.0.2 =
 * Fixed: Removed `remove_action( 'rest_api_init', 'wp_oembed_register_route' )` (plugin territory per WP.org Theme Check)
+
+= 1.0.4 =
+* Fixed: WPB_LOCAL_ASSETS now defaults to true — Bootstrap served locally by default (WP.org compliance, Required §9)
+* Fixed: inc/demo-importer.php excluded from WP.org submission zip via .distignore (Required §12)
+* Fixed: Broken href on admin footer credit link (WPB_AUTHOR_URL was not properly interpolated)
+* Added: Focus/keyboard navigation styles for all interactive elements (a, button, inputs, nav-link, .btn)
+* Verified: All $_POST accesses sanitized and nonce-protected (Fix #6)
+* Verified: No front-end credit links beyond style.css Author URI (Fix #5)
+* Verified: editor-style.css exists and registered via add_editor_style() (Fix #4)
+* Verified: add_theme_support('title-tag') present (Fix #3)
 
 = 1.0.3 =
 * Added: One-click Demo Content Importer (Appearance → Demo Content)

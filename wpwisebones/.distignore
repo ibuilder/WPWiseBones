@@ -19,6 +19,9 @@ assets/vendor/js/bootstrap.bundle.min.js.map
 *.DS_Store
 Thumbs.db
 
+# WP.org submission — demo importer not permitted in theme zips (Required §12)
+inc/demo-importer.php
+
 # Editor / IDE
 .vscode
 .idea
