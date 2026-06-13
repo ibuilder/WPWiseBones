@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "PowerShell(python -c \"from PIL import Image; print\\('PIL ok'\\)\" 2>&1)"
+      "PowerShell(python -c \"from PIL import Image; print\\('PIL ok'\\)\" 2>&1)",
+      "Bash(npm run *)"
     ]
   }
 }
