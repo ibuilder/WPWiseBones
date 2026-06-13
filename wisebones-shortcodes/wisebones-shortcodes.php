@@ -3,7 +3,7 @@
  * Plugin Name:       WiseBones Shortcodes
  * Plugin URI:        https://wprealwise.com/wpwisebones
  * Description:       Companion shortcodes plugin for the WPWiseBones theme. Adds 17 Bootstrap 5 shortcodes: alerts, buttons, cards, accordions, tabs, grid columns, CTA banners, icon boxes, progress bars, testimonials, countdown timers, post grids, modals, badges, dividers, maps, and contact info.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 6.0
  * Requires PHP:      8.0
  * Author:            WPWiseBones
@@ -22,7 +22,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPBS_VERSION', '1.0.1' );
+define( 'WPBS_VERSION', '1.0.2' );
 define( 'WPBS_DIR',     plugin_dir_path( __FILE__ ) );
 define( 'WPBS_URI',     plugin_dir_url( __FILE__ ) );
 

@@ -3,7 +3,7 @@ Contributors:      wpwisebones
 Tags:              shortcodes, bootstrap, bootstrap-5, cards, accordion
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.1
+Stable tag:        1.0.2
 Requires PHP:      8.0
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -74,6 +74,12 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 2. Example shortcodes rendered on the front end with the WPWiseBones theme.
 
 == Changelog ==
+
+= 1.0.2 =
+* Fixed: Renamed all shortcode callback functions from wpb_sc_* to wpbs_sc_* (correct plugin prefix)
+* Fixed: Renamed shared globals from wpb_ to wpbs_ prefix (accordion, tabs)
+* Fixed: Loop variable $file renamed to $wpbs_file (Plugin Check NonPrefixedVariable)
+* Fixed: esc_url() now inlined at output point for PHPCS OutputNotEscaped compliance
 
 = 1.0.1 =
 * Fixed: Admin notice now correctly renders theme install link as HTML

@@ -192,6 +192,11 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 
 ### Plugin (wisebones-shortcodes)
 
+#### 1.0.2
+- Fixed: Renamed shortcode callbacks wpb_sc_* → wpbs_sc_* (correct plugin prefix)
+- Fixed: Renamed shared globals to wpbs_ prefix (accordion, tabs)
+- Fixed: Loop variable and esc_url() inlined for Plugin Check compliance
+
 #### 1.0.1
 - Fixed: Admin notice now correctly renders theme install link as HTML
 - Fixed: Cleaned up duplicate theme-detection notice registration
