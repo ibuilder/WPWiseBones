@@ -3,18 +3,18 @@ Contributors:      wpwisebones
 Tags:              shortcodes, bootstrap, bootstrap-5, cards, accordion
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.2
-Requires PHP:      8.0
+Stable tag:        1.0.3
+Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Companion shortcodes plugin for the WPWiseBones Bootstrap 5 WordPress theme. Adds 17 Bootstrap shortcodes.
+17 Bootstrap 5 shortcodes for alerts, cards, tabs, accordions, modals, countdowns, and more. Works with any theme.
 
 == Description ==
 
-WPWiseBones Shortcodes is the official companion plugin for the [WPWiseBones](https://wprealwise.com/wpwisebones) Bootstrap 5 WordPress theme.
+WiseBones Shortcodes adds **17 Bootstrap 5 shortcodes** you can use anywhere in posts, pages, or widgets — with any WordPress theme.
 
-It adds **17 Bootstrap 5 shortcodes** you can use anywhere in posts, pages, or widgets — even with other themes.
+Bootstrap 5 and Bootstrap Icons are automatically loaded from the jsDelivr CDN when not already provided by the active theme, so the shortcodes work out-of-the-box on any WordPress installation.
 
 **Shortcodes included:**
 
@@ -36,9 +36,9 @@ It adds **17 Bootstrap 5 shortcodes** you can use anywhere in posts, pages, or w
 * `[wpb_map]` — Responsive iframe map embed
 * `[wpb_contact_info]` — Contact info list with icons
 
-**Companion theme:**
+**Optional companion theme:**
 
-Install the free [WPWiseBones theme](https://wprealwise.com/wpwisebones) for the full Bootstrap 5 experience. The theme detects whether this plugin is active and shows a one-click install prompt when it is not.
+The free [WPWiseBones](https://wordpress.org/themes/wpwisebones/) Bootstrap 5 theme provides local Bootstrap assets, a full-page hero, custom widgets, and deep Customizer integration. The shortcodes work great with any theme, but pair especially well with WPWiseBones.
 
 Built and maintained by [wprealwise.com](https://wprealwise.com).
 
@@ -48,21 +48,21 @@ Built and maintained by [wprealwise.com](https://wprealwise.com).
 2. Activate via **Plugins > Installed Plugins**
 3. Use any shortcode in your posts, pages, or widgets
 
-Alternatively, install the WPWiseBones theme and use the one-click install prompt in the dashboard.
+Bootstrap 5 and Bootstrap Icons are loaded automatically if your theme does not already provide them.
 
 == Frequently Asked Questions ==
 
-= Does this plugin require the WPWiseBones theme? =
+= Does this plugin require a specific theme? =
 
-No. The shortcodes work with any theme that loads Bootstrap 5. However, they are styled and tested to work best with the WPWiseBones theme.
+No. The shortcodes work with any WordPress theme. Bootstrap 5 is loaded automatically from the jsDelivr CDN when not already enqueued by your theme.
 
 = Where can I find the shortcode reference? =
 
-After activation, go to **Plugins > WPWiseBones Shortcodes** in the WordPress admin for the full reference table.
+After activation, go to **Plugins > WiseBones Shortcodes** in the WordPress admin for the full reference table.
 
-= Is Bootstrap 5 included? =
+= My theme already loads Bootstrap — will it be loaded twice? =
 
-No. Bootstrap 5 must be enqueued by your theme. The WPWiseBones theme includes Bootstrap 5 automatically.
+No. The plugin checks whether Bootstrap is already registered (via the `bootstrap` style/script handle) and skips loading it if your theme already provides it.
 
 = Is this plugin free? =
 
@@ -71,9 +71,18 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 == Screenshots ==
 
 1. Shortcode reference page in the WordPress admin.
-2. Example shortcodes rendered on the front end with the WPWiseBones theme.
+2. Example shortcodes rendered on the front end.
 
 == Changelog ==
+
+= 1.0.3 =
+* Added: Bootstrap 5 and Bootstrap Icons auto-loaded from CDN when not provided by theme — plugin now works with any theme out-of-the-box
+* Added: Self-contained countdown timer JS (assets/js/wpbs-countdown.js) — countdown works on any theme without requiring WPWiseBones
+* Fixed: MissingTranslatorsComment PHPCS error — translators comment now placed directly above __() call inside wp_kses()
+* Fixed: Admin notice now shows on Plugins screen only (was: Dashboard + Themes + Plugins)
+* Fixed: Admin notice softened from "designed for" to "pairs with" — plugin works with any Bootstrap theme
+* Fixed: Requires PHP lowered from 8.0 to 7.4 (no PHP 8-only syntax in use)
+* Changed: Plugin description updated to reflect standalone functionality
 
 = 1.0.2 =
 * Fixed: Renamed all shortcode callback functions from wpb_sc_* to wpbs_sc_* (correct plugin prefix)
@@ -88,13 +97,13 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 
 = 1.0.0 =
 * Initial release — 17 Bootstrap 5 shortcodes
-* Admin shortcode reference page (Plugins > WPWiseBones Shortcodes)
+* Admin shortcode reference page (Plugins > WiseBones Shortcodes)
 * Theme detection notice with one-click install link
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-Minor bug fix: admin notice link rendering.
+= 1.0.3 =
+Bootstrap 5 now auto-loads when not provided by theme. Countdown timer now works on any theme. Several Plugin Check compliance fixes.
 
 = 1.0.0 =
 Initial release.
