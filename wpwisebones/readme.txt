@@ -1,10 +1,10 @@
 WPWiseBones
 ================
 
-Version:        1.0.6
+Version:        1.0.7
 Requires WP:    6.0+
-Tested up to:      7.0
-Requires PHP:   8.0+
+Tested up to:   6.8
+Requires PHP:   7.4
 License:        GPLv2 or later
 Author:         WPWiseBones
 Author URI:     https://wprealwise.com
@@ -88,6 +88,18 @@ Local copies are in assets/vendor/ (synced via: npm run sync).
 
 == Changelog ==
 
+= 1.0.7 =
+* Fixed: Block style names renamed from wpb- prefix to wpwisebones- prefix (Required §4 uniqueness)
+* Fixed: Google Fonts enqueue handle renamed from wpb-google-fonts to wpwisebones-google-fonts
+* Fixed: Canonical URL output removed from seo.php — WordPress core handles this since WP 4.6
+* Fixed: 7 escaping violations in breadcrumbs and entry footer (esc_html, esc_html on
+  get_the_author/date/search_query, wp_kses_post on category/tag lists)
+* Fixed: JS string 'Select Image' in meta-boxes.php now passed through __() via wp_json_encode
+* Fixed: Duplicate == Changelog == section removed from readme.txt
+* Fixed: Requires PHP aligned to 7.4 in both style.css and readme.txt
+* Fixed: Tested up to corrected from 7.0 to 6.8 in style.css and readme.txt
+* Fixed: demo-importer.php reference removed from functions.php autoloader
+
 = 1.0.6 =
 * Fixed: Theme Options admin page (Appearance → Theme Options) restored to submission zip
   — it is permitted as a sub-page under Appearance per WP.org Required §4
@@ -158,27 +170,6 @@ Once installed, you get 17 shortcodes:
 [wpb_row] / [wpb_col]  [wpb_cta]  [wpb_icon_box]  [wpb_progress]
 [wpb_testimonial]  [wpb_countdown]  [wpb_posts]  [wpb_modal]
 [wpb_badge]  [wpb_divider]  [wpb_map]  [wpb_contact_info]
-== Changelog ==
-
-= 1.0.2 =
-* Fixed: Removed `remove_action( 'rest_api_init', 'wp_oembed_register_route' )` (plugin territory per WP.org Theme Check)
-
-= 1.0.4 =
-* Fixed: WPB_LOCAL_ASSETS now defaults to true — Bootstrap served locally by default (WP.org compliance, Required §9)
-* Fixed: inc/demo-importer.php excluded from WP.org submission zip via .distignore (Required §12)
-* Fixed: Broken href on admin footer credit link (WPB_AUTHOR_URL was not properly interpolated)
-* Added: Focus/keyboard navigation styles for all interactive elements (a, button, inputs, nav-link, .btn)
-* Verified: All $_POST accesses sanitized and nonce-protected (Fix #6)
-* Verified: No front-end credit links beyond style.css Author URI (Fix #5)
-* Verified: editor-style.css exists and registered via add_editor_style() (Fix #4)
-* Verified: add_theme_support('title-tag') present (Fix #3)
-
-= 1.0.3 =
-* Added: One-click Demo Content Importer (Appearance → Demo Content)
-* Added: 4 pages, 6 posts, nav menu, widget setup, customizer presets via importer
-* Added: GD-generated placeholder images — no external HTTP required
-* Added: Shortcode-aware demo content (uses [wpb_*] when companion plugin active)
-* Added: Clean reset — all demo content tagged _wpb_demo=1 for complete removal
 
 = 1.0.1 =
 * Fixed: Admin bar overlapping sticky header — header now correctly positioned below admin bar (32px desktop / 46px mobile)

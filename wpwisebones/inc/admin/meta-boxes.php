@@ -119,7 +119,7 @@ function wpwisebones_meta_uploader_js() {
         $(document).on('click', '.wpb-media-upload', function(e){
             e.preventDefault();
             var target = $(this).data('target');
-            var frame = wp.media({ title: 'Select Image', multiple: false });
+            var frame = wp.media({ title: <?php echo wp_json_encode( __( 'Select Image', 'wpwisebones' ) ); ?>, multiple: false });
             frame.on('select', function(){
                 var att = frame.state().get('selection').first().toJSON();
                 $('#' + target).val(att.url);

@@ -113,13 +113,13 @@ add_action( 'wp_head', function() {
 add_action( 'init', 'wpwisebones_register_block_styles' );
 function wpwisebones_register_block_styles() {
     $styles = [
-        [ 'core/button', 'wpb-outline',   __( 'Outline',        'wpwisebones' ) ],
-        [ 'core/button', 'wpb-pill',      __( 'Pill',           'wpwisebones' ) ],
-        [ 'core/image',  'wpb-rounded',   __( 'Rounded',        'wpwisebones' ) ],
-        [ 'core/image',  'wpb-shadow',    __( 'Shadow',         'wpwisebones' ) ],
-        [ 'core/quote',  'wpb-bordered',  __( 'Bordered',       'wpwisebones' ) ],
-        [ 'core/group',  'wpwisebones-card',      __( 'Card',           'wpwisebones' ) ],
-        [ 'core/list',   'wpb-checkmark', __( 'Checkmarks',     'wpwisebones' ) ],
+        [ 'core/button', 'wpwisebones-outline',   __( 'Outline',    'wpwisebones' ) ],
+        [ 'core/button', 'wpwisebones-pill',      __( 'Pill',       'wpwisebones' ) ],
+        [ 'core/image',  'wpwisebones-rounded',   __( 'Rounded',    'wpwisebones' ) ],
+        [ 'core/image',  'wpwisebones-shadow',    __( 'Shadow',     'wpwisebones' ) ],
+        [ 'core/quote',  'wpwisebones-bordered',  __( 'Bordered',   'wpwisebones' ) ],
+        [ 'core/group',  'wpwisebones-card',      __( 'Card',       'wpwisebones' ) ],
+        [ 'core/list',   'wpwisebones-checkmark', __( 'Checkmarks', 'wpwisebones' ) ],
     ];
 
     foreach ( $styles as [ $block, $name, $label ] ) {

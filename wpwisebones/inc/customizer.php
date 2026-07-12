@@ -398,7 +398,7 @@ function wpwisebones_enqueue_google_fonts() {
     if ( $fonts_to_load ) {
         $query = implode( '&family=', array_map( fn( $f ) => $f . ':ital,wght@0,400;0,600;0,700;1,400', $fonts_to_load ) );
         wp_enqueue_style(
-            'wpb-google-fonts',
+            'wpwisebones-google-fonts',
             'https://fonts.googleapis.com/css2?family=' . $query . '&display=swap',
             [],
             null

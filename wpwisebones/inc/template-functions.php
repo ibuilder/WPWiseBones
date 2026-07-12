@@ -48,13 +48,13 @@ function wpwisebones_breadcrumbs() {
     $out .= '<li class="breadcrumb-item"><a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Home', 'wpwisebones' ) . '</a></li>';
 
     if ( is_category() ) {
-        $out .= '<li class="breadcrumb-item active">' . single_cat_title( '', false ) . '</li>';
+        $out .= '<li class="breadcrumb-item active">' . esc_html( single_cat_title( '', false ) ) . '</li>';
     } elseif ( is_tag() ) {
-        $out .= '<li class="breadcrumb-item active">' . single_tag_title( '', false ) . '</li>';
+        $out .= '<li class="breadcrumb-item active">' . esc_html( single_tag_title( '', false ) ) . '</li>';
     } elseif ( is_author() ) {
-        $out .= '<li class="breadcrumb-item active">' . get_the_author() . '</li>';
+        $out .= '<li class="breadcrumb-item active">' . esc_html( get_the_author() ) . '</li>';
     } elseif ( is_date() ) {
-        $out .= '<li class="breadcrumb-item active">' . get_the_date() . '</li>';
+        $out .= '<li class="breadcrumb-item active">' . esc_html( get_the_date() ) . '</li>';
     } elseif ( is_singular() ) {
         if ( is_attachment() ) {
             $parent = get_post( get_post()->post_parent );
@@ -79,7 +79,7 @@ function wpwisebones_breadcrumbs() {
         $out .= '<li class="breadcrumb-item active">' . esc_html( get_the_title() ) . '</li>';
     } elseif ( is_search() ) {
         /* translators: %s: search query */
-        $out .= '<li class="breadcrumb-item active">' . sprintf( esc_html__( 'Search: %s', 'wpwisebones' ), get_search_query() ) . '</li>';
+        $out .= '<li class="breadcrumb-item active">' . sprintf( esc_html__( 'Search: %s', 'wpwisebones' ), esc_html( get_search_query( false ) ) ) . '</li>';
     } elseif ( is_404() ) {
         $out .= '<li class="breadcrumb-item active">' . esc_html__( '404 Not Found', 'wpwisebones' ) . '</li>';
     }
@@ -122,8 +122,8 @@ function wpwisebones_entry_footer() {
     $tags = get_the_tag_list( '', ', ' );
     $edit = get_edit_post_link();
 
-    if ( $cats ) echo '<span class="cat-links me-3"><i class="bi bi-folder me-1"></i>' . $cats . '</span>'; // phpcs:ignore
-    if ( $tags ) echo '<span class="tags-links me-3"><i class="bi bi-tags me-1"></i>' . $tags . '</span>';  // phpcs:ignore
+    if ( $cats ) echo '<span class="cat-links me-3"><i class="bi bi-folder me-1"></i>' . wp_kses_post( $cats ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
+    if ( $tags ) echo '<span class="tags-links me-3"><i class="bi bi-tags me-1"></i>' . wp_kses_post( $tags ) . '</span>';  // phpcs:ignore WordPress.Security.EscapeOutput
     if ( $edit ) echo '<span class="edit-link"><a href="' . esc_url( $edit ) . '">' . esc_html__( 'Edit', 'wpwisebones' ) . '</a></span>'; // phpcs:ignore
 }
 
