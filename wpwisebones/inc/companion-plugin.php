@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 /* ── Constants ───────────────────────────────────────────────── */
 
 define( 'WPWISEBONES_COMPANION_SLUG',    'wisebones-shortcodes/wisebones-shortcodes.php' );
-define( 'WPWISEBONES_COMPANION_VERSION', '1.0.2' );
+define( 'WPWISEBONES_COMPANION_VERSION', '1.0.3' );
 define( 'WPWISEBONES_COMPANION_URL',     WPWISEBONES_THEME_URL . '#shortcodes' );
 
 /* ── Helper: is companion plugin active? ────────────────────── */
@@ -47,7 +47,7 @@ function wpwisebones_companion_notice() {
 
     // Only show on theme/plugin admin screens, not everywhere
     $screen = get_current_screen();
-    $show_on = [ 'plugins' ];
+    $show_on = [ 'plugins', 'themes', 'appearance_page_wpwisebones-theme-options' ];
     if ( ! $screen || ! in_array( $screen->id, $show_on, true ) ) {
         return;
     }

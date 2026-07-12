@@ -21,8 +21,6 @@ Thumbs.db
 
 # WP.org submission — demo importer not permitted in theme zips (Required §12)
 inc/demo-importer.php
-# WP.org submission — theme options admin page is plugin territory
-inc/admin/admin-page.php
 
 # Editor / IDE
 .vscode

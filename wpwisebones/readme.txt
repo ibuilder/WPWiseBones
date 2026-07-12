@@ -1,7 +1,7 @@
 WPWiseBones
 ================
 
-Version:        1.0.5
+Version:        1.0.6
 Requires WP:    6.0+
 Tested up to:      7.0
 Requires PHP:   8.0+
@@ -21,14 +21,15 @@ Built and maintained by WPWiseBones.com — https://wprealwise.com
 
 == Features ==
 
-Bootstrap 5 (local vendor by default; CDN opt-in via WPB_LOCAL_ASSETS constant)
+Bootstrap 5 (local vendor by default; CDN opt-in via WPWISEBONES_LOCAL_ASSETS constant)
 Bootstrap Icons 1.11
 theme.json for block editor color/font/layout sync
-17 Shortcodes (see Shortcode Reference below)
 3 Custom Widgets
 7 Widget Areas (Sidebar, 4x Footer columns, Header, Before/After Content, Shop)
 Customizer: colors, Google Fonts, layout, header, hero, footer, social links
-Admin Options page (Appearance → Theme Options)
+Admin Options page (Appearance → Theme Options): preloader, breadcrumbs, author box,
+  related posts, reading time, social share, excerpt length, copyright text,
+  custom CSS/JS, and performance toggles
 Per-post meta boxes: layout override, hero image, hide title
 Full template hierarchy: single, page, archive, category, tag, author, date,
   taxonomy, attachment, search, 404, home, singular
@@ -87,6 +88,19 @@ Local copies are in assets/vendor/ (synced via: npm run sync).
 
 == Changelog ==
 
+= 1.0.6 =
+* Fixed: Theme Options admin page (Appearance → Theme Options) restored to submission zip
+  — it is permitted as a sub-page under Appearance per WP.org Required §4
+* Fixed: Capability changed from `manage_options` to `edit_theme_options` throughout
+  admin page, matching WP.org Required §4 and the Customizer's own capability
+* Fixed: Three broken `href=CONSTANT` (missing PHP echo/esc_url) in admin page template
+* Fixed: Admin footer credit now checks for the correct screen ID
+  (`appearance_page_wpwisebones-theme-options`) instead of a partial string match
+* Fixed: Companion plugin notice now also shows on Themes and Theme Options screens
+* Fixed: Removed all custom gradient/inline styles from admin page; uses core WP notice
+  classes (`notice notice-success inline`, `notice notice-warning inline`) throughout
+* Updated: Companion version constant updated to 1.0.3
+
 = 1.0.5 =
 * Fixed: All PHP functions, constants, options, post meta, enqueue handles, and image sizes
   renamed from wpb_/WPB_ to wpwisebones_/WPWISEBONES_ — prefix is now globally unique
@@ -134,8 +148,8 @@ Install: WPWiseBones Shortcodes
 URL:     https://wprealwise.com/wpwisebones#shortcodes
 
 The theme detects whether the plugin is active and:
-- Shows a dismissible dashboard notice with a one-click install link when not installed
-- Shows companion plugin status on the admin bar (Theme Options > WPWiseBones menu)
+- Shows a dismissible admin notice with a one-click install link when not installed
+  (visible on Plugins, Themes, and the Theme Options screens)
 - Shows plugin status in the Getting Started dashboard widget
 - Shows plugin status in Appearance > Theme Options
 
