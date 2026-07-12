@@ -5,37 +5,37 @@
 
 defined( 'ABSPATH' ) || exit;
 
-// Author URL constants — used throughout this file
-if ( ! defined( 'WPB_AUTHOR_URL' ) )   define( 'WPB_AUTHOR_URL',   WPB_AUTHOR_URL );
-if ( ! defined( 'WPB_DOCS_URL' ) )     define( 'WPB_DOCS_URL',     WPB_DOCS_URL );
-if ( ! defined( 'WPB_THEME_URL' ) )    define( 'WPB_THEME_URL',    WPB_THEME_URL );
-if ( ! defined( 'WPB_SUPPORT_URL' ) )  define( 'WPB_SUPPORT_URL',  'https://wprealwise.com/support' );
+// Fallback URL constants — only needed if this file is loaded standalone
+if ( ! defined( 'WPWISEBONES_AUTHOR_URL' ) )   define( 'WPWISEBONES_AUTHOR_URL',   'https://wprealwise.com' );
+if ( ! defined( 'WPWISEBONES_DOCS_URL' ) )     define( 'WPWISEBONES_DOCS_URL',     'https://wprealwise.com/docs' );
+if ( ! defined( 'WPWISEBONES_THEME_URL' ) )    define( 'WPWISEBONES_THEME_URL',    'https://wprealwise.com/wpwisebones' );
+if ( ! defined( 'WPWISEBONES_SUPPORT_URL' ) )  define( 'WPWISEBONES_SUPPORT_URL',  'https://wprealwise.com/support' );
 
-add_action( 'admin_menu', 'wpb_add_admin_menu' );
+add_action( 'admin_menu', 'wpwisebones_add_admin_menu' );
 
-function wpb_add_admin_menu() {
+function wpwisebones_add_admin_menu() {
     add_theme_page(
         __( 'WPWiseBones Options', 'wpwisebones' ),
         __( 'Theme Options', 'wpwisebones' ),
         'manage_options',
-        'wpb-theme-options',
-        'wpb_admin_options_page'
+        'wpwisebones-theme-options',
+        'wpwisebones_admin_options_page'
     );
 }
 
-add_action( 'admin_init', 'wpb_admin_settings_init' );
+add_action( 'admin_init', 'wpwisebones_admin_settings_init' );
 
-function wpb_admin_settings_init() {
-    register_setting( 'wpb_options_group', 'wpb_options', [
-        'sanitize_callback' => 'wpb_sanitize_options',
+function wpwisebones_admin_settings_init() {
+    register_setting( 'wpwisebones_options_group', 'wpwisebones_options', [
+        'sanitize_callback' => 'wpwisebones_sanitize_options',
     ] );
 
     /* â”€â”€ Section: General â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     add_settings_section(
-        'wpb_section_general',
+        'wpwisebones_section_general',
         __( 'General Settings', 'wpwisebones' ),
         '__return_false',
-        'wpb-theme-options'
+        'wpwisebones-theme-options'
     );
 
     $general_fields = [
@@ -57,21 +57,21 @@ function wpb_admin_settings_init() {
 
     foreach ( $general_fields as $id => [ $label, $type ] ) {
         add_settings_field(
-            'wpb_' . $id,
+            'wpwisebones_' . $id,
             $label,
-            'wpb_render_field',
-            'wpb-theme-options',
-            'wpb_section_general',
+            'wpwisebones_render_field',
+            'wpwisebones-theme-options',
+            'wpwisebones_section_general',
             [ 'id' => $id, 'type' => $type ]
         );
     }
 
     /* â”€â”€ Section: Performance â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     add_settings_section(
-        'wpb_section_perf',
+        'wpwisebones_section_perf',
         __( 'Performance', 'wpwisebones' ),
         '__return_false',
-        'wpb-theme-options'
+        'wpwisebones-theme-options'
     );
 
     $perf_fields = [
@@ -84,39 +84,39 @@ function wpb_admin_settings_init() {
 
     foreach ( $perf_fields as $id => [ $label, $type ] ) {
         add_settings_field(
-            'wpb_' . $id,
+            'wpwisebones_' . $id,
             $label,
-            'wpb_render_field',
-            'wpb-theme-options',
-            'wpb_section_perf',
+            'wpwisebones_render_field',
+            'wpwisebones-theme-options',
+            'wpwisebones_section_perf',
             [ 'id' => $id, 'type' => $type ]
         );
     }
 }
 
-function wpb_render_field( array $args ) {
-    $options = get_option( 'wpb_options', [] );
+function wpwisebones_render_field( array $args ) {
+    $options = get_option( 'wpwisebones_options', [] );
     $id      = $args['id'];
     $type    = $args['type'];
     $val     = $options[ $id ] ?? '';
-    $name    = 'wpb_options[' . esc_attr( $id ) . ']';
+    $name    = 'wpwisebones_options[' . esc_attr( $id ) . ']';
 
     switch ( $type ) {
         case 'checkbox':
-            echo '<input type="checkbox" id="wpb_' . esc_attr( $id ) . '" name="' . $name . '" value="1"' . checked( 1, $val, false ) . '>';
+            echo '<input type="checkbox" id="wpwisebones_' . esc_attr( $id ) . '" name="' . $name . '" value="1"' . checked( 1, $val, false ) . '>';
             break;
         case 'number':
-            echo '<input type="number" id="wpb_' . esc_attr( $id ) . '" name="' . $name . '" value="' . esc_attr( $val ) . '" class="small-text">';
+            echo '<input type="number" id="wpwisebones_' . esc_attr( $id ) . '" name="' . $name . '" value="' . esc_attr( $val ) . '" class="small-text">';
             break;
         case 'textarea':
-            echo '<textarea id="wpb_' . esc_attr( $id ) . '" name="' . $name . '" rows="5" class="large-text code">' . esc_textarea( $val ) . '</textarea>';
+            echo '<textarea id="wpwisebones_' . esc_attr( $id ) . '" name="' . $name . '" rows="5" class="large-text code">' . esc_textarea( $val ) . '</textarea>';
             break;
         default:
-            echo '<input type="text" id="wpb_' . esc_attr( $id ) . '" name="' . $name . '" value="' . esc_attr( $val ) . '" class="regular-text">';
+            echo '<input type="text" id="wpwisebones_' . esc_attr( $id ) . '" name="' . $name . '" value="' . esc_attr( $val ) . '" class="regular-text">';
     }
 }
 
-function wpb_sanitize_options( array $input ): array {
+function wpwisebones_sanitize_options( array $input ): array {
     $out = [];
     $checkboxes = [ 'preloader','smooth_scroll','back_to_top','breadcrumbs','author_box','related_posts','reading_time','social_share','disable_emoji','disable_embeds','disable_xmlrpc','remove_query_vars','defer_scripts' ];
     foreach ( $checkboxes as $key ) {
@@ -133,9 +133,9 @@ function wpb_sanitize_options( array $input ): array {
 
 /* â”€â”€ Apply performance options â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-add_action( 'init', 'wpb_apply_performance_options' );
-function wpb_apply_performance_options() {
-    $o = get_option( 'wpb_options', [] );
+add_action( 'init', 'wpwisebones_apply_performance_options' );
+function wpwisebones_apply_performance_options() {
+    $o = get_option( 'wpwisebones_options', [] );
 
     if ( ! empty( $o['disable_emoji'] ) ) {
         remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
@@ -149,25 +149,25 @@ function wpb_apply_performance_options() {
     }
 
     if ( ! empty( $o['remove_query_vars'] ) ) {
-        add_filter( 'style_loader_src',  'wpb_remove_query_strings', 10, 2 );
-        add_filter( 'script_loader_src', 'wpb_remove_query_strings', 10, 2 );
+        add_filter( 'style_loader_src',  'wpwisebones_remove_query_strings', 10, 2 );
+        add_filter( 'script_loader_src', 'wpwisebones_remove_query_strings', 10, 2 );
     }
 
     if ( ! empty( $o['disable_embeds'] ) ) {
         add_filter( 'embed_oembed_discover', '__return_false' );
         remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
-        add_filter( 'rewrite_rules_array', 'wpb_disable_embeds_rewrites' );
+        add_filter( 'rewrite_rules_array', 'wpwisebones_disable_embeds_rewrites' );
     }
 
     if ( ! empty( $o['defer_scripts'] ) ) {
-        add_filter( 'script_loader_tag', 'wpb_defer_scripts_filter', 10, 3 );
+        add_filter( 'script_loader_tag', 'wpwisebones_defer_scripts_filter', 10, 3 );
     }
 }
 
 /**
  * Remove oEmbed rewrite rules.
  */
-function wpb_disable_embeds_rewrites( array $rules ): array {
+function wpwisebones_disable_embeds_rewrites( array $rules ): array {
     foreach ( $rules as $rule => $rewrite ) {
         if ( false !== strpos( $rewrite, 'embed=true' ) ) {
             unset( $rules[ $rule ] );
@@ -180,7 +180,7 @@ function wpb_disable_embeds_rewrites( array $rules ): array {
  * Add defer attribute to non-essential front-end scripts.
  * Skips jQuery, Bootstrap, comment-reply, and any script already marked async/defer.
  */
-function wpb_defer_scripts_filter( string $tag, string $handle, string $src ): string {
+function wpwisebones_defer_scripts_filter( string $tag, string $handle, string $src ): string {
     $skip = [ 'jquery', 'jquery-core', 'jquery-migrate', 'bootstrap', 'comment-reply' ];
     if ( is_admin() || in_array( $handle, $skip, true ) ) {
         return $tag;
@@ -191,7 +191,7 @@ function wpb_defer_scripts_filter( string $tag, string $handle, string $src ): s
     return str_replace( ' src=', ' defer src=', $tag );
 }
 
-function wpb_remove_query_strings( string $src ): string {
+function wpwisebones_remove_query_strings( string $src ): string {
     if ( strpos( $src, '?ver=' ) !== false ) {
         $src = remove_query_arg( 'ver', $src );
     }
@@ -200,9 +200,9 @@ function wpb_remove_query_strings( string $src ): string {
 
 /* â”€â”€ Output custom CSS/JS from options â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-add_action( 'wp_head', 'wpb_output_custom_head', 100 );
-function wpb_output_custom_head() {
-    $o = get_option( 'wpb_options', [] );
+add_action( 'wp_head', 'wpwisebones_output_custom_head', 100 );
+function wpwisebones_output_custom_head() {
+    $o = get_option( 'wpwisebones_options', [] );
     if ( ! empty( $o['custom_css'] ) ) {
         echo '<style id="wpb-custom-css">' . wp_strip_all_tags( $o['custom_css'] ) . '</style>' . "\n";
     }
@@ -211,9 +211,9 @@ function wpb_output_custom_head() {
     }
 }
 
-add_action( 'wp_footer', 'wpb_output_custom_footer', 100 );
-function wpb_output_custom_footer() {
-    $o = get_option( 'wpb_options', [] );
+add_action( 'wp_footer', 'wpwisebones_output_custom_footer', 100 );
+function wpwisebones_output_custom_footer() {
+    $o = get_option( 'wpwisebones_options', [] );
     if ( ! empty( $o['custom_js_footer'] ) ) {
         echo '<script id="wpb-custom-js-footer">' . wp_strip_all_tags( $o['custom_js_footer'] ) . '</script>' . "\n";
     }
@@ -221,7 +221,7 @@ function wpb_output_custom_footer() {
 
 /* â”€â”€ Admin page HTML â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_admin_options_page() {
+function wpwisebones_admin_options_page() {
     if ( ! current_user_can( 'manage_options' ) ) return;
     ?>
     <div class="wrap">
@@ -231,7 +231,7 @@ function wpb_admin_options_page() {
             <div style=”display:flex;align-items:center;gap:14px”>
                 <span style=”font-size:2.2rem;line-height:1”>&#9889;</span>
                 <div>
-                    <strong style=”font-size:1.15rem;display:block”>WPWiseBones &mdash; v<?php echo esc_html( WPB_VERSION ); ?></strong>
+                    <strong style=”font-size:1.15rem;display:block”>WPWiseBones &mdash; v<?php echo esc_html( WPWISEBONES_VERSION ); ?></strong>
                     <small style=”opacity:.85”>
                         <?php esc_html_e( 'Configure your theme or use the', 'wpwisebones' ); ?>
                         <a href=”<?php echo esc_url( admin_url( 'customize.php' ) ); ?>” style=”color:#fff;text-decoration:underline”><?php esc_html_e( 'Customizer', 'wpwisebones' ); ?></a>
@@ -242,15 +242,15 @@ function wpb_admin_options_page() {
             <div style=”text-align:right;opacity:.85;font-size:.8rem;line-height:1.6”>
                 <?php esc_html_e( 'Built &amp; maintained by', 'wpwisebones' ); ?><br>
                 <a href=”https://wprealwise.com” target=”_blank” rel=”noopener noreferrer” style=”color:#fff;font-weight:700;font-size:.95rem;text-decoration:none”>
-                    &#127758; <?php echo esc_html( wp_parse_url( WPB_AUTHOR_URL, PHP_URL_HOST ) ); ?>
+                    &#127758; <?php echo esc_html( wp_parse_url( WPWISEBONES_AUTHOR_URL, PHP_URL_HOST ) ); ?>
                 </a>
             </div>
         </div>
 
         <form action="options.php" method="post">
             <?php
-            settings_fields( 'wpb_options_group' );
-            do_settings_sections( 'wpb-theme-options' );
+            settings_fields( 'wpwisebones_options_group' );
+            do_settings_sections( 'wpwisebones-theme-options' );
             submit_button( __( 'Save Options', 'wpwisebones' ) );
             ?>
         </form>
@@ -260,7 +260,7 @@ function wpb_admin_options_page() {
         <!-- ===== COMPANION PLUGIN SECTION ===== -->
         <h2><?php esc_html_e( 'Companion Plugin: WPWiseBones Shortcodes', 'wpwisebones' ); ?></h2>
 
-        <?php if ( wpb_companion_active() ) : ?>
+        <?php if ( wpwisebones_companion_active() ) : ?>
         <div style="background:#d1e7dd;border:1px solid #a3cfbb;border-radius:6px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px">
             <span style="font-size:1.4rem">&#10003;</span>
             <div>
@@ -279,7 +279,7 @@ function wpb_admin_options_page() {
                 &#8659; <?php esc_html_e( 'Install WPWiseBones Shortcodes', 'wpwisebones' ); ?>
             </a>
             &nbsp;
-            <a href=WPB_THEME_URL . '#shortcodes' target="_blank" rel="noopener noreferrer" class="button">
+            <a href=WPWISEBONES_THEME_URL . '#shortcodes' target="_blank" rel="noopener noreferrer" class="button">
                 <?php esc_html_e( 'Learn More', 'wpwisebones' ); ?>
             </a>
         </div>
@@ -294,23 +294,23 @@ function wpb_admin_options_page() {
             <tbody>
             <?php
             $shortcodes = [
-                '[wpb_alert type="success" dismissible="true"]Text[/wpb_alert]'           => 'Bootstrap dismissible alert',
-                '[wpb_button url="/page" style="primary" size="lg"]Click[/wpb_button]'     => 'Button with icon support',
-                '[wpb_card title="Title" image="URL" btn_text="More" btn_url="#"]â€¦[/wpb_card]' => 'Bootstrap card',
-                '[wpb_accordion][wpb_accordion_item title="Q"]A[/wpb_accordion_item][/wpb_accordion]' => 'Accordion / FAQ',
-                '[wpb_tabs][wpb_tab title="Tab 1" active="true"]â€¦[/wpb_tab][/wpb_tabs]'   => 'Tabbed content',
-                '[wpb_row gutter="4"][wpb_col size="6"]â€¦[/wpb_col][/wpb_row]'             => 'Bootstrap grid columns',
-                '[wpb_cta heading="CTA" btn_text="Go" btn_url="#"]â€¦[/wpb_cta]'           => 'Call-to-action banner',
-                '[wpb_icon_box icon="bi-star" title="Title"]â€¦[/wpb_icon_box]'             => 'Icon feature box',
-                '[wpb_progress label="HTML" value="90" color="primary"]'                  => 'Animated progress bar',
-                '[wpb_testimonial author="Jane" role="CEO" stars="5"]â€¦[/wpb_testimonial]' => 'Testimonial quote',
-                '[wpb_countdown date="2025-12-31"]'                                        => 'Live countdown timer',
-                '[wpb_posts count="3" columns="3" category="news"]'                       => 'Post grid from query',
-                '[wpb_modal title="Title" btn_text="Open"]â€¦[/wpb_modal]'                  => 'Bootstrap modal popup',
-                '[wpb_badge color="danger" pill="true"]Hot[/wpb_badge]'                   => 'Inline badge / label',
-                '[wpb_divider text="OR" style="dashed"]'                                  => 'Styled divider / HR',
-                '[wpb_map src="embed-url" height="400"]'                                  => 'Responsive map embed',
-                '[wpb_contact_info phone="+1â€¦" email="â€¦" address="â€¦"]'                   => 'Contact information list',
+                '[wpwisebones_alert type="success" dismissible="true"]Text[/wpwisebones_alert]'           => 'Bootstrap dismissible alert',
+                '[wpwisebones_button url="/page" style="primary" size="lg"]Click[/wpwisebones_button]'     => 'Button with icon support',
+                '[wpwisebones_card title="Title" image="URL" btn_text="More" btn_url="#"]â€¦[/wpwisebones_card]' => 'Bootstrap card',
+                '[wpwisebones_accordion][wpwisebones_accordion_item title="Q"]A[/wpwisebones_accordion_item][/wpwisebones_accordion]' => 'Accordion / FAQ',
+                '[wpwisebones_tabs][wpwisebones_tab title="Tab 1" active="true"]â€¦[/wpwisebones_tab][/wpwisebones_tabs]'   => 'Tabbed content',
+                '[wpwisebones_row gutter="4"][wpwisebones_col size="6"]â€¦[/wpwisebones_col][/wpwisebones_row]'             => 'Bootstrap grid columns',
+                '[wpwisebones_cta heading="CTA" btn_text="Go" btn_url="#"]â€¦[/wpwisebones_cta]'           => 'Call-to-action banner',
+                '[wpwisebones_icon_box icon="bi-star" title="Title"]â€¦[/wpwisebones_icon_box]'             => 'Icon feature box',
+                '[wpwisebones_progress label="HTML" value="90" color="primary"]'                  => 'Animated progress bar',
+                '[wpwisebones_testimonial author="Jane" role="CEO" stars="5"]â€¦[/wpwisebones_testimonial]' => 'Testimonial quote',
+                '[wpwisebones_countdown date="2025-12-31"]'                                        => 'Live countdown timer',
+                '[wpwisebones_posts count="3" columns="3" category="news"]'                       => 'Post grid from query',
+                '[wpwisebones_modal title="Title" btn_text="Open"]â€¦[/wpwisebones_modal]'                  => 'Bootstrap modal popup',
+                '[wpwisebones_badge color="danger" pill="true"]Hot[/wpwisebones_badge]'                   => 'Inline badge / label',
+                '[wpwisebones_divider text="OR" style="dashed"]'                                  => 'Styled divider / HR',
+                '[wpwisebones_map src="embed-url" height="400"]'                                  => 'Responsive map embed',
+                '[wpwisebones_contact_info phone="+1â€¦" email="â€¦" address="â€¦"]'                   => 'Contact information list',
             ];
             foreach ( $shortcodes as $sc => $desc ) :
                 ?>
@@ -324,15 +324,15 @@ function wpb_admin_options_page() {
 
         <div style="margin-top:32px;padding:16px 20px;background:#f6f7f7;border-left:4px solid #0d6efd;border-radius:4px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
             <div>
-                <strong>WPWiseBones v<?php echo esc_html( WPB_VERSION ); ?></strong> &mdash;
+                <strong>WPWiseBones v<?php echo esc_html( WPWISEBONES_VERSION ); ?></strong> &mdash;
                 <?php esc_html_e( 'A professional Bootstrap 5 WordPress starter theme.', 'wpwisebones' ); ?>
             </div>
             <div>
-                <a href=WPB_AUTHOR_URL target="_blank" rel="noopener noreferrer" class="button">
-                    &#127758; <?php echo esc_html( wp_parse_url( WPB_AUTHOR_URL, PHP_URL_HOST ) ); ?>
+                <a href=WPWISEBONES_AUTHOR_URL target="_blank" rel="noopener noreferrer" class="button">
+                    &#127758; <?php echo esc_html( wp_parse_url( WPWISEBONES_AUTHOR_URL, PHP_URL_HOST ) ); ?>
                 </a>
                 &nbsp;
-                <a href=WPB_DOCS_URL target="_blank" rel="noopener noreferrer" class="button">
+                <a href=WPWISEBONES_DOCS_URL target="_blank" rel="noopener noreferrer" class="button">
                     &#128196; <?php esc_html_e( 'Documentation', 'wpwisebones' ); ?>
                 </a>
             </div>
@@ -343,14 +343,14 @@ function wpb_admin_options_page() {
 
 /* ── Admin footer credit ─────────────────────────────────────── */
 
-add_filter( 'admin_footer_text', 'wpb_admin_footer_credit' );
-function wpb_admin_footer_credit( string $text ): string {
+add_filter( 'admin_footer_text', 'wpwisebones_admin_footer_credit' );
+function wpwisebones_admin_footer_credit( string $text ): string {
     $screen = get_current_screen();
     if ( $screen && false !== strpos( $screen->id ?? '', 'wprealwise' ) ) {
         return sprintf(
             /* translators: %s: wprealwise.com link */
             __( 'WPWiseBones &mdash; crafted with &#10084; by %s', 'wpwisebones' ),
-            '<a href="' . esc_url( WPB_AUTHOR_URL ) . '" target="_blank" rel="noopener noreferrer">wprealwise.com</a>'
+            '<a href="' . esc_url( WPWISEBONES_AUTHOR_URL ) . '" target="_blank" rel="noopener noreferrer">wprealwise.com</a>'
         );
     }
     return $text;

@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
 
 /* â”€â”€ Site logo / branding â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_site_branding() {
+function wpwisebones_site_branding() {
     if ( has_custom_logo() ) {
         the_custom_logo();
     } else {
@@ -19,7 +19,7 @@ function wpb_site_branding() {
 
 /* â”€â”€ Featured image with fallback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_post_thumbnail( string $size = 'wpb-card', array $classes = [] ) {
+function wpwisebones_post_thumbnail( string $size = 'wpwisebones-card', array $classes = [] ) {
     if ( ! has_post_thumbnail() ) return;
     $cls = array_merge( [ 'card-img-top', 'w-100' ], $classes );
     echo get_the_post_thumbnail( null, $size, [ 'class' => implode( ' ', $cls ) ] );
@@ -27,7 +27,7 @@ function wpb_post_thumbnail( string $size = 'wpb-card', array $classes = [] ) {
 
 /* â”€â”€ Author box â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_author_box() {
+function wpwisebones_author_box() {
     if ( ! is_single() ) return;
     $author_id  = get_the_author_meta( 'ID' );
     $avatar     = get_avatar( $author_id, 80, '', '', [ 'class' => 'rounded-circle' ] );
@@ -56,7 +56,7 @@ function wpb_author_box() {
 
 /* â”€â”€ Related posts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_related_posts( int $count = 3 ) {
+function wpwisebones_related_posts( int $count = 3 ) {
     if ( ! is_single() ) return;
 
     $cats = wp_get_post_categories( get_the_ID() );
@@ -80,7 +80,7 @@ function wpb_related_posts( int $count = 3 ) {
         ?>
         <div class="col-md-4">
             <div class="card h-100 post-card border-0 shadow-sm">
-                <?php wpb_post_thumbnail( 'wpb-card' ); ?>
+                <?php wpwisebones_post_thumbnail( 'wpwisebones-card' ); ?>
                 <div class="card-body">
                     <h6 class="card-title">
                         <a href="<?php the_permalink(); ?>" class="text-dark text-decoration-none">

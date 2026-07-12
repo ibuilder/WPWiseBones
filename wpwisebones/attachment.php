@@ -4,11 +4,11 @@
  */
 defined( 'ABSPATH' ) || exit;
 get_header();
-$container = get_theme_mod( 'wpb_container_width', 'container' );
+$container = get_theme_mod( 'wpwisebones_container_width', 'container' );
 ?>
 <div id="content" class="site-content">
     <div class="<?php echo esc_attr( $container ); ?>">
-        <main id="primary" class="site-main col-12 py-4">
+        <main id="main" tabindex="-1" class="site-main col-12 py-4">
             <?php while ( have_posts() ) : the_post(); ?>
                 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                     <header class="entry-header mb-4">

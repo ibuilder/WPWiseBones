@@ -4,11 +4,11 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-$heading    = get_theme_mod( 'wpb_hero_heading',    get_bloginfo( 'name' ) );
-$subheading = get_theme_mod( 'wpb_hero_subheading', get_bloginfo( 'description' ) );
-$btn_text   = get_theme_mod( 'wpb_hero_btn_text',   __( 'Learn More', 'wpwisebones' ) );
-$btn_url    = get_theme_mod( 'wpb_hero_btn_url',    '#' );
-$hero_image = get_post_meta( get_the_ID(), '_wpb_hero_image', true );
+$heading    = get_theme_mod( 'wpwisebones_hero_heading',    get_bloginfo( 'name' ) );
+$subheading = get_theme_mod( 'wpwisebones_hero_subheading', get_bloginfo( 'description' ) );
+$btn_text   = get_theme_mod( 'wpwisebones_hero_btn_text',   __( 'Learn More', 'wpwisebones' ) );
+$btn_url    = get_theme_mod( 'wpwisebones_hero_btn_url',    '#' );
+$hero_image = get_post_meta( get_the_ID(), '_wpwisebones_hero_image', true );
 
 $style = $hero_image ? 'background: url(' . esc_url( $hero_image ) . ') center/cover no-repeat; color:#fff;' : '';
 ?>

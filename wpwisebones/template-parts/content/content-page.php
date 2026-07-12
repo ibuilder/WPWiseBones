@@ -3,8 +3,8 @@
  * Template part: page.
  */
 defined( 'ABSPATH' ) || exit;
-$hide_title = get_post_meta( get_the_ID(), '_wpb_hide_title', true );
-$hero_text  = get_post_meta( get_the_ID(), '_wpb_hero_image', true );
+$hide_title = get_post_meta( get_the_ID(), '_wpwisebones_hide_title', true );
+$hero_text  = get_post_meta( get_the_ID(), '_wpwisebones_hero_image', true );
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
     <header class="entry-header mb-4">

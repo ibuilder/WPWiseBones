@@ -5,11 +5,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-class WPB_Widget_CTA_Banner extends WP_Widget {
+class WPWISEBONES_Widget_CTA_Banner extends WP_Widget {
 
     public function __construct() {
         parent::__construct(
-            'wpb_cta_banner',
+            'wpwisebones_cta_banner',
             __( 'WPB: CTA Banner', 'wpwisebones' ),
             [ 'description' => __( 'A call-to-action banner with heading, text, and button.', 'wpwisebones' ) ]
         );

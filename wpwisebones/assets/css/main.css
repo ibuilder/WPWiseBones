@@ -129,6 +129,28 @@
 }
 
 /* ============================================================
+   CONTENT LINKS — must be underlined (WP.org requirement)
+   ============================================================ */
+.entry-content a,
+.entry-summary a,
+.comment-content a,
+.widget_text a,
+.textwidget a,
+.wp-block-latest-posts a,
+.wp-block-archives a {
+    text-decoration: underline;
+}
+.entry-content a:hover,
+.entry-summary a:hover,
+.comment-content a:hover { text-decoration: none; }
+
+/* Exclude buttons and images from forced underline */
+.entry-content .btn,
+.entry-content .btn:hover,
+.entry-content figure a,
+.entry-content figure a:hover { text-decoration: none; }
+
+/* ============================================================
    FOCUS / KEYBOARD NAVIGATION (WP.org accessibility requirement)
    ============================================================ */
 a:focus-visible,

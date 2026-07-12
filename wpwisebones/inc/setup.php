@@ -5,10 +5,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_action( 'after_setup_theme', 'wpb_setup' );
+add_action( 'after_setup_theme', 'wpwisebones_setup' );
 
-function wpb_setup() {
-    load_theme_textdomain( 'wpwisebones', WPB_DIR . '/languages' );
+function wpwisebones_setup() {
+    load_theme_textdomain( 'wpwisebones', WPWISEBONES_DIR . '/languages' );
 
     add_theme_support( 'automatic-feed-links' );
     add_theme_support( 'title-tag' );
@@ -47,10 +47,10 @@ function wpb_setup() {
     ] );
 
     // Image sizes
-    add_image_size( 'wpb-card',    400, 250, true );
-    add_image_size( 'wpb-hero',   1920, 600, true );
-    add_image_size( 'wpb-square',  400, 400, true );
-    add_image_size( 'wpb-wide',   1200, 400, true );
+    add_image_size( 'wpwisebones-card',    400, 250, true );
+    add_image_size( 'wpwisebones-hero',   1920, 600, true );
+    add_image_size( 'wpwisebones-square',  400, 400, true );
+    add_image_size( 'wpwisebones-wide',   1200, 400, true );
 
     // Nav menus
     register_nav_menus( [
@@ -67,8 +67,8 @@ function wpb_setup() {
 }
 
 // Gutenberg colour palette
-add_action( 'after_setup_theme', 'wpb_block_editor_settings' );
-function wpb_block_editor_settings() {
+add_action( 'after_setup_theme', 'wpwisebones_block_editor_settings' );
+function wpwisebones_block_editor_settings() {
     add_theme_support( 'editor-color-palette', [
         [ 'name' => __( 'Primary',   'wpwisebones' ), 'slug' => 'primary',   'color' => '#0d6efd' ],
         [ 'name' => __( 'Secondary', 'wpwisebones' ), 'slug' => 'secondary', 'color' => '#6c757d' ],
@@ -83,7 +83,7 @@ function wpb_block_editor_settings() {
 
 // Excerpt length â€“ reads from admin options, falls back to 25
 add_filter( 'excerpt_length', function() {
-    $o = get_option( 'wpb_options', [] );
+    $o = get_option( 'wpwisebones_options', [] );
     return isset( $o['excerpt_length'] ) && $o['excerpt_length'] > 0
         ? absint( $o['excerpt_length'] )
         : 25;
@@ -94,7 +94,7 @@ add_filter( 'excerpt_more', fn() => '&hellip;' );
 add_action( 'pre_get_posts', function( WP_Query $q ) {
     if ( is_admin() || ! $q->is_main_query() ) return;
     if ( ! ( $q->is_home() || $q->is_archive() || $q->is_search() ) ) return;
-    $o = get_option( 'wpb_options', [] );
+    $o = get_option( 'wpwisebones_options', [] );
     if ( ! empty( $o['posts_per_page'] ) ) {
         $q->set( 'posts_per_page', absint( $o['posts_per_page'] ) );
     }
@@ -102,7 +102,7 @@ add_action( 'pre_get_posts', function( WP_Query $q ) {
 
 // Smooth scroll toggle â€” add/remove class on <html> via wp_head inline style
 add_action( 'wp_head', function() {
-    $o = get_option( 'wpb_options', [] );
+    $o = get_option( 'wpwisebones_options', [] );
     if ( empty( $o['smooth_scroll'] ) ) {
         echo "<style>html { scroll-behavior: auto; }</style>\n";
     }
@@ -110,15 +110,15 @@ add_action( 'wp_head', function() {
 
 
 /* ── Block Styles ─────────────────────────────────────────── */
-add_action( 'init', 'wpb_register_block_styles' );
-function wpb_register_block_styles() {
+add_action( 'init', 'wpwisebones_register_block_styles' );
+function wpwisebones_register_block_styles() {
     $styles = [
         [ 'core/button', 'wpb-outline',   __( 'Outline',        'wpwisebones' ) ],
         [ 'core/button', 'wpb-pill',      __( 'Pill',           'wpwisebones' ) ],
         [ 'core/image',  'wpb-rounded',   __( 'Rounded',        'wpwisebones' ) ],
         [ 'core/image',  'wpb-shadow',    __( 'Shadow',         'wpwisebones' ) ],
         [ 'core/quote',  'wpb-bordered',  __( 'Bordered',       'wpwisebones' ) ],
-        [ 'core/group',  'wpb-card',      __( 'Card',           'wpwisebones' ) ],
+        [ 'core/group',  'wpwisebones-card',      __( 'Card',           'wpwisebones' ) ],
         [ 'core/list',   'wpb-checkmark', __( 'Checkmarks',     'wpwisebones' ) ],
     ];
 
@@ -128,8 +128,8 @@ function wpb_register_block_styles() {
 }
 
 /* ── Block Patterns ───────────────────────────────────────── */
-add_action( 'init', 'wpb_register_block_patterns' );
-function wpb_register_block_patterns() {
+add_action( 'init', 'wpwisebones_register_block_patterns' );
+function wpwisebones_register_block_patterns() {
 
     register_block_pattern_category( 'wpwisebones', [ 'label' => __( 'WPWiseBones', 'wpwisebones' ) ] );
 

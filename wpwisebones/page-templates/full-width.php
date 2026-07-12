@@ -12,8 +12,8 @@ get_header();
 ?>
 
 <div id="content" class="site-content">
-    <div class="<?php echo esc_attr( get_theme_mod( 'wpb_container_width', 'container' ) ); ?>">
-        <main id="primary" class="site-main col-12">
+    <div class="<?php echo esc_attr( get_theme_mod( 'wpwisebones_container_width', 'container' ) ); ?>">
+        <main id="main" tabindex="-1" class="site-main col-12">
             <?php while ( have_posts() ) : the_post(); ?>
                 <?php get_template_part( 'template-parts/content/content', 'page' ); ?>
             <?php endwhile; ?>

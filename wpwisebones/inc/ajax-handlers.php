@@ -7,11 +7,11 @@ defined( 'ABSPATH' ) || exit;
 
 /* â”€â”€ Load More posts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-add_action( 'wp_ajax_wpb_load_more',        'wpb_ajax_load_more' );
-add_action( 'wp_ajax_nopriv_wpb_load_more', 'wpb_ajax_load_more' );
+add_action( 'wp_ajax_wpwisebones_load_more',        'wpwisebones_ajax_load_more' );
+add_action( 'wp_ajax_nopriv_wpwisebones_load_more', 'wpwisebones_ajax_load_more' );
 
-function wpb_ajax_load_more() {
-    check_ajax_referer( 'wpb_nonce', 'nonce' );
+function wpwisebones_ajax_load_more() {
+    check_ajax_referer( 'wpwisebones_nonce', 'nonce' );
 
     $page        = max( 1, absint( $_POST['page'] ?? 2 ) );
     $query_vars  = [];
@@ -54,11 +54,11 @@ function wpb_ajax_load_more() {
 
 /* â”€â”€ Live search (optional) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-add_action( 'wp_ajax_wpb_live_search',        'wpb_ajax_live_search' );
-add_action( 'wp_ajax_nopriv_wpb_live_search', 'wpb_ajax_live_search' );
+add_action( 'wp_ajax_wpwisebones_live_search',        'wpwisebones_ajax_live_search' );
+add_action( 'wp_ajax_nopriv_wpwisebones_live_search', 'wpwisebones_ajax_live_search' );
 
-function wpb_ajax_live_search() {
-    check_ajax_referer( 'wpb_nonce', 'nonce' );
+function wpwisebones_ajax_live_search() {
+    check_ajax_referer( 'wpwisebones_nonce', 'nonce' );
 
     $term = sanitize_text_field( wp_unslash( $_POST['term'] ?? '' ) );
     if ( strlen( $term ) < 2 ) {

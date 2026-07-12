@@ -6,19 +6,19 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPB_VERSION',   '1.0.4' );
-define( 'WPB_DIR',       get_template_directory() );
-define( 'WPB_URI',       get_template_directory_uri() );
-define( 'WPB_INC',       WPB_DIR . '/inc/' );
+define( 'WPWISEBONES_VERSION',   '1.0.5' );
+define( 'WPWISEBONES_DIR',       get_template_directory() );
+define( 'WPWISEBONES_URI',       get_template_directory_uri() );
+define( 'WPWISEBONES_INC',       WPWISEBONES_DIR . '/inc/' );
 
 // Theme URL constants — used in admin pages and notices
-define( 'WPB_AUTHOR_URL',  'https://wprealwise.com' );
-define( 'WPB_THEME_URL',   'https://wprealwise.com/wpwisebones' );
-define( 'WPB_DOCS_URL',    'https://wprealwise.com/docs' );
-define( 'WPB_SUPPORT_URL', 'https://wprealwise.com/support' );
+define( 'WPWISEBONES_AUTHOR_URL',  'https://wprealwise.com' );
+define( 'WPWISEBONES_THEME_URL',   'https://wprealwise.com/wpwisebones' );
+define( 'WPWISEBONES_DOCS_URL',    'https://wprealwise.com/docs' );
+define( 'WPWISEBONES_SUPPORT_URL', 'https://wprealwise.com/support' );
 
 /* â”€â”€ Autoload â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-$wpb_includes = [
+$wpwisebones_includes = [
     'setup.php',
     'enqueue.php',
     'nav-menus.php',
@@ -39,8 +39,8 @@ $wpb_includes = [
     'demo-importer.php',
 ];
 
-foreach ( $wpb_includes as $file ) {
-    $path = WPB_INC . $file;
+foreach ( $wpwisebones_includes as $file ) {
+    $path = WPWISEBONES_INC . $file;
     if ( file_exists( $path ) ) {
         require_once $path;
     }

@@ -15,22 +15,22 @@ defined( 'ABSPATH' ) || exit;
 
 /* ── Constants ───────────────────────────────────────────────── */
 
-define( 'WPB_COMPANION_SLUG',    'wisebones-shortcodes/wisebones-shortcodes.php' );
-define( 'WPB_COMPANION_VERSION', '1.0.2' );
-define( 'WPB_COMPANION_URL',     WPB_THEME_URL . '#shortcodes' );
+define( 'WPWISEBONES_COMPANION_SLUG',    'wisebones-shortcodes/wisebones-shortcodes.php' );
+define( 'WPWISEBONES_COMPANION_VERSION', '1.0.2' );
+define( 'WPWISEBONES_COMPANION_URL',     WPWISEBONES_THEME_URL . '#shortcodes' );
 
 /* ── Helper: is companion plugin active? ────────────────────── */
 
-function wpb_companion_active(): bool {
+function wpwisebones_companion_active(): bool {
     return defined( 'WPBS_VERSION' );
 }
 
 /* ── Admin notice when companion plugin is not installed ──────── */
 
-add_action( 'admin_notices', 'wpb_companion_notice' );
+add_action( 'admin_notices', 'wpwisebones_companion_notice' );
 
-function wpb_companion_notice() {
-    if ( wpb_companion_active() ) {
+function wpwisebones_companion_notice() {
+    if ( wpwisebones_companion_active() ) {
         return;
     }
 
@@ -40,14 +40,14 @@ function wpb_companion_notice() {
     }
 
     // Respect dismissal (stored per-user)
-    $dismissed = get_user_meta( get_current_user_id(), 'wpb_companion_dismissed', true );
+    $dismissed = get_user_meta( get_current_user_id(), 'wpwisebones_companion_dismissed', true );
     if ( $dismissed ) {
         return;
     }
 
     // Only show on theme/plugin admin screens, not everywhere
     $screen = get_current_screen();
-    $show_on = [ 'dashboard', 'themes', 'plugins', 'appearance_page_wpb-theme-options' ];
+    $show_on = [ 'plugins' ];
     if ( ! $screen || ! in_array( $screen->id, $show_on, true ) ) {
         return;
     }
@@ -58,8 +58,8 @@ function wpb_companion_notice() {
     );
 
     $dismiss_url = wp_nonce_url(
-        admin_url( 'admin-post.php?action=wpb_dismiss_companion_notice' ),
-        'wpb_dismiss_companion'
+        admin_url( 'admin-post.php?action=wpwisebones_dismiss_companion_notice' ),
+        'wpwisebones_dismiss_companion'
     );
 
     ?>
@@ -75,7 +75,7 @@ function wpb_companion_notice() {
                 <a href="<?php echo esc_url( $install_url ); ?>" class="button button-primary">
                     &#8659; <?php esc_html_e( 'Install Plugin', 'wpwisebones' ); ?>
                 </a>
-                <a href="<?php echo esc_url( WPB_COMPANION_URL ); ?>" class="button" target="_blank" rel="noopener noreferrer">
+                <a href="<?php echo esc_url( WPWISEBONES_COMPANION_URL ); ?>" class="button" target="_blank" rel="noopener noreferrer">
                     <?php esc_html_e( 'Learn More', 'wpwisebones' ); ?>
                 </a>
                 <a href="<?php echo esc_url( $dismiss_url ); ?>" class="button button-link" style="color:#646970">
@@ -89,63 +89,14 @@ function wpb_companion_notice() {
 
 /* ── Handle notice dismissal ────────────────────────────────── */
 
-add_action( 'admin_post_wpb_dismiss_companion_notice', 'wpb_handle_companion_dismiss' );
+add_action( 'admin_post_wpwisebones_dismiss_companion_notice', 'wpwisebones_handle_companion_dismiss' );
 
-function wpb_handle_companion_dismiss() {
-    check_admin_referer( 'wpb_dismiss_companion' );
+function wpwisebones_handle_companion_dismiss() {
+    check_admin_referer( 'wpwisebones_dismiss_companion' );
     if ( current_user_can( 'install_plugins' ) ) {
-        update_user_meta( get_current_user_id(), 'wpb_companion_dismissed', true );
+        update_user_meta( get_current_user_id(), 'wpwisebones_companion_dismissed', true );
     }
     wp_safe_redirect( wp_get_referer() ?: admin_url() );
     exit;
 }
 
-/* ── Show companion status in admin bar (for admins) ─────────── */
-
-add_action( 'admin_bar_menu', 'wpb_admin_bar_companion_status', 100 );
-
-function wpb_admin_bar_companion_status( WP_Admin_Bar $bar ) {
-    if ( ! is_admin_bar_showing() || ! current_user_can( 'manage_options' ) ) {
-        return;
-    }
-
-    $bar->add_node( [
-        'id'     => 'wpb-theme',
-        'title'  => '&#9889; WPWiseBones',
-        'href'   => admin_url( 'themes.php?page=wpb-theme-options' ),
-        'meta'   => [ 'title' => __( 'WPWiseBones Theme Options', 'wpwisebones' ) ],
-    ] );
-
-    $bar->add_node( [
-        'parent' => 'wpb-theme',
-        'id'     => 'wpb-theme-options',
-        'title'  => __( 'Theme Options', 'wpwisebones' ),
-        'href'   => admin_url( 'themes.php?page=wpb-theme-options' ),
-    ] );
-
-    $bar->add_node( [
-        'parent' => 'wpb-theme',
-        'id'     => 'wpb-customizer',
-        'title'  => __( 'Customizer', 'wpwisebones' ),
-        'href'   => wp_customize_url(),
-    ] );
-
-    if ( wpb_companion_active() ) {
-        $bar->add_node( [
-            'parent' => 'wpb-theme',
-            'id'     => 'wpb-shortcodes',
-            'title'  => '&#10003; ' . __( 'Shortcodes Active', 'wpwisebones' ),
-            'href'   => admin_url( 'plugins.php?page=wisebones-shortcodes' ),
-        ] );
-    } else {
-        $bar->add_node( [
-            'parent' => 'wpb-theme',
-            'id'     => 'wpb-shortcodes',
-            'title'  => '&#43; ' . __( 'Install Shortcodes Plugin', 'wpwisebones' ),
-            'href'   => wp_nonce_url(
-                admin_url( 'update.php?action=install-plugin&plugin=wisebones-shortcodes' ),
-                'install-plugin_wisebones-shortcodes'
-            ),
-        ] );
-    }
-}

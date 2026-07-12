@@ -5,9 +5,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_action( 'widgets_init', 'wpb_widgets_init' );
+add_action( 'widgets_init', 'wpwisebones_widgets_init' );
 
-function wpb_widgets_init() {
+function wpwisebones_widgets_init() {
     $defaults = [
         'before_widget' => '<div id="%1$s" class="widget %2$s mb-4">',
         'after_widget'  => '</div>',
@@ -62,7 +62,7 @@ function wpb_widgets_init() {
     ] ) );
 
     // Register custom widgets
-    register_widget( 'WPB_Widget_Recent_Posts' );
-    register_widget( 'WPB_Widget_Social_Links' );
-    register_widget( 'WPB_Widget_CTA_Banner' );
+    register_widget( 'WPWISEBONES_Widget_Recent_Posts' );
+    register_widget( 'WPWISEBONES_Widget_Social_Links' );
+    register_widget( 'WPWISEBONES_Widget_CTA_Banner' );
 }

@@ -4,35 +4,35 @@
  *
  * Appearance → Demo Content
  * One-click install / reset of showcase content.
- * All demo items are tagged _wpb_demo=1 for clean removal.
+ * All demo items are tagged _wpwisebones_demo=1 for clean removal.
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /* ── Admin menu ─────────────────────────────────────────────── */
 
-add_action( 'admin_menu', 'wpb_demo_admin_menu' );
-function wpb_demo_admin_menu() {
+add_action( 'admin_menu', 'wpwisebones_demo_admin_menu' );
+function wpwisebones_demo_admin_menu() {
     add_theme_page(
         __( 'Demo Content', 'wpwisebones' ),
         __( 'Demo Content', 'wpwisebones' ),
         'manage_options',
         'wpb-demo-importer',
-        'wpb_demo_page'
+        'wpwisebones_demo_page'
     );
 }
 
 /* ── Admin page UI ──────────────────────────────────────────── */
 
-function wpb_demo_page() {
-    $installed = (bool) get_option( 'wpb_demo_installed' );
+function wpwisebones_demo_page() {
+    $installed = (bool) get_option( 'wpwisebones_demo_installed' );
     $notices   = [];
 
-    if ( isset( $_POST['wpb_demo_action'] ) && check_admin_referer( 'wpb_demo_action_nonce' ) ) {
-        $action = sanitize_key( $_POST['wpb_demo_action'] );
+    if ( isset( $_POST['wpwisebones_demo_action'] ) && check_admin_referer( 'wpwisebones_demo_action_nonce' ) ) {
+        $action = sanitize_key( $_POST['wpwisebones_demo_action'] );
 
         if ( 'install' === $action ) {
-            $result = wpb_demo_install();
+            $result = wpwisebones_demo_install();
             if ( is_wp_error( $result ) ) {
                 $notices[] = [ 'error', $result->get_error_message() ];
             } else {
@@ -40,7 +40,7 @@ function wpb_demo_page() {
                 $installed  = true;
             }
         } elseif ( 'reset' === $action ) {
-            wpb_demo_reset();
+            wpwisebones_demo_reset();
             $notices[] = [ 'success', __( 'Demo content removed. Your site is clean again.', 'wpwisebones' ) ];
             $installed  = false;
         }
@@ -92,8 +92,8 @@ function wpb_demo_page() {
 
                 <?php if ( ! $installed ) : ?>
                 <form method="post">
-                    <?php wp_nonce_field( 'wpb_demo_action_nonce' ); ?>
-                    <input type="hidden" name="wpb_demo_action" value="install">
+                    <?php wp_nonce_field( 'wpwisebones_demo_action_nonce' ); ?>
+                    <input type="hidden" name="wpwisebones_demo_action" value="install">
                     <button type="submit" class="button button-primary button-hero" style="width:100%">
                         &#8659; <?php esc_html_e( 'Install Demo Content', 'wpwisebones' ); ?>
                     </button>
@@ -110,8 +110,8 @@ function wpb_demo_page() {
                 </a>
                 <hr>
                 <form method="post" onsubmit="return confirm('<?php echo esc_js( __( 'Remove all demo content? This cannot be undone.', 'wpwisebones' ) ); ?>')">
-                    <?php wp_nonce_field( 'wpb_demo_action_nonce' ); ?>
-                    <input type="hidden" name="wpb_demo_action" value="reset">
+                    <?php wp_nonce_field( 'wpwisebones_demo_action_nonce' ); ?>
+                    <input type="hidden" name="wpwisebones_demo_action" value="reset">
                     <button type="submit" class="button" style="width:100%;color:#d63638;border-color:#d63638">
                         &#128465; <?php esc_html_e( 'Remove Demo Content', 'wpwisebones' ); ?>
                     </button>
@@ -133,22 +133,22 @@ function wpb_demo_page() {
    INSTALL
    ═══════════════════════════════════════════════════════════════ */
 
-function wpb_demo_install() {
+function wpwisebones_demo_install() {
     // Create placeholder images (GD)
-    $image_ids = wpb_demo_create_images();
+    $image_ids = wpwisebones_demo_create_images();
 
     // Create taxonomy
-    $cat_id = wpb_demo_create_category();
+    $cat_id = wpwisebones_demo_create_category();
 
     // Create pages + posts
-    $home_id    = wpb_demo_create_home_page( $image_ids );
-    $about_id   = wpb_demo_create_about_page( $image_ids );
-    $blog_id    = wpb_demo_create_blog_page();
-    $contact_id = wpb_demo_create_contact_page();
-    wpb_demo_create_posts( $cat_id, $image_ids );
+    $home_id    = wpwisebones_demo_create_home_page( $image_ids );
+    $about_id   = wpwisebones_demo_create_about_page( $image_ids );
+    $blog_id    = wpwisebones_demo_create_blog_page();
+    $contact_id = wpwisebones_demo_create_contact_page();
+    wpwisebones_demo_create_posts( $cat_id, $image_ids );
 
     // Navigation
-    wpb_demo_create_menu( $home_id, $about_id, $blog_id, $contact_id );
+    wpwisebones_demo_create_menu( $home_id, $about_id, $blog_id, $contact_id );
 
     // Reading settings (static front page)
     update_option( 'show_on_front', 'page' );
@@ -156,18 +156,18 @@ function wpb_demo_install() {
     update_option( 'page_for_posts', $blog_id );
 
     // Customizer settings
-    wpb_demo_set_customizer();
+    wpwisebones_demo_set_customizer();
 
     // Widgets
-    wpb_demo_setup_widgets();
+    wpwisebones_demo_setup_widgets();
 
-    update_option( 'wpb_demo_installed', 1 );
+    update_option( 'wpwisebones_demo_installed', 1 );
     return true;
 }
 
 /* ── Placeholder images via GD ──────────────────────────────── */
 
-function wpb_demo_create_images(): array {
+function wpwisebones_demo_create_images(): array {
     $upload  = wp_upload_dir();
     $ids     = [];
     $colours = [
@@ -223,7 +223,7 @@ function wpb_demo_create_images(): array {
             'post_title'     => 'WPWiseBones Demo Image ' . ( $i + 1 ),
             'post_status'    => 'inherit',
             'post_mime_type' => 'image/jpeg',
-            'meta_input'     => [ '_wpb_demo' => 1 ],
+            'meta_input'     => [ '_wpwisebones_demo' => 1 ],
         ], $filepath );
 
         if ( ! is_wp_error( $attach_id ) ) {
@@ -238,7 +238,7 @@ function wpb_demo_create_images(): array {
 
 /* ── Category ────────────────────────────────────────────────── */
 
-function wpb_demo_create_category(): int {
+function wpwisebones_demo_create_category(): int {
     $existing = get_term_by( 'slug', 'wpb-demo', 'category' );
     if ( $existing ) {
         return (int) $existing->term_id;
@@ -249,15 +249,15 @@ function wpb_demo_create_category(): int {
 
 /* ── Home page ───────────────────────────────────────────────── */
 
-function wpb_demo_create_home_page( array $image_ids ): int {
+function wpwisebones_demo_create_home_page( array $image_ids ): int {
     $has_sc = defined( 'WPBS_VERSION' );
 
     if ( $has_sc ) {
         $content = '
 <!-- wp:html -->
-[wpb_cta heading="Build Beautiful WordPress Sites Faster" btn_text="Get Started" btn_url="/about" btn_style="light" btn2_text="Learn More" btn2_url="/blog"]
+[wpwisebones_cta heading="Build Beautiful WordPress Sites Faster" btn_text="Get Started" btn_url="/about" btn_style="light" btn2_text="Learn More" btn2_url="/blog"]
 Welcome to WPWiseBones — a production-ready Bootstrap 5 starter theme packed with every feature you need.
-[/wpb_cta]
+[/wpwisebones_cta]
 <!-- /wp:html -->
 
 <!-- wp:heading {"textAlign":"center","level":2} -->
@@ -265,11 +265,11 @@ Welcome to WPWiseBones — a production-ready Bootstrap 5 starter theme packed w
 <!-- /wp:heading -->
 
 <!-- wp:html -->
-[wpb_row gutter="4"]
-[wpb_col size="4"][wpb_icon_box icon="bi-lightning-charge-fill" title="Lightning Fast" style="card"]Built on Bootstrap 5.3 — the world\'s most popular CSS framework. No bloat, no compromises.[/wpb_icon_box][/wpb_col]
-[wpb_col size="4"][wpb_icon_box icon="bi-palette-fill" title="Fully Customisable" style="card"]Change colours, fonts, layout, and hero content live with the WordPress Customizer.[/wpb_icon_box][/wpb_col]
-[wpb_col size="4"][wpb_icon_box icon="bi-phone-fill" title="Mobile-First" style="card"]Pixel-perfect on every device. Built with Bootstrap\'s responsive grid from the ground up.[/wpb_icon_box][/wpb_col]
-[/wpb_row]
+[wpwisebones_row gutter="4"]
+[wpwisebones_col size="4"][wpwisebones_icon_box icon="bi-lightning-charge-fill" title="Lightning Fast" style="card"]Built on Bootstrap 5.3 — the world\'s most popular CSS framework. No bloat, no compromises.[/wpwisebones_icon_box][/wpwisebones_col]
+[wpwisebones_col size="4"][wpwisebones_icon_box icon="bi-palette-fill" title="Fully Customisable" style="card"]Change colours, fonts, layout, and hero content live with the WordPress Customizer.[/wpwisebones_icon_box][/wpwisebones_col]
+[wpwisebones_col size="4"][wpwisebones_icon_box icon="bi-phone-fill" title="Mobile-First" style="card"]Pixel-perfect on every device. Built with Bootstrap\'s responsive grid from the ground up.[/wpwisebones_icon_box][/wpwisebones_col]
+[/wpwisebones_row]
 <!-- /wp:html -->
 
 <!-- wp:heading {"textAlign":"center","level":2} -->
@@ -277,26 +277,26 @@ Welcome to WPWiseBones — a production-ready Bootstrap 5 starter theme packed w
 <!-- /wp:heading -->
 
 <!-- wp:html -->
-[wpb_tabs style="pills"]
-[wpb_tab title="Alerts" icon="bi-bell" active="true"]
-[wpb_alert type="success"]This is a <strong>success</strong> alert — great for confirmations and good news.[/wpb_alert]
-[wpb_alert type="warning"]This is a <strong>warning</strong> alert — use it to flag important information.[/wpb_alert]
-[wpb_alert type="danger" dismissible="true"]This is a <strong>dismissible</strong> danger alert. Click × to close.[/wpb_alert]
-[/wpb_tab]
-[wpb_tab title="Cards" icon="bi-card-text"]
-[wpb_row gutter="3"]
-[wpb_col size="4"][wpb_card title="Feature Card" btn_text="Learn More" btn_url="#"]Cards are a flexible Bootstrap component for displaying grouped content.[/wpb_card][/wpb_col]
-[wpb_col size="4"][wpb_card title="Another Card" btn_text="Read More" btn_url="#"]Add any content here — text, images, links, or even nested shortcodes.[/wpb_card][/wpb_col]
-[wpb_col size="4"][wpb_card title="Third Card" btn_text="View" btn_url="#"]Cards automatically equalise their height in a grid row — fully responsive.[/wpb_card][/wpb_col]
-[/wpb_row]
-[/wpb_tab]
-[wpb_tab title="Progress" icon="bi-bar-chart"]
-[wpb_progress label="HTML &amp; CSS" value="95" color="primary"]
-[wpb_progress label="Bootstrap 5" value="90" color="success"]
-[wpb_progress label="WordPress" value="85" color="info"]
-[wpb_progress label="WooCommerce" value="75" color="warning"]
-[/wpb_tab]
-[/wpb_tabs]
+[wpwisebones_tabs style="pills"]
+[wpwisebones_tab title="Alerts" icon="bi-bell" active="true"]
+[wpwisebones_alert type="success"]This is a <strong>success</strong> alert — great for confirmations and good news.[/wpwisebones_alert]
+[wpwisebones_alert type="warning"]This is a <strong>warning</strong> alert — use it to flag important information.[/wpwisebones_alert]
+[wpwisebones_alert type="danger" dismissible="true"]This is a <strong>dismissible</strong> danger alert. Click × to close.[/wpwisebones_alert]
+[/wpwisebones_tab]
+[wpwisebones_tab title="Cards" icon="bi-card-text"]
+[wpwisebones_row gutter="3"]
+[wpwisebones_col size="4"][wpwisebones_card title="Feature Card" btn_text="Learn More" btn_url="#"]Cards are a flexible Bootstrap component for displaying grouped content.[/wpwisebones_card][/wpwisebones_col]
+[wpwisebones_col size="4"][wpwisebones_card title="Another Card" btn_text="Read More" btn_url="#"]Add any content here — text, images, links, or even nested shortcodes.[/wpwisebones_card][/wpwisebones_col]
+[wpwisebones_col size="4"][wpwisebones_card title="Third Card" btn_text="View" btn_url="#"]Cards automatically equalise their height in a grid row — fully responsive.[/wpwisebones_card][/wpwisebones_col]
+[/wpwisebones_row]
+[/wpwisebones_tab]
+[wpwisebones_tab title="Progress" icon="bi-bar-chart"]
+[wpwisebones_progress label="HTML &amp; CSS" value="95" color="primary"]
+[wpwisebones_progress label="Bootstrap 5" value="90" color="success"]
+[wpwisebones_progress label="WordPress" value="85" color="info"]
+[wpwisebones_progress label="WooCommerce" value="75" color="warning"]
+[/wpwisebones_tab]
+[/wpwisebones_tabs]
 <!-- /wp:html -->
 
 <!-- wp:heading {"textAlign":"center","level":2} -->
@@ -304,27 +304,27 @@ Welcome to WPWiseBones — a production-ready Bootstrap 5 starter theme packed w
 <!-- /wp:heading -->
 
 <!-- wp:html -->
-[wpb_accordion]
-[wpb_accordion_item title="What is WPWiseBones?" open="true"]WPWiseBones is a production-ready Bootstrap 5 WordPress starter theme packed with shortcodes, widgets, an admin options panel, WooCommerce support, and more.[/wpb_accordion_item]
-[wpb_accordion_item title="Do I need to know code to use this theme?"]No! The Customizer lets you change colours, fonts, hero content, and layout without touching any code.[/wpb_accordion_item]
-[wpb_accordion_item title="Is it WooCommerce compatible?"]Yes. WPWiseBones includes a full WooCommerce compatibility layer with Bootstrap-styled product grids, cart, and checkout.[/wpb_accordion_item]
-[wpb_accordion_item title="Is it free?"]Yes — WPWiseBones is released under the GNU GPL v2 or later and is completely free to use.[/wpb_accordion_item]
-[/wpb_accordion]
+[wpwisebones_accordion]
+[wpwisebones_accordion_item title="What is WPWiseBones?" open="true"]WPWiseBones is a production-ready Bootstrap 5 WordPress starter theme packed with shortcodes, widgets, an admin options panel, WooCommerce support, and more.[/wpwisebones_accordion_item]
+[wpwisebones_accordion_item title="Do I need to know code to use this theme?"]No! The Customizer lets you change colours, fonts, hero content, and layout without touching any code.[/wpwisebones_accordion_item]
+[wpwisebones_accordion_item title="Is it WooCommerce compatible?"]Yes. WPWiseBones includes a full WooCommerce compatibility layer with Bootstrap-styled product grids, cart, and checkout.[/wpwisebones_accordion_item]
+[wpwisebones_accordion_item title="Is it free?"]Yes — WPWiseBones is released under the GNU GPL v2 or later and is completely free to use.[/wpwisebones_accordion_item]
+[/wpwisebones_accordion]
 <!-- /wp:html -->
 
 <!-- wp:html -->
-[wpb_row gutter="4"]
-[wpb_col size="6"]
-[wpb_testimonial author="Sarah Johnson" role="Web Developer" stars="5"]WPWiseBones saved me weeks of work. The Bootstrap 5 integration is seamless and the shortcodes are incredibly versatile.[/wpb_testimonial]
-[/wpb_col]
-[wpb_col size="6"]
-[wpb_testimonial author="Mike Torres" role="Agency Owner" stars="5"]The best WordPress starter theme I\'ve used. The admin options panel is comprehensive and the code quality is excellent.[/wpb_testimonial]
-[/wpb_col]
-[/wpb_row]
+[wpwisebones_row gutter="4"]
+[wpwisebones_col size="6"]
+[wpwisebones_testimonial author="Sarah Johnson" role="Web Developer" stars="5"]WPWiseBones saved me weeks of work. The Bootstrap 5 integration is seamless and the shortcodes are incredibly versatile.[/wpwisebones_testimonial]
+[/wpwisebones_col]
+[wpwisebones_col size="6"]
+[wpwisebones_testimonial author="Mike Torres" role="Agency Owner" stars="5"]The best WordPress starter theme I\'ve used. The admin options panel is comprehensive and the code quality is excellent.[/wpwisebones_testimonial]
+[/wpwisebones_col]
+[/wpwisebones_row]
 
-[wpb_cta heading="Ready to Build Something Amazing?" btn_text="View Theme Options" btn_url="/wp-admin/themes.php?page=wpb-theme-options" btn_style="primary" btn2_text="Customise Now" btn2_url="/wp-admin/customize.php"]
+[wpwisebones_cta heading="Ready to Build Something Amazing?" btn_text="View Theme Options" btn_url="/wp-admin/themes.php?page=wpwisebones-theme-options" btn_style="primary" btn2_text="Customise Now" btn2_url="/wp-admin/customize.php"]
 WPWiseBones gives you everything you need right out of the box.
-[/wpb_cta]
+[/wpwisebones_cta]
 <!-- /wp:html -->
 ';
     } else {
@@ -378,7 +378,7 @@ WPWiseBones gives you everything you need right out of the box.
         'post_content' => $content,
         'post_status'  => 'publish',
         'post_type'    => 'page',
-        'meta_input'   => [ '_wpb_demo' => 1 ],
+        'meta_input'   => [ '_wpwisebones_demo' => 1 ],
     ] );
 
     if ( ! is_wp_error( $page_id ) && ! empty( $image_ids[0] ) ) {
@@ -390,11 +390,11 @@ WPWiseBones gives you everything you need right out of the box.
 
 /* ── About page ─────────────────────────────────────────────── */
 
-function wpb_demo_create_about_page( array $image_ids ): int {
+function wpwisebones_demo_create_about_page( array $image_ids ): int {
     $has_sc = defined( 'WPBS_VERSION' );
 
     $badges = $has_sc
-        ? '[wpb_badge color="primary" pill="true"]Bootstrap 5[/wpb_badge] [wpb_badge color="success" pill="true"]WooCommerce[/wpb_badge] [wpb_badge color="info" pill="true"]GPL Free[/wpb_badge] [wpb_badge color="secondary" pill="true"]PHP 8+[/wpb_badge]'
+        ? '[wpwisebones_badge color="primary" pill="true"]Bootstrap 5[/wpwisebones_badge] [wpwisebones_badge color="success" pill="true"]WooCommerce[/wpwisebones_badge] [wpwisebones_badge color="info" pill="true"]GPL Free[/wpwisebones_badge] [wpwisebones_badge color="secondary" pill="true"]PHP 8+[/wpwisebones_badge]'
         : '<span class="badge bg-primary rounded-pill">Bootstrap 5</span> <span class="badge bg-success rounded-pill">WooCommerce</span> <span class="badge bg-info rounded-pill">GPL Free</span>';
 
     $content = '
@@ -462,7 +462,7 @@ function wpb_demo_create_about_page( array $image_ids ): int {
         'post_content' => $content,
         'post_status'  => 'publish',
         'post_type'    => 'page',
-        'meta_input'   => [ '_wpb_demo' => 1 ],
+        'meta_input'   => [ '_wpwisebones_demo' => 1 ],
     ] );
 
     if ( ! is_wp_error( $page_id ) && ! empty( $image_ids[1] ) ) {
@@ -474,14 +474,14 @@ function wpb_demo_create_about_page( array $image_ids ): int {
 
 /* ── Blog page ───────────────────────────────────────────────── */
 
-function wpb_demo_create_blog_page(): int {
+function wpwisebones_demo_create_blog_page(): int {
     $page_id = wp_insert_post( [
         'post_title'   => 'Blog',
         'post_name'    => 'blog',
         'post_content' => '',
         'post_status'  => 'publish',
         'post_type'    => 'page',
-        'meta_input'   => [ '_wpb_demo' => 1 ],
+        'meta_input'   => [ '_wpwisebones_demo' => 1 ],
     ] );
 
     return is_wp_error( $page_id ) ? 0 : $page_id;
@@ -489,10 +489,10 @@ function wpb_demo_create_blog_page(): int {
 
 /* ── Contact page ────────────────────────────────────────────── */
 
-function wpb_demo_create_contact_page(): int {
+function wpwisebones_demo_create_contact_page(): int {
     $has_sc  = defined( 'WPBS_VERSION' );
     $contact = $has_sc
-        ? '[wpb_contact_info phone="+1 (555) 012-3456" email="hello@wprealwise.com" address="123 Main Street, New York, NY 10001" hours="Mon–Fri 9am–5pm EST"]'
+        ? '[wpwisebones_contact_info phone="+1 (555) 012-3456" email="hello@wprealwise.com" address="123 Main Street, New York, NY 10001" hours="Mon–Fri 9am–5pm EST"]'
         : '<ul class="list-unstyled"><li><i class="bi bi-telephone me-2"></i>+1 (555) 012-3456</li><li><i class="bi bi-envelope me-2"></i>hello@wprealwise.com</li><li><i class="bi bi-geo-alt me-2"></i>123 Main Street, New York, NY 10001</li></ul>';
 
     $content = '
@@ -557,7 +557,7 @@ function wpb_demo_create_contact_page(): int {
         'post_content' => $content,
         'post_status'  => 'publish',
         'post_type'    => 'page',
-        'meta_input'   => [ '_wpb_demo' => 1 ],
+        'meta_input'   => [ '_wpwisebones_demo' => 1 ],
     ] );
 
     return is_wp_error( $page_id ) ? 0 : $page_id;
@@ -565,7 +565,7 @@ function wpb_demo_create_contact_page(): int {
 
 /* ── Sample posts ────────────────────────────────────────────── */
 
-function wpb_demo_create_posts( int $cat_id, array $image_ids ): void {
+function wpwisebones_demo_create_posts( int $cat_id, array $image_ids ): void {
     $posts = [
         [
             'title'   => 'Getting Started with WPWiseBones',
@@ -589,7 +589,7 @@ function wpb_demo_create_posts( int $cat_id, array $image_ids ): void {
             'title'   => 'The 17 Bootstrap Shortcodes — Full Reference',
             'excerpt' => 'A complete guide to every shortcode included in the WiseBones Shortcodes companion plugin.',
             'img_idx' => 5,
-            'content' => '<!-- wp:paragraph --><p>The WiseBones Shortcodes companion plugin adds 17 Bootstrap 5 shortcodes to your WordPress site. Per WordPress.org guidelines, shortcodes live in a plugin rather than the theme — which means they work with any theme, not just WPWiseBones.</p><!-- /wp:paragraph --><!-- wp:heading {"level":3} --><h3>Content Shortcodes</h3><!-- /wp:heading --><!-- wp:list --><ul><li><code>[wpb_alert]</code> — Dismissible Bootstrap alert in success, danger, warning, or info style</li><li><code>[wpb_card]</code> — Bootstrap card with image, title, body, and optional button</li><li><code>[wpb_badge]</code> — Inline Bootstrap badge or pill label</li><li><code>[wpb_divider]</code> — Styled horizontal rule with optional centred text</li></ul><!-- /wp:list --><!-- wp:heading {"level":3} --><h3>Layout Shortcodes</h3><!-- /wp:heading --><!-- wp:list --><ul><li><code>[wpb_row]</code> / <code>[wpb_col]</code> — Full 12-column Bootstrap responsive grid</li><li><code>[wpb_tabs]</code> / <code>[wpb_tab]</code> — Tabbed content (tabs, pills, or underline style)</li><li><code>[wpb_accordion]</code> / <code>[wpb_accordion_item]</code> — Collapsible FAQ accordion</li><li><code>[wpb_modal]</code> — Bootstrap modal popup with trigger button</li></ul><!-- /wp:list --><!-- wp:heading {"level":3} --><h3>Marketing Shortcodes</h3><!-- /wp:heading --><!-- wp:list --><ul><li><code>[wpb_cta]</code> — Call-to-action banner with gradient background and dual buttons</li><li><code>[wpb_icon_box]</code> — Icon + heading + text feature box using Bootstrap Icons</li><li><code>[wpb_testimonial]</code> — Star-rated testimonial with author, role, and optional avatar</li><li><code>[wpb_countdown]</code> — Live JavaScript countdown timer to any date</li><li><code>[wpb_progress]</code> — Animated progress bar with label and colour variant</li><li><code>[wpb_posts]</code> — Bootstrap card grid of posts from a custom WP_Query</li><li><code>[wpb_map]</code> — Responsive iframe map embed</li><li><code>[wpb_contact_info]</code> — Contact info list with Bootstrap Icons</li></ul><!-- /wp:list -->',
+            'content' => '<!-- wp:paragraph --><p>The WiseBones Shortcodes companion plugin adds 17 Bootstrap 5 shortcodes to your WordPress site. Per WordPress.org guidelines, shortcodes live in a plugin rather than the theme — which means they work with any theme, not just WPWiseBones.</p><!-- /wp:paragraph --><!-- wp:heading {"level":3} --><h3>Content Shortcodes</h3><!-- /wp:heading --><!-- wp:list --><ul><li><code>[wpwisebones_alert]</code> — Dismissible Bootstrap alert in success, danger, warning, or info style</li><li><code>[wpwisebones_card]</code> — Bootstrap card with image, title, body, and optional button</li><li><code>[wpwisebones_badge]</code> — Inline Bootstrap badge or pill label</li><li><code>[wpwisebones_divider]</code> — Styled horizontal rule with optional centred text</li></ul><!-- /wp:list --><!-- wp:heading {"level":3} --><h3>Layout Shortcodes</h3><!-- /wp:heading --><!-- wp:list --><ul><li><code>[wpwisebones_row]</code> / <code>[wpwisebones_col]</code> — Full 12-column Bootstrap responsive grid</li><li><code>[wpwisebones_tabs]</code> / <code>[wpwisebones_tab]</code> — Tabbed content (tabs, pills, or underline style)</li><li><code>[wpwisebones_accordion]</code> / <code>[wpwisebones_accordion_item]</code> — Collapsible FAQ accordion</li><li><code>[wpwisebones_modal]</code> — Bootstrap modal popup with trigger button</li></ul><!-- /wp:list --><!-- wp:heading {"level":3} --><h3>Marketing Shortcodes</h3><!-- /wp:heading --><!-- wp:list --><ul><li><code>[wpwisebones_cta]</code> — Call-to-action banner with gradient background and dual buttons</li><li><code>[wpwisebones_icon_box]</code> — Icon + heading + text feature box using Bootstrap Icons</li><li><code>[wpwisebones_testimonial]</code> — Star-rated testimonial with author, role, and optional avatar</li><li><code>[wpwisebones_countdown]</code> — Live JavaScript countdown timer to any date</li><li><code>[wpwisebones_progress]</code> — Animated progress bar with label and colour variant</li><li><code>[wpwisebones_posts]</code> — Bootstrap card grid of posts from a custom WP_Query</li><li><code>[wpwisebones_map]</code> — Responsive iframe map embed</li><li><code>[wpwisebones_contact_info]</code> — Contact info list with Bootstrap Icons</li></ul><!-- /wp:list -->',
         ],
         [
             'title'   => 'Admin Options — 24 Settings Explained',
@@ -613,7 +613,7 @@ function wpb_demo_create_posts( int $cat_id, array $image_ids ): void {
             'post_status'   => 'publish',
             'post_type'     => 'post',
             'post_category' => [ $cat_id ],
-            'meta_input'    => [ '_wpb_demo' => 1 ],
+            'meta_input'    => [ '_wpwisebones_demo' => 1 ],
         ] );
 
         if ( ! is_wp_error( $post_id ) && ! empty( $image_ids[ $data['img_idx'] ] ) ) {
@@ -624,7 +624,7 @@ function wpb_demo_create_posts( int $cat_id, array $image_ids ): void {
 
 /* ── Nav menu ────────────────────────────────────────────────── */
 
-function wpb_demo_create_menu( int $home_id, int $about_id, int $blog_id, int $contact_id ): void {
+function wpwisebones_demo_create_menu( int $home_id, int $about_id, int $blog_id, int $contact_id ): void {
     $menu_name = 'WPWiseBones Demo Menu';
     $existing  = wp_get_nav_menu_object( $menu_name );
 
@@ -665,27 +665,27 @@ function wpb_demo_create_menu( int $home_id, int $about_id, int $blog_id, int $c
 
 /* ── Customizer settings ─────────────────────────────────────── */
 
-function wpb_demo_set_customizer(): void {
-    set_theme_mod( 'wpb_hero_heading',    'Build Beautiful WordPress Sites' );
-    set_theme_mod( 'wpb_hero_subheading', 'WPWiseBones — Bootstrap 5 · 22 Templates · 17 Shortcodes · WooCommerce Ready' );
-    set_theme_mod( 'wpb_hero_btn_text',   'Explore Demo' );
-    set_theme_mod( 'wpb_hero_btn_url',    '/blog' );
-    set_theme_mod( 'wpb_sticky_header',   true );
-    set_theme_mod( 'wpb_color_primary',   '#0d6efd' );
-    set_theme_mod( 'wpb_color_accent',    '#6610f2' );
-    set_theme_mod( 'wpb_footer_copyright', 'WPWiseBones Demo &mdash; Built with Bootstrap 5 by <a href="https://wprealwise.com" target="_blank" rel="noopener noreferrer">WPRealWise</a>.' );
+function wpwisebones_demo_set_customizer(): void {
+    set_theme_mod( 'wpwisebones_hero_heading',    'Build Beautiful WordPress Sites' );
+    set_theme_mod( 'wpwisebones_hero_subheading', 'WPWiseBones — Bootstrap 5 · 22 Templates · 17 Shortcodes · WooCommerce Ready' );
+    set_theme_mod( 'wpwisebones_hero_btn_text',   'Explore Demo' );
+    set_theme_mod( 'wpwisebones_hero_btn_url',    '/blog' );
+    set_theme_mod( 'wpwisebones_sticky_header',   true );
+    set_theme_mod( 'wpwisebones_color_primary',   '#0d6efd' );
+    set_theme_mod( 'wpwisebones_color_accent',    '#6610f2' );
+    set_theme_mod( 'wpwisebones_footer_copyright', 'WPWiseBones Demo &mdash; Built with Bootstrap 5 by <a href="https://wprealwise.com" target="_blank" rel="noopener noreferrer">WPRealWise</a>.' );
 
-    $wpb_options = get_option( 'wpb_options', [] );
-    $wpb_options['back_to_top']   = '1';
-    $wpb_options['smooth_scroll'] = '1';
-    $wpb_options['breadcrumbs']   = '1';
-    $wpb_options['reading_time']  = '1';
-    update_option( 'wpb_options', $wpb_options );
+    $wpwisebones_options = get_option( 'wpwisebones_options', [] );
+    $wpwisebones_options['back_to_top']   = '1';
+    $wpwisebones_options['smooth_scroll'] = '1';
+    $wpwisebones_options['breadcrumbs']   = '1';
+    $wpwisebones_options['reading_time']  = '1';
+    update_option( 'wpwisebones_options', $wpwisebones_options );
 }
 
 /* ── Widgets ─────────────────────────────────────────────────── */
 
-function wpb_demo_setup_widgets(): void {
+function wpwisebones_demo_setup_widgets(): void {
     $sidebars = get_option( 'sidebars_widgets', [] );
 
     // Primary sidebar
@@ -737,13 +737,13 @@ function wpb_demo_setup_widgets(): void {
    RESET
    ═══════════════════════════════════════════════════════════════ */
 
-function wpb_demo_reset(): void {
+function wpwisebones_demo_reset(): void {
     // Remove demo posts and pages
     $items = get_posts( [
         'post_type'      => [ 'post', 'page', 'attachment' ],
         'post_status'    => 'any',
         'posts_per_page' => -1,
-        'meta_key'       => '_wpb_demo',
+        'meta_key'       => '_wpwisebones_demo',
         'meta_value'     => 1,
         'fields'         => 'ids',
     ] );
@@ -770,12 +770,12 @@ function wpb_demo_reset(): void {
     delete_option( 'page_for_posts' );
 
     // Remove customizer mods set by demo
-    remove_theme_mod( 'wpb_hero_heading' );
-    remove_theme_mod( 'wpb_hero_subheading' );
-    remove_theme_mod( 'wpb_hero_btn_text' );
-    remove_theme_mod( 'wpb_hero_btn_url' );
-    remove_theme_mod( 'wpb_footer_copyright' );
+    remove_theme_mod( 'wpwisebones_hero_heading' );
+    remove_theme_mod( 'wpwisebones_hero_subheading' );
+    remove_theme_mod( 'wpwisebones_hero_btn_text' );
+    remove_theme_mod( 'wpwisebones_hero_btn_url' );
+    remove_theme_mod( 'wpwisebones_footer_copyright' );
 
     // Clear demo flag
-    delete_option( 'wpb_demo_installed' );
+    delete_option( 'wpwisebones_demo_installed' );
 }

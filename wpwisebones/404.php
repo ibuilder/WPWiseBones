@@ -1,10 +1,10 @@
 <?php get_header(); ?>
 
-<?php $container = get_theme_mod( 'wpb_container_width', 'container' ); ?>
+<?php $container = get_theme_mod( 'wpwisebones_container_width', 'container' ); ?>
 
 <div id="content" class="site-content">
     <div class="<?php echo esc_attr( $container ); ?>">
-        <main id="primary" class="site-main text-center py-5">
+        <main id="main" tabindex="-1" class="site-main text-center py-5">
             <div class="py-5">
                 <h1 class="display-1 fw-bold text-primary">404</h1>
                 <h2 class="mb-4"><?php esc_html_e( 'Page Not Found', 'wpwisebones' ); ?></h2>

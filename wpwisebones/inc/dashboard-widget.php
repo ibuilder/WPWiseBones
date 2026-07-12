@@ -11,17 +11,17 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_action( 'wp_dashboard_setup', 'wpb_register_dashboard_widget' );
+add_action( 'wp_dashboard_setup', 'wpwisebones_register_dashboard_widget' );
 
-function wpb_register_dashboard_widget() {
+function wpwisebones_register_dashboard_widget() {
     wp_add_dashboard_widget(
-        'wpb_getting_started',
+        'wpwisebones_getting_started',
         sprintf(
             /* translators: %s: theme version */
             __( 'WPWiseBones — Getting Started (v%s)', 'wpwisebones' ),
-            WPB_VERSION
+            WPWISEBONES_VERSION
         ),
-        'wpb_dashboard_widget_render',
+        'wpwisebones_dashboard_widget_render',
         null,
         null,
         'normal',
@@ -29,16 +29,16 @@ function wpb_register_dashboard_widget() {
     );
 }
 
-function wpb_dashboard_widget_render() {
+function wpwisebones_dashboard_widget_render() {
     $customize_url  = admin_url( 'customize.php' );
-    $options_url    = admin_url( 'themes.php?page=wpb-theme-options' );
+    $options_url    = admin_url( 'themes.php?page=wpwisebones-theme-options' );
     $menus_url      = admin_url( 'nav-menus.php' );
     $widgets_url    = admin_url( 'widgets.php' );
-    $docs_url       = WPB_DOCS_URL;
-    $support_url    = WPB_SUPPORT_URL;
+    $docs_url       = WPWISEBONES_DOCS_URL;
+    $support_url    = WPWISEBONES_SUPPORT_URL;
     ?>
     <style>
-        #wpb_getting_started .inside { padding: 0; }
+        #wpwisebones_getting_started .inside { padding: 0; }
         .wpb-dw-header {
             background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%);
             color: #fff;
@@ -122,7 +122,7 @@ function wpb_dashboard_widget_render() {
         </div>
 
         <!-- Companion Plugin Status -->
-        <?php if ( ! wpb_companion_active() ) : ?>
+        <?php if ( ! wpwisebones_companion_active() ) : ?>
         <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:11px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
             <div style="flex-grow:1;font-size:.82rem">
                 <strong>&#9888; <?php esc_html_e( "WPWiseBones Shortcodes not installed", "wpwisebones" ); ?></strong><br>
@@ -147,23 +147,23 @@ function wpb_dashboard_widget_render() {
             <div class="wpb-dw-sc-grid">
                 <?php
                 $shortcodes = [
-                    '[wpb_alert type="success"]Text[/wpb_alert]',
-                    '[wpb_button url="#" style="primary"]Label[/wpb_button]',
-                    '[wpb_card title="Title" image="URL"]Body[/wpb_card]',
-                    '[wpb_accordion][wpb_accordion_item title="Q"]A[/wpb_accordion_item][/wpb_accordion]',
-                    '[wpb_tabs][wpb_tab title="Tab" active="true"]Content[/wpb_tab][/wpb_tabs]',
-                    '[wpb_row][wpb_col size="6"]Left[/wpb_col][wpb_col size="6"]Right[/wpb_col][/wpb_row]',
-                    '[wpb_cta heading="Title" btn_text="Go" btn_url="#"]',
-                    '[wpb_icon_box icon="bi-star" title="Title"]Desc[/wpb_icon_box]',
-                    '[wpb_progress label="Skill" value="85" color="primary"]',
-                    '[wpb_testimonial author="Name" stars="5"]Quote[/wpb_testimonial]',
-                    '[wpb_countdown date="2025-12-31"]',
-                    '[wpb_posts count="3" columns="3"]',
-                    '[wpb_modal title="Title" btn_text="Open"]Body[/wpb_modal]',
-                    '[wpb_badge color="danger"]Hot[/wpb_badge]',
-                    '[wpb_divider text="OR"]',
-                    '[wpb_map src="EMBED_URL" height="400"]',
-                    '[wpb_contact_info phone="+1…" email="…"]',
+                    '[wpwisebones_alert type="success"]Text[/wpwisebones_alert]',
+                    '[wpwisebones_button url="#" style="primary"]Label[/wpwisebones_button]',
+                    '[wpwisebones_card title="Title" image="URL"]Body[/wpwisebones_card]',
+                    '[wpwisebones_accordion][wpwisebones_accordion_item title="Q"]A[/wpwisebones_accordion_item][/wpwisebones_accordion]',
+                    '[wpwisebones_tabs][wpwisebones_tab title="Tab" active="true"]Content[/wpwisebones_tab][/wpwisebones_tabs]',
+                    '[wpwisebones_row][wpwisebones_col size="6"]Left[/wpwisebones_col][wpwisebones_col size="6"]Right[/wpwisebones_col][/wpwisebones_row]',
+                    '[wpwisebones_cta heading="Title" btn_text="Go" btn_url="#"]',
+                    '[wpwisebones_icon_box icon="bi-star" title="Title"]Desc[/wpwisebones_icon_box]',
+                    '[wpwisebones_progress label="Skill" value="85" color="primary"]',
+                    '[wpwisebones_testimonial author="Name" stars="5"]Quote[/wpwisebones_testimonial]',
+                    '[wpwisebones_countdown date="2025-12-31"]',
+                    '[wpwisebones_posts count="3" columns="3"]',
+                    '[wpwisebones_modal title="Title" btn_text="Open"]Body[/wpwisebones_modal]',
+                    '[wpwisebones_badge color="danger"]Hot[/wpwisebones_badge]',
+                    '[wpwisebones_divider text="OR"]',
+                    '[wpwisebones_map src="EMBED_URL" height="400"]',
+                    '[wpwisebones_contact_info phone="+1…" email="…"]',
                 ];
                 foreach ( $shortcodes as $sc ) :
                 ?>
@@ -194,7 +194,7 @@ function wpb_dashboard_widget_render() {
         <!-- System Info -->
         <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:.78rem">
             <?php
-            $local = defined( 'WPB_LOCAL_ASSETS' ) && WPB_LOCAL_ASSETS;
+            $local = defined( 'WPWISEBONES_LOCAL_ASSETS' ) && WPWISEBONES_LOCAL_ASSETS;
             $php_v = phpversion();
             $wp_v  = get_bloginfo( 'version' );
             printf(
@@ -218,9 +218,9 @@ function wpb_dashboard_widget_render() {
         <!-- Footer links -->
         <div class="wpb-dw-footer">
             <span>
-                WPWiseBones v<?php echo esc_html( WPB_VERSION ); ?>
+                WPWiseBones v<?php echo esc_html( WPWISEBONES_VERSION ); ?>
                 &nbsp;&mdash;&nbsp;
-                <a href="<?php echo esc_url( WPB_AUTHOR_URL ); ?>" target="_blank" rel="noopener">wprealwise.com</a>
+                <a href="<?php echo esc_url( WPWISEBONES_AUTHOR_URL ); ?>" target="_blank" rel="noopener">wprealwise.com</a>
             </span>
             <span>
                 <a href="<?php echo esc_url( $docs_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Docs', 'wpwisebones' ); ?></a>

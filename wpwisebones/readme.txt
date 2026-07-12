@@ -1,7 +1,7 @@
 WPWiseBones
 ================
 
-Version:        1.0.4
+Version:        1.0.5
 Requires WP:    6.0+
 Tested up to:      7.0
 Requires PHP:   8.0+
@@ -64,7 +64,7 @@ Translation-ready (.pot included)
 
 1. Upload the wpwisebones/ folder to /wp-content/themes/
 2. Activate via Appearance → Themes
-3. Go to Appearance → Theme Options to configure
+3. Configure via Appearance → Customize
 4. Assign menus under Appearance → Menus (Primary, Footer, Top Bar)
 5. Add widgets under Appearance → Widgets
 
@@ -73,7 +73,7 @@ Translation-ready (.pot included)
 Bootstrap is served from local vendor/ by default (WP.org compliance). To use
 the jsDelivr CDN instead, add to wp-config.php:
 
-  define( 'WPB_LOCAL_ASSETS', false );  // in wp-config.php
+  define( 'WPWISEBONES_LOCAL_ASSETS', false );  // in wp-config.php
 
 Local copies are in assets/vendor/ (synced via: npm run sync).
 
@@ -86,6 +86,22 @@ Local copies are in assets/vendor/ (synced via: npm run sync).
   npm run preflight    Full production readiness check
 
 == Changelog ==
+
+= 1.0.5 =
+* Fixed: All PHP functions, constants, options, post meta, enqueue handles, and image sizes
+  renamed from wpb_/WPB_ to wpwisebones_/WPWISEBONES_ — prefix is now globally unique
+* Fixed: Admin toolbar links removed (not allowed per WP.org Required rules)
+* Fixed: Theme Options admin page excluded from submission zip (plugin territory)
+* Fixed: Skip link now targets #main with tabindex="-1" and does not overlap admin bar
+* Fixed: Content links (entry-content, comments, widgets) are now underlined by default
+* Fixed: Mobile menu has solid background; focus is now trapped inside when open
+* Fixed: Companion plugin notice limited to Plugins screen only
+
+= 1.0.4 =
+* Fixed: WPWISEBONES_LOCAL_ASSETS now defaults to true (Bootstrap served locally, Required §9)
+* Fixed: inc/demo-importer.php excluded from WP.org submission zip (Required §12)
+* Added: Focus/keyboard navigation styles for all interactive elements
+* Verified: All post meta accesses are nonce-protected and sanitized
 
 = 1.0.1 —
 * Fixed: admin bar overlapping sticky header — header now correctly positioned below 32px admin bar on desktop and 46px on mobile

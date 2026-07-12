@@ -5,7 +5,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-class WPB_Widget_Social_Links extends WP_Widget {
+class WPWISEBONES_Widget_Social_Links extends WP_Widget {
 
     private static array $networks = [
         'facebook'  => [ 'Facebook',   'bi-facebook'   ],
@@ -20,7 +20,7 @@ class WPB_Widget_Social_Links extends WP_Widget {
 
     public function __construct() {
         parent::__construct(
-            'wpb_social_links',
+            'wpwisebones_social_links',
             __( 'WPB: Social Links', 'wpwisebones' ),
             [ 'description' => __( 'Circular social media icon links.', 'wpwisebones' ) ]
         );

@@ -5,11 +5,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-class WPB_Widget_Recent_Posts extends WP_Widget {
+class WPWISEBONES_Widget_Recent_Posts extends WP_Widget {
 
     public function __construct() {
         parent::__construct(
-            'wpb_recent_posts',
+            'wpwisebones_recent_posts',
             __( 'WPB: Recent Posts', 'wpwisebones' ),
             [ 'description' => __( 'Recent posts with thumbnails, date, and read time.', 'wpwisebones' ) ]
         );

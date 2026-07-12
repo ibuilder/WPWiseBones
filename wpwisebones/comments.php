@@ -28,7 +28,7 @@ if ( post_password_required() ) return;
                 'style'       => 'ol',
                 'short_ping'  => true,
                 'avatar_size' => 48,
-                'callback'    => 'wpb_comment_callback',
+                'callback'    => 'wpwisebones_comment_callback',
             ] );
             ?>
         </ol>
@@ -65,7 +65,7 @@ if ( post_password_required() ) return;
 /**
  * Custom comment callback for Bootstrap styling.
  */
-function wpb_comment_callback( WP_Comment $comment, array $args, int $depth ) {
+function wpwisebones_comment_callback( WP_Comment $comment, array $args, int $depth ) {
     $GLOBALS['comment'] = $comment;
     $is_pingback = in_array( $comment->comment_type, [ 'pingback', 'trackback' ], true );
     ?>

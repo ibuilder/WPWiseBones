@@ -8,9 +8,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_action( 'wp_head', 'wpb_seo_meta', 2 );
+add_action( 'wp_head', 'wpwisebones_seo_meta', 2 );
 
-function wpb_seo_meta() {
+function wpwisebones_seo_meta() {
     // Yield to popular SEO plugins
     if (
         defined( 'WPSEO_VERSION' )       || // Yoast SEO
@@ -33,7 +33,7 @@ function wpb_seo_meta() {
         $description = wp_strip_all_tags( has_excerpt( $post ) ? get_the_excerpt( $post ) : wp_trim_words( get_the_content( null, false, $post ), 30 ) );
         $url         = get_permalink( $post );
         $og_type     = 'article';
-        $image       = get_the_post_thumbnail_url( $post, 'wpb-hero' ) ?: get_site_icon_url( 512 );
+        $image       = get_the_post_thumbnail_url( $post, 'wpwisebones-hero' ) ?: get_site_icon_url( 512 );
         $author_name = get_the_author_meta( 'display_name', $post->post_author );
         $pub_date    = get_the_date( DATE_W3C, $post );
         $mod_date    = get_the_modified_date( DATE_W3C, $post );
@@ -151,7 +151,7 @@ function wpb_seo_meta() {
         if ( has_post_thumbnail( $post ) ) {
             $schema['image'] = [
                 '@type' => 'ImageObject',
-                'url'   => get_the_post_thumbnail_url( $post, 'wpb-hero' ),
+                'url'   => get_the_post_thumbnail_url( $post, 'wpwisebones-hero' ),
             ];
         }
 

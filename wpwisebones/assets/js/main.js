@@ -130,19 +130,19 @@
 
     /* â”€â”€ AJAX load more â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     const loadMoreBtn = document.getElementById('wpb-load-more');
-    if (loadMoreBtn && typeof wpbData !== 'undefined') {
+    if (loadMoreBtn && typeof wpwisebonesData !== 'undefined') {
         let page = 2;
         loadMoreBtn.addEventListener('click', async () => {
             loadMoreBtn.disabled = true;
-            loadMoreBtn.textContent = wpbData.i18n.loading;
+            loadMoreBtn.textContent = wpwisebonesData.i18n.loading;
 
             try {
-                const res = await fetch(wpbData.ajaxUrl, {
+                const res = await fetch(wpwisebonesData.ajaxUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: new URLSearchParams({
-                        action:   'wpb_load_more',
-                        nonce:    wpbData.nonce,
+                        action:   'wpwisebones_load_more',
+                        nonce:    wpwisebonesData.nonce,
                         page:     page,
                         query:    loadMoreBtn.dataset.query || '',
                     }),
@@ -163,12 +163,65 @@
                 }
             } catch (err) {
                 loadMoreBtn.disabled = false;
-                loadMoreBtn.textContent = wpbData.i18n.error;
+                loadMoreBtn.textContent = wpwisebonesData.i18n.error;
                 console.error('Load more error:', err);
             }
         });
     }
 
+
+    /* ── Mobile menu focus trap (WP.org a11y requirement) ───────
+       When the navbar is open, Tab past the last focusable item
+       should wrap to the toggler button, and Shift+Tab before the
+       first item should also wrap to the toggler button.
+    ──────────────────────────────────────────────────────────── */
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.getElementById('primaryNavbar');
+
+    if (navbarToggler && navbarCollapse) {
+        function getFocusableItems(container) {
+            return Array.from(
+                container.querySelectorAll(
+                    'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+                )
+            ).filter(el => !el.closest('[hidden]') && el.offsetParent !== null);
+        }
+
+        navbarCollapse.addEventListener('keydown', function (e) {
+            if (e.key !== 'Tab') return;
+            // Only trap when menu is visibly open (Bootstrap adds 'show')
+            if (!navbarCollapse.classList.contains('show')) return;
+
+            const focusable = getFocusableItems(navbarCollapse);
+            if (!focusable.length) return;
+
+            const first = focusable[0];
+            const last  = focusable[focusable.length - 1];
+
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    e.preventDefault();
+                    navbarToggler.focus();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    e.preventDefault();
+                    navbarToggler.focus();
+                }
+            }
+        });
+
+        // When focus leaves the toggler going forward, move into the menu
+        navbarToggler.addEventListener('keydown', function (e) {
+            if (e.key !== 'Tab' || e.shiftKey) return;
+            if (!navbarCollapse.classList.contains('show')) return;
+            const focusable = getFocusableItems(navbarCollapse);
+            if (focusable.length) {
+                e.preventDefault();
+                focusable[0].focus();
+            }
+        });
+    }
 
     /* ── Preloader fade-out ───────────────────────────────────── */
     window.addEventListener('load', function () {

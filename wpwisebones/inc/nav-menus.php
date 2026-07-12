@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  * Bootstrap 5 Nav Walker
  * Renders WordPress nav menus as Bootstrap 5 navbars with dropdowns.
  */
-class WPB_Bootstrap_Nav_Walker extends Walker_Nav_Menu {
+class WPWISEBONES_Bootstrap_Nav_Walker extends Walker_Nav_Menu {
 
     public function start_lvl( &$output, $depth = 0, $args = null ) {
         $output .= '<ul class="dropdown-menu">';
@@ -71,34 +71,34 @@ class WPB_Bootstrap_Nav_Walker extends Walker_Nav_Menu {
 /**
  * Helper: render primary nav.
  */
-function wpb_primary_nav() {
+function wpwisebones_primary_nav() {
     wp_nav_menu( [
         'theme_location' => 'primary',
         'container'      => false,
         'menu_class'     => 'navbar-nav me-auto mb-2 mb-lg-0',
-        'fallback_cb'    => 'wpb_fallback_menu',
-        'walker'         => new WPB_Bootstrap_Nav_Walker(),
+        'fallback_cb'    => 'wpwisebones_fallback_menu',
+        'walker'         => new WPWISEBONES_Bootstrap_Nav_Walker(),
     ] );
 }
 
 /**
  * Helper: render footer nav inline.
  */
-function wpb_footer_nav() {
+function wpwisebones_footer_nav() {
     wp_nav_menu( [
         'theme_location' => 'footer',
         'container'      => false,
         'menu_class'     => 'd-flex flex-wrap gap-3 list-unstyled mb-0',
         'depth'          => 1,
         'fallback_cb'    => false,
-        'walker'         => new WPB_Bootstrap_Nav_Walker(),
+        'walker'         => new WPWISEBONES_Bootstrap_Nav_Walker(),
     ] );
 }
 
 /**
  * Fallback when no menu is assigned.
  */
-function wpb_fallback_menu() {
+function wpwisebones_fallback_menu() {
     echo '<ul class="navbar-nav me-auto">';
     echo '<li class="nav-item"><a class="nav-link" href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Home', 'wpwisebones' ) . '</a></li>';
     echo '</ul>';

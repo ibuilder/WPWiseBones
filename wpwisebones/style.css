@@ -4,7 +4,7 @@ Theme URI:         https://wprealwise.com/wpwisebones
 Author:            WPWiseBones
 Author URI:        https://wprealwise.com
 Description:       A comprehensive WordPress starter theme built on Bootstrap 5. Includes custom shortcodes, widgets, admin options, and full block/classic editor support.
-Version:           1.0.4
+Version:           1.0.5
 Requires at least: 6.0
 Tested up to:      7.0
 Requires PHP:      7.4
@@ -54,16 +54,33 @@ a:hover { text-decoration: underline; }
    SKIP LINK
    ============================================================ */
 .skip-link {
-    position: absolute;
-    top: -9999px;
-    left: 0;
-    z-index: 9999;
-    padding: .5rem 1rem;
-    background: #000;
-    color: #fff;
-    font-size: .875rem;
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    word-wrap: normal !important;
 }
-.skip-link:focus { top: 0; }
+.skip-link:focus {
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(0,0,0,.6);
+    clip: auto !important;
+    color: #21759b;
+    display: block;
+    font-size: .875rem;
+    font-weight: 700;
+    height: auto;
+    left: 5px;
+    line-height: normal;
+    padding: 15px 23px 14px;
+    text-decoration: none;
+    top: 5px;
+    width: auto;
+    z-index: 100000;
+}
+/* Push skip link below admin bar when present */
+body.admin-bar .skip-link:focus { top: 37px; }
 
 /* ============================================================
    SITE HEADER
@@ -147,6 +164,22 @@ body.admin-bar:not(.sticky-header) .site-header {
    ============================================================ */
 .main-navigation .nav-link { font-weight: 500; }
 .main-navigation .dropdown-menu { border: none; box-shadow: 0 .5rem 1rem rgba(0,0,0,.1); }
+
+/* Mobile menu — solid background required (WP.org a11y) */
+@media (max-width: 991.98px) {
+    #primaryNavbar.collapse,
+    #primaryNavbar.collapsing,
+    #primaryNavbar.show {
+        background: #fff;
+        padding: 1rem;
+        border-top: 1px solid rgba(0,0,0,.1);
+    }
+    .navbar-dark #primaryNavbar.collapse,
+    .navbar-dark #primaryNavbar.collapsing,
+    .navbar-dark #primaryNavbar.show {
+        background: #212529;
+    }
+}
 
 /* ============================================================
    HERO / BANNER

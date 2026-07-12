@@ -11,8 +11,8 @@
 <?php wp_body_open(); ?>
 
 <?php
-$wpb_options = get_option( 'wpb_options', [] );
-if ( ! empty( $wpb_options['preloader'] ) ) :
+$wpwisebones_options = get_option( 'wpwisebones_options', [] );
+if ( ! empty( $wpwisebones_options['preloader'] ) ) :
 ?>
 <div id="wpb-preloader" role="status" aria-label="<?php esc_attr_e( 'Loading', 'wpwisebones' ); ?>">
     <div class="spinner-border text-primary" role="status">
@@ -22,12 +22,12 @@ if ( ! empty( $wpb_options['preloader'] ) ) :
 
 <?php endif; ?>
 
-<a class="skip-link visually-hidden-focusable" href="#primary"><?php esc_html_e( 'Skip to content', 'wpwisebones' ); ?></a>
+<a class="skip-link screen-reader-text" href="#main"><?php esc_html_e( 'Skip to content', 'wpwisebones' ); ?></a>
 
 <?php
 // Top bar
-if ( get_theme_mod( 'wpb_show_topbar', false ) ) :
-    $topbar_text = get_theme_mod( 'wpb_topbar_text', '' );
+if ( get_theme_mod( 'wpwisebones_show_topbar', false ) ) :
+    $topbar_text = get_theme_mod( 'wpwisebones_topbar_text', '' );
     if ( $topbar_text ) :
 ?>
 <div class="wpb-topbar bg-dark text-white py-1 small text-center">
@@ -37,8 +37,8 @@ if ( get_theme_mod( 'wpb_show_topbar', false ) ) :
     endif;
 endif;
 
-$header_style = get_theme_mod( 'wpb_header_style', 'light' );
-$container    = get_theme_mod( 'wpb_container_width', 'container' );
+$header_style = get_theme_mod( 'wpwisebones_header_style', 'light' );
+$container    = get_theme_mod( 'wpwisebones_container_width', 'container' );
 ?>
 
 <!-- ======================== SITE HEADER ======================== -->
@@ -47,7 +47,7 @@ $container    = get_theme_mod( 'wpb_container_width', 'container' );
 
         <!-- Branding -->
         <div class="site-branding me-4">
-            <?php wpb_site_branding(); ?>
+            <?php wpwisebones_site_branding(); ?>
             <?php if ( display_header_text() && get_bloginfo( 'description' ) ) : ?>
                 <p class="site-description d-none d-lg-block"><?php bloginfo( 'description' ); ?></p>
             <?php endif; ?>
@@ -63,7 +63,7 @@ $container    = get_theme_mod( 'wpb_container_width', 'container' );
         <!-- Nav -->
         <div class="collapse navbar-collapse" id="primaryNavbar">
             <nav id="site-navigation" class="main-navigation w-100" aria-label="<?php esc_attr_e( 'Primary menu', 'wpwisebones' ); ?>">
-                <?php wpb_primary_nav(); ?>
+                <?php wpwisebones_primary_nav(); ?>
             </nav>
 
             <!-- Header widgets (search, cart, etc.) -->

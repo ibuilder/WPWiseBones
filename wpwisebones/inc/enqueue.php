@@ -6,7 +6,7 @@
  * resources without user consent). To use the jsDelivr CDN instead, add this
  * to wp-config.php:
  *
- *   define( 'WPB_LOCAL_ASSETS', false );
+ *   define( 'WPWISEBONES_LOCAL_ASSETS', false );
  *
  * Local copies are in /assets/vendor/ — always safe under strict CSP headers.
  */
@@ -14,16 +14,16 @@
 defined( 'ABSPATH' ) || exit;
 
 /** Whether to serve Bootstrap/Icons from local vendor files (true) or CDN (false). */
-if ( ! defined( 'WPB_LOCAL_ASSETS' ) ) {
-    define( 'WPB_LOCAL_ASSETS', true );
+if ( ! defined( 'WPWISEBONES_LOCAL_ASSETS' ) ) {
+    define( 'WPWISEBONES_LOCAL_ASSETS', true );
 }
 
-add_action( 'wp_enqueue_scripts', 'wpb_enqueue_assets' );
+add_action( 'wp_enqueue_scripts', 'wpwisebones_enqueue_assets' );
 
-function wpb_enqueue_assets() {
-    $v      = WPB_VERSION;
-    $local  = WPB_LOCAL_ASSETS;
-    $vendor = WPB_URI . '/assets/vendor';
+function wpwisebones_enqueue_assets() {
+    $v      = WPWISEBONES_VERSION;
+    $local  = WPWISEBONES_LOCAL_ASSETS;
+    $vendor = WPWISEBONES_URI . '/assets/vendor';
 
     /* â”€â”€ Bootstrap 5 CSS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     if ( $local ) {
@@ -67,10 +67,10 @@ function wpb_enqueue_assets() {
     }
 
     /* â”€â”€ Theme stylesheet (style.css) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    wp_enqueue_style( 'wpb-style', get_stylesheet_uri(), [ 'bootstrap' ], $v );
+    wp_enqueue_style( 'wpwisebones-style', get_stylesheet_uri(), [ 'bootstrap' ], $v );
 
     /* â”€â”€ Custom theme CSS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    wp_enqueue_style( 'wpb-main', WPB_URI . '/assets/css/main.css', [ 'wpb-style' ], $v );
+    wp_enqueue_style( 'wpwisebones-main', WPWISEBONES_URI . '/assets/css/main.css', [ 'wpwisebones-style' ], $v );
 
     /* â”€â”€ Bootstrap 5 JS bundle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     if ( $local ) {
@@ -92,14 +92,14 @@ function wpb_enqueue_assets() {
     }
 
     /* â”€â”€ Theme main JS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    wp_enqueue_script( 'wpb-main', WPB_URI . '/assets/js/main.js', [ 'bootstrap' ], $v, true );
+    wp_enqueue_script( 'wpwisebones-main', WPWISEBONES_URI . '/assets/js/main.js', [ 'bootstrap' ], $v, true );
 
     /* â”€â”€ Pass data to JS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    wp_localize_script( 'wpb-main', 'wpbData', [
+    wp_localize_script( 'wpwisebones-main', 'wpwisebonesData', [
         'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
-        'nonce'    => wp_create_nonce( 'wpb_nonce' ),
+        'nonce'    => wp_create_nonce( 'wpwisebones_nonce' ),
         'siteUrl'  => home_url(),
-        'themeUrl' => WPB_URI,
+        'themeUrl' => WPWISEBONES_URI,
         'i18n'     => [
             'loading' => __( 'Loadingâ€¦', 'wpwisebones' ),
             'error'   => __( 'An error occurred.', 'wpwisebones' ),
@@ -113,11 +113,11 @@ function wpb_enqueue_assets() {
 }
 
 /* â”€â”€ Admin enqueue â€“ only on theme-related admin pages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-add_action( 'admin_enqueue_scripts', 'wpb_admin_enqueue' );
+add_action( 'admin_enqueue_scripts', 'wpwisebones_admin_enqueue' );
 
-function wpb_admin_enqueue( string $hook ) {
+function wpwisebones_admin_enqueue( string $hook ) {
     $theme_hooks = [
-        'appearance_page_wpb-theme-options',
+        'appearance_page_wpwisebones-theme-options',
         'post.php',
         'post-new.php',
         'widgets.php',
@@ -127,19 +127,19 @@ function wpb_admin_enqueue( string $hook ) {
         return;
     }
 
-    wp_enqueue_style(  'wpb-admin', WPB_URI . '/assets/css/admin.css', [],          WPB_VERSION );
-    wp_enqueue_script( 'wpb-admin', WPB_URI . '/assets/js/admin.js',  [ 'jquery' ], WPB_VERSION, true );
+    wp_enqueue_style(  'wpwisebones-admin', WPWISEBONES_URI . '/assets/css/admin.css', [],          WPWISEBONES_VERSION );
+    wp_enqueue_script( 'wpwisebones-admin', WPWISEBONES_URI . '/assets/js/admin.js',  [ 'jquery' ], WPWISEBONES_VERSION, true );
 }
 
 /* -- Customizer preview JS (postMessage live updates) -- */
-add_action( 'customize_preview_init', 'wpb_customizer_preview_js' );
+add_action( 'customize_preview_init', 'wpwisebones_customizer_preview_js' );
 
-function wpb_customizer_preview_js() {
+function wpwisebones_customizer_preview_js() {
     wp_enqueue_script(
-        'wpb-customizer',
-        WPB_URI . '/assets/js/customizer.js',
+        'wpwisebones-customizer',
+        WPWISEBONES_URI . '/assets/js/customizer.js',
         [ 'customize-preview', 'jquery' ],
-        WPB_VERSION,
+        WPWISEBONES_VERSION,
         true
     );
 }

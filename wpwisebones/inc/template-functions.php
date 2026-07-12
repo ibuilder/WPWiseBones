@@ -7,12 +7,12 @@ defined( 'ABSPATH' ) || exit;
 
 /* â”€â”€ Layout: sidebar position â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_get_layout(): string {
-    $layout = get_theme_mod( 'wpb_layout', 'right-sidebar' );
+function wpwisebones_get_layout(): string {
+    $layout = get_theme_mod( 'wpwisebones_layout', 'right-sidebar' );
 
     // Per-post override via meta box
     if ( is_singular() ) {
-        $meta = get_post_meta( get_the_ID(), '_wpb_layout', true );
+        $meta = get_post_meta( get_the_ID(), '_wpwisebones_layout', true );
         if ( $meta ) {
             $layout = $meta;
         }
@@ -21,8 +21,8 @@ function wpb_get_layout(): string {
     return $layout;
 }
 
-function wpb_content_class(): string {
-    $layout = wpb_get_layout();
+function wpwisebones_content_class(): string {
+    $layout = wpwisebones_get_layout();
     if ( 'full-width' === $layout ) {
         return 'col-12';
     }
@@ -32,17 +32,17 @@ function wpb_content_class(): string {
     return 'col-12';
 }
 
-function wpb_has_sidebar(): bool {
-    return in_array( wpb_get_layout(), [ 'left-sidebar', 'right-sidebar' ], true )
+function wpwisebones_has_sidebar(): bool {
+    return in_array( wpwisebones_get_layout(), [ 'left-sidebar', 'right-sidebar' ], true )
         && ( is_active_sidebar( 'sidebar-primary' ) || is_singular() || is_archive() );
 }
 
 /* â”€â”€ Breadcrumbs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_breadcrumbs() {
+function wpwisebones_breadcrumbs() {
     if ( is_front_page() ) return;
 
-    $container = get_theme_mod( 'wpb_container_width', 'container' );
+    $container = get_theme_mod( 'wpwisebones_container_width', 'container' );
     $out = '<nav aria-label="' . esc_attr__( 'Breadcrumb', 'wpwisebones' ) . '" class="wpb-breadcrumbs">';
     $out .= '<div class="' . esc_attr( $container ) . '"><ol class="breadcrumb mb-0">';
     $out .= '<li class="breadcrumb-item"><a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Home', 'wpwisebones' ) . '</a></li>';
@@ -90,7 +90,7 @@ function wpb_breadcrumbs() {
 
 /* â”€â”€ Pagination â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_pagination() {
+function wpwisebones_pagination() {
     global $wp_query;
     if ( $wp_query->max_num_pages <= 1 ) return;
 
@@ -108,16 +108,16 @@ function wpb_pagination() {
 
 /* â”€â”€ Post meta helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_posted_on() {
+function wpwisebones_posted_on() {
     $time = '<time class="entry-date published" datetime="' . esc_attr( get_the_date( DATE_W3C ) ) . '">' . esc_html( get_the_date() ) . '</time>';
     echo '<span class="posted-on me-3"><i class="bi bi-calendar3 me-1"></i>' . $time . '</span>'; // phpcs:ignore
 }
 
-function wpb_posted_by() {
+function wpwisebones_posted_by() {
     echo '<span class="byline me-3"><i class="bi bi-person me-1"></i><a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'; // phpcs:ignore
 }
 
-function wpb_entry_footer() {
+function wpwisebones_entry_footer() {
     $cats = get_the_category_list( ', ' );
     $tags = get_the_tag_list( '', ', ' );
     $edit = get_edit_post_link();
@@ -129,7 +129,7 @@ function wpb_entry_footer() {
 
 /* â”€â”€ Reading time â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_reading_time(): string {
+function wpwisebones_reading_time(): string {
     $words   = str_word_count( wp_strip_all_tags( get_the_content() ) );
     $minutes = max( 1, (int) ceil( $words / 200 ) );
     /* translators: %d: estimated reading time in minutes */
@@ -138,7 +138,7 @@ function wpb_reading_time(): string {
 
 /* â”€â”€ Social share buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-function wpb_social_share() {
+function wpwisebones_social_share() {
     $url   = rawurlencode( get_permalink() );
     $title = rawurlencode( get_the_title() );
 
@@ -166,15 +166,15 @@ function wpb_social_share() {
 
 /* â”€â”€ Conditional body classes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-add_filter( 'body_class', 'wpb_body_classes' );
-function wpb_body_classes( array $classes ): array {
-    $classes[] = 'layout-' . wpb_get_layout();
+add_filter( 'body_class', 'wpwisebones_body_classes' );
+function wpwisebones_body_classes( array $classes ): array {
+    $classes[] = 'layout-' . wpwisebones_get_layout();
 
     if ( is_singular() && ! is_attachment() && has_post_thumbnail() ) {
         $classes[] = 'has-post-thumbnail';
     }
 
-    if ( get_theme_mod( 'wpb_sticky_header', true ) ) {
+    if ( get_theme_mod( 'wpwisebones_sticky_header', true ) ) {
         $classes[] = 'sticky-header';
     }
 

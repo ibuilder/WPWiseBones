@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 <body <?php body_class( 'template-landing' ); ?>>
 <?php wp_body_open(); ?>
 
-<main id="primary" class="site-main">
+<main id="main" tabindex="-1" class="site-main">
     <?php while ( have_posts() ) : the_post(); ?>
         <div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             <div class="entry-content">

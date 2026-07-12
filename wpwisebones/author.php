@@ -4,9 +4,9 @@
  */
 defined( 'ABSPATH' ) || exit;
 get_header();
-$container = get_theme_mod( 'wpb_container_width', 'container' );
-$o         = get_option( 'wpb_options', [] );
-if ( ! empty( $o['breadcrumbs'] ) ) wpb_breadcrumbs();
+$container = get_theme_mod( 'wpwisebones_container_width', 'container' );
+$o         = get_option( 'wpwisebones_options', [] );
+if ( ! empty( $o['breadcrumbs'] ) ) wpwisebones_breadcrumbs();
 $author_id  = get_queried_object_id();
 $author     = get_queried_object();
 ?>
@@ -14,11 +14,11 @@ $author     = get_queried_object();
     <div class="<?php echo esc_attr( $container ); ?>">
         <div class="row g-4">
 
-            <?php if ( wpb_has_sidebar() && 'left-sidebar' === wpb_get_layout() ) : ?>
+            <?php if ( wpwisebones_has_sidebar() && 'left-sidebar' === wpwisebones_get_layout() ) : ?>
                 <aside id="secondary" class="col-lg-4 widget-area"><?php get_sidebar(); ?></aside>
             <?php endif; ?>
 
-            <main id="primary" class="site-main <?php echo esc_attr( wpb_content_class() ); ?>">
+            <main id="main" tabindex="-1" class="site-main <?php echo esc_attr( wpwisebones_content_class() ); ?>">
 
                 <!-- Author card -->
                 <div class="card border-0 bg-light mb-5 p-4">
@@ -53,13 +53,13 @@ $author     = get_queried_object();
                         <?php get_template_part( 'template-parts/content/content', get_post_type() ); ?>
                     <?php endwhile; ?>
                     </div>
-                    <?php wpb_pagination(); ?>
+                    <?php wpwisebones_pagination(); ?>
                 <?php else : ?>
                     <?php get_template_part( 'template-parts/content/content', 'none' ); ?>
                 <?php endif; ?>
             </main>
 
-            <?php if ( wpb_has_sidebar() && 'right-sidebar' === wpb_get_layout() ) : ?>
+            <?php if ( wpwisebones_has_sidebar() && 'right-sidebar' === wpwisebones_get_layout() ) : ?>
                 <aside id="secondary" class="col-lg-4 widget-area"><?php get_sidebar(); ?></aside>
             <?php endif; ?>
         </div>
