@@ -2,7 +2,7 @@
 Contributors:      wpwisebones
 Tags:              shortcodes, bootstrap, bootstrap-5, cards, accordion
 Requires at least: 6.0
-Tested up to:      7.0
+Tested up to:      6.8
 Stable tag:        1.0.3
 Requires PHP:      7.4
 License:           GPLv2 or later
@@ -93,7 +93,7 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 = 1.0.1 =
 * Fixed: Admin notice now correctly renders theme install link as HTML
 * Fixed: Cleaned up duplicate theme-detection notice registration
-* Tested up to WordPress 7.0
+* Tested up to WordPress 6.8
 
 = 1.0.0 =
 * Initial release — 17 Bootstrap 5 shortcodes

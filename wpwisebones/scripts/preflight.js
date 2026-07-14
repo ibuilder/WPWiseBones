@@ -144,8 +144,8 @@ console.log("\n[ SEO Module ]");
 const seoFile = path.join(ROOT,"inc/seo.php");
 if (fs.existsSync(seoFile)) {
     const s = fs.readFileSync(seoFile,"utf8");
-    ["og:title","twitter:card","schema.org","canonical"].every(t => s.includes(t))
-        ? ok("Open Graph + Twitter Card + Schema.org + Canonical all present")
+    ["og:title","twitter:card","schema.org"].every(t => s.includes(t))
+        ? ok("Open Graph + Twitter Card + Schema.org present (canonical handled by WP core)")
         : warn("SEO module incomplete");
 } else err("inc/seo.php missing");
 
