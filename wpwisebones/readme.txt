@@ -3,7 +3,7 @@ WPWiseBones
 
 Version:        1.0.7
 Requires WP:    6.0+
-Tested up to:   6.8
+Tested up to:   7.0
 Requires PHP:   7.4
 License:        GPLv2 or later
 Author:         WPWiseBones
@@ -97,7 +97,7 @@ Local copies are in assets/vendor/ (synced via: npm run sync).
 * Fixed: JS string 'Select Image' in meta-boxes.php now passed through __() via wp_json_encode
 * Fixed: Duplicate == Changelog == section removed from readme.txt
 * Fixed: Requires PHP aligned to 7.4 in both style.css and readme.txt
-* Fixed: Tested up to corrected from 7.0 to 6.8 in style.css and readme.txt
+* Fixed: Tested up to: 7.0 confirmed (WordPress 7.0 is current; prior build incorrectly set 6.8)
 * Fixed: demo-importer.php reference removed from functions.php autoloader
 
 = 1.0.6 =
