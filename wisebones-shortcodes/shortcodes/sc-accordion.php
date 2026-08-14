@@ -11,53 +11,65 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_accordion',      'wpbs_sc_accordion' );
+add_shortcode( 'wpb_accordion', 'wpbs_sc_accordion' );
 add_shortcode( 'wpb_accordion_item', 'wpbs_sc_accordion_item' );
 
 function wpbs_sc_accordion( array $atts, ?string $content = null ): string {
-    static $accordion_id = 0;
-    $accordion_id++;
+	static $accordion_id = 0;
+	++$accordion_id;
 
-    $a = shortcode_atts( [
-        'flush' => 'false',
-        'class' => '',
-    ], $atts, 'wpb_accordion' );
+	$a = shortcode_atts(
+		array(
+			'flush' => 'false',
+			'class' => '',
+		),
+		$atts,
+		'wpb_accordion'
+	);
 
-    $classes = [ 'accordion', 'wpb-accordion-shortcode' ];
-    if ( 'true' === $a['flush'] ) $classes[] = 'accordion-flush';
-    if ( $a['class'] ) $classes[] = esc_attr( $a['class'] );
+	$classes = array( 'accordion', 'wpb-accordion-shortcode' );
+	if ( 'true' === $a['flush'] ) {
+		$classes[] = 'accordion-flush';
+	}
+	if ( $a['class'] ) {
+		$classes[] = esc_attr( $a['class'] );
+	}
 
-    // Pass accordion ID to child shortcodes via global
-    $GLOBALS['wpbs_current_accordion'] = 'wpbAccordion' . $accordion_id;
+	// Pass accordion ID to child shortcodes via global
+	$GLOBALS['wpbs_current_accordion'] = 'wpbAccordion' . $accordion_id;
 
-    $html  = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '" id="wpbAccordion' . $accordion_id . '">';
-    $html .= do_shortcode( $content );
-    $html .= '</div>';
+	$html  = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '" id="wpbAccordion' . $accordion_id . '">';
+	$html .= do_shortcode( $content );
+	$html .= '</div>';
 
-    return $html;
+	return $html;
 }
 
 function wpbs_sc_accordion_item( array $atts, ?string $content = null ): string {
-    static $item_id = 0;
-    $item_id++;
+	static $item_id = 0;
+	++$item_id;
 
-    $a = shortcode_atts( [
-        'title' => __( 'Item', 'wisebones-shortcodes' ),
-        'open'  => 'false',
-    ], $atts, 'wpb_accordion_item' );
+	$a = shortcode_atts(
+		array(
+			'title' => __( 'Item', 'wisebones-shortcodes' ),
+			'open'  => 'false',
+		),
+		$atts,
+		'wpb_accordion_item'
+	);
 
-    $parent  = $GLOBALS['wpbs_current_accordion'] ?? 'wpbAccordion';
-    $id      = 'wpbItem' . $item_id;
-    $is_open = 'true' === $a['open'];
+	$parent  = $GLOBALS['wpbs_current_accordion'] ?? 'wpbAccordion';
+	$id      = 'wpbItem' . $item_id;
+	$is_open = 'true' === $a['open'];
 
-    $html  = '<div class="accordion-item">';
-    $html .= '<h2 class="accordion-header" id="heading' . $id . '">';
-    $html .= '<button class="accordion-button' . ( ! $is_open ? ' collapsed' : '' ) . '" type="button" data-bs-toggle="collapse" data-bs-target="#' . $id . '" aria-expanded="' . ( $is_open ? 'true' : 'false' ) . '" aria-controls="' . $id . '">';
-    $html .= esc_html( $a['title'] );
-    $html .= '</button></h2>';
-    $html .= '<div id="' . $id . '" class="accordion-collapse collapse' . ( $is_open ? ' show' : '' ) . '" aria-labelledby="heading' . $id . '" data-bs-parent="#' . $parent . '">';
-    $html .= '<div class="accordion-body">' . wp_kses_post( do_shortcode( $content ) ) . '</div>';
-    $html .= '</div></div>';
+	$html  = '<div class="accordion-item">';
+	$html .= '<h2 class="accordion-header" id="heading' . $id . '">';
+	$html .= '<button class="accordion-button' . ( ! $is_open ? ' collapsed' : '' ) . '" type="button" data-bs-toggle="collapse" data-bs-target="#' . $id . '" aria-expanded="' . ( $is_open ? 'true' : 'false' ) . '" aria-controls="' . $id . '">';
+	$html .= esc_html( $a['title'] );
+	$html .= '</button></h2>';
+	$html .= '<div id="' . $id . '" class="accordion-collapse collapse' . ( $is_open ? ' show' : '' ) . '" aria-labelledby="heading' . $id . '" data-bs-parent="#' . $parent . '">';
+	$html .= '<div class="accordion-body">' . wp_kses_post( do_shortcode( $content ) ) . '</div>';
+	$html .= '</div></div>';
 
-    return $html;
+	return $html;
 }

@@ -1,17 +1,17 @@
-/*
+﻿/*
 Theme Name:        WPWiseBones
 Theme URI:         https://wprealwise.com/wpwisebones
 Author:            WPWiseBones
 Author URI:        https://wprealwise.com
 Description:       A comprehensive WordPress starter theme built on Bootstrap 5. Includes custom shortcodes, widgets, admin options, and full block/classic editor support.
-Version:           1.0.7
+Version:           1.0.8
 Requires at least: 6.0
 Tested up to:      7.0
 Requires PHP:      7.4
 License:           GNU General Public License v2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:       wpwisebones
-Tags:              custom-logo, custom-menu, custom-background, custom-header, featured-images, threaded-comments, translation-ready, full-width-template, left-sidebar, right-sidebar, blog, one-column, two-columns
+Tags:              custom-logo, custom-menus, custom-background, custom-header, featured-images, threaded-comments, translation-ready, full-width-template, left-sidebar, right-sidebar, blog, one-column, two-columns
 */
 
 /* Copyright (C) 2025 WPWiseBones (https://wprealwise.com)
@@ -85,7 +85,7 @@ body.admin-bar .skip-link:focus { top: 37px; }
 /* ============================================================
    SITE HEADER
    ============================================================ */
-/* Header base — always rendered, never sticky by default */
+/* Header base â€” always rendered, never sticky by default */
 .site-header {
     position: relative;
     width: 100%;
@@ -95,10 +95,10 @@ body.admin-bar .skip-link:focus { top: 37px; }
     height: var(--wpb-header-height);
 }
 
-/* ── Sticky header ─────────────────────────────────────────────
+/* â”€â”€ Sticky header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    body.sticky-header class is added by wpb_body_classes()
    when Customizer > Header Settings > Sticky Header is ON.
-   ──────────────────────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 body.sticky-header .site-header {
     position: fixed;
     top: 0;
@@ -107,10 +107,10 @@ body.sticky-header {
     padding-top: var(--wpb-header-height);
 }
 
-/* ── Admin bar offsets ─────────────────────────────────────────
+/* â”€â”€ Admin bar offsets â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    WordPress admin bar is position:fixed at top:0, height 32px.
    We must push our fixed header below it unconditionally.
-   ──────────────────────────────────────────────────────────── */
+   â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 /* Admin bar present: offset the sticky header */
 body.admin-bar.sticky-header .site-header {
@@ -120,7 +120,7 @@ body.admin-bar.sticky-header .site-header {
 body.admin-bar.sticky-header {
     padding-top: calc(var(--wpb-header-height) + 32px);
 }
-/* Customizer preview iframe — admin bar is inside the iframe */
+/* Customizer preview iframe â€” admin bar is inside the iframe */
 .customize-partial-edit-shortcuts-shown.admin-bar .site-header {
     top: 32px;
 }
@@ -165,7 +165,7 @@ body.admin-bar:not(.sticky-header) .site-header {
 .main-navigation .nav-link { font-weight: 500; }
 .main-navigation .dropdown-menu { border: none; box-shadow: 0 .5rem 1rem rgba(0,0,0,.1); }
 
-/* Mobile menu — solid background required (WP.org a11y) */
+/* Mobile menu â€” solid background required (WP.org a11y) */
 @media (max-width: 991.98px) {
     #primaryNavbar.collapse,
     #primaryNavbar.collapsing,

@@ -9,16 +9,27 @@
  */
 defined( 'ABSPATH' ) || exit;
 
-add_shortcode( 'wpb_map', function( $atts ) {
-    $a = shortcode_atts( [ 'src' => '', 'height' => '400', 'class' => '' ], $atts, 'wpb_map' );
-    if ( ! $a['src'] ) return '';
+add_shortcode( 'wpb_map', 'wpbs_sc_map' );
+function wpbs_sc_map( $atts ) {
+	$a = shortcode_atts(
+		array(
+			'src'    => '',
+			'height' => '400',
+			'class'  => '',
+		),
+		$atts,
+		'wpb_map'
+	);
+	if ( ! $a['src'] ) {
+		return '';
+	}
 
-    $height = absint( $a['height'] );
+	$height = absint( $a['height'] );
 
-    return sprintf(
-        '<div class="wpb-map %s"><iframe src="%s" style="border:0;width:100%%;height:%dpx;display:block;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>',
-        esc_attr( $a['class'] ),
-        esc_url( $a['src'] ),
-        $height
-    );
-} );
+	return sprintf(
+		'<div class="wpb-map %s"><iframe src="%s" style="border:0;width:100%%;height:%dpx;display:block;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>',
+		esc_attr( $a['class'] ),
+		esc_url( $a['src'] ),
+		$height
+	);
+}

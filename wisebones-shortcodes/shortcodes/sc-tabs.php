@@ -12,71 +12,81 @@
 defined( 'ABSPATH' ) || exit;
 
 add_shortcode( 'wpb_tabs', 'wpbs_sc_tabs' );
-add_shortcode( 'wpb_tab',  'wpbs_sc_tab' );
+add_shortcode( 'wpb_tab', 'wpbs_sc_tab' );
 
 function wpbs_sc_tabs( array $atts, ?string $content = null ): string {
-    static $tabs_id = 0;
-    $tabs_id++;
+	static $tabs_id = 0;
+	++$tabs_id;
 
-    $a = shortcode_atts( [
-        'style' => 'tabs',   // tabs | pills | underline
-        'fill'  => 'false',
-        'class' => '',
-    ], $atts, 'wpb_tabs' );
+	$a = shortcode_atts(
+		array(
+			'style' => 'tabs',   // tabs | pills | underline
+			'fill'  => 'false',
+			'class' => '',
+		),
+		$atts,
+		'wpb_tabs'
+	);
 
-    // Buffer children so we can extract nav + pane content
-    $GLOBALS['wpbs_tabs_nav']   = [];
-    $GLOBALS['wpbs_tabs_panes'] = [];
-    $GLOBALS['wpbs_tabs_id']    = $tabs_id;
+	// Buffer children so we can extract nav + pane content
+	$GLOBALS['wpbs_tabs_nav']   = array();
+	$GLOBALS['wpbs_tabs_panes'] = array();
+	$GLOBALS['wpbs_tabs_id']    = $tabs_id;
 
-    do_shortcode( $content ); // children populate globals
+	do_shortcode( $content ); // children populate globals
 
-    $nav_class = 'nav nav-' . esc_attr( $a['style'] );
-    if ( 'true' === $a['fill'] ) $nav_class .= ' nav-fill';
+	$nav_class = 'nav nav-' . esc_attr( $a['style'] );
+	if ( 'true' === $a['fill'] ) {
+		$nav_class .= ' nav-fill';
+	}
 
-    $html  = '<div class="wpb-tabs-shortcode ' . esc_attr( $a['class'] ) . '">';
-    $html .= '<ul class="' . $nav_class . ' mb-3" id="wpbTabsNav' . $tabs_id . '" role="tablist">';
-    foreach ( $GLOBALS['wpbs_tabs_nav'] as $item ) {
-        $html .= $item;
-    }
-    $html .= '</ul>';
-    $html .= '<div class="tab-content" id="wpbTabsContent' . $tabs_id . '">';
-    foreach ( $GLOBALS['wpbs_tabs_panes'] as $pane ) {
-        $html .= $pane;
-    }
-    $html .= '</div></div>';
+	$html  = '<div class="wpb-tabs-shortcode ' . esc_attr( $a['class'] ) . '">';
+	$html .= '<ul class="' . $nav_class . ' mb-3" id="wpbTabsNav' . $tabs_id . '" role="tablist">';
+	foreach ( $GLOBALS['wpbs_tabs_nav'] as $item ) {
+		$html .= $item;
+	}
+	$html .= '</ul>';
+	$html .= '<div class="tab-content" id="wpbTabsContent' . $tabs_id . '">';
+	foreach ( $GLOBALS['wpbs_tabs_panes'] as $pane ) {
+		$html .= $pane;
+	}
+	$html .= '</div></div>';
 
-    return $html;
+	return $html;
 }
 
 function wpbs_sc_tab( array $atts, ?string $content = null ): string {
-    static $tab_id = 0;
-    $tab_id++;
+	static $tab_id = 0;
+	++$tab_id;
 
-    $a = shortcode_atts( [
-        'title'  => __( 'Tab', 'wisebones-shortcodes' ),
-        'icon'   => '',
-        'active' => 'false',
-    ], $atts, 'wpb_tab' );
+	$a = shortcode_atts(
+		array(
+			'title'  => __( 'Tab', 'wisebones-shortcodes' ),
+			'icon'   => '',
+			'active' => 'false',
+		),
+		$atts,
+		'wpb_tab'
+	);
 
-    $tabs_id = $GLOBALS['wpbs_tabs_id'] ?? 0;
-    $id      = 'wpbTab' . $tabs_id . '_' . $tab_id;
-    $active  = 'true' === $a['active'];
-    $icon    = $a['icon'] ? '<i class="bi ' . esc_attr( $a['icon'] ) . ' me-1"></i>' : '';
+	$tabs_id = $GLOBALS['wpbs_tabs_id'] ?? 0;
+	$id      = 'wpbTab' . $tabs_id . '_' . $tab_id;
+	$active  = 'true' === $a['active'];
+	$icon    = $a['icon'] ? '<i class="bi ' . esc_attr( $a['icon'] ) . ' me-1"></i>' : '';
 
-    // Nav item
-    $nav  = '<li class="nav-item" role="presentation">';
-    $nav .= '<button class="nav-link' . ( $active ? ' active' : '' ) . '" id="' . $id . '-tab" data-bs-toggle="tab" data-bs-target="#' . $id . '" type="button" role="tab" aria-controls="' . $id . '" aria-selected="' . ( $active ? 'true' : 'false' ) . '">';
-    $nav .= $icon . esc_html( $a['title'] );
-    $nav .= '</button></li>';
+	// Nav item
+	$nav  = '<li class="nav-item" role="presentation">';
+	$nav .= '<button class="nav-link' . ( $active ? ' active' : '' ) . '" id="' . $id . '-tab" data-bs-toggle="tab" data-bs-target="#' . $id . '" type="button" role="tab" aria-controls="' . $id . '" aria-selected="' . ( $active ? 'true' : 'false' ) . '">';
+	$nav .= $icon . esc_html( $a['title'] );
+	$nav .= '</button></li>';
 
-    // Pane
-    $pane  = '<div class="tab-pane fade' . ( $active ? ' show active' : '' ) . '" id="' . $id . '" role="tabpanel" aria-labelledby="' . $id . '-tab">';
-    $pane .= '<div class="pt-3">' . wp_kses_post( do_shortcode( $content ) ) . '</div>';
-    $pane .= '</div>';
+	// Pane
+	$pane  = '<div class="tab-pane fade' . ( $active ? ' show active' : '' ) . '" id="' . $id . '" role="tabpanel" aria-labelledby="' . $id . '-tab">';
+	$pane .= '<div class="pt-3">' . wp_kses_post( do_shortcode( $content ) ) . '</div>';
+	$pane .= '</div>';
 
-    $GLOBALS['wpbs_tabs_nav'][]   = $nav;
-    $GLOBALS['wpbs_tabs_panes'][] = $pane;
+	$GLOBALS['wpbs_tabs_nav'][]   = $nav;
+	$GLOBALS['wpbs_tabs_panes'][] = $pane;
 
-    return ''; // output handled by parent
+	return ''; // output handled by parent
 }
