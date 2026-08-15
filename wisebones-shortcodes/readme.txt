@@ -3,7 +3,7 @@ Contributors:      wpwisebones
 Tags:              shortcodes, bootstrap, bootstrap-5, cards, accordion
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.4
+Stable tag:        1.0.5
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
 WiseBones Shortcodes adds **17 Bootstrap 5 shortcodes** you can use anywhere in posts, pages, or widgets â€” with any WordPress theme.
 
-Bootstrap 5 and Bootstrap Icons are automatically loaded from the jsDelivr CDN when not already provided by the active theme, so the shortcodes work out-of-the-box on any WordPress installation.
+Bootstrap 5 and Bootstrap Icons are bundled locally and loaded automatically when not already provided by the active theme, so the shortcodes work out-of-the-box on any WordPress installation.
 
 **Shortcodes included:**
 
@@ -62,7 +62,7 @@ After activation, go to **Plugins > WiseBones Shortcodes** in the WordPress admi
 
 = My theme already loads Bootstrap â€” will it be loaded twice? =
 
-No. The plugin checks whether Bootstrap is already registered (via the `bootstrap` style/script handle) and skips loading it if your theme already provides it.
+No. The plugin checks whether Bootstrap is already registered (via the `bootstrap` style/script handle) and skips loading its bundled copy if your theme already provides it.
 
 = Is this plugin free? =
 
@@ -74,6 +74,13 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 2. Example shortcodes rendered on the front end.
 
 == Changelog ==
+
+= 1.0.5 =
+* Fixed: Bootstrap 5 and Bootstrap Icons now bundled locally — no CDN requests (WP.org Guideline 8 compliance)
+* Fixed: Countdown script now enqueued only on pages that use [wpb_countdown], not globally
+* Fixed: esc_attr() added to border-style output in sc-divider.php
+* Fixed: Docblock typo [bsk_tab] corrected to [wpb_tab] in sc-tabs.php
+* Added: index.php silence files to assets/ directories
 
 = 1.0.4 =
 * Fixed: Anonymous closure shortcode callbacks converted to named wpbs_sc_*() functions
@@ -108,6 +115,9 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 * Theme detection notice with one-click install link
 
 == Upgrade Notice ==
+
+= 1.0.5 =
+Bootstrap assets now served locally — no external CDN requests. Required for WP.org compliance.
 
 = 1.0.4 =
 Converts all shortcode callbacks to named functions for full WordPress coding standards compliance. No behavior changes.

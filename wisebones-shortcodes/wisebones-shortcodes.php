@@ -3,7 +3,7 @@
  * Plugin Name:       WiseBones Shortcodes
  * Plugin URI:        https://wprealwise.com/wpwisebones
  * Description:       17 Bootstrap 5 shortcodes â€” alerts, buttons, cards, accordions, tabs, grid columns, CTA banners, icon boxes, progress bars, testimonials, countdown timers, post grids, modals, badges, dividers, maps, and contact info. Works with any Bootstrap 5 theme; Bootstrap is auto-loaded when not already provided by the active theme.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            WPWiseBones
@@ -22,7 +22,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPBS_VERSION', '1.0.4' );
+define( 'WPBS_VERSION', '1.0.5' );
 define( 'WPBS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WPBS_URI', plugin_dir_url( __FILE__ ) );
 
@@ -55,7 +55,7 @@ foreach ( $wpbs_shortcodes as $wpbs_file ) {
 	}
 }
 
-/* â”€â”€ Auto-load Bootstrap + Icons if not already provided â”€â”€â”€â”€â”€ */
+/* â”€â”€ Register Bootstrap + Icons from local vendor files â”€â”€â”€â”€â”€â”€ */
 
 add_action( 'wp_enqueue_scripts', 'wpbs_enqueue_assets', 20 );
 
@@ -63,7 +63,7 @@ function wpbs_enqueue_assets() {
 	if ( ! wp_style_is( 'bootstrap', 'registered' ) ) {
 		wp_enqueue_style(
 			'bootstrap',
-			'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+			WPBS_URI . 'assets/vendor/bootstrap/css/bootstrap.min.css',
 			array(),
 			'5.3.3'
 		);
@@ -72,7 +72,7 @@ function wpbs_enqueue_assets() {
 	if ( ! wp_script_is( 'bootstrap', 'registered' ) ) {
 		wp_enqueue_script(
 			'bootstrap',
-			'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js',
+			WPBS_URI . 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
 			array(),
 			'5.3.3',
 			true
@@ -82,19 +82,11 @@ function wpbs_enqueue_assets() {
 	if ( ! wp_style_is( 'bootstrap-icons', 'registered' ) ) {
 		wp_enqueue_style(
 			'bootstrap-icons',
-			'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css',
+			WPBS_URI . 'assets/vendor/bootstrap-icons/css/bootstrap-icons.min.css',
 			array(),
 			'1.11.3'
 		);
 	}
-
-	wp_enqueue_script(
-		'wpbs-countdown',
-		WPBS_URI . 'assets/js/wpbs-countdown.js',
-		array(),
-		WPBS_VERSION,
-		true
-	);
 }
 
 /* â”€â”€ Admin: shortcode reference page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */

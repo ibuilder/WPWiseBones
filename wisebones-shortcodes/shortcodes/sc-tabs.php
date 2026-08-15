@@ -1,6 +1,6 @@
 <?php
 /**
- * Shortcodes: [wpb_tabs] / [bsk_tab]
+ * Shortcodes: [wpb_tabs] / [wpb_tab]
  *
  * Usage:
  *   [wpb_tabs style="pills"]

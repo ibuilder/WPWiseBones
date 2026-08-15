@@ -24,6 +24,8 @@ function wpbs_sc_countdown( array $atts ): string {
 		'wpb_countdown'
 	);
 
+	wp_enqueue_script( 'wpbs-countdown', WPBS_URI . 'assets/js/wpbs-countdown.js', array(), WPBS_VERSION, true );
+
 	$id = 'wpbCountdown' . $count;
 
 	$html = '<div class="wpb-countdown-wrap text-center ' . esc_attr( $a['class'] ) . '">';
