@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Plugin Name:       WiseBones Shortcodes
  * Plugin URI:        https://wprealwise.com/wpwisebones
