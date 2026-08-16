@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 // Remove dismissed notice flag stored per-user.
