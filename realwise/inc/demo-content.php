@@ -585,32 +585,32 @@ function realwise_demo_pages( array $dl = [] ): array {
     <div class="text-center mb-5"><span class="rw-eyebrow">Documentation</span><h2 class="mt-2">Set up RealWise in minutes</h2><p class="text-muted">Three steps to a working real-estate site &mdash; then connect the extras when you are ready.</p></div>
     [wpb_row gutter="4"]
       [wpb_col md="4"][wpb_icon_box icon="bi-1-circle" title="Install &amp; activate" color="success" align="start"]Upload <code>realwise.zip</code> under Plugins &rarr; Add New and activate. The RealWise menu appears with a guided getting-started panel.[/wpb_icon_box][/wpb_col]
-      [wpb_col md="4"][wpb_icon_box icon="bi-2-circle" title="Create your pages" color="success" align="start"]Add one page with <code>[pwl_search]</code> and one with <code>[pwl_listing]</code>, then select them under RealWise &rarr; Settings. That is a working IDX site.[/wpb_icon_box][/wpb_col]
+      [wpb_col md="4"][wpb_icon_box icon="bi-2-circle" title="Create your pages" color="success" align="start"]Add one page with <code>[rwls_search]</code> and one with <code>[rwls_listing]</code>, then select them under RealWise &rarr; Settings. That is a working IDX site.[/wpb_icon_box][/wpb_col]
       [wpb_col md="4"][wpb_icon_box icon="bi-3-circle" title="Connect the extras" color="success" align="start"]Add RealWise MLS for automated imports, Stripe for online rent, and your API keys for Walk Score, schools and maps.[/wpb_icon_box][/wpb_col]
     [/wpb_row]' )
     . realwise_section( '
     <div class="text-center mb-4"><span class="rw-eyebrow">Guides</span><h2 class="mt-2">Set up each part</h2></div>
     [wpb_tabs style="pills" fill="true"]
-      [wpb_tab title="Listings" icon="bi-house-door" active="true"]<h3 class="h5">Listings &amp; search</h3><ol><li>Create a <strong>Search</strong> page containing <code>[pwl_search]</code>.</li><li>Create a <strong>Listing</strong> page containing <code>[pwl_listing]</code>.</li><li>Under <strong>RealWise &rarr; Settings</strong>, select those two pages and add your Google Maps / Walk Score / GreatSchools keys.</li><li>Add listings by hand under <strong>RealWise &rarr; Listings</strong>, or automate them with RealWise MLS.</li></ol>[/wpb_tab]
+      [wpb_tab title="Listings" icon="bi-house-door" active="true"]<h3 class="h5">Listings &amp; search</h3><ol><li>Create a <strong>Search</strong> page containing <code>[rwls_search]</code>.</li><li>Create a <strong>Listing</strong> page containing <code>[rwls_listing]</code>.</li><li>Under <strong>RealWise &rarr; Settings</strong>, select those two pages and add your Google Maps / Walk Score / GreatSchools keys.</li><li>Add listings by hand under <strong>RealWise &rarr; Listings</strong>, or automate them with RealWise MLS.</li></ol>[/wpb_tab]
       [wpb_tab title="MLS import" icon="bi-arrow-repeat"]<h3 class="h5">Automated MLS / IDX</h3><ol><li>Install <code>realwise-mls.zip</code> and enter your license key on the <strong>License</strong> screen.</li><li>Open <strong>RealWise MLS &rarr; Feeds &rarr; Add Feed</strong>, pick your adapter (RESO, FlexMLS/Spark, RETS, ATTOM, Crexi&hellip;) and paste credentials.</li><li>Map fields if your MLS uses non-standard names, set a schedule, then click <strong>Run Now</strong>.</li><li>No MLS yet? Use the <strong>Demo</strong> adapter to import 24 sample listings instantly.</li></ol>[/wpb_tab]
-      [wpb_tab title="CRM" icon="bi-people"]<h3 class="h5">Leads &amp; CRM</h3><ol><li>Leads are captured automatically from contact, save-listing and tour forms.</li><li>Choose an assignment mode (round-robin, by listing, least-busy) under <strong>Leads &rarr; Settings</strong>.</li><li>Drop <code>[pwc_lead_form]</code> anywhere for a standalone capture form.</li><li>Work the pipeline under <strong>Leads &rarr; Pipeline</strong>; enable the email drip to follow up automatically.</li></ol>[/wpb_tab]
+      [wpb_tab title="CRM" icon="bi-people"]<h3 class="h5">Leads &amp; CRM</h3><ol><li>Leads are captured automatically from contact, save-listing and tour forms.</li><li>Choose an assignment mode (round-robin, by listing, least-busy) under <strong>Leads &rarr; Settings</strong>.</li><li>Drop <code>[rwcr_lead_form]</code> anywhere for a standalone capture form.</li><li>Work the pipeline under <strong>Leads &rarr; Pipeline</strong>; enable the email drip to follow up automatically.</li></ol>[/wpb_tab]
       [wpb_tab title="Rent &amp; Stripe" icon="bi-building"]<h3 class="h5">Property management</h3><ol><li>Add properties, units and leases under <strong>Properties</strong>.</li><li>Enter your Stripe keys under <strong>Properties &rarr; Settings</strong> and set late-fee rules.</li><li>Give tenants <code>[pwpm_tenant_portal]</code> so they pay rent and file maintenance online.</li></ol>[/wpb_tab]
-      [wpb_tab title="Tours" icon="bi-calendar-check"]<h3 class="h5">Tours &amp; scheduling</h3><ol><li>Set weekly availability under <strong>Tours &rarr; Availability</strong>.</li><li>Add <code>[pwt_request_tour]</code> to listing pages.</li><li>Bookings send calendar invites and reminders, and create a hot lead in the CRM.</li></ol>[/wpb_tab]
+      [wpb_tab title="Tours" icon="bi-calendar-check"]<h3 class="h5">Tours &amp; scheduling</h3><ol><li>Set weekly availability under <strong>Tours &rarr; Availability</strong>.</li><li>Add <code>[rwtr_request_tour]</code> to listing pages.</li><li>Bookings send calendar invites and reminders, and create a hot lead in the CRM.</li></ol>[/wpb_tab]
     [/wpb_tabs]', 'rw-section--mist' )
     . realwise_section( '
     <div class="text-center mb-4"><span class="rw-eyebrow">Reference</span><h2 class="mt-2">Shortcodes</h2></div>
     <div class="table-responsive"><table class="table align-middle">
       <thead><tr><th>Shortcode</th><th>What it shows</th></tr></thead>
       <tbody>
-        <tr><td><code>[pwl_search]</code></td><td>Map-based property search</td></tr>
-        <tr><td><code>[pwl_listing]</code></td><td>Single listing with scores &amp; mortgage</td></tr>
-        <tr><td><code>[pwl_mortgage]</code></td><td>Mortgage calculator</td></tr>
-        <tr><td><code>[pwl_saved_searches]</code></td><td>A visitor&rsquo;s saved searches &amp; alerts</td></tr>
-        <tr><td><code>[pwd_proforma]</code> &middot; <code>[pwd_flip]</code> &middot; <code>[pwd_renovation]</code></td><td>Investor proforma, fix-and-flip, renovation estimator</td></tr>
-        <tr><td><code>[pwc_lead_form]</code></td><td>Lead capture form</td></tr>
+        <tr><td><code>[rwls_search]</code></td><td>Map-based property search</td></tr>
+        <tr><td><code>[rwls_listing]</code></td><td>Single listing with scores &amp; mortgage</td></tr>
+        <tr><td><code>[rwls_mortgage]</code></td><td>Mortgage calculator</td></tr>
+        <tr><td><code>[rwls_saved_searches]</code></td><td>A visitor&rsquo;s saved searches &amp; alerts</td></tr>
+        <tr><td><code>[rwdv_proforma]</code> &middot; <code>[rwdv_flip]</code> &middot; <code>[rwdv_renovation]</code></td><td>Investor proforma, fix-and-flip, renovation estimator</td></tr>
+        <tr><td><code>[rwcr_lead_form]</code></td><td>Lead capture form</td></tr>
         <tr><td><code>[pwap_dashboard]</code></td><td>Front-end agent dashboard</td></tr>
         <tr><td><code>[pwpm_tenant_portal]</code></td><td>Tenant portal (rent + maintenance)</td></tr>
-        <tr><td><code>[pwt_request_tour]</code></td><td>Request-a-tour booking form</td></tr>
+        <tr><td><code>[rwtr_request_tour]</code></td><td>Request-a-tour booking form</td></tr>
       </tbody>
     </table></div>' )
     . realwise_section( '
