@@ -1,9 +1,9 @@
-﻿=== WiseBones Shortcodes ===
+=== WiseBones Shortcodes ===
 Contributors:      wpwisebones
 Tags:              shortcodes, bootstrap, bootstrap-5, cards, accordion
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.6
+Stable tag:        1.0.7
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -73,7 +73,30 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 1. Shortcode reference page in the WordPress admin.
 2. Example shortcodes rendered on the front end.
 
+== Resources ==
+
+This plugin bundles the following open-source libraries.
+
+**Bootstrap 5.3.3**
+* Author: The Bootstrap Authors
+* Source: https://github.com/twbs/bootstrap
+* License: MIT License — https://github.com/twbs/bootstrap/blob/main/LICENSE
+* Bundled as: assets/vendor/bootstrap/css/bootstrap.min.css, assets/vendor/bootstrap/js/bootstrap.bundle.min.js (unminified source included alongside)
+
+**Bootstrap Icons 1.11.3**
+* Author: The Bootstrap Authors
+* Source: https://github.com/twbs/icons
+* License: MIT License — https://github.com/twbs/icons/blob/main/LICENSE
+* Bundled as: assets/vendor/bootstrap-icons/css/bootstrap-icons.min.css, assets/vendor/bootstrap-icons/fonts/ (unminified source included alongside)
+
 == Changelog ==
+
+= 1.0.7 =
+* Fixed: BOM removed from readme.txt (was causing readme_title parse failure)
+* Fixed: Plugin URI header removed (was pointing to a non-existent page)
+* Fixed: ABSPATH guard added to all index.php silence files
+* Fixed: uninstall.php added to clean up user meta on uninstall
+* Fixed: Third-party library sources documented in readme.txt (Bootstrap 5.3.3, Bootstrap Icons 1.11.3)
 
 = 1.0.6 =
 * Fixed: Plugin URI updated to wordpress.org plugin page (was returning 404)
@@ -119,6 +142,9 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 * Theme detection notice with one-click install link
 
 == Upgrade Notice ==
+
+= 1.0.7 =
+Compliance fixes: uninstall cleanup, readme improvements, and index.php guards added.
 
 = 1.0.6 =
 Security: wp_kses_post() now applied to all shortcode do_shortcode() return values.

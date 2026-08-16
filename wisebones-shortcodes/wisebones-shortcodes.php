@@ -1,9 +1,8 @@
 <?php
 /**
  * Plugin Name:       WiseBones Shortcodes
- * Plugin URI:        https://wordpress.org/plugins/wisebones-shortcodes/
  * Description:       17 Bootstrap 5 shortcodes â€” alerts, buttons, cards, accordions, tabs, grid columns, CTA banners, icon boxes, progress bars, testimonials, countdown timers, post grids, modals, badges, dividers, maps, and contact info. Works with any Bootstrap 5 theme; Bootstrap is auto-loaded when not already provided by the active theme.
- * Version:           1.0.6
+ * Version:           1.0.7
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            WPWiseBones
@@ -22,9 +21,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPBS_VERSION', '1.0.6' );
-define( 'WPBS_DIR', plugin_dir_path( __FILE__ ) );
-define( 'WPBS_URI', plugin_dir_url( __FILE__ ) );
+define( 'WISEBONES_SHORTCODES_VERSION', '1.0.7' );
+define( 'WISEBONES_SHORTCODES_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WISEBONES_SHORTCODES_URI', plugin_dir_url( __FILE__ ) );
 
 /* â”€â”€ Load all shortcodes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
@@ -49,7 +48,7 @@ $wpbs_shortcodes = array(
 );
 
 foreach ( $wpbs_shortcodes as $wpbs_file ) {
-	$wpbs_path = WPBS_DIR . 'shortcodes/' . $wpbs_file;
+	$wpbs_path = WISEBONES_SHORTCODES_DIR . 'shortcodes/' . $wpbs_file;
 	if ( file_exists( $wpbs_path ) ) {
 		require_once $wpbs_path;
 	}
@@ -63,7 +62,7 @@ function wpbs_enqueue_assets() {
 	if ( ! wp_style_is( 'bootstrap', 'registered' ) ) {
 		wp_enqueue_style(
 			'bootstrap',
-			WPBS_URI . 'assets/vendor/bootstrap/css/bootstrap.min.css',
+			WISEBONES_SHORTCODES_URI . 'assets/vendor/bootstrap/css/bootstrap.min.css',
 			array(),
 			'5.3.3'
 		);
@@ -72,7 +71,7 @@ function wpbs_enqueue_assets() {
 	if ( ! wp_script_is( 'bootstrap', 'registered' ) ) {
 		wp_enqueue_script(
 			'bootstrap',
-			WPBS_URI . 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
+			WISEBONES_SHORTCODES_URI . 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js',
 			array(),
 			'5.3.3',
 			true
@@ -82,7 +81,7 @@ function wpbs_enqueue_assets() {
 	if ( ! wp_style_is( 'bootstrap-icons', 'registered' ) ) {
 		wp_enqueue_style(
 			'bootstrap-icons',
-			WPBS_URI . 'assets/vendor/bootstrap-icons/css/bootstrap-icons.min.css',
+			WISEBONES_SHORTCODES_URI . 'assets/vendor/bootstrap-icons/css/bootstrap-icons.min.css',
 			array(),
 			'1.11.3'
 		);
