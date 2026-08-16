@@ -227,22 +227,17 @@ function wpwisebones_remove_query_strings( string $src ): string {
 
 /* â”€â”€ Output custom CSS/JS from options â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-add_action( 'wp_head', 'wpwisebones_output_custom_head', 100 );
-function wpwisebones_output_custom_head() {
+add_action( 'wp_enqueue_scripts', 'wpwisebones_output_custom_assets', 100 );
+function wpwisebones_output_custom_assets() {
 	$o = get_option( 'wpwisebones_options', array() );
 	if ( ! empty( $o['custom_css'] ) ) {
-		echo '<style id="wpwisebones-custom-css">' . wp_strip_all_tags( $o['custom_css'] ) . '</style>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS cannot be further escaped; strip_all_tags removes injected HTML.
+		wp_add_inline_style( 'wpwisebones-main', wp_strip_all_tags( $o['custom_css'] ) );
 	}
 	if ( ! empty( $o['custom_js_head'] ) ) {
-		echo '<script id="wpwisebones-custom-js-head">' . wp_strip_all_tags( $o['custom_js_head'] ) . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JS cannot be further escaped; strip_all_tags removes injected HTML.
+		wp_add_inline_script( 'wpwisebones-main', wp_strip_all_tags( $o['custom_js_head'] ), 'before' );
 	}
-}
-
-add_action( 'wp_footer', 'wpwisebones_output_custom_footer', 100 );
-function wpwisebones_output_custom_footer() {
-	$o = get_option( 'wpwisebones_options', array() );
 	if ( ! empty( $o['custom_js_footer'] ) ) {
-		echo '<script id="wpwisebones-custom-js-footer">' . wp_strip_all_tags( $o['custom_js_footer'] ) . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JS cannot be further escaped; strip_all_tags removes injected HTML.
+		wp_add_inline_script( 'wpwisebones-main', wp_strip_all_tags( $o['custom_js_footer'] ), 'after' );
 	}
 }
 

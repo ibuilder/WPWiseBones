@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPWISEBONES_VERSION', '1.0.8' );
+define( 'WPWISEBONES_VERSION', '1.0.9' );
 define( 'WPWISEBONES_DIR', get_template_directory() );
 define( 'WPWISEBONES_URI', get_template_directory_uri() );
 define( 'WPWISEBONES_INC', WPWISEBONES_DIR . '/inc/' );

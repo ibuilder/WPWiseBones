@@ -22,7 +22,7 @@ class WPWISEBONES_Widget_CTA_Banner extends WP_Widget {
 		$btn_url  = $instance['btn_url'] ?? '#';
 		$bg_color = $instance['bg_color'] ?? 'primary';
 
-        echo $args['before_widget']; // phpcs:ignore
+		echo wp_kses_post( $args['before_widget'] );
 		?>
 		<div class="p-4 rounded text-white" style="background: var(--bs-<?php echo esc_attr( $bg_color ); ?>)">
 			<?php if ( $title ) : ?>
@@ -36,7 +36,7 @@ class WPWISEBONES_Widget_CTA_Banner extends WP_Widget {
 			<?php endif; ?>
 		</div>
 		<?php
-        echo $args['after_widget']; // phpcs:ignore
+		echo wp_kses_post( $args['after_widget'] );
 	}
 
 	public function form( $instance ) {

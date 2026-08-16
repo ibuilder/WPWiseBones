@@ -29,8 +29,10 @@ class WPWISEBONES_Widget_Social_Links extends WP_Widget {
 	public function widget( $args, $instance ) {
 		$title = apply_filters( 'widget_title', $instance['title'] ?? '' );
 
-        echo $args['before_widget']; // phpcs:ignore
-        if ( $title ) echo $args['before_title'] . esc_html( $title ) . $args['after_title']; // phpcs:ignore
+		echo wp_kses_post( $args['before_widget'] );
+		if ( $title ) {
+			echo wp_kses_post( $args['before_title'] ) . esc_html( $title ) . wp_kses_post( $args['after_title'] );
+		}
 
 		echo '<div class="wpb-widget-social">';
 		foreach ( self::$networks as $key => [ $label, $icon ] ) {
@@ -46,7 +48,7 @@ class WPWISEBONES_Widget_Social_Links extends WP_Widget {
 		}
 		echo '</div>';
 
-        echo $args['after_widget']; // phpcs:ignore
+		echo wp_kses_post( $args['after_widget'] );
 	}
 
 	public function form( $instance ) {

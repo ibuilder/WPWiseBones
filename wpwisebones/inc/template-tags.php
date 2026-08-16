@@ -24,7 +24,7 @@ function wpwisebones_post_thumbnail( string $size = 'wpwisebones-card', array $c
 		return;
 	}
 	$cls = array_merge( array( 'card-img-top', 'w-100' ), $classes );
-	echo get_the_post_thumbnail( null, $size, array( 'class' => implode( ' ', $cls ) ) );
+	echo wp_kses_post( get_the_post_thumbnail( null, $size, array( 'class' => implode( ' ', $cls ) ) ) );
 }
 
 /* â”€â”€ Author box â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -42,7 +42,7 @@ function wpwisebones_author_box() {
 	<div class="wpb-author-box card mt-5 mb-4">
 		<div class="card-body d-flex gap-4 align-items-start">
 			<div class="author-avatar flex-shrink-0">
-                <?php echo $avatar; // phpcs:ignore ?>
+                <?php echo wp_kses_post( $avatar ); ?>
 			</div>
 			<div>
 				<h5 class="mb-1"><?php echo esc_html( $name ); ?></h5>

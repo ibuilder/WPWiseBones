@@ -1,14 +1,11 @@
-﻿WPWiseBones
-================
-
-Version:        1.0.8
-Requires WP:    6.0+
-Tested up to:   7.0
-Requires PHP:   7.4
-License:        GPLv2 or later
-Author:         WPWiseBones
-Author URI:     https://wprealwise.com
-Text Domain:    wpwisebones
+﻿=== WPWiseBones ===
+Contributors:      wpwisebones
+Requires at least: 6.0
+Tested up to:      7.0
+Stable tag:        1.0.9
+Requires PHP:      7.4
+License:           GPLv2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
@@ -69,14 +66,10 @@ Translation-ready (.pot included)
 4. Assign menus under Appearance â†’ Menus (Primary, Footer, Top Bar)
 5. Add widgets under Appearance â†’ Widgets
 
-== Local Bootstrap Assets (CSP / No-CDN) ==
+== Local Bootstrap Assets ==
 
-Bootstrap is served from local vendor/ by default (WP.org compliance). To use
-the jsDelivr CDN instead, add to wp-config.php:
-
-  define( 'WPWISEBONES_LOCAL_ASSETS', false );  // in wp-config.php
-
-Local copies are in assets/vendor/ (synced via: npm run sync).
+Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
+(WP.org Guideline 8 compliance — no CDN requests).
 
 == Development Scripts ==
 
@@ -87,6 +80,15 @@ Local copies are in assets/vendor/ (synced via: npm run sync).
   npm run preflight    Full production readiness check
 
 == Changelog ==
+
+= 1.0.9 =
+* Fixed: CDN fallback branches removed from enqueue.php — Bootstrap served locally only (WP.org Guideline 8)
+* Fixed: wp_add_inline_style() used for customizer CSS instead of echo <style>
+* Fixed: wp_add_inline_style()/wp_add_inline_script() used for custom CSS/JS from options instead of echo
+* Fixed: wp_kses_post() applied to get_avatar(), get_the_post_thumbnail(), widget before/after_widget args throughout
+* Fixed: ABSPATH guard added to all 15 silence index.php files in theme
+* Fixed: readme.txt header block updated to standard WP.org format with all required fields
+* Fixed: == Resources == section added documenting Bootstrap 5.3.3 and Bootstrap Icons 1.11.3
 
 = 1.0.8 =
 * Fixed: custom-menu tag corrected to custom-menus (plural) per WP.org approved tag list
@@ -189,6 +191,22 @@ Once installed, you get 17 shortcodes:
 [wpb_row] / [wpb_col]  [wpb_cta]  [wpb_icon_box]  [wpb_progress]
 [wpb_testimonial]  [wpb_countdown]  [wpb_posts]  [wpb_modal]
 [wpb_badge]  [wpb_divider]  [wpb_map]  [wpb_contact_info]
+
+== Resources ==
+
+This theme bundles the following open-source libraries.
+
+**Bootstrap 5.3.3**
+* Author: The Bootstrap Authors
+* Source: https://github.com/twbs/bootstrap
+* License: MIT License — https://github.com/twbs/bootstrap/blob/main/LICENSE
+* Bundled as: assets/vendor/css/bootstrap.min.css, assets/vendor/js/bootstrap.bundle.min.js (unminified source included alongside)
+
+**Bootstrap Icons 1.11.3**
+* Author: The Bootstrap Authors
+* Source: https://github.com/twbs/icons
+* License: MIT License — https://github.com/twbs/icons/blob/main/LICENSE
+* Bundled as: assets/vendor/css/bootstrap-icons.min.css, assets/vendor/fonts/ (unminified source included alongside)
 
 == Credits ==
 

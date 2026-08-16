@@ -36,11 +36,18 @@ function wpwisebones_meta_layout_callback( WP_Post $post ) {
 	$layout = get_post_meta( $post->ID, '_wpwisebones_layout', true );
 	?>
 	<label class="screen-reader-text" for="wpwisebones_layout_select"><?php esc_html_e( 'Layout', 'wpwisebones' ); ?></label>
-	<select id="wpwisebones_layout_select" name="wpwisebones_layout" style="width:100%">
-		<option value="" <?php selected( $layout, '' ); ?>><?php esc_html_e( 'â€” Default (from Customizer) â€”', 'wpwisebones' ); ?></option>
-		<option value="right-sidebar" <?php selected( $layout, 'right-sidebar' ); ?>><?php esc_html_e( 'Right Sidebar', 'wpwisebones' ); ?></option>
-		<option value="left-sidebar"  <?php selected( $layout, 'left-sidebar' ); ?>><?php esc_html_e( 'Left Sidebar', 'wpwisebones' ); ?></option>
-		<option value="full-width"    <?php selected( $layout, 'full-width' ); ?>><?php esc_html_e( 'Full Width', 'wpwisebones' ); ?></option>
+	<?php
+	$layout_options = array(
+		''             => esc_html__( '— Default (from Customizer) —', 'wpwisebones' ),
+		'right-sidebar' => esc_html__( 'Right Sidebar', 'wpwisebones' ),
+		'left-sidebar'  => esc_html__( 'Left Sidebar', 'wpwisebones' ),
+		'full-width'    => esc_html__( 'Full Width', 'wpwisebones' ),
+	);
+	?>
+	<select id=”wpwisebones_layout_select” name=”wpwisebones_layout” style=”width:100%”>
+		<?php foreach ( $layout_options as $val => $label ) : ?>
+			<option value=”<?php echo esc_attr( $val ); ?>” <?php selected( $layout, $val ); ?>><?php echo esc_html( $label ); ?></option>
+		<?php endforeach; ?>
 	</select>
 	<?php
 }

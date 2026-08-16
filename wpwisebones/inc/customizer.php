@@ -581,7 +581,7 @@ function wpwisebones_enqueue_google_fonts() {
 	}
 }
 
-add_action( 'wp_head', 'wpwisebones_customizer_css', 99 );
+add_action( 'wp_enqueue_scripts', 'wpwisebones_customizer_css', 99 );
 function wpwisebones_customizer_css() {
 	// Null-safe hex helper — falls back to default if empty/invalid
 	$hex = function ( string $val, string $fallback ): string {
@@ -608,7 +608,7 @@ function wpwisebones_customizer_css() {
 		? 'inherit'
 		: "'" . str_replace( '+', ' ', $heading_font ) . "', sans-serif";
 
-	$css = '<style id="wpb-customizer-css">' . "\n";
+	$css = '';
 
 	// CSS custom properties
 	$css .= ':root {' . "\n";
@@ -643,7 +643,5 @@ function wpwisebones_customizer_css() {
 	$css .= '.pagination .page-item.active .page-link { background-color: ' . $primary . '; border-color: ' . $primary . '; }' . "\n";
 	$css .= '.nav-link.active, .nav-link:hover { color: ' . $primary . ' !important; }' . "\n";
 
-	$css .= '</style>' . "\n";
-
-	echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	wp_add_inline_style( 'wpwisebones-style', $css );
 }

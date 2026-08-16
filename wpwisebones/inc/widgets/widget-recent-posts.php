@@ -21,8 +21,10 @@ class WPWISEBONES_Widget_Recent_Posts extends WP_Widget {
 		$show_img  = ! empty( $instance['show_img'] );
 		$show_date = ! empty( $instance['show_date'] );
 
-        echo $args['before_widget']; // phpcs:ignore
-        if ( $title ) echo $args['before_title'] . esc_html( $title ) . $args['after_title']; // phpcs:ignore
+		echo wp_kses_post( $args['before_widget'] );
+		if ( $title ) {
+			echo wp_kses_post( $args['before_title'] ) . esc_html( $title ) . wp_kses_post( $args['after_title'] );
+		}
 
 		$posts = new WP_Query(
 			array(
@@ -39,7 +41,7 @@ class WPWISEBONES_Widget_Recent_Posts extends WP_Widget {
 				echo '<li class="rp-item">';
 				if ( $show_img && has_post_thumbnail() ) {
 					echo '<a href="' . esc_url( get_permalink() ) . '">';
-					echo get_the_post_thumbnail( null, array( 60, 60 ), array( 'class' => 'rp-thumb' ) );
+					echo wp_kses_post( get_the_post_thumbnail( null, array( 60, 60 ), array( 'class' => 'rp-thumb' ) ) );
 					echo '</a>';
 				}
 				echo '<div>';
@@ -53,7 +55,7 @@ class WPWISEBONES_Widget_Recent_Posts extends WP_Widget {
 			wp_reset_postdata();
 		endif;
 
-        echo $args['after_widget']; // phpcs:ignore
+		echo wp_kses_post( $args['after_widget'] );
 	}
 
 	public function form( $instance ) {

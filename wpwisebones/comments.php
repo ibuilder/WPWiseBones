@@ -82,7 +82,7 @@ function wpwisebones_comment_callback( WP_Comment $comment, array $args, int $de
 	<li id="comment-<?php comment_ID(); ?>" <?php comment_class( 'mb-3' ); ?>>
 		<div class="comment-body card border-0 bg-light p-3 rounded">
 			<div class="comment-author d-flex align-items-center gap-3 mb-2">
-				<?php echo get_avatar( $comment, 48, '', '', array( 'class' => 'rounded-circle flex-shrink-0' ) ); ?>
+				<?php echo wp_kses_post( get_avatar( $comment, 48, '', '', array( 'class' => 'rounded-circle flex-shrink-0' ) ) ); ?>
 				<div>
 					<strong class="fn d-block"><?php comment_author_link(); ?></strong>
 					<time datetime="<?php comment_date( DATE_W3C ); ?>" class="text-muted small">

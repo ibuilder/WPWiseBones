@@ -25,7 +25,7 @@ $author    = get_queried_object();
 				<!-- Author card -->
 				<div class="card border-0 bg-light mb-5 p-4">
 					<div class="d-flex gap-4 align-items-center flex-wrap">
-						<?php echo get_avatar( $author_id, 96, '', '', array( 'class' => 'rounded-circle flex-shrink-0' ) ); ?>
+						<?php echo wp_kses_post( get_avatar( $author_id, 96, '', '', array( 'class' => 'rounded-circle flex-shrink-0' ) ) ); ?>
 						<div>
 							<h1 class="h3 mb-1"><?php echo esc_html( $author->display_name ); ?></h1>
 							<?php if ( $author->description ) : ?>
