@@ -37,7 +37,7 @@ function wpbs_sc_row( array $atts, ?string $content = null ): string {
 		$classes[] = esc_attr( $a['class'] );
 	}
 
-	return '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . do_shortcode( $content ) . '</div>';
+	return '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . wp_kses_post( do_shortcode( $content ) ) . '</div>';
 }
 
 function wpbs_sc_col( array $atts, ?string $content = null ): string {
@@ -80,5 +80,5 @@ function wpbs_sc_col( array $atts, ?string $content = null ): string {
 		$classes[] = esc_attr( $a['class'] );
 	}
 
-	return '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . do_shortcode( $content ) . '</div>';
+	return '<div class="' . esc_attr( implode( ' ', $classes ) ) . '">' . wp_kses_post( do_shortcode( $content ) ) . '</div>';
 }

@@ -3,7 +3,7 @@ Contributors:      wpwisebones
 Tags:              shortcodes, bootstrap, bootstrap-5, cards, accordion
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.5
+Stable tag:        1.0.6
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -75,6 +75,10 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 
 == Changelog ==
 
+= 1.0.6 =
+* Fixed: Plugin URI updated to wordpress.org plugin page (was returning 404)
+* Fixed: wp_kses_post() applied to do_shortcode() return values in sc-columns.php (wpb_row, wpb_col) and sc-accordion.php
+
 = 1.0.5 =
 * Fixed: Bootstrap 5 and Bootstrap Icons now bundled locally — no CDN requests (WP.org Guideline 8 compliance)
 * Fixed: Countdown script now enqueued only on pages that use [wpb_countdown], not globally
@@ -115,6 +119,9 @@ Yes, it is free and open-source (GPL-2.0-or-later).
 * Theme detection notice with one-click install link
 
 == Upgrade Notice ==
+
+= 1.0.6 =
+Security: wp_kses_post() now applied to all shortcode do_shortcode() return values.
 
 = 1.0.5 =
 Bootstrap assets now served locally — no external CDN requests. Required for WP.org compliance.

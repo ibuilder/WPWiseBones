@@ -39,7 +39,7 @@ function wpbs_sc_accordion( array $atts, ?string $content = null ): string {
 	$GLOBALS['wpbs_current_accordion'] = 'wpbAccordion' . $accordion_id;
 
 	$html  = '<div class="' . esc_attr( implode( ' ', $classes ) ) . '" id="wpbAccordion' . $accordion_id . '">';
-	$html .= do_shortcode( $content );
+	$html .= wp_kses_post( do_shortcode( $content ) );
 	$html .= '</div>';
 
 	return $html;
