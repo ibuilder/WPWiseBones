@@ -23,10 +23,15 @@ $features = [
     [ 'bi-calendar-check', __( 'Tours & Scheduling', 'realwise' ),   __( 'Request-a-tour booking with real availability, .ics calendar invites and reminders — and every booking drops straight into your CRM as a hot lead.', 'realwise' ) ],
 ];
 
+/*
+ * Illustrative workflow scenarios (NOT customer testimonials). These describe
+ * how each role uses the platform; they are not quotes from real customers.
+ * Replace with genuine, attributable customer quotes once you have consent.
+ */
 $testimonials = [
-    [ __( 'Jordan M.', 'realwise' ),  __( 'Broker / Owner', 'realwise' ),       __( 'We ran IDX, a CRM and a separate booking tool that never talked to each other. RealWise put listings, leads and tour requests on one timeline — our agents stopped copy-pasting between tabs.', 'realwise' ) ],
-    [ __( 'Alicia T.', 'realwise' ),  __( 'Real-estate Investor', 'realwise' ), __( 'I underwrite a few deals a week. The proforma and deal score turn a property into NPV, IRR and a go/no-go in about a minute — it has replaced my spreadsheet entirely.', 'realwise' ) ],
-    [ __( 'Sam R.', 'realwise' ),     __( 'Property Manager', 'realwise' ),     __( 'Tenants pay rent and file maintenance requests themselves now. Late fees apply automatically and I am not chasing checks at month-end anymore.', 'realwise' ) ],
+    [ __( 'Brokerage owner', 'realwise' ), __( 'Listings · CRM · tours', 'realwise' ),      __( 'Listings, leads and tour requests land on one timeline — agents stop copy-pasting between an IDX plugin, a separate CRM and a booking tool.', 'realwise' ) ],
+    [ __( 'Active investor', 'realwise' ), __( 'Proforma · deal score', 'realwise' ),       __( 'A property becomes NPV, IRR, DSCR and a go/no-go deal score in about a minute — no separate underwriting spreadsheet to maintain.', 'realwise' ) ],
+    [ __( 'Property manager', 'realwise' ), __( 'Leases · online rent', 'realwise' ),        __( 'Tenants pay rent and file maintenance requests themselves, and late fees apply automatically — no chasing checks at month-end.', 'realwise' ) ],
 ];
 
 $pillars = [
@@ -233,18 +238,18 @@ $faqs = realwise_faqs();
 <section class="rw-section rw-section--mist">
     <div class="container">
         <div class="text-center mb-5 rw-reveal">
-            <span class="rw-eyebrow"><?php esc_html_e( 'Trusted by operators', 'realwise' ); ?></span>
-            <h2 class="mt-2"><?php esc_html_e( 'Built for brokerages, investors & managers', 'realwise' ); ?></h2>
+            <span class="rw-eyebrow"><?php esc_html_e( 'Built for real workflows', 'realwise' ); ?></span>
+            <h2 class="mt-2"><?php esc_html_e( 'One platform across every real-estate role', 'realwise' ); ?></h2>
+            <p class="text-muted small mb-0"><?php esc_html_e( 'Illustrative scenarios showing how each role uses RealWise — not customer testimonials.', 'realwise' ); ?></p>
         </div>
         <div class="row g-4">
             <?php foreach ( $testimonials as $t ) : ?>
                 <div class="col-md-4">
                     <div class="card border-0 shadow-sm h-100 rw-reveal">
                         <div class="card-body p-4">
-                            <div class="text-warning mb-2"><?php echo str_repeat( '<i class="bi bi-star-fill"></i> ', 5 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
-                            <p class="mb-3">&ldquo;<?php echo esc_html( $t[2] ); ?>&rdquo;</p>
+                            <div class="rw-eyebrow mb-2"><i class="bi bi-diagram-3 me-1"></i><?php echo esc_html( $t[1] ); ?></div>
+                            <p class="mb-3"><?php echo esc_html( $t[2] ); ?></p>
                             <p class="mb-0 fw-bold"><?php echo esc_html( $t[0] ); ?></p>
-                            <small class="text-muted"><?php echo esc_html( $t[1] ); ?></small>
                         </div>
                     </div>
                 </div>
