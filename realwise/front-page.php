@@ -57,8 +57,8 @@ $faqs = realwise_faqs();
                     <a href="<?php echo esc_url( $features_url ); ?>" class="btn btn-outline-primary btn-lg px-4"><?php esc_html_e( 'Explore features', 'realwise' ); ?></a>
                 </div>
                 <div class="rw-hero-trust d-flex align-items-center gap-2 justify-content-center justify-content-lg-start">
-                    <span class="text-nowrap"><?php echo str_repeat( '<i class="bi bi-star-fill"></i>', 5 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-                    <span><?php esc_html_e( 'Loved by brokers, investors & property managers', 'realwise' ); ?></span>
+                    <span class="text-nowrap text-success"><i class="bi bi-shield-check"></i> <i class="bi bi-git"></i></span>
+                    <span><?php esc_html_e( 'Free & open-source · Self-hosted · Built for brokers, investors & property managers', 'realwise' ); ?></span>
                 </div>
             </div>
             <div class="col-lg-6">

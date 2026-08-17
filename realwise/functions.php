@@ -8,7 +8,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'REALWISE_VERSION', '1.3.2' );
+define( 'REALWISE_VERSION', '1.3.3' );
 
 /* Print the active theme version into the page <head> so you can confirm which
    build is live via "View Source" (search for "RealWise theme v"). */
