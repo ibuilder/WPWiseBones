@@ -921,3 +921,5 @@ button.wpaec-button:hover {
 .wpaec-compat-pill { display: inline-block; padding: .3rem .8rem; border-radius: 999px; border: 1px solid var(--af-line); color: var(--af-ink); font-size: .85rem; font-weight: 600; text-decoration: none; }
 .wpaec-compat-pill:hover { border-color: var(--af-forge); color: var(--af-forge); }
 .wpaec-compat-pill.is-active { background: var(--af-forge); border-color: var(--af-forge); color: #fff; }
+
+.af-builder-meta { color: #8a9099; font-size: .82rem; font-weight: 600; }

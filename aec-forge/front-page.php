@@ -176,8 +176,22 @@ $af_features = [
 						<a class="af-builder-card" href="<?php echo esc_url( $af_url ? $af_url : $af_vendors_url ); ?>">
 							<span class="af-builder-avatar"><?php echo esc_html( strtoupper( mb_substr( $af_name, 0, 1 ) ) ); ?></span>
 							<span class="af-builder-name"><?php echo esc_html( $af_name ); ?></span>
+							<?php
+							$af_since = function_exists( 'wpaec_vendor_since' ) ? wpaec_vendor_since( $af_vid ) : '';
+							$af_sales = function_exists( 'wpaec_vendor_sales_count' ) ? wpaec_vendor_sales_count( $af_vid ) : 0;
+							$af_bits  = array();
+							if ( $af_sales > 0 ) {
+								$af_bits[] = sprintf( /* translators: %d sales */ _n( '%d sale', '%d sales', $af_sales, 'aec-forge' ), $af_sales );
+							}
+							if ( '' !== $af_since ) {
+								$af_bits[] = sprintf( /* translators: %s year */ __( 'since %s', 'aec-forge' ), $af_since );
+							}
+							if ( $af_bits ) :
+								?>
+								<span class="af-builder-meta"><?php echo esc_html( implode( ' · ', $af_bits ) ); ?></span>
+							<?php endif; ?>
 							<?php if ( '' !== $af_bio ) : ?>
-								<span class="af-builder-bio"><?php echo esc_html( wp_trim_words( $af_bio, 18 ) ); ?></span>
+								<span class="af-builder-bio"><?php echo esc_html( wp_trim_words( $af_bio, 16 ) ); ?></span>
 							<?php endif; ?>
 							<span class="af-builder-link"><?php esc_html_e( 'Visit store', 'aec-forge' ); ?> &rarr;</span>
 						</a>
