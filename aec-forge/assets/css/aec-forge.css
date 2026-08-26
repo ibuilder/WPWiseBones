@@ -523,14 +523,118 @@ a:hover { color: #cf5507; }
 }
 
 /* ── Footer ─────────────────────────────────────────────────────────────── */
-.site-footer,
-#colophon.site-footer {
-	background: var(--af-ink);
-	color: #c9cdd3;
+/* Sticky footer — no white void under short pages. */
+#page.site {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
-.site-footer a { color: #e9edf1; }
-.site-footer a:hover { color: var(--af-forge-2); }
+#page.site > #colophon { margin-top: auto; }
+
+.af-footer {
+	background: var(--af-ink);
+	color: #9aa0a8;
+}
+
+.af-footer__brand {
+	display: inline-flex;
+	align-items: center;
+	gap: .6rem;
+	color: #fff !important;
+	font-family: "Archivo", sans-serif;
+	font-weight: 800;
+	font-size: 1.35rem;
+	letter-spacing: -0.02em;
+	text-decoration: none;
+}
+
+.af-footer__brand img { border-radius: 11px; }
+
+.af-footer__tag {
+	margin: 1rem 0 1.25rem;
+	color: #8a9199;
+	font-size: .95rem;
+	line-height: 1.6;
+	max-width: 40ch;
+}
+
+.af-footer__h {
+	color: #fff;
+	font-size: .82rem;
+	font-weight: 700;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	margin-bottom: 1rem;
+}
+
+.af-footer__links {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.af-footer__links li { margin-bottom: .55rem; }
+
+.af-footer__links a {
+	color: #aeb4bd;
+	text-decoration: none;
+	font-size: .95rem;
+	transition: color .15s ease;
+}
+
+.af-footer__links a:hover { color: var(--af-forge-2); }
+
+.af-footer__bottom {
+	border-top: 1px solid rgba(255, 255, 255, 0.10);
+	color: #7c828b;
+	font-size: .9rem;
+}
+
+.af-footer__legal a {
+	color: #aeb4bd;
+	text-decoration: none;
+	margin-left: 1.1rem;
+}
+
+.af-footer__legal a:hover { color: var(--af-forge-2); }
+
+.af-footer .btn-primary {
+	background: var(--af-forge);
+	border-color: var(--af-forge);
+	color: #fff;
+}
+
+.af-footer .btn-primary:hover { background: #cf5507; border-color: #cf5507; }
+
+/* Back-to-top (wired by the parent theme's main.js via #back-to-top). */
+.af-b2t {
+	position: fixed;
+	right: 1.25rem;
+	bottom: 1.25rem;
+	width: 44px;
+	height: 44px;
+	border: none;
+	border-radius: 50%;
+	background: var(--af-forge);
+	color: #fff;
+	font-size: 1.1rem;
+	box-shadow: 0 8px 22px rgba(232, 96, 10, 0.40);
+	opacity: 0;
+	visibility: hidden;
+	transform: translateY(8px);
+	transition: opacity .2s ease, transform .2s ease, background .15s ease;
+	z-index: 50;
+	cursor: pointer;
+}
+
+.af-b2t.visible {
+	opacity: 1;
+	visibility: visible;
+	transform: none;
+}
+
+.af-b2t:hover { background: #cf5507; }
 
 /* ── Vendor dashboard (AEC Market plugin surfaces) ──────────────────────── */
 .wpaec-dashboard {
