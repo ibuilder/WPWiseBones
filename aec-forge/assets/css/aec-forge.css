@@ -531,3 +531,149 @@ a:hover { color: #cf5507; }
 
 .site-footer a { color: #e9edf1; }
 .site-footer a:hover { color: var(--af-forge-2); }
+
+/* ── Vendor dashboard (AEC Market plugin surfaces) ──────────────────────── */
+.wpaec-dashboard {
+	max-width: 1120px;
+	margin-inline: auto;
+	gap: 2.5rem;
+}
+
+.wpaec-dashboard__nav a {
+	color: var(--af-ink);
+	border-radius: 9px;
+	font-weight: 500;
+}
+
+.wpaec-dashboard__nav a:hover {
+	color: var(--af-forge);
+	background: var(--af-ember);
+}
+
+.wpaec-dashboard__nav li.is-active a {
+	background: var(--af-ink);
+	color: #fff;
+}
+
+.wpaec-stat {
+	border: 1px solid var(--af-line);
+	border-radius: 12px;
+	background: #fff;
+	box-shadow: 0 1px 2px rgba(27, 30, 35, 0.04);
+	transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.wpaec-stat:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 30px rgba(27, 30, 35, 0.10);
+}
+
+.wpaec-stat__value { color: var(--af-forge); }
+
+/* Buttons rendered by the plugin as <a class="button"> / <button class="wpaec-button"> */
+.wpaec-button,
+.wpaec-dashboard .button,
+.wpaec-form .button,
+.wpaec-table .button {
+	display: inline-block;
+	padding: .6rem 1.3rem;
+	border-radius: 8px;
+	font-weight: 600;
+	line-height: 1.4;
+	text-decoration: none;
+	border: 1px solid transparent;
+	cursor: pointer;
+	transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.wpaec-button,
+button.wpaec-button {
+	background: var(--af-forge);
+	color: #fff !important;
+	border-color: var(--af-forge);
+}
+
+.wpaec-button:hover,
+button.wpaec-button:hover {
+	background: #cf5507;
+	border-color: #cf5507;
+	color: #fff !important;
+}
+
+/* Secondary buttons (View my public store, Edit, table actions) */
+.wpaec-dashboard .button:not(.wpaec-button),
+.wpaec-table .button:not(.wpaec-button) {
+	background: #fff;
+	color: var(--af-ink) !important;
+	border: 1px solid var(--af-line);
+}
+
+.wpaec-dashboard .button:not(.wpaec-button):hover,
+.wpaec-table .button:not(.wpaec-button):hover {
+	border-color: var(--af-forge);
+	color: var(--af-forge) !important;
+}
+
+.wpaec-table th {
+	color: var(--af-steel);
+	border-bottom: 2px solid var(--af-line);
+}
+
+.wpaec-table td { border-bottom: 1px solid var(--af-line); }
+
+/* ── WooCommerce cart & checkout ────────────────────────────────────────── */
+.woocommerce table.shop_table,
+.woocommerce-cart table.cart {
+	border: 1px solid var(--af-line);
+	border-radius: 12px;
+	overflow: hidden;
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+.woocommerce table.shop_table thead th,
+.woocommerce table.shop_table th {
+	background: var(--af-paper);
+	color: var(--af-steel);
+	border-bottom: 1px solid var(--af-line);
+}
+
+.woocommerce .cart_totals h2,
+.woocommerce-checkout h3 { color: var(--af-ink); }
+
+.woocommerce .cart-collaterals .cart_totals,
+.woocommerce-checkout #order_review,
+.wc-block-components-totals-wrapper {
+	background: #fff;
+	border: 1px solid var(--af-line);
+	border-radius: 12px;
+}
+
+.woocommerce a.remove {
+	color: var(--af-forge) !important;
+	border-color: var(--af-forge);
+}
+
+.woocommerce a.remove:hover {
+	background: var(--af-forge) !important;
+	color: #fff !important;
+}
+
+.woocommerce form .form-row input.input-text,
+.woocommerce form .form-row textarea,
+.woocommerce-checkout input,
+.wc-block-components-text-input input {
+	border-radius: 8px;
+	border-color: var(--af-line);
+}
+
+.woocommerce-info,
+.woocommerce-message {
+	border-top-color: var(--af-forge);
+}
+
+.woocommerce-message::before { color: var(--af-forge); }
+
+/* Empty-cart cross-sell + related products use the same card treatment. */
+.cross-sells ul.products li.product,
+.related.products ul.products li.product { text-align: left; }
