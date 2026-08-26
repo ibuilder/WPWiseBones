@@ -48,6 +48,23 @@ if ( ! $product || ! $product->is_visible() ) {
 			</p>
 
 			<?php
+			// Envato-style social proof: star rating (when reviewed) + sales count.
+			$af_avg    = (float) $product->get_average_rating();
+			$af_rated  = $af_avg > 0 ? wc_get_rating_html( $af_avg, $product->get_rating_count() ) : '';
+			$af_sales  = (int) get_post_meta( $product->get_id(), 'total_sales', true );
+			if ( '' !== $af_rated || $af_sales > 0 ) :
+				?>
+				<div class="product-card__meta">
+					<?php if ( '' !== $af_rated ) : ?>
+						<span class="product-card__stars"><?php echo wp_kses_post( $af_rated ); ?></span>
+					<?php endif; ?>
+					<?php if ( $af_sales > 0 ) : ?>
+						<span class="product-card__sales"><i class="bi bi-bag-check"></i> <?php echo esc_html( sprintf( /* translators: %s: sales count */ _n( '%s sale', '%s sales', $af_sales, 'aec-forge' ), number_format_i18n( $af_sales ) ) ); ?></span>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
+
+			<?php
 			/* Vendor "sold by" line (AEC Market) lives on this hook; the default
 			   price callback was removed in functions.php to avoid duplication. */
 			do_action( 'woocommerce_after_shop_loop_item_title' );

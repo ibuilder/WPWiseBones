@@ -897,3 +897,9 @@ button.wpaec-button:hover {
 
 .wpaec-vendor-card { text-align: left; }
 .wpaec-vendors-empty { text-align: center; padding: 2rem 0; }
+
+/* ───────── Product-card social proof (ratings + sales) ───────── */
+.product-card__meta { display: flex; align-items: center; gap: .7rem; margin-bottom: .6rem; font-size: .82rem; flex-wrap: wrap; }
+.product-card__meta .star-rating { font-size: .78rem; color: var(--af-forge); margin: 0; float: none; }
+.product-card__sales { color: #6b7280; white-space: nowrap; display: inline-flex; align-items: center; gap: .25rem; }
+.product-card__sales .bi { color: #63c07a; }

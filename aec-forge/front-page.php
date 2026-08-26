@@ -197,6 +197,51 @@ $af_features = [
 	</div>
 </section>
 
+<!-- ───────── POPULAR TOOLS (best sellers) ───────── -->
+<?php
+$af_popular = new WP_Query(
+	array(
+		'post_type'      => 'product',
+		'posts_per_page' => 4,
+		'meta_key'       => 'total_sales', // phpcs:ignore
+		'orderby'        => 'meta_value_num',
+		'order'          => 'DESC',
+		'no_found_rows'  => true,
+		'tax_query'      => array( // phpcs:ignore
+			array(
+				'taxonomy' => 'product_cat',
+				'field'    => 'slug',
+				'terms'    => array( 'ai-credits' ),
+				'operator' => 'NOT IN',
+			),
+		),
+	)
+);
+if ( $af_popular->have_posts() ) :
+	?>
+<section class="af-section">
+	<div class="container">
+		<div class="text-center mb-5">
+			<span class="af-eyebrow"><?php esc_html_e( 'Popular on AEC Forge', 'aec-forge' ); ?></span>
+			<h2 class="display-6 fw-bold mt-2"><?php esc_html_e( 'Top tools right now', 'aec-forge' ); ?></h2>
+		</div>
+		<div class="row g-4">
+			<?php
+			while ( $af_popular->have_posts() ) :
+				$af_popular->the_post();
+				$GLOBALS['product'] = wc_get_product( get_the_ID() );
+				wc_get_template_part( 'content', 'product' );
+			endwhile;
+			?>
+		</div>
+		<p class="text-center mt-5 mb-0"><a class="btn btn-outline-primary" href="<?php echo esc_url( $af_shop ); ?>"><?php esc_html_e( 'Browse all tools', 'aec-forge' ); ?> &rarr;</a></p>
+	</div>
+</section>
+	<?php
+endif;
+wp_reset_postdata();
+?>
+
 <!-- ───────── HOW IT WORKS ───────── -->
 <section class="af-section af-section--alt">
 	<div class="container">
