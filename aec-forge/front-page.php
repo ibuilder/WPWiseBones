@@ -89,12 +89,12 @@ $af_features = [
 				<h1 class="display-4 fw-bold mt-3 mb-3"><?php esc_html_e( 'Where AEC tools & expertise are forged — and sold', 'aec-forge' ); ?></h1>
 				<p class="lead mb-4"><?php esc_html_e( 'AEC Forge is the marketplace where BIM specialists, Excel experts and AI tool authors sell licensed scripts, add-ins and templates — alongside the custom services to put them to work.', 'aec-forge' ); ?></p>
 				<div class="d-flex gap-2 justify-content-center justify-content-lg-start flex-wrap mb-3">
-					<a href="<?php echo esc_url( $af_shop ); ?>" class="btn btn-primary btn-lg px-4"><i class="bi bi-shop me-2"></i><?php esc_html_e( 'Browse the marketplace', 'aec-forge' ); ?></a>
-					<a href="<?php echo esc_url( $af_register ); ?>" class="btn btn-outline-light btn-lg px-4"><?php esc_html_e( 'Sell your tools', 'aec-forge' ); ?></a>
+					<a href="<?php echo esc_url( $af_register ); ?>" class="btn btn-primary btn-lg px-4"><i class="bi bi-hammer me-2"></i><?php esc_html_e( 'Start selling — keep 100%', 'aec-forge' ); ?></a>
+					<a href="<?php echo esc_url( $af_shop ); ?>" class="btn btn-outline-light btn-lg px-4"><i class="bi bi-shop me-2"></i><?php esc_html_e( 'Browse the marketplace', 'aec-forge' ); ?></a>
 				</div>
 				<div class="af-hero-trust d-flex align-items-center gap-2 justify-content-center justify-content-lg-start">
 					<i class="bi bi-shield-check"></i>
-					<span><?php esc_html_e( 'Open-source platform · Licensed downloads · Vetted vendors', 'aec-forge' ); ?></span>
+					<span><?php esc_html_e( 'Keep 100% at launch · Built-in licensing & payouts · Vetted builders', 'aec-forge' ); ?></span>
 				</div>
 			</div>
 			<div class="col-lg-6">
