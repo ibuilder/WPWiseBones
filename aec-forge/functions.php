@@ -128,5 +128,27 @@ add_action( 'wp_head', function () {
 	);
 }, 2 );
 
+/* ── AI-tools promo banner on the main shop page. ───────────────────────── */
+add_action( 'woocommerce_archive_description', function () {
+	if ( ! function_exists( 'is_shop' ) || ! is_shop() ) {
+		return;
+	}
+	$af_tools   = home_url( '/forge-tools/' );
+	$af_pricing = home_url( '/pricing/' );
+	?>
+	<div class="af-shop-promo">
+		<span class="af-shop-promo__ic"><i class="bi bi-lightning-charge-fill"></i></span>
+		<div class="af-shop-promo__body">
+			<strong><?php esc_html_e( 'AEC Forge Tools — AI for the GC paperwork', 'aec-forge' ); ?></strong>
+			<span><?php esc_html_e( 'RFIs, submittals, pay-apps, cost-exposure, daily reports and minutes — run on credits, delivered as clean .docx / .xlsx.', 'aec-forge' ); ?></span>
+		</div>
+		<div class="af-shop-promo__actions">
+			<a class="btn btn-primary" href="<?php echo esc_url( $af_tools ); ?>"><?php esc_html_e( 'Open the tools', 'aec-forge' ); ?></a>
+			<a class="btn btn-outline-light" href="<?php echo esc_url( $af_pricing ); ?>"><?php esc_html_e( 'See pricing', 'aec-forge' ); ?></a>
+		</div>
+	</div>
+	<?php
+}, 15 );
+
 /* ── One-click promo-site builder ───────────────────────────────────────── */
 require get_stylesheet_directory() . '/inc/site-builder.php';

@@ -15,13 +15,47 @@ $af_shop      = aec_forge_shop_url();
 $af_register  = aec_forge_market_url( 'vendor_register_page', '/become-a-vendor/' );
 $af_how       = home_url( '/how-it-works/' );
 $af_tools_url = home_url( '/forge-tools/' );
+$af_pricing   = home_url( '/pricing/' );
 
-$af_tools = [
-	[ 'bi-file-earmark-text',  __( 'RFI Draft Generator', 'aec-forge' ),     __( '1 credit', 'aec-forge' ) ],
-	[ 'bi-list-check',         __( 'Submittals Log Analyzer', 'aec-forge' ), __( '2 credits', 'aec-forge' ) ],
-	[ 'bi-receipt',            __( 'G702/G703 Pay-App', 'aec-forge' ),       __( '3 credits', 'aec-forge' ) ],
-	[ 'bi-graph-up-arrow',     __( 'Cost-Exposure Report', 'aec-forge' ),    __( '3 credits', 'aec-forge' ) ],
+$af_tool_icons = [
+	'rfi'          => 'bi-file-earmark-text',
+	'submittals'   => 'bi-list-check',
+	'payapp'       => 'bi-receipt',
+	'costexposure' => 'bi-graph-up-arrow',
+	'dailyreport'  => 'bi-calendar-check',
+	'minutes'      => 'bi-chat-square-text',
 ];
+
+/* Pull the live tool list (and the Crew pack) from the AEC Forge Tools plugin. */
+$af_tools = [];
+$af_crew  = null;
+if ( class_exists( '\AEC_Forge_Tools\Tools' ) ) {
+	foreach ( \AEC_Forge_Tools\Tools::instance()->services->all() as $af_svc ) {
+		$af_k       = $af_svc->key();
+		$af_c       = (int) $af_svc->credits();
+		$af_tools[] = [
+			isset( $af_tool_icons[ $af_k ] ) ? $af_tool_icons[ $af_k ] : 'bi-lightning-charge',
+			$af_svc->name(),
+			sprintf( /* translators: %d credits */ _n( '%d credit', '%d credits', $af_c, 'aec-forge' ), $af_c ),
+		];
+	}
+	if ( class_exists( '\AEC_Forge_Tools\Settings' ) ) {
+		foreach ( (array) \AEC_Forge_Tools\Settings::value( 'packs', [] ) as $af_p ) {
+			if ( isset( $af_p['id'] ) && 'crew' === $af_p['id'] ) {
+				$af_crew = $af_p;
+				break;
+			}
+		}
+	}
+}
+if ( empty( $af_tools ) ) {
+	$af_tools = [
+		[ 'bi-file-earmark-text', __( 'RFI Draft Generator', 'aec-forge' ),     __( '1 credit', 'aec-forge' ) ],
+		[ 'bi-list-check',        __( 'Submittals Log Analyzer', 'aec-forge' ), __( '2 credits', 'aec-forge' ) ],
+		[ 'bi-receipt',           __( 'G702/G703 Pay-App', 'aec-forge' ),       __( '3 credits', 'aec-forge' ) ],
+		[ 'bi-graph-up-arrow',    __( 'Cost-Exposure Report', 'aec-forge' ),    __( '3 credits', 'aec-forge' ) ],
+	];
+}
 
 $af_features = [
 	[ 'bi-box-seam',        __( 'Programs & Scripts', 'aec-forge' ),   __( 'Revit add-ins, IFC/GIS scripts, Grasshopper definitions, Excel macros and AI tools — sold as instant digital downloads.', 'aec-forge' ) ],
@@ -141,7 +175,7 @@ $af_features = [
 		</div>
 		<div class="row g-4 justify-content-center">
 			<?php foreach ( $af_tools as $af_t ) : ?>
-				<div class="col-6 col-lg-3">
+				<div class="col-6 col-lg-4">
 					<a href="<?php echo esc_url( $af_tools_url ); ?>" class="af-toolcard">
 						<i class="bi <?php echo esc_attr( $af_t[0] ); ?>"></i>
 						<h3><?php echo esc_html( $af_t[1] ); ?></h3>
@@ -150,9 +184,22 @@ $af_features = [
 				</div>
 			<?php endforeach; ?>
 		</div>
-		<p class="text-center mt-5 mb-0">
+		<div class="text-center mt-5">
 			<a class="btn btn-primary btn-lg px-4" href="<?php echo esc_url( $af_tools_url ); ?>"><i class="bi bi-lightning-charge-fill me-2"></i><?php esc_html_e( 'Open the tools', 'aec-forge' ); ?></a>
-		</p>
+			<p class="af-tools-cta-sub mt-3 mb-0">
+				<?php if ( $af_crew ) : ?>
+					<?php
+					printf(
+						/* translators: 1: credits, 2: price */
+						esc_html__( 'Most builders start with Crew — %1$d credits for $%2$s.', 'aec-forge' ),
+						(int) $af_crew['credits'],
+						esc_html( number_format( (float) $af_crew['price'], 0 ) )
+					);
+					?>
+				<?php endif; ?>
+				<a href="<?php echo esc_url( $af_pricing ); ?>"><?php esc_html_e( 'See pricing', 'aec-forge' ); ?> &rarr;</a>
+			</p>
+		</div>
 	</div>
 </section>
 

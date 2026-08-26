@@ -848,3 +848,30 @@ button.wpaec-button:hover {
 	text-transform: uppercase;
 	letter-spacing: .05em;
 }
+.af-tools-cta-sub { color: #9aa1ab; font-size: .92rem; }
+.af-tools-cta-sub a { color: var(--af-forge-2); font-weight: 700; text-decoration: none; margin-left: .35rem; }
+.af-tools-cta-sub a:hover { text-decoration: underline; }
+
+/* ───────── Shop promo banner for AI tools / credits ───────── */
+.af-shop-promo {
+	display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem;
+	background:
+		radial-gradient( ellipse at 92% 25%, rgba(232,96,10,.28), rgba(232,96,10,0) 60% ),
+		linear-gradient( 160deg, #20242b 0%, #14171b 100% );
+	background-color: #14171b;
+	color: #f4f2ef;
+	border-radius: 16px;
+	padding: 1.4rem 1.6rem;
+	margin: 0 0 2rem;
+}
+.af-shop-promo__ic {
+	font-size: 1.8rem; color: var(--af-forge-2);
+	background: rgba(232,96,10,.16);
+	width: 56px; height: 56px;
+	display: inline-flex; align-items: center; justify-content: center;
+	border-radius: 14px; flex: 0 0 auto;
+}
+.af-shop-promo__body { flex: 1 1 260px; }
+.af-shop-promo__body strong { display: block; font-size: 1.06rem; font-weight: 700; }
+.af-shop-promo__body span { color: #c9cdd3; font-size: .92rem; }
+.af-shop-promo__actions { display: flex; gap: .5rem; flex-wrap: wrap; }
