@@ -57,6 +57,19 @@ if ( empty( $af_tools ) ) {
 	];
 }
 
+/* Featured builders (approved vendors) for the vendor-first showcase. */
+$af_vendors = get_users(
+	array(
+		'role'       => 'wpaec_vendor',
+		'meta_key'   => '_wpaec_vendor_status', // phpcs:ignore
+		'meta_value' => 'approved',             // phpcs:ignore
+		'number'     => 6,
+		'orderby'    => 'registered',
+		'order'      => 'DESC',
+	)
+);
+$af_vendors_url = home_url( '/vendors/' );
+
 $af_features = [
 	[ 'bi-box-seam',        __( 'Programs & Scripts', 'aec-forge' ),   __( 'Revit add-ins, IFC/GIS scripts, Grasshopper definitions, Excel macros and AI tools — sold as instant digital downloads.', 'aec-forge' ) ],
 	[ 'bi-key',             __( 'License keys built in', 'aec-forge' ), __( 'Every download can issue license keys with activation limits, and a REST API your shipped tools call to validate themselves.', 'aec-forge' ) ],
@@ -133,6 +146,49 @@ $af_features = [
 					</div>
 				</div>
 			<?php endforeach; ?>
+		</div>
+	</div>
+</section>
+
+<!-- ───────── FEATURED BUILDERS (vendor-first) ───────── -->
+<section class="af-section">
+	<div class="container">
+		<div class="text-center mb-5">
+			<span class="af-eyebrow"><?php esc_html_e( 'Featured builders', 'aec-forge' ); ?></span>
+			<h2 class="display-6 fw-bold mt-2"><?php esc_html_e( 'The people behind the tools', 'aec-forge' ); ?></h2>
+			<p class="text-muted mx-auto" style="max-width:42em"><?php esc_html_e( 'AEC Forge is built by independent AEC/BIM specialists, Excel experts and tool authors keeping 100% of what they earn at launch. Meet a few — or join them.', 'aec-forge' ); ?></p>
+		</div>
+
+		<?php if ( ! empty( $af_vendors ) ) : ?>
+			<div class="row g-4 justify-content-center">
+				<?php
+				foreach ( $af_vendors as $af_v ) :
+					$af_vid  = (int) $af_v->ID;
+					$af_name = function_exists( 'wpaec_get_store_name' ) ? wpaec_get_store_name( $af_vid ) : $af_v->display_name;
+					$af_url  = function_exists( 'wpaec_get_store_url' ) ? wpaec_get_store_url( $af_vid ) : '';
+					$af_bio  = (string) get_user_meta( $af_vid, '_wpaec_store_bio', true );
+					?>
+					<div class="col-md-6 col-lg-4">
+						<a class="af-builder-card" href="<?php echo esc_url( $af_url ? $af_url : $af_vendors_url ); ?>">
+							<span class="af-builder-avatar"><?php echo esc_html( strtoupper( mb_substr( $af_name, 0, 1 ) ) ); ?></span>
+							<span class="af-builder-name"><?php echo esc_html( $af_name ); ?></span>
+							<?php if ( '' !== $af_bio ) : ?>
+								<span class="af-builder-bio"><?php echo esc_html( wp_trim_words( $af_bio, 18 ) ); ?></span>
+							<?php endif; ?>
+							<span class="af-builder-link"><?php esc_html_e( 'Visit store', 'aec-forge' ); ?> &rarr;</span>
+						</a>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		<?php else : ?>
+			<div class="af-builder-empty text-center">
+				<p class="text-muted mb-3"><?php esc_html_e( 'Your name could be here. Be one of the first builders on AEC Forge — and keep 100% at launch.', 'aec-forge' ); ?></p>
+			</div>
+		<?php endif; ?>
+
+		<div class="text-center mt-5">
+			<a class="btn btn-outline-primary me-2 mb-2" href="<?php echo esc_url( $af_vendors_url ); ?>"><?php esc_html_e( 'Browse all builders', 'aec-forge' ); ?></a>
+			<a class="btn btn-primary mb-2" href="<?php echo esc_url( $af_register ); ?>"><i class="bi bi-hammer me-1"></i><?php esc_html_e( 'Become a builder', 'aec-forge' ); ?></a>
 		</div>
 	</div>
 </section>

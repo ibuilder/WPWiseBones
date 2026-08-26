@@ -875,3 +875,25 @@ button.wpaec-button:hover {
 .af-shop-promo__body strong { display: block; font-size: 1.06rem; font-weight: 700; }
 .af-shop-promo__body span { color: #c9cdd3; font-size: .92rem; }
 .af-shop-promo__actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+/* ───────── Featured builders + vendor directory ───────── */
+.af-builder-card {
+	display: flex; flex-direction: column; align-items: flex-start; gap: .5rem;
+	height: 100%; padding: 1.6rem; border-radius: var(--af-radius);
+	background: #fff; border: 1px solid var(--af-line); text-decoration: none;
+	transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.af-builder-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(27,30,35,.10); border-color: var(--af-forge); }
+.af-builder-avatar,
+.wpaec-vendor-avatar {
+	width: 56px; height: 56px; border-radius: 14px;
+	background: linear-gradient(135deg, var(--af-forge-2), var(--af-forge));
+	color: #fff; font-weight: 800; font-size: 1.5rem;
+	display: inline-flex; align-items: center; justify-content: center;
+}
+.af-builder-name { font-size: 1.1rem; font-weight: 700; color: var(--af-ink); }
+.af-builder-bio { color: #5c6470; font-size: .92rem; line-height: 1.45; }
+.af-builder-link { margin-top: auto; color: var(--af-forge); font-weight: 700; font-size: .9rem; }
+
+.wpaec-vendor-card { text-align: left; }
+.wpaec-vendors-empty { text-align: center; padding: 2rem 0; }
