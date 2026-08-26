@@ -910,3 +910,14 @@ button.wpaec-button:hover {
 .wpaec-demo-btn { margin-left: auto; display: inline-flex; align-items: center; gap: .3rem; font-weight: 700; color: var(--af-forge); text-decoration: none; border: 1px solid var(--af-forge); border-radius: 8px; padding: .35rem .85rem; }
 .wpaec-demo-btn:hover { background: var(--af-forge); color: #fff; }
 .wpaec-changelog { white-space: pre-wrap; background: var(--af-paper); border: 1px solid var(--af-line); border-radius: 8px; padding: 1rem; font-size: .9rem; line-height: 1.5; }
+
+/* ───────── Compatibility badges + shop filter pills ───────── */
+.wpaec-compat { margin: 0 0 1rem; font-size: .9rem; }
+.wpaec-compat__label { color: var(--af-steel); font-weight: 600; margin-right: .3rem; }
+.wpaec-compat__badge { display: inline-block; margin: .2rem .3rem .2rem 0; padding: .2rem .6rem; border-radius: 999px; background: var(--af-ember); color: #a34505; font-size: .82rem; font-weight: 600; text-decoration: none; }
+.wpaec-compat__badge:hover { background: var(--af-forge); color: #fff; }
+.wpaec-compat-filter { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin: 0 0 1.6rem; }
+.wpaec-compat-filter__label { color: var(--af-steel); font-weight: 700; font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; margin-right: .3rem; }
+.wpaec-compat-pill { display: inline-block; padding: .3rem .8rem; border-radius: 999px; border: 1px solid var(--af-line); color: var(--af-ink); font-size: .85rem; font-weight: 600; text-decoration: none; }
+.wpaec-compat-pill:hover { border-color: var(--af-forge); color: var(--af-forge); }
+.wpaec-compat-pill.is-active { background: var(--af-forge); border-color: var(--af-forge); color: #fff; }
