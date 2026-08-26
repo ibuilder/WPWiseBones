@@ -903,3 +903,10 @@ button.wpaec-button:hover {
 .product-card__meta .star-rating { font-size: .78rem; color: var(--af-forge); margin: 0; float: none; }
 .product-card__sales { color: #6b7280; white-space: nowrap; display: inline-flex; align-items: center; gap: .25rem; }
 .product-card__sales .bi { color: #63c07a; }
+
+/* ───────── Item facts + changelog (single product) ───────── */
+.wpaec-item-facts { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.4rem; margin: 0 0 1.2rem; padding: .8rem 0; border-top: 1px solid var(--af-line); border-bottom: 1px solid var(--af-line); font-size: .9rem; }
+.wpaec-fact strong { color: var(--af-steel); font-weight: 700; margin-right: .35rem; text-transform: uppercase; font-size: .7rem; letter-spacing: .05em; }
+.wpaec-demo-btn { margin-left: auto; display: inline-flex; align-items: center; gap: .3rem; font-weight: 700; color: var(--af-forge); text-decoration: none; border: 1px solid var(--af-forge); border-radius: 8px; padding: .35rem .85rem; }
+.wpaec-demo-btn:hover { background: var(--af-forge); color: #fff; }
+.wpaec-changelog { white-space: pre-wrap; background: var(--af-paper); border: 1px solid var(--af-line); border-radius: 8px; padding: 1rem; font-size: .9rem; line-height: 1.5; }
