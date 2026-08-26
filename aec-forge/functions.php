@@ -80,5 +80,53 @@ function aec_forge_shop_url(): string {
 	return home_url( '/shop/' );
 }
 
+/* ── Full-width by default (no sidebar) — a marketplace reads better edge to
+      edge. Set once as a theme mod so the site owner can still override it in
+      the Customizer or per page. ─────────────────────────────────────────── */
+add_action( 'after_setup_theme', function () {
+	if ( ! get_option( 'aec_forge_layout_set' ) ) {
+		set_theme_mod( 'wpwisebones_layout', 'full-width' );
+		update_option( 'aec_forge_layout_set', 1 );
+	}
+} );
+
+/* ── Branded product placeholder — replace WooCommerce's grey box with the
+      AEC Forge blueprint-cube graphic. We filter both the src (fallback path)
+      and the full <img> HTML (used when a placeholder attachment is set, which
+      otherwise bypasses the src filter). ────────────────────────────────── */
+add_filter( 'woocommerce_placeholder_img_src', function () {
+	return get_stylesheet_directory_uri() . '/assets/img/placeholder.svg';
+} );
+
+add_filter( 'woocommerce_placeholder_img', function ( $html, $size, $dimensions ) {
+	$src = get_stylesheet_directory_uri() . '/assets/img/placeholder.svg';
+	$w   = ( is_array( $dimensions ) && ! empty( $dimensions['width'] ) ) ? (int) $dimensions['width'] : 600;
+	$h   = ( is_array( $dimensions ) && ! empty( $dimensions['height'] ) ) ? (int) $dimensions['height'] : 600;
+	return sprintf(
+		'<img src="%s" alt="" width="%d" height="%d" class="woocommerce-placeholder wp-post-image af-placeholder" loading="lazy" decoding="async" />',
+		esc_url( $src ),
+		$w,
+		$h
+	);
+}, 10, 3 );
+
+/* ── The parent's product-card template prints the price itself, so drop
+      WooCommerce's duplicate loop-price hook (keeps the vendor "sold by"
+      line, which lives on the same hook). ───────────────────────────────── */
+add_action( 'after_setup_theme', function () {
+	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+}, 11 );
+
+/* ── SVG favicon / site icon when the owner hasn't set one. ─────────────── */
+add_action( 'wp_head', function () {
+	if ( function_exists( 'has_site_icon' ) && has_site_icon() ) {
+		return;
+	}
+	printf(
+		"<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n",
+		esc_url( get_stylesheet_directory_uri() . '/assets/img/mark.svg' )
+	);
+}, 2 );
+
 /* ── One-click promo-site builder ───────────────────────────────────────── */
 require get_stylesheet_directory() . '/inc/site-builder.php';
