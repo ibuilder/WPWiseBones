@@ -1,0 +1,251 @@
+/*
+ * AEC Forge brand skin — charcoal / molten orange over the WPWiseBones
+ * (Bootstrap 5) base. Loaded after the parent stylesheet.
+ */
+
+:root {
+	--af-ink: #1b1e23;          /* charcoal */
+	--af-ink-2: #262a31;
+	--af-steel: #5c6470;
+	--af-line: #e6e2dc;
+	--af-paper: #faf8f5;        /* warm paper */
+	--af-forge: #e8600a;        /* molten orange */
+	--af-forge-2: #ff8a3d;
+	--af-ember: #fff1e6;
+	--af-radius: 12px;
+}
+
+body {
+	font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	color: var(--af-ink);
+	background: #fff;
+}
+
+h1, h2, h3, h4, h5, .display-4, .display-5 {
+	font-family: "Archivo", sans-serif;
+	letter-spacing: -0.02em;
+}
+
+/* Bootstrap accent re-tint */
+.btn-primary,
+.btn-success {
+	background: var(--af-forge);
+	border-color: var(--af-forge);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-success:hover,
+.btn-success:focus {
+	background: #cf5507;
+	border-color: #cf5507;
+}
+
+.btn-outline-primary {
+	color: var(--af-forge);
+	border-color: var(--af-forge);
+}
+
+.btn-outline-primary:hover {
+	background: var(--af-forge);
+	border-color: var(--af-forge);
+	color: #fff;
+}
+
+a { color: var(--af-forge); }
+a:hover { color: #cf5507; }
+
+.text-primary { color: var(--af-forge) !important; }
+.bg-primary { background-color: var(--af-forge) !important; }
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+
+.wpb-hero,
+.af-hero {
+	background:
+		radial-gradient(1000px 480px at 85% -10%, rgba(232, 96, 10, 0.28), transparent 60%),
+		linear-gradient(160deg, var(--af-ink) 0%, var(--af-ink-2) 100%);
+	color: #f4f2ef;
+	padding: 5.5rem 0 5rem;
+}
+
+.af-hero .lead { color: #c9cdd3; }
+
+.af-hero-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: .5em;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.16);
+	color: var(--af-forge-2);
+	border-radius: 99px;
+	padding: .35em 1em;
+	font-size: .85rem;
+	font-weight: 600;
+}
+
+.af-hero-badge .dot {
+	width: .5em;
+	height: .5em;
+	border-radius: 50%;
+	background: var(--af-forge-2);
+	box-shadow: 0 0 8px var(--af-forge-2);
+}
+
+.af-hero-trust { color: #9aa0a8; font-size: .9rem; }
+
+/* Hero listing mock cards */
+.af-hero-visual { position: relative; min-height: 340px; }
+
+.af-mock {
+	background: #fff;
+	color: var(--af-ink);
+	border-radius: var(--af-radius);
+	box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+	padding: 1.1rem 1.25rem;
+	position: absolute;
+}
+
+.af-mock--product { top: 0; left: 4%; width: 62%; }
+.af-mock--service { bottom: 0; right: 0; width: 58%; }
+
+.af-mock__kicker {
+	font-size: .72rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .08em;
+	color: var(--af-steel);
+}
+
+.af-mock__title { font-weight: 700; margin: .15rem 0 .5rem; }
+
+.af-mock__row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: .9rem;
+	padding: .35rem 0;
+	border-top: 1px dashed var(--af-line);
+}
+
+.af-mock__price { color: var(--af-forge); font-weight: 700; }
+
+.af-mock__key {
+	font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+	font-size: .8rem;
+	background: var(--af-ember);
+	color: #a34505;
+	border-radius: 6px;
+	padding: .3em .6em;
+	display: inline-block;
+}
+
+/* ── Sections ─────────────────────────────────────────────────────────── */
+
+.af-section { padding: 4.5rem 0; }
+.af-section--alt { background: var(--af-paper); }
+
+.af-eyebrow {
+	color: var(--af-forge);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	font-size: .8rem;
+}
+
+.af-card {
+	background: #fff;
+	border: 1px solid var(--af-line);
+	border-radius: var(--af-radius);
+	padding: 1.6rem;
+	height: 100%;
+	transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.af-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 14px 34px rgba(27, 30, 35, 0.10);
+}
+
+.af-card .bi {
+	font-size: 1.5rem;
+	color: var(--af-forge);
+	background: var(--af-ember);
+	border-radius: 10px;
+	padding: .45em;
+	display: inline-block;
+	margin-bottom: .8rem;
+}
+
+.af-card h3 { font-size: 1.1rem; font-weight: 700; }
+.af-card p { color: var(--af-steel); font-size: .95rem; margin-bottom: 0; }
+
+/* Numbered steps */
+.af-step { text-align: center; padding: 0 1rem; }
+
+.af-step__num {
+	width: 2.6rem;
+	height: 2.6rem;
+	line-height: 2.6rem;
+	border-radius: 50%;
+	background: var(--af-ink);
+	color: var(--af-forge-2);
+	font-weight: 800;
+	display: inline-block;
+	margin-bottom: 1rem;
+}
+
+/* Audience split */
+.af-panel {
+	border-radius: var(--af-radius);
+	padding: 2.2rem;
+	height: 100%;
+}
+
+.af-panel--dark { background: var(--af-ink); color: #f4f2ef; }
+.af-panel--dark p, .af-panel--dark li { color: #c9cdd3; }
+.af-panel--ember { background: var(--af-ember); }
+.af-panel--ember p, .af-panel--ember li { color: #7a4a22; }
+
+.af-panel ul { padding-left: 1.2rem; margin-bottom: 1.4rem; }
+.af-panel li { margin-bottom: .45rem; }
+
+/* Stats strip */
+.af-stats { border-top: 1px solid var(--af-line); border-bottom: 1px solid var(--af-line); }
+.af-stat { text-align: center; padding: 1.6rem 1rem; }
+.af-stat b { display: block; font-size: 1.6rem; color: var(--af-forge); }
+.af-stat span { color: var(--af-steel); font-size: .9rem; }
+
+/* CTA band */
+.af-cta {
+	background:
+		radial-gradient(800px 300px at 15% 120%, rgba(232, 96, 10, 0.35), transparent 60%),
+		var(--af-ink);
+	color: #fff;
+	border-radius: var(--af-radius);
+	padding: 3.5rem 2.5rem;
+	text-align: center;
+}
+
+/* ── AEC Market plugin surfaces (dashboard, tiers, store) ─────────────── */
+
+.wpaec-button,
+.wpaec-form .button {
+	background: var(--af-forge);
+	border-color: var(--af-forge);
+	color: #fff;
+}
+
+.wpaec-dashboard__nav li.is-active a { background: var(--af-ink); }
+
+.wpaec-tier:has(input:checked) {
+	border-color: var(--af-forge);
+	box-shadow: 0 0 0 1px var(--af-forge);
+}
+
+.wpaec-stat__value { color: var(--af-forge); }
+
+@media (max-width: 991px) {
+	.af-hero-visual { display: none; }
+	.wpb-hero, .af-hero { padding: 4rem 0 3.5rem; }
+}
