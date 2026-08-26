@@ -29,7 +29,7 @@ function wpwisebones_register_meta_boxes() {
 	);
 }
 
-/* â”€â”€ Layout override â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Layout override â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 
 function wpwisebones_meta_layout_callback( WP_Post $post ) {
 	wp_nonce_field( 'wpwisebones_layout_meta_nonce', 'wpwisebones_layout_nonce' );
@@ -44,15 +44,15 @@ function wpwisebones_meta_layout_callback( WP_Post $post ) {
 		'full-width'    => esc_html__( 'Full Width', 'wpwisebones' ),
 	);
 	?>
-	<select id=”wpwisebones_layout_select” name=”wpwisebones_layout” style=”width:100%”>
+	<select id="wpwisebones_layout_select" name="wpwisebones_layout" style="width:100%">
 		<?php foreach ( $layout_options as $val => $label ) : ?>
-			<option value=”<?php echo esc_attr( $val ); ?>” <?php selected( $layout, $val ); ?>><?php echo esc_html( $label ); ?></option>
+			<option value="<?php echo esc_attr( $val ); ?>" <?php selected( $layout, $val ); ?>><?php echo esc_html( $label ); ?></option>
 		<?php endforeach; ?>
 	</select>
 	<?php
 }
 
-/* â”€â”€ Page header options â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Page header options â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 
 function wpwisebones_meta_page_header_callback( WP_Post $post ) {
 	wp_nonce_field( 'wpwisebones_page_header_nonce', 'wpwisebones_ph_nonce' );
@@ -81,7 +81,7 @@ function wpwisebones_meta_page_header_callback( WP_Post $post ) {
 	<?php
 }
 
-/* â”€â”€ Save meta boxes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Save meta boxes â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 
 add_action( 'save_post', 'wpwisebones_save_meta_boxes' );
 
@@ -111,7 +111,7 @@ function wpwisebones_save_meta_boxes( int $post_id ) {
 	}
 }
 
-/* â”€â”€ Media uploader for meta box â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* â"€â"€ Media uploader for meta box â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 
 // Enqueue media library on post edit screens so wp.media is available
 add_action(

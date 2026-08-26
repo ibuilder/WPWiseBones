@@ -1,6 +1,6 @@
 <?php
 /**
- * SEO meta tags â€” Open Graph, Twitter Card, Schema.org JSON-LD, canonical URL.
+ * SEO meta tags â€" Open Graph, Twitter Card, Schema.org JSON-LD, canonical URL.
  *
  * Only active when a dedicated SEO plugin (Yoast, RankMath, AIOSEO) is NOT present.
  * Plugins hook into wp_head and add their own tags; we step aside for them.
@@ -27,7 +27,7 @@ function wpwisebones_seo_meta() {
 	$home_url  = home_url( '/' );
 	$locale    = get_locale();
 
-	/* â”€â”€ Gather page-specific data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+	/* â"€â"€ Gather page-specific data â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 	if ( is_singular() && ! is_attachment() && isset( $post ) ) {
 		$title       = get_the_title( $post );
 		$description = wp_strip_all_tags( has_excerpt( $post ) ? get_the_excerpt( $post ) : wp_trim_words( get_the_content( null, false, $post ), 30 ) );
@@ -78,7 +78,7 @@ function wpwisebones_seo_meta() {
 	$url         = esc_url( $url );
 	$image       = $image ? esc_url( $image ) : '';
 
-	/* ── Open Graph â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+	/* ── Open Graph â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 	$og = array(
 		'og:site_name'   => esc_attr( $site_name ),
 		'og:locale'      => esc_attr( $locale ),
@@ -105,7 +105,7 @@ function wpwisebones_seo_meta() {
 
 	foreach ( $og as $property => $content ) {
 		if ( $content ) {
-			echo '<meta property=”' . esc_attr( $property ) . '” content=”' . esc_attr( $content ) . '”>' . “\n”; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- literal closing tag chars, not dynamic data.
+			echo '<meta property="' . esc_attr( $property ) . '" content="' . esc_attr( $content ) . '">' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- literal closing tag chars, not dynamic data.
 		}
 	}
 
@@ -121,11 +121,11 @@ function wpwisebones_seo_meta() {
 
 	foreach ( $twitter as $name => $content ) {
 		if ( $content ) {
-			echo '<meta name=”' . esc_attr( $name ) . '” content=”' . esc_attr( $content ) . '”>' . “\n”; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- literal closing tag chars, not dynamic data.
+			echo '<meta name="' . esc_attr( $name ) . '" content="' . esc_attr( $content ) . '">' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- literal closing tag chars, not dynamic data.
 		}
 	}
 
-	/* â”€â”€ Schema.org JSON-LD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+	/* â"€â"€ Schema.org JSON-LD â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
 	if ( is_singular( 'post' ) && isset( $post ) ) {
 		$schema = array(
 			'@context'         => 'https://schema.org',
