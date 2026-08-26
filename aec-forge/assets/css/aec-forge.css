@@ -923,3 +923,12 @@ button.wpaec-button:hover {
 .wpaec-compat-pill.is-active { background: var(--af-forge); border-color: var(--af-forge); color: #fff; }
 
 .af-builder-meta { color: #8a9099; font-size: .82rem; font-weight: 600; }
+
+/* ───────── License tiers (Regular / Extended) selector ───────── */
+.wpaec-license-tiers { display: grid; gap: .6rem; margin: 0 0 1.2rem; max-width: 440px; }
+.wpaec-tier-opt { display: flex; gap: .6rem; align-items: flex-start; border: 1px solid var(--af-line); border-radius: 10px; padding: .8rem 1rem; cursor: pointer; transition: border-color .15s ease, background .15s ease; }
+.wpaec-tier-opt:has(input:checked) { border-color: var(--af-forge); background: var(--af-ember); }
+.wpaec-tier-opt input { margin-top: .3rem; }
+.wpaec-tier-opt__body { display: flex; flex-direction: column; }
+.wpaec-tier-opt__title { font-weight: 700; color: var(--af-ink); }
+.wpaec-tier-opt__desc { color: var(--af-steel); font-size: .85rem; }
