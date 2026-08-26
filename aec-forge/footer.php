@@ -22,13 +22,15 @@ $af_cols = array(
 	),
 	__( 'For builders', 'aec-forge' ) => array(
 		array( __( 'How It Works', 'aec-forge' ), home_url( '/how-it-works/' ) ),
-		array( __( 'The Concept', 'aec-forge' ), home_url( '/the-concept/' ) ),
+		array( __( 'Vendor Guide', 'aec-forge' ), home_url( '/help/vendor-guide/' ) ),
+		array( __( 'Vendors', 'aec-forge' ), home_url( '/vendors/' ) ),
 		array( __( 'Vendor Dashboard', 'aec-forge' ), $af_dashboard ),
 	),
-	__( 'Open source', 'aec-forge' )  => array(
-		array( __( 'AEC Market plugin', 'aec-forge' ), 'https://github.com/ibuilder/aec-market' ),
-		array( __( 'Plugin docs', 'aec-forge' ), 'https://ibuilder.github.io/aec-market/' ),
-		array( __( 'License (GPL)', 'aec-forge' ), 'https://www.gnu.org/licenses/gpl-2.0.html' ),
+	__( 'Resources', 'aec-forge' )    => array(
+		array( __( 'Forge Tools', 'aec-forge' ), home_url( '/forge-tools/' ) ),
+		array( __( 'Pricing', 'aec-forge' ), home_url( '/pricing/' ) ),
+		array( __( 'Help Center', 'aec-forge' ), home_url( '/help/' ) ),
+		array( __( 'The Concept', 'aec-forge' ), home_url( '/the-concept/' ) ),
 	),
 );
 ?>
@@ -67,8 +69,9 @@ $af_cols = array(
 					?>
 				</div>
 				<div class="af-footer__legal">
-					<a href="https://github.com/ibuilder/aec-market">GitHub</a>
-					<a href="https://ibuilder.github.io/aec-market/"><?php esc_html_e( 'Docs', 'aec-forge' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>"><?php esc_html_e( 'Terms', 'aec-forge' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>"><?php esc_html_e( 'Privacy', 'aec-forge' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/refund_returns/' ) ); ?>"><?php esc_html_e( 'Refunds', 'aec-forge' ); ?></a>
 					<a href="<?php echo esc_url( $af_register ); ?>"><?php esc_html_e( 'Become a Vendor', 'aec-forge' ); ?></a>
 				</div>
 			</div>
