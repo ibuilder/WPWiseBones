@@ -11,9 +11,17 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
-$af_shop     = aec_forge_shop_url();
-$af_register = aec_forge_market_url( 'vendor_register_page', '/become-a-vendor/' );
-$af_how      = home_url( '/how-it-works/' );
+$af_shop      = aec_forge_shop_url();
+$af_register  = aec_forge_market_url( 'vendor_register_page', '/become-a-vendor/' );
+$af_how       = home_url( '/how-it-works/' );
+$af_tools_url = home_url( '/forge-tools/' );
+
+$af_tools = [
+	[ 'bi-file-earmark-text',  __( 'RFI Draft Generator', 'aec-forge' ),     __( '1 credit', 'aec-forge' ) ],
+	[ 'bi-list-check',         __( 'Submittals Log Analyzer', 'aec-forge' ), __( '2 credits', 'aec-forge' ) ],
+	[ 'bi-receipt',            __( 'G702/G703 Pay-App', 'aec-forge' ),       __( '3 credits', 'aec-forge' ) ],
+	[ 'bi-graph-up-arrow',     __( 'Cost-Exposure Report', 'aec-forge' ),    __( '3 credits', 'aec-forge' ) ],
+];
 
 $af_features = [
 	[ 'bi-box-seam',        __( 'Programs & Scripts', 'aec-forge' ),   __( 'Revit add-ins, IFC/GIS scripts, Grasshopper definitions, Excel macros and AI tools — sold as instant digital downloads.', 'aec-forge' ) ],
@@ -120,6 +128,31 @@ $af_features = [
 			</div>
 		</div>
 		<p class="text-center mt-4"><a class="btn btn-outline-primary" href="<?php echo esc_url( $af_how ); ?>"><?php esc_html_e( 'See the full walkthrough', 'aec-forge' ); ?></a></p>
+	</div>
+</section>
+
+<!-- ───────── FORGE TOOLS (AI) ───────── -->
+<section class="af-section af-tools-band">
+	<div class="container">
+		<div class="text-center mb-5">
+			<span class="af-eyebrow af-eyebrow--on-dark"><?php esc_html_e( 'AEC Forge Tools', 'aec-forge' ); ?></span>
+			<h2 class="display-6 fw-bold mt-2 text-white"><?php echo wp_kses_post( __( 'The tedious GC paperwork, <span class="af-molten">done in a click.</span>', 'aec-forge' ) ); ?></h2>
+			<p class="af-tools-sub mx-auto" style="max-width:46em"><?php esc_html_e( 'First-party, pay-per-use AI tools that draft the busywork and hand you clean .docx / .xlsx. Buy credits once, then run any tool — RFIs, submittal-log reviews, G702/G703 pay-apps and cost-exposure reports.', 'aec-forge' ); ?></p>
+		</div>
+		<div class="row g-4 justify-content-center">
+			<?php foreach ( $af_tools as $af_t ) : ?>
+				<div class="col-6 col-lg-3">
+					<a href="<?php echo esc_url( $af_tools_url ); ?>" class="af-toolcard">
+						<i class="bi <?php echo esc_attr( $af_t[0] ); ?>"></i>
+						<h3><?php echo esc_html( $af_t[1] ); ?></h3>
+						<span class="af-toolcard__cost"><?php echo esc_html( $af_t[2] ); ?></span>
+					</a>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<p class="text-center mt-5 mb-0">
+			<a class="btn btn-primary btn-lg px-4" href="<?php echo esc_url( $af_tools_url ); ?>"><i class="bi bi-lightning-charge-fill me-2"></i><?php esc_html_e( 'Open the tools', 'aec-forge' ); ?></a>
+		</p>
 	</div>
 </section>
 

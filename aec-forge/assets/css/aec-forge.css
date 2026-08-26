@@ -781,3 +781,70 @@ button.wpaec-button:hover {
 /* Empty-cart cross-sell + related products use the same card treatment. */
 .cross-sells ul.products li.product,
 .related.products ul.products li.product { text-align: left; }
+
+/* ───────── Forge Tools (AI) band on the front page ───────── */
+.af-tools-band {
+	position: relative;
+	background:
+		radial-gradient( ellipse at 78% 20%, rgba(232,96,10,.28), rgba(232,96,10,0) 60% ),
+		linear-gradient( 160deg, #20242b 0%, #14171b 100% );
+	background-color: #14171b;
+	border-radius: 22px;
+	margin: 0 auto 4rem;
+	max-width: 1200px;
+	overflow: hidden;
+}
+.af-tools-band::before {
+	content: "";
+	position: absolute; inset: 0;
+	background-image: linear-gradient( rgba(92,100,112,.10) 1px, transparent 1px ),
+		linear-gradient( 90deg, rgba(92,100,112,.10) 1px, transparent 1px );
+	background-size: 34px 34px;
+	pointer-events: none;
+}
+.af-tools-band > .container { position: relative; z-index: 1; }
+.af-eyebrow--on-dark { color: var(--af-forge-2); }
+.af-tools-band .af-molten { color: var(--af-forge-2); }
+.af-tools-sub { color: #c9cdd3; }
+
+.af-toolcard {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: .5rem;
+	height: 100%;
+	padding: 1.4rem 1.3rem;
+	border-radius: 16px;
+	background: rgba(255,255,255,.04);
+	border: 1px solid rgba(255,255,255,.09);
+	text-decoration: none;
+	transition: transform .15s ease, border-color .15s ease, background .15s ease;
+}
+.af-toolcard:hover {
+	transform: translateY(-4px);
+	border-color: var(--af-forge);
+	background: rgba(232,96,10,.08);
+}
+.af-toolcard i {
+	font-size: 1.7rem;
+	color: var(--af-forge-2);
+	background: rgba(232,96,10,.16);
+	width: 52px; height: 52px;
+	display: inline-flex; align-items: center; justify-content: center;
+	border-radius: 13px;
+	margin-bottom: .3rem;
+}
+.af-toolcard h3 {
+	font-size: 1.02rem;
+	font-weight: 700;
+	color: #f4f2ef;
+	margin: 0;
+	line-height: 1.25;
+}
+.af-toolcard__cost {
+	font-size: .82rem;
+	font-weight: 700;
+	color: var(--af-forge-2);
+	text-transform: uppercase;
+	letter-spacing: .05em;
+}
