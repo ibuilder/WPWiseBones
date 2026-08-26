@@ -121,7 +121,11 @@ $af_features = [
 	<div class="container">
 		<div class="row">
 			<div class="col-6 col-md-3 af-stat"><b><?php esc_html_e( '2-in-1', 'aec-forge' ); ?></b><span><?php esc_html_e( 'Products & services, one checkout', 'aec-forge' ); ?></span></div>
-			<div class="col-6 col-md-3 af-stat"><b><?php esc_html_e( '10%', 'aec-forge' ); ?></b><span><?php esc_html_e( 'Flat platform commission', 'aec-forge' ); ?></span></div>
+			<?php $af_comm = function_exists( 'wpaec_get_setting' ) ? (float) wpaec_get_setting( 'commission_rate', 10 ) : 10; ?>
+			<div class="col-6 col-md-3 af-stat">
+				<b><?php echo esc_html( 0.0 === $af_comm ? '0%' : rtrim( rtrim( number_format( $af_comm, 1 ), '0' ), '.' ) . '%' ); ?></b>
+				<span><?php echo esc_html( 0.0 === $af_comm ? __( 'Platform fee — keep 100% at launch', 'aec-forge' ) : __( 'Flat platform commission', 'aec-forge' ) ); ?></span>
+			</div>
 			<div class="col-6 col-md-3 af-stat"><b><?php esc_html_e( 'REST', 'aec-forge' ); ?></b><span><?php esc_html_e( 'License activation API', 'aec-forge' ); ?></span></div>
 			<div class="col-6 col-md-3 af-stat"><b><?php esc_html_e( 'GPL', 'aec-forge' ); ?></b><span><?php esc_html_e( 'Open-source platform', 'aec-forge' ); ?></span></div>
 		</div>
