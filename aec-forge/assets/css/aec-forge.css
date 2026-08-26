@@ -245,6 +245,19 @@ a:hover { color: #cf5507; }
 
 .wpaec-stat__value { color: var(--af-forge); }
 
+/* ── WooCommerce block cart/checkout: keep the layout inside the viewport ── */
+
+.woocommerce-cart main,
+.woocommerce-checkout main {
+	overflow-x: clip;
+}
+
+.wp-block-woocommerce-cart,
+.wp-block-woocommerce-checkout,
+.wc-block-components-sidebar-layout {
+	max-width: 100%;
+}
+
 @media (max-width: 991px) {
 	.af-hero-visual { display: none; }
 	.wpb-hero, .af-hero { padding: 4rem 0 3.5rem; }
