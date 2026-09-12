@@ -32,11 +32,37 @@ add_action( 'admin_menu', function () {
     );
 } );
 
+/**
+ * Whether the WiseBones Shortcodes companion plugin is active.
+ *
+ * The plugin defines WISEBONES_SHORTCODES_VERSION when it loads. This used to
+ * test WPBS_VERSION, which the plugin has never defined, so the check always
+ * failed and the importer screen claimed the plugin was missing even on sites
+ * already running it.
+ *
+ * The constant is checked directly first so this is correct on its own, then we
+ * defer to the parent theme's helper, which adds an is_plugin_active() fallback
+ * for load orders where the plugin has not defined its constant yet.
+ *
+ * @return bool True when the companion plugin is active.
+ */
+function realwise_shortcodes_active(): bool {
+    if ( defined( 'WISEBONES_SHORTCODES_VERSION' ) ) {
+        return true;
+    }
+
+    if ( function_exists( 'wpwisebones_companion_active' ) ) {
+        return wpwisebones_companion_active();
+    }
+
+    return false;
+}
+
 function realwise_demo_render_page() {
     $done    = get_option( 'realwise_demo_imported' );
     $edd     = class_exists( 'Easy_Digital_Downloads' );
     $edd_sl  = class_exists( 'EDD_Software_Licensing' );
-    $sc      = defined( 'WPBS_VERSION' );
+    $sc      = realwise_shortcodes_active();
     $run_url = wp_nonce_url( admin_url( 'admin-post.php?action=realwise_import_demo' ), 'realwise_import_demo' );
     ?>
     <div class="wrap">
