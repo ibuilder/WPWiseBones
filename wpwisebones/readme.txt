@@ -2,7 +2,7 @@
 Contributors:      wpwisebones
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.11
+Stable tag:        1.0.12
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,17 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
   npm run preflight    Full production readiness check
 
 == Changelog ==
+
+= 1.0.12 =
+* Fixed: double-encoded UTF-8 repaired across 26 source files. The same CP1252 round-trip that produced the 1.0.11 BOM had mangled comments and user-facing strings, including the preloader Loading text in header.php and enqueue.php; some files had been through it twice
+* Fixed: UTF-8 byte-order marks removed from style.css and readme.txt, the two left after 1.0.11 cleared functions.php
+* Fixed: hero background image set on a page was never rendered. content-page.php read the image meta into a variable it then ignored, so the Page Header Options field did nothing on pages
+* Fixed: Hero Sub-text was saved by the meta box but read by no template, so it did nothing on posts or pages. It now renders under the title, escaped
+* Fixed: dashboard widget System Info always reported "Assets: CDN (jsDelivr)" because it tested WPWISEBONES_LOCAL_ASSETS, a constant the theme has never defined. Bootstrap is only ever enqueued from assets/vendor, so the panel now reports Local vendor and the misleading "Switch to local for CSP compliance" link is gone
+* Fixed: live search now names the searchable public post types explicitly, sets perm=readable and ignore_sticky_posts, and no longer queries the thumbnail twice per result
+* Fixed: live search minimum-term check uses mb_strlen, so a two-character multibyte term is measured correctly
+* Fixed: WPWISEBONES_COMPANION_VERSION still read 1.0.3 while the companion plugin is at 1.0.7
+* Added: .distignore, so package.json, package-lock.json and scripts/ stay out of the distributable zip
 
 = 1.0.11 =
 * Fixed: functions.php began with a UTF-8 byte-order mark, so the theme sent output before WordPress could send HTTP headers. Every redirect after that point was silently discarded - admin actions completed and then landed on a blank page, and JSON and feed responses were corrupted. Re-saved without the BOM.

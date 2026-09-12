@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 /* -- Constants ------------------------------------------------- */
 
 define( 'WPWISEBONES_COMPANION_SLUG', 'wisebones-shortcodes/wisebones-shortcodes.php' );
-define( 'WPWISEBONES_COMPANION_VERSION', '1.0.3' );
+define( 'WPWISEBONES_COMPANION_VERSION', '1.0.7' );
 define( 'WPWISEBONES_COMPANION_URL', WPWISEBONES_THEME_URL . '#shortcodes' );
 
 /* -- Helper: is companion plugin active? ---------------------- */

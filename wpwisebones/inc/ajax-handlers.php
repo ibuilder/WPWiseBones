@@ -124,27 +124,45 @@ function wpwisebones_ajax_live_search() {
 	check_ajax_referer( 'wpwisebones_nonce', 'nonce' );
 
 	$term = sanitize_text_field( wp_unslash( $_POST['term'] ?? '' ) );
-	if ( strlen( $term ) < 2 ) {
+
+	// mb_strlen, so a two-character multibyte term is not counted as longer
+	// than it looks and a genuinely short one is not let through.
+	if ( mb_strlen( $term ) < 2 ) {
 		wp_send_json_success( array() );
 	}
 
+	// This handler answers logged-out visitors too. It sets its own status, so
+	// the caller cannot reach it, but name the searchable public types
+	// explicitly rather than leaving the type up to WP_Query's default.
 	$results = new WP_Query(
 		array(
-			's'              => $term,
-			'posts_per_page' => 5,
-			'no_found_rows'  => true,
-			'post_status'    => 'publish',
+			's'                   => $term,
+			'post_type'           => get_post_types(
+				array(
+					'public'              => true,
+					'exclude_from_search' => false,
+				),
+				'names'
+			),
+			'post_status'         => 'publish',
+			'posts_per_page'      => 5,
+			'ignore_sticky_posts' => true,
+			'no_found_rows'       => true,
+			'perm'                => 'readable',
 		)
 	);
 
 	$data = array();
 	while ( $results->have_posts() ) {
 		$results->the_post();
+
+		$thumb = has_post_thumbnail() ? get_the_post_thumbnail_url( null, 'thumbnail' ) : '';
+
 		$data[] = array(
 			'id'    => get_the_ID(),
 			'title' => get_the_title(),
 			'url'   => get_permalink(),
-			'thumb' => get_the_post_thumbnail_url( null, 'thumbnail' ) ? get_the_post_thumbnail_url( null, 'thumbnail' ) : '',
+			'thumb' => $thumb ? $thumb : '',
 			'date'  => get_the_date(),
 		);
 	}

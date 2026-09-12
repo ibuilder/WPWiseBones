@@ -1,0 +1,55 @@
+# Files excluded from the distributable theme zip.
+#
+# Consumed by scripts/make-zip.js. One path or name per line; blank lines and
+# lines starting with # are ignored. A plain name matches at any depth, so
+# "node_modules" also excludes "assets/node_modules".
+
+# Version control
+.git
+.gitattributes
+.github
+.gitignore
+
+# Packaging
+.distignore
+*.zip
+
+# Build tooling and dependencies - the theme ships the vendored output in
+# assets/vendor, not the tooling that syncs it.
+node_modules
+package.json
+package-lock.json
+scripts
+composer.json
+composer.lock
+
+# NOTE: do not add a bare "vendor" entry here. make-zip.js expands a plain
+# name to **/<name>/**, which would strip assets/vendor - the bundled
+# Bootstrap CSS and JS the theme actually loads.
+
+# Linting and editor config
+.editorconfig
+.eslintrc
+.eslintrc.js
+.eslintrc.json
+.phpcs.xml
+.phpcs.xml.dist
+phpcs.xml
+phpcs.xml.dist
+.stylelintrc
+.stylelintrc.json
+
+# Tests
+tests
+phpunit.xml
+phpunit.xml.dist
+
+# Editor and OS cruft
+.DS_Store
+.idea
+.vscode
+Thumbs.db
+*.log
+*.bak
+*.orig
+*~
