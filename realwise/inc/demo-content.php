@@ -40,22 +40,19 @@ add_action( 'admin_menu', function () {
  * failed and the importer screen claimed the plugin was missing even on sites
  * already running it.
  *
- * The constant is checked directly first so this is correct on its own, then we
- * defer to the parent theme's helper, which adds an is_plugin_active() fallback
- * for load orders where the plugin has not defined its constant yet.
+ * The parent theme runs the same test in wpwisebones_companion_active(), so
+ * defer to it and keep a single source of truth. RealWise is a child of
+ * wpwisebones, so the helper is loaded in practice; the direct constant check
+ * below is the fallback for when this file is reached without it.
  *
  * @return bool True when the companion plugin is active.
  */
 function realwise_shortcodes_active(): bool {
-    if ( defined( 'WISEBONES_SHORTCODES_VERSION' ) ) {
-        return true;
-    }
-
     if ( function_exists( 'wpwisebones_companion_active' ) ) {
         return wpwisebones_companion_active();
     }
 
-    return false;
+    return defined( 'WISEBONES_SHORTCODES_VERSION' );
 }
 
 function realwise_demo_render_page() {
