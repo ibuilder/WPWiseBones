@@ -22,7 +22,7 @@ define( 'WPWISEBONES_COMPANION_URL', WPWISEBONES_THEME_URL . '#shortcodes' );
 /* ── Helper: is companion plugin active? ────────────────────── */
 
 function wpwisebones_companion_active(): bool {
-	return defined( 'WPBS_VERSION' );
+	return defined( 'WISEBONES_SHORTCODES_VERSION' );
 }
 
 /* ── Admin notice when companion plugin is not installed ──────── */

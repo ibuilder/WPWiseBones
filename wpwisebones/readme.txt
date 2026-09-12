@@ -2,7 +2,7 @@
 Contributors:      wpwisebones
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.9
+Stable tag:        1.0.10
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,10 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
   npm run preflight    Full production readiness check
 
 == Changelog ==
+
+= 1.0.10 =
+* Security: wpwisebones_load_more no longer merges caller-supplied query vars over its defaults. The handler answers logged-out visitors and its nonce is printed in every page, so a visitor could pass post_status or post_type and read drafts and private posts. Query vars are now allow-listed, post_status is forced to publish, post_type must be a public searchable type, and posts_per_page is capped.
+* Fixed: companion plugin detection checked WPBS_VERSION, which the shortcodes plugin has never defined; the "install the companion" notice could never be dismissed by installing it.
 
 = 1.0.9 =
 * Fixed: CDN fallback branches removed from enqueue.php — Bootstrap served locally only (WP.org Guideline 8)
