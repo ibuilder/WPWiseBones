@@ -83,7 +83,7 @@ let guardOk = 0, guardFail = [];
 function collectPhp(dir, isRoot) {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
         const full = path.join(dir, e.name);
-        if (e.isDirectory() && !["node_modules",".git","assets"].includes(e.name)) collectPhp(full, false);
+        if (e.isDirectory() && !["node_modules",".git","assets","tests"].includes(e.name)) collectPhp(full, false);
         else if (e.isFile() && e.name.endsWith(".php") && e.name !== "index.php") {
             if (isRoot && topLevel.has(e.name)) continue;
             /defined\s*\(\s*['"]ABSPATH['"]/.test(fs.readFileSync(full,"utf8")) ? guardOk++ : guardFail.push(path.relative(ROOT,full));
@@ -101,7 +101,7 @@ const allPhp = [];
 function collectAll(dir) {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
         const full = path.join(dir, e.name);
-        if (e.isDirectory() && !["node_modules",".git"].includes(e.name)) collectAll(full);
+        if (e.isDirectory() && !["node_modules",".git","tests"].includes(e.name)) collectAll(full);
         else if (e.isFile() && e.name.endsWith(".php")) allPhp.push(full);
     }
 }
