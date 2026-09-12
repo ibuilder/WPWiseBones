@@ -13,19 +13,19 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/* ── Constants ───────────────────────────────────────────────── */
+/* -- Constants ------------------------------------------------- */
 
 define( 'WPWISEBONES_COMPANION_SLUG', 'wisebones-shortcodes/wisebones-shortcodes.php' );
 define( 'WPWISEBONES_COMPANION_VERSION', '1.0.3' );
 define( 'WPWISEBONES_COMPANION_URL', WPWISEBONES_THEME_URL . '#shortcodes' );
 
-/* ── Helper: is companion plugin active? ────────────────────── */
+/* -- Helper: is companion plugin active? ---------------------- */
 
 function wpwisebones_companion_active(): bool {
 	return defined( 'WISEBONES_SHORTCODES_VERSION' );
 }
 
-/* ── Admin notice when companion plugin is not installed ──────── */
+/* -- Admin notice when companion plugin is not installed -------- */
 
 add_action( 'admin_notices', 'wpwisebones_companion_notice' );
 
@@ -85,7 +85,7 @@ function wpwisebones_companion_notice() {
 	<?php
 }
 
-/* ── Handle notice dismissal ────────────────────────────────── */
+/* -- Handle notice dismissal ---------------------------------- */
 
 add_action( 'admin_post_wpwisebones_dismiss_companion_notice', 'wpwisebones_handle_companion_dismiss' );
 

@@ -32,7 +32,7 @@ for (const [src, dest] of copies) {
         console.log(`✔  ${path.relative(ROOT, dest)}`);
         ok++;
     } catch (e) {
-        console.error(`✘  ${path.relative(ROOT, src)} — ${e.message}`);
+        console.error(`✘  ${path.relative(ROOT, src)} - ${e.message}`);
         fail++;
     }
 }

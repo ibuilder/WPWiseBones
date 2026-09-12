@@ -33,10 +33,10 @@ function wpwisebones_widgets_init() {
 			array_merge(
 				$defaults,
 				array(
-					/* translators: %d: footer column number (1â€“4) */
+					/* translators: %d: footer column number (1-4) */
 					'name'        => sprintf( __( 'Footer Column %d', 'wpwisebones' ), $i ),
 					'id'          => 'footer-' . $i,
-					/* translators: %d: footer column number (1â€“4) */
+					/* translators: %d: footer column number (1-4) */
 					'description' => sprintf( __( 'Footer widget area column %d.', 'wpwisebones' ), $i ),
 				)
 			)

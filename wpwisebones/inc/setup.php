@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme setup â€“ add_theme_support, image sizes, etc.
+ * Theme setup - add_theme_support, image sizes, etc.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -136,7 +136,7 @@ function wpwisebones_block_editor_settings() {
 	);
 }
 
-// Excerpt length â€“ reads from admin options, falls back to 25
+// Excerpt length - reads from admin options, falls back to 25
 add_filter(
 	'excerpt_length',
 	function () {
@@ -148,7 +148,7 @@ add_filter(
 );
 add_filter( 'excerpt_more', fn() => '&hellip;' );
 
-// Posts per page â€“ archive/blog only
+// Posts per page - archive/blog only
 add_action(
 	'pre_get_posts',
 	function ( WP_Query $q ) {
@@ -165,7 +165,7 @@ add_action(
 	}
 );
 
-// Smooth scroll toggle — disable via inline style when option is off
+// Smooth scroll toggle - disable via inline style when option is off
 add_action(
 	'wp_enqueue_scripts',
 	function () {
@@ -178,7 +178,7 @@ add_action(
 );
 
 
-/* ── Block Styles ─────────────────────────────────────────── */
+/* -- Block Styles ------------------------------------------- */
 add_action( 'init', 'wpwisebones_register_block_styles' );
 function wpwisebones_register_block_styles() {
 	$styles = array(
@@ -202,7 +202,7 @@ function wpwisebones_register_block_styles() {
 	}
 }
 
-/* ── Block Patterns ───────────────────────────────────────── */
+/* -- Block Patterns ----------------------------------------- */
 add_action( 'init', 'wpwisebones_register_block_patterns' );
 function wpwisebones_register_block_patterns() {
 

@@ -1,16 +1,16 @@
 <?php
 /**
- * Theme Options admin page (Appearance â†’ Theme Options).
+ * Theme Options admin page (Appearance -> Theme Options).
  *
  * Registered as a sub-page under Appearance via add_theme_page().
- * Capability: edit_theme_options (matches Customizer; per WP.org Required Â§4).
- * Storage:    single array option `wpwisebones_options` (WP.org Required Â§4).
- * Scripts:    scoped to this page's hook suffix only (WP.org Required Â§4).
+ * Capability: edit_theme_options (matches Customizer; per WP.org Required §4).
+ * Storage:    single array option `wpwisebones_options` (WP.org Required §4).
+ * Scripts:    scoped to this page's hook suffix only (WP.org Required §4).
  */
 
 defined( 'ABSPATH' ) || exit;
 
-/* â”€â”€ Register menu page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Register menu page --------------------------------------- */
 
 add_action( 'admin_menu', 'wpwisebones_add_admin_menu' );
 
@@ -24,7 +24,7 @@ function wpwisebones_add_admin_menu() {
 	);
 }
 
-/* â”€â”€ Settings API registration â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Settings API registration -------------------------------- */
 
 add_action( 'admin_init', 'wpwisebones_admin_settings_init' );
 
@@ -37,7 +37,7 @@ function wpwisebones_admin_settings_init() {
 		)
 	);
 
-	/* â”€â”€ Section: General â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+	/* -- Section: General ---------------------------------------- */
 	add_settings_section(
 		'wpwisebones_section_general',
 		__( 'General Settings', 'wpwisebones' ),
@@ -76,7 +76,7 @@ function wpwisebones_admin_settings_init() {
 		);
 	}
 
-	/* â”€â”€ Section: Performance â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+	/* -- Section: Performance ------------------------------------ */
 	add_settings_section(
 		'wpwisebones_section_perf',
 		__( 'Performance', 'wpwisebones' ),
@@ -107,7 +107,7 @@ function wpwisebones_admin_settings_init() {
 	}
 }
 
-/* â”€â”€ Field renderer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Field renderer ------------------------------------------- */
 
 function wpwisebones_render_field( array $args ) {
 	$options = get_option( 'wpwisebones_options', array() );
@@ -131,7 +131,7 @@ function wpwisebones_render_field( array $args ) {
 	}
 }
 
-/* â”€â”€ Sanitize callback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Sanitize callback ---------------------------------------- */
 
 function wpwisebones_sanitize_options( $input ): array {
 	if ( ! is_array( $input ) ) {
@@ -165,7 +165,7 @@ function wpwisebones_sanitize_options( $input ): array {
 	return $out;
 }
 
-/* â”€â”€ Apply performance options on init â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Apply performance options on init ------------------------ */
 
 add_action( 'init', 'wpwisebones_apply_performance_options' );
 function wpwisebones_apply_performance_options() {
@@ -225,7 +225,7 @@ function wpwisebones_remove_query_strings( string $src ): string {
 	return $src;
 }
 
-/* â”€â”€ Output custom CSS/JS from options â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Output custom CSS/JS from options ------------------------ */
 
 add_action( 'wp_enqueue_scripts', 'wpwisebones_output_custom_assets', 100 );
 function wpwisebones_output_custom_assets() {
@@ -241,7 +241,7 @@ function wpwisebones_output_custom_assets() {
 	}
 }
 
-/* â”€â”€ Admin page HTML â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Admin page HTML ------------------------------------------- */
 
 function wpwisebones_admin_options_page() {
 	if ( ! current_user_can( 'edit_theme_options' ) ) {
@@ -340,7 +340,7 @@ function wpwisebones_admin_options_page() {
 	<?php
 }
 
-/* â”€â”€ Admin footer credit (this page only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Admin footer credit (this page only) --------------------- */
 
 add_filter( 'admin_footer_text', 'wpwisebones_admin_footer_credit' );
 function wpwisebones_admin_footer_credit( string $text ): string {

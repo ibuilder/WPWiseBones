@@ -1,11 +1,11 @@
 <?php
 /**
- * Template functions â€“ layout helpers, breadcrumbs, pagination, etc.
+ * Template functions - layout helpers, breadcrumbs, pagination, etc.
  */
 
 defined( 'ABSPATH' ) || exit;
 
-/* â”€â”€ Layout: sidebar position â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Layout: sidebar position --------------------------------- */
 
 function wpwisebones_get_layout(): string {
 	$layout = get_theme_mod( 'wpwisebones_layout', 'right-sidebar' );
@@ -37,7 +37,7 @@ function wpwisebones_has_sidebar(): bool {
 		&& ( is_active_sidebar( 'sidebar-primary' ) || is_singular() || is_archive() );
 }
 
-/* â”€â”€ Breadcrumbs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Breadcrumbs ----------------------------------------------- */
 
 function wpwisebones_breadcrumbs() {
 	if ( is_front_page() ) {
@@ -90,7 +90,7 @@ function wpwisebones_breadcrumbs() {
 	echo wp_kses_post( $out );
 }
 
-/* â”€â”€ Pagination â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Pagination ------------------------------------------------ */
 
 function wpwisebones_pagination() {
 	global $wp_query;
@@ -112,7 +112,7 @@ function wpwisebones_pagination() {
 	echo '</nav>';
 }
 
-/* â”€â”€ Post meta helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Post meta helpers ----------------------------------------- */
 
 function wpwisebones_posted_on() {
 	$time = '<time class="entry-date published" datetime="' . esc_attr( get_the_date( DATE_W3C ) ) . '">' . esc_html( get_the_date() ) . '</time>';
@@ -135,7 +135,7 @@ function wpwisebones_entry_footer() {
     }    if ( $edit ) echo '<span class="edit-link"><a href="' . esc_url( $edit ) . '">' . esc_html__( 'Edit', 'wpwisebones' ) . '</a></span>'; // phpcs:ignore
 }
 
-/* â”€â”€ Reading time â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Reading time ---------------------------------------------- */
 
 function wpwisebones_reading_time(): string {
 	$words   = str_word_count( wp_strip_all_tags( get_the_content() ) );
@@ -144,7 +144,7 @@ function wpwisebones_reading_time(): string {
 	return sprintf( _n( '%d min read', '%d mins read', $minutes, 'wpwisebones' ), $minutes );
 }
 
-/* â”€â”€ Social share buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Social share buttons -------------------------------------- */
 
 function wpwisebones_social_share() {
 	$url   = rawurlencode( get_permalink() );
@@ -172,7 +172,7 @@ function wpwisebones_social_share() {
 	echo '</div>';
 }
 
-/* â”€â”€ Conditional body classes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Conditional body classes ---------------------------------- */
 
 add_filter( 'body_class', 'wpwisebones_body_classes' );
 function wpwisebones_body_classes( array $classes ): array {

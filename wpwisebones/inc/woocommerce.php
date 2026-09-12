@@ -2,7 +2,7 @@
 /**
  * WooCommerce compatibility layer.
  *
- * Loaded only when WooCommerce is active â€” safe to include always
+ * Loaded only when WooCommerce is active - safe to include always
  * since all functions are gated on class_exists( 'WooCommerce' ).
  */
 
@@ -12,7 +12,7 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 	return;
 }
 
-/* â”€â”€ Declare theme support â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Declare theme support ----------------------------------- */
 
 add_action( 'after_setup_theme', 'wpwisebones_woocommerce_support' );
 function wpwisebones_woocommerce_support() {
@@ -35,7 +35,7 @@ function wpwisebones_woocommerce_support() {
 	add_theme_support( 'wc-product-gallery-slider' );
 }
 
-/* â”€â”€ Remove default WC wrappers, add Bootstrap ones â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Remove default WC wrappers, add Bootstrap ones ----------- */
 
 remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
@@ -55,7 +55,7 @@ function wpwisebones_wc_wrapper_end() {
 	echo '</main>';
 }
 
-/* â”€â”€ WC sidebar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- WC sidebar ----------------------------------------------- */
 
 remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
 add_action( 'woocommerce_sidebar', 'wpwisebones_wc_sidebar' );
@@ -69,7 +69,7 @@ function wpwisebones_wc_sidebar() {
 	echo '</div></div>'; // close row + container
 }
 
-/* â”€â”€ Bootstrap-style WC notices â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Bootstrap-style WC notices ------------------------------ */
 
 add_filter( 'woocommerce_add_to_cart_fragments', '__return_array' );
 
@@ -80,7 +80,7 @@ function wpwisebones_wc_add_to_cart_message( string $message ): string {
 		. '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>';
 }
 
-/* â”€â”€ Style WC pagination with Bootstrap â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Style WC pagination with Bootstrap ----------------------- */
 
 add_filter( 'woocommerce_pagination_args', 'wpwisebones_wc_pagination_args' );
 function wpwisebones_wc_pagination_args( array $args ): array {
@@ -89,7 +89,7 @@ function wpwisebones_wc_pagination_args( array $args ): array {
 	return $args;
 }
 
-/* â”€â”€ Enqueue WC-specific overrides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Enqueue WC-specific overrides ---------------------------- */
 
 add_action( 'wp_enqueue_scripts', 'wpwisebones_wc_styles' );
 function wpwisebones_wc_styles() {

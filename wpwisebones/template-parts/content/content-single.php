@@ -42,7 +42,7 @@ $hero_img   = get_post_meta( get_the_ID(), '_wpwisebones_hero_image', true );
 
 	<div class="entry-content">
 		<?php
-		the_content( __( 'Continue readingâ€¦', 'wpwisebones' ) );
+		the_content( __( 'Continue reading...', 'wpwisebones' ) );
 		wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . __( 'Pages:', 'wpwisebones' ),

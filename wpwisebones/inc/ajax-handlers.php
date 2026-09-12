@@ -5,7 +5,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/* â”€â”€ Load More posts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Load More posts --------------------------------------- */
 
 add_action( 'wp_ajax_wpwisebones_load_more', 'wpwisebones_ajax_load_more' );
 add_action( 'wp_ajax_nopriv_wpwisebones_load_more', 'wpwisebones_ajax_load_more' );
@@ -17,7 +17,7 @@ function wpwisebones_ajax_load_more() {
 
 	/*
 	 * This handler answers logged-out visitors, and the nonce it checks is
-	 * printed into every page for exactly that reason — so the nonce proves the
+	 * printed into every page for exactly that reason - so the nonce proves the
 	 * request came from the site, never who sent it. The caller's query vars are
 	 * therefore treated as hostile: only the keys below are honoured, and
 	 * post_status, post_type and the paging are set here rather than by the
@@ -115,7 +115,7 @@ function wpwisebones_ajax_load_more() {
 	);
 }
 
-/* â”€â”€ Live search (optional) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Live search (optional) -------------------------------- */
 
 add_action( 'wp_ajax_wpwisebones_live_search', 'wpwisebones_ajax_live_search' );
 add_action( 'wp_ajax_nopriv_wpwisebones_live_search', 'wpwisebones_ajax_live_search' );

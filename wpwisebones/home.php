@@ -1,7 +1,7 @@
 <?php
 /**
  * Blog posts index template (used when a static front page is set and
- * a separate "Posts page" is assigned in Settings â†’ Reading).
+ * a separate "Posts page" is assigned in Settings -> Reading).
  */
 defined( 'ABSPATH' ) || exit;
 get_header();

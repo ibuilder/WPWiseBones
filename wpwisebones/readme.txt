@@ -1,4 +1,4 @@
-﻿=== WPWiseBones ===
+=== WPWiseBones ===
 Contributors:      wpwisebones
 Requires at least: 6.0
 Tested up to:      7.0
@@ -11,10 +11,10 @@ License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
 WPWiseBones is a comprehensive, production-ready WordPress starter theme
 built on Bootstrap 5.3. It ships with everything a professional developer or
-agency needs out of the box â€” shortcodes, custom widgets, a full admin options
+agency needs out of the box - shortcodes, custom widgets, a full admin options
 panel, the Customizer, Open Graph SEO, WooCommerce support, and more.
 
-Built and maintained by WPWiseBones.com â€” https://wprealwise.com
+Built and maintained by WPWiseBones.com - https://wprealwise.com
 
 == Features ==
 
@@ -24,7 +24,7 @@ theme.json for block editor color/font/layout sync
 3 Custom Widgets
 7 Widget Areas (Sidebar, 4x Footer columns, Header, Before/After Content, Shop)
 Customizer: colors, Google Fonts, layout, header, hero, footer, social links
-Admin Options page (Appearance â†’ Theme Options): preloader, breadcrumbs, author box,
+Admin Options page (Appearance -> Theme Options): preloader, breadcrumbs, author box,
   related posts, reading time, social share, excerpt length, copyright text,
   custom CSS/JS, and performance toggles
 Per-post meta boxes: layout override, hero image, hide title
@@ -61,15 +61,15 @@ Translation-ready (.pot included)
 == Installation ==
 
 1. Upload the wpwisebones/ folder to /wp-content/themes/
-2. Activate via Appearance â†’ Themes
-3. Configure via Appearance â†’ Customize
-4. Assign menus under Appearance â†’ Menus (Primary, Footer, Top Bar)
-5. Add widgets under Appearance â†’ Widgets
+2. Activate via Appearance -> Themes
+3. Configure via Appearance -> Customize
+4. Assign menus under Appearance -> Menus (Primary, Footer, Top Bar)
+5. Add widgets under Appearance -> Widgets
 
 == Local Bootstrap Assets ==
 
 Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
-(WP.org Guideline 8 compliance — no CDN requests).
+(WP.org Guideline 8 compliance - no CDN requests).
 
 == Development Scripts ==
 
@@ -82,14 +82,14 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
 == Changelog ==
 
 = 1.0.11 =
-* Fixed: functions.php began with a UTF-8 byte-order mark, so the theme sent output before WordPress could send HTTP headers. Every redirect after that point was silently discarded — admin actions completed and then landed on a blank page, and JSON and feed responses were corrupted. Re-saved without the BOM.
+* Fixed: functions.php began with a UTF-8 byte-order mark, so the theme sent output before WordPress could send HTTP headers. Every redirect after that point was silently discarded - admin actions completed and then landed on a blank page, and JSON and feed responses were corrupted. Re-saved without the BOM.
 
 = 1.0.10 =
 * Security: wpwisebones_load_more no longer merges caller-supplied query vars over its defaults. The handler answers logged-out visitors and its nonce is printed in every page, so a visitor could pass post_status or post_type and read drafts and private posts. Query vars are now allow-listed, post_status is forced to publish, post_type must be a public searchable type, and posts_per_page is capped.
 * Fixed: companion plugin detection checked WPBS_VERSION, which the shortcodes plugin has never defined; the "install the companion" notice could never be dismissed by installing it.
 
 = 1.0.9 =
-* Fixed: CDN fallback branches removed from enqueue.php — Bootstrap served locally only (WP.org Guideline 8)
+* Fixed: CDN fallback branches removed from enqueue.php - Bootstrap served locally only (WP.org Guideline 8)
 * Fixed: wp_add_inline_style() used for customizer CSS instead of echo <style>
 * Fixed: wp_add_inline_style()/wp_add_inline_script() used for custom CSS/JS from options instead of echo
 * Fixed: wp_kses_post() applied to get_avatar(), get_the_post_thumbnail(), widget before/after_widget args throughout
@@ -117,9 +117,9 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
 * Fixed: 698 auto-fixable WordPress coding standards violations corrected by PHPCBF
 
 = 1.0.7 =
-* Fixed: Block style names renamed from wpb- prefix to wpwisebones- prefix (Required Â§4 uniqueness)
+* Fixed: Block style names renamed from wpb- prefix to wpwisebones- prefix (Required §4 uniqueness)
 * Fixed: Google Fonts enqueue handle renamed from wpb-google-fonts to wpwisebones-google-fonts
-* Fixed: Canonical URL output removed from seo.php â€” WordPress core handles this since WP 4.6
+* Fixed: Canonical URL output removed from seo.php - WordPress core handles this since WP 4.6
 * Fixed: 7 escaping violations in breadcrumbs and entry footer (esc_html, esc_html on
   get_the_author/date/search_query, wp_kses_post on category/tag lists)
 * Fixed: JS string 'Select Image' in meta-boxes.php now passed through __() via wp_json_encode
@@ -129,10 +129,10 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
 * Fixed: demo-importer.php reference removed from functions.php autoloader
 
 = 1.0.6 =
-* Fixed: Theme Options admin page (Appearance â†’ Theme Options) restored to submission zip
-  â€” it is permitted as a sub-page under Appearance per WP.org Required Â§4
+* Fixed: Theme Options admin page (Appearance -> Theme Options) restored to submission zip
+  - it is permitted as a sub-page under Appearance per WP.org Required §4
 * Fixed: Capability changed from `manage_options` to `edit_theme_options` throughout
-  admin page, matching WP.org Required Â§4 and the Customizer's own capability
+  admin page, matching WP.org Required §4 and the Customizer's own capability
 * Fixed: Three broken `href=CONSTANT` (missing PHP echo/esc_url) in admin page template
 * Fixed: Admin footer credit now checks for the correct screen ID
   (`appearance_page_wpwisebones-theme-options`) instead of a partial string match
@@ -143,7 +143,7 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
 
 = 1.0.5 =
 * Fixed: All PHP functions, constants, options, post meta, enqueue handles, and image sizes
-  renamed from wpb_/WPB_ to wpwisebones_/WPWISEBONES_ â€” prefix is now globally unique
+  renamed from wpb_/WPB_ to wpwisebones_/WPWISEBONES_ - prefix is now globally unique
 * Fixed: Admin toolbar links removed (not allowed per WP.org Required rules)
 * Fixed: Theme Options admin page excluded from submission zip (plugin territory)
 * Fixed: Skip link now targets #main with tabindex="-1" and does not overlap admin bar
@@ -152,20 +152,20 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
 * Fixed: Companion plugin notice limited to Plugins screen only
 
 = 1.0.4 =
-* Fixed: WPWISEBONES_LOCAL_ASSETS now defaults to true (Bootstrap served locally, Required Â§9)
-* Fixed: inc/demo-importer.php excluded from WP.org submission zip (Required Â§12)
+* Fixed: WPWISEBONES_LOCAL_ASSETS now defaults to true (Bootstrap served locally, Required §9)
+* Fixed: inc/demo-importer.php excluded from WP.org submission zip (Required §12)
 * Added: Focus/keyboard navigation styles for all interactive elements
 * Verified: All post meta accesses are nonce-protected and sanitized
 
-= 1.0.1 â€”
-* Fixed: admin bar overlapping sticky header â€” header now correctly positioned below 32px admin bar on desktop and 46px on mobile
+= 1.0.1 -
+* Fixed: admin bar overlapping sticky header - header now correctly positioned below 32px admin bar on desktop and 46px on mobile
 * Fixed: body padding-top adjusted for admin bar + sticky header combination
 * Improved: Customizer CSS output with null-safe hex color fallbacks
 * Added: Selective refresh partials for site title, tagline, logo, hero, footer copyright
 * Added: Google Fonts properly enqueued via wp_enqueue_style
 * Improved: Customizer live preview JS for colours, hero, font size
 
-= 1.0.0 â€” 2025-06-06 =
+= 1.0.0 - 2025-06-06 =
 * Initial production release
 * Full Bootstrap 5.3 integration (CDN + local vendor)
 * 17 shortcodes, 3 custom widgets, 7 sidebar areas
@@ -206,17 +206,17 @@ This theme bundles the following open-source libraries.
 **Bootstrap 5.3.3**
 * Author: The Bootstrap Authors
 * Source: https://github.com/twbs/bootstrap
-* License: MIT License — https://github.com/twbs/bootstrap/blob/main/LICENSE
+* License: MIT License - https://github.com/twbs/bootstrap/blob/main/LICENSE
 * Bundled as: assets/vendor/css/bootstrap.min.css, assets/vendor/js/bootstrap.bundle.min.js (unminified source included alongside)
 
 **Bootstrap Icons 1.11.3**
 * Author: The Bootstrap Authors
 * Source: https://github.com/twbs/icons
-* License: MIT License — https://github.com/twbs/icons/blob/main/LICENSE
+* License: MIT License - https://github.com/twbs/icons/blob/main/LICENSE
 * Bundled as: assets/vendor/css/bootstrap-icons.min.css, assets/vendor/fonts/ (unminified source included alongside)
 
 == Credits ==
 
-Theme by WPWiseBones â€” https://wprealwise.com
-Bootstrap 5 â€” https://getbootstrap.com (MIT License)
-Bootstrap Icons â€” https://icons.getbootstrap.com (MIT License)
+Theme by WPWiseBones - https://wprealwise.com
+Bootstrap 5 - https://getbootstrap.com (MIT License)
+Bootstrap Icons - https://icons.getbootstrap.com (MIT License)

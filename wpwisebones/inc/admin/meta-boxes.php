@@ -29,7 +29,7 @@ function wpwisebones_register_meta_boxes() {
 	);
 }
 
-/* â"€â"€ Layout override â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* -- Layout override --------------------------------------- */
 
 function wpwisebones_meta_layout_callback( WP_Post $post ) {
 	wp_nonce_field( 'wpwisebones_layout_meta_nonce', 'wpwisebones_layout_nonce' );
@@ -38,7 +38,7 @@ function wpwisebones_meta_layout_callback( WP_Post $post ) {
 	<label class="screen-reader-text" for="wpwisebones_layout_select"><?php esc_html_e( 'Layout', 'wpwisebones' ); ?></label>
 	<?php
 	$layout_options = array(
-		''             => esc_html__( '— Default (from Customizer) —', 'wpwisebones' ),
+		''             => esc_html__( '- Default (from Customizer) -', 'wpwisebones' ),
 		'right-sidebar' => esc_html__( 'Right Sidebar', 'wpwisebones' ),
 		'left-sidebar'  => esc_html__( 'Left Sidebar', 'wpwisebones' ),
 		'full-width'    => esc_html__( 'Full Width', 'wpwisebones' ),
@@ -52,7 +52,7 @@ function wpwisebones_meta_layout_callback( WP_Post $post ) {
 	<?php
 }
 
-/* â"€â"€ Page header options â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* -- Page header options ------------------------------------ */
 
 function wpwisebones_meta_page_header_callback( WP_Post $post ) {
 	wp_nonce_field( 'wpwisebones_page_header_nonce', 'wpwisebones_ph_nonce' );
@@ -81,7 +81,7 @@ function wpwisebones_meta_page_header_callback( WP_Post $post ) {
 	<?php
 }
 
-/* â"€â"€ Save meta boxes â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* -- Save meta boxes --------------------------------------- */
 
 add_action( 'save_post', 'wpwisebones_save_meta_boxes' );
 
@@ -111,7 +111,7 @@ function wpwisebones_save_meta_boxes( int $post_id ) {
 	}
 }
 
-/* â"€â"€ Media uploader for meta box â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* -- Media uploader for meta box --------------------------- */
 
 // Enqueue media library on post edit screens so wp.media is available
 add_action(

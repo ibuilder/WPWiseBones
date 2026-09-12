@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce product loop item — Bootstrap card.
+ * WooCommerce product loop item - Bootstrap card.
  * Overrides: woocommerce/templates/content-product.php
  */
 defined( 'ABSPATH' ) || exit;
