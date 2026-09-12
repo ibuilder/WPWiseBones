@@ -2,7 +2,7 @@
 Contributors:      wpwisebones
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.10
+Stable tag:        1.0.11
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,9 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
   npm run preflight    Full production readiness check
 
 == Changelog ==
+
+= 1.0.11 =
+* Fixed: functions.php began with a UTF-8 byte-order mark, so the theme sent output before WordPress could send HTTP headers. Every redirect after that point was silently discarded — admin actions completed and then landed on a blank page, and JSON and feed responses were corrupted. Re-saved without the BOM.
 
 = 1.0.10 =
 * Security: wpwisebones_load_more no longer merges caller-supplied query vars over its defaults. The handler answers logged-out visitors and its nonce is printed in every page, so a visitor could pass post_status or post_type and read drafts and private posts. Query vars are now allow-listed, post_status is forced to publish, post_type must be a public searchable type, and posts_per_page is capped.
