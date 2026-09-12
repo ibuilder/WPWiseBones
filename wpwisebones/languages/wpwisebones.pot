@@ -696,14 +696,6 @@ msgstr ""
 msgid "Local vendor"
 msgstr ""
 
-#: inc/dashboard-widget.php:207
-msgid "CDN (jsDelivr)"
-msgstr ""
-
-#: inc/dashboard-widget.php:213
-msgid "Switch to local for CSP compliance"
-msgstr ""
-
 #: inc/dashboard-widget.php:226
 msgid "Docs"
 msgstr ""

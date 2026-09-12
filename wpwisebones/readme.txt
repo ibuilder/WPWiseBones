@@ -18,7 +18,7 @@ Built and maintained by WPWiseBones.com - https://wprealwise.com
 
 == Features ==
 
-Bootstrap 5 (local vendor by default; CDN opt-in via WPWISEBONES_LOCAL_ASSETS constant)
+Bootstrap 5 (bundled locally in assets/vendor - no remote CDN assets)
 Bootstrap Icons 1.11
 theme.json for block editor color/font/layout sync
 3 Custom Widgets

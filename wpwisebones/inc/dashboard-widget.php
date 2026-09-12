@@ -196,7 +196,6 @@ function wpwisebones_dashboard_widget_render() {
 		<!-- System Info -->
 		<div style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:.78rem">
 			<?php
-			$local = defined( 'WPWISEBONES_LOCAL_ASSETS' ) && WPWISEBONES_LOCAL_ASSETS;
 			$php_v = phpversion();
 			$wp_v  = get_bloginfo( 'version' );
 			printf(
@@ -204,17 +203,9 @@ function wpwisebones_dashboard_widget_render() {
 				esc_html__( 'PHP %1$s &nbsp;·&nbsp; WordPress %2$s &nbsp;·&nbsp; Assets: %3$s', 'wpwisebones' ),
 				esc_html( $php_v ),
 				esc_html( $wp_v ),
-				$local
-					? '<span style="color:#198754;font-weight:600">' . esc_html__( 'Local vendor', 'wpwisebones' ) . '</span>'
-					: '<span style="color:#0d6efd">' . esc_html__( 'CDN (jsDelivr)', 'wpwisebones' ) . '</span>'
+				'<span style="color:#198754;font-weight:600">' . esc_html__( 'Local vendor', 'wpwisebones' ) . '</span>'
 			);
 			?>
-			<?php if ( ! $local ) : ?>
-				&nbsp;-&nbsp;
-				<a href="https://wprealwise.com/docs/local-assets" target="_blank" rel="noopener" style="font-size:.78rem">
-					<?php esc_html_e( 'Switch to local for CSP compliance', 'wpwisebones' ); ?>
-				</a>
-			<?php endif; ?>
 		</div>
 
 		<!-- Footer links -->
