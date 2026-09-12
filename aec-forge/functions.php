@@ -9,7 +9,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AEC_FORGE_VERSION', '1.0.0' );
+define( 'AEC_FORGE_VERSION', '1.1.2' );
 
 /* Print the active theme version into the page <head> so you can confirm which
    build is live via "View Source" (search for "AEC Forge theme v"). */
@@ -126,7 +126,36 @@ add_action( 'wp_head', function () {
 		"<link rel=\"icon\" href=\"%s\" type=\"image/svg+xml\">\n",
 		esc_url( get_stylesheet_directory_uri() . '/assets/img/mark.svg' )
 	);
-}, 2 );
+}, 4 );
+
+/* ── Social preview image. The parent theme (wpwisebones/inc/seo.php) prints a
+      complete, plugin-aware Open Graph / Twitter / schema set but falls back to
+      the site icon for og:image, and none is set — so shared links had no
+      preview. Rather than print a second, duplicate set, we feed the parent the
+      image it already looks for: a branded 1200×630 raster (social networks do
+      not render the site's SVG art). A real per-post featured image still wins,
+      since this only fills an empty site-icon URL.
+
+      has_site_icon() is implemented via get_site_icon_url(), so filtering that
+      globally would make WordPress treat this raster as the favicon and suppress
+      the SVG one. To avoid that, the fallback is scoped to the parent meta's
+      wp_head window (added at priority 1, removed at 3, parent runs at 2); the
+      favicon block above is moved to priority 4 so it evaluates has_site_icon()
+      after the filter is gone. Jetpack's own Open Graph is disabled in case it is
+      ever switched on, so there is never a second set. ─────────────────────── */
+add_filter( 'jetpack_enable_open_graph', '__return_false' );
+
+$aec_forge_og_image = static function ( $url ) {
+	return '' === (string) $url
+		? get_stylesheet_directory_uri() . '/assets/img/og-default.png'
+		: $url;
+};
+add_action( 'wp_head', static function () use ( $aec_forge_og_image ) {
+	add_filter( 'get_site_icon_url', $aec_forge_og_image );
+}, 1 );
+add_action( 'wp_head', static function () use ( $aec_forge_og_image ) {
+	remove_filter( 'get_site_icon_url', $aec_forge_og_image );
+}, 3 );
 
 /* ── AI-tools promo banner on the main shop page. ───────────────────────── */
 add_action( 'woocommerce_archive_description', function () {
