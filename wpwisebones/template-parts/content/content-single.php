@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 $o          = get_option( 'wpwisebones_options', array() );
 $hide_title = get_post_meta( get_the_ID(), '_wpwisebones_hide_title', true );
 $hero_img   = get_post_meta( get_the_ID(), '_wpwisebones_hero_image', true );
+$hero_text  = get_post_meta( get_the_ID(), '_wpwisebones_hero_text', true );
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
@@ -22,6 +23,9 @@ $hero_img   = get_post_meta( get_the_ID(), '_wpwisebones_hero_image', true );
 	<header class="entry-header mb-4">
 		<?php if ( ! $hide_title ) : ?>
 			<h1 class="entry-title"><?php the_title(); ?></h1>
+		<?php endif; ?>
+		<?php if ( $hero_text ) : ?>
+			<p class="entry-subtitle lead text-muted mb-2"><?php echo esc_html( $hero_text ); ?></p>
 		<?php endif; ?>
 		<div class="entry-meta text-muted small d-flex flex-wrap gap-2 mb-2">
 			<?php
@@ -42,7 +46,7 @@ $hero_img   = get_post_meta( get_the_ID(), '_wpwisebones_hero_image', true );
 
 	<div class="entry-content">
 		<?php
-		the_content( __( 'Continue readingâ€¦', 'wpwisebones' ) );
+		the_content( __( 'Continue reading...', 'wpwisebones' ) );
 		wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . __( 'Pages:', 'wpwisebones' ),

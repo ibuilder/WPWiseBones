@@ -1,6 +1,6 @@
 <?php
 /**
- * WPWiseBones — Dashboard Widget
+ * WPWiseBones - Dashboard Widget
  *
  * Displays a "Getting Started" panel on the WordPress dashboard
  * with quick links, shortcode reference, and theme info.
@@ -18,7 +18,7 @@ function wpwisebones_register_dashboard_widget() {
 		'wpwisebones_getting_started',
 		sprintf(
 			/* translators: %s: theme version */
-			__( 'WPWiseBones — Getting Started (v%s)', 'wpwisebones' ),
+			__( 'WPWiseBones - Getting Started (v%s)', 'wpwisebones' ),
 			WPWISEBONES_VERSION
 		),
 		'wpwisebones_dashboard_widget_render',
@@ -81,7 +81,7 @@ function wpwisebones_dashboard_widget_render() {
 				<?php
 				printf(
 					/* translators: %s: wprealwise.com link */
-					esc_html__( 'Bootstrap 5 WordPress starter — by %s', 'wpwisebones' ),
+					esc_html__( 'Bootstrap 5 WordPress starter - by %s', 'wpwisebones' ),
 					'<a href="' . esc_url( $docs_url ) . '" target="_blank" rel="noopener">wprealwise.com</a>'
 				);
 				?>
@@ -145,7 +145,7 @@ function wpwisebones_dashboard_widget_render() {
 
 		<!-- Shortcode Quick Reference -->
 		<div class="wpb-dw-sc">
-			<h4><?php esc_html_e( 'Shortcodes — click to copy (requires companion plugin)', 'wpwisebones' ); ?></h4>
+			<h4><?php esc_html_e( 'Shortcodes - click to copy (requires companion plugin)', 'wpwisebones' ); ?></h4>
 			<div class="wpb-dw-sc-grid">
 				<?php
 				$shortcodes = array(
@@ -165,7 +165,7 @@ function wpwisebones_dashboard_widget_render() {
 					'[wpwisebones_badge color="danger"]Hot[/wpwisebones_badge]',
 					'[wpwisebones_divider text="OR"]',
 					'[wpwisebones_map src="EMBED_URL" height="400"]',
-					'[wpwisebones_contact_info phone="+1…" email="…"]',
+					'[wpwisebones_contact_info phone="+1..." email="..."]',
 				);
 				foreach ( $shortcodes as $sc ) :
 					?>
@@ -196,7 +196,6 @@ function wpwisebones_dashboard_widget_render() {
 		<!-- System Info -->
 		<div style="background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:.78rem">
 			<?php
-			$local = defined( 'WPWISEBONES_LOCAL_ASSETS' ) && WPWISEBONES_LOCAL_ASSETS;
 			$php_v = phpversion();
 			$wp_v  = get_bloginfo( 'version' );
 			printf(
@@ -204,17 +203,9 @@ function wpwisebones_dashboard_widget_render() {
 				esc_html__( 'PHP %1$s &nbsp;·&nbsp; WordPress %2$s &nbsp;·&nbsp; Assets: %3$s', 'wpwisebones' ),
 				esc_html( $php_v ),
 				esc_html( $wp_v ),
-				$local
-					? '<span style="color:#198754;font-weight:600">' . esc_html__( 'Local vendor', 'wpwisebones' ) . '</span>'
-					: '<span style="color:#0d6efd">' . esc_html__( 'CDN (jsDelivr)', 'wpwisebones' ) . '</span>'
+				'<span style="color:#198754;font-weight:600">' . esc_html__( 'Local vendor', 'wpwisebones' ) . '</span>'
 			);
 			?>
-			<?php if ( ! $local ) : ?>
-				&nbsp;—&nbsp;
-				<a href="https://wprealwise.com/docs/local-assets" target="_blank" rel="noopener" style="font-size:.78rem">
-					<?php esc_html_e( 'Switch to local for CSP compliance', 'wpwisebones' ); ?>
-				</a>
-			<?php endif; ?>
 		</div>
 
 		<!-- Footer links -->

@@ -1,11 +1,11 @@
 /**
- * WPWiseBones â€“ main.js
+ * WPWiseBones - main.js
  */
 
 (function () {
     'use strict';
 
-    /* â”€â”€ Back to Top â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* -- Back to Top -------------------------------------------- */
     const backToTop = document.getElementById('back-to-top');
     if (backToTop) {
         window.addEventListener('scroll', () => {
@@ -16,7 +16,7 @@
         });
     }
 
-    /* â”€â”€ Active nav link highlighting â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* -- Active nav link highlighting -------------------------- */
     const currentPath = window.location.pathname;
     document.querySelectorAll('.main-navigation .nav-link').forEach(link => {
         if (link.getAttribute('href') === currentPath) {
@@ -25,7 +25,7 @@
         }
     });
 
-    /* â”€â”€ Countdown timers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* -- Countdown timers -------------------------------------- */
     document.querySelectorAll('.wpb-countdown[data-date]').forEach(el => {
         const target = new Date(el.dataset.date).getTime();
         const id     = el.id;
@@ -54,19 +54,19 @@
         tick();
     });
 
-    /* â”€â”€ Bootstrap tooltips â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* -- Bootstrap tooltips ------------------------------------ */
     if (typeof bootstrap !== 'undefined') {
         document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
             new bootstrap.Tooltip(el);
         });
 
-        /* â”€â”€ Bootstrap popovers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        /* -- Bootstrap popovers -------------------------------- */
         document.querySelectorAll('[data-bs-toggle="popover"]').forEach(el => {
             new bootstrap.Popover(el);
         });
     }
 
-    /* â”€â”€ Search form toggle in navbar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* -- Search form toggle in navbar ------------------------- */
     const searchToggle = document.querySelector('.wpb-search-toggle');
     const searchForm   = document.querySelector('.wpb-header-search');
     if (searchToggle && searchForm) {
@@ -79,7 +79,7 @@
         });
     }
 
-    /* â”€â”€ Lazy-load images not handled by browser â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* -- Lazy-load images not handled by browser --------------- */
     if ('IntersectionObserver' in window) {
         const imgObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -97,7 +97,7 @@
         document.querySelectorAll('img[data-src]').forEach(img => imgObserver.observe(img));
     }
 
-    /* â”€â”€ Smooth anchor scroll (for older browsers) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* -- Smooth anchor scroll (for older browsers) ------------- */
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
             const target = document.querySelector(a.getAttribute('href'));
@@ -108,7 +108,7 @@
         });
     });
 
-    /* â”€â”€ Table of contents (auto-generate) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* -- Table of contents (auto-generate) --------------------- */
     const tocContainer = document.getElementById('wpb-toc');
     if (tocContainer) {
         const headings = document.querySelectorAll('.entry-content h2, .entry-content h3');
@@ -128,7 +128,7 @@
         }
     }
 
-    /* â”€â”€ AJAX load more â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* -- AJAX load more ---------------------------------------- */
     const loadMoreBtn = document.getElementById('wpb-load-more');
     if (loadMoreBtn && typeof wpwisebonesData !== 'undefined') {
         let page = 2;
@@ -170,11 +170,11 @@
     }
 
 
-    /* ── Mobile menu focus trap (WP.org a11y requirement) ───────
+    /* -- Mobile menu focus trap (WP.org a11y requirement) -------
        When the navbar is open, Tab past the last focusable item
        should wrap to the toggler button, and Shift+Tab before the
        first item should also wrap to the toggler button.
-    ──────────────────────────────────────────────────────────── */
+    ------------------------------------------------------------ */
     const navbarToggler = document.querySelector('.navbar-toggler');
     const navbarCollapse = document.getElementById('primaryNavbar');
 
@@ -223,7 +223,7 @@
         });
     }
 
-    /* ── Preloader fade-out ───────────────────────────────────── */
+    /* -- Preloader fade-out ------------------------------------- */
     window.addEventListener('load', function () {
         var p = document.getElementById('wpb-preloader');
         if (p) {

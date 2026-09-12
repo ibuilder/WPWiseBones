@@ -1,23 +1,23 @@
-﻿<?php
+<?php
 /**
- * WPWiseBones Ã¢â‚¬â€œ functions.php
+ * WPWiseBones - functions.php
  * Central loader. Keeps this file thin; logic lives in /inc.
  */
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPWISEBONES_VERSION', '1.0.9' );
+define( 'WPWISEBONES_VERSION', '1.0.12' );
 define( 'WPWISEBONES_DIR', get_template_directory() );
 define( 'WPWISEBONES_URI', get_template_directory_uri() );
 define( 'WPWISEBONES_INC', WPWISEBONES_DIR . '/inc/' );
 
-// Theme URL constants â€” used in admin pages and notices
+// Theme URL constants - used in admin pages and notices
 define( 'WPWISEBONES_AUTHOR_URL', 'https://wprealwise.com' );
 define( 'WPWISEBONES_THEME_URL', 'https://wprealwise.com/wpwisebones' );
 define( 'WPWISEBONES_DOCS_URL', 'https://wprealwise.com/docs' );
 define( 'WPWISEBONES_SUPPORT_URL', 'https://wprealwise.com/support' );
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Autoload Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* -- Autoload ------------------------------------------------- */
 $wpwisebones_includes = array(
 	'setup.php',
 	'enqueue.php',

@@ -1,5 +1,5 @@
 /**
- * WPWiseBones â€“ admin.js
+ * WPWiseBones - admin.js
  * Admin-side enhancements.
  */
 

@@ -5,7 +5,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/* â”€â”€ Site logo / branding â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Site logo / branding -------------------------------------- */
 
 function wpwisebones_site_branding() {
 	if ( has_custom_logo() ) {
@@ -17,7 +17,7 @@ function wpwisebones_site_branding() {
 	}
 }
 
-/* â”€â”€ Featured image with fallback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Featured image with fallback ----------------------------- */
 
 function wpwisebones_post_thumbnail( string $size = 'wpwisebones-card', array $classes = array() ) {
 	if ( ! has_post_thumbnail() ) {
@@ -27,7 +27,7 @@ function wpwisebones_post_thumbnail( string $size = 'wpwisebones-card', array $c
 	echo wp_kses_post( get_the_post_thumbnail( null, $size, array( 'class' => implode( ' ', $cls ) ) ) );
 }
 
-/* â”€â”€ Author box â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Author box ------------------------------------------------ */
 
 function wpwisebones_author_box() {
 	if ( ! is_single() ) {
@@ -58,7 +58,7 @@ function wpwisebones_author_box() {
 	<?php
 }
 
-/* â”€â”€ Related posts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* -- Related posts --------------------------------------------- */
 
 function wpwisebones_related_posts( int $count = 3 ) {
 	if ( ! is_single() ) {

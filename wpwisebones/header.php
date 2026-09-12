@@ -17,7 +17,7 @@ if ( ! empty( $wpwisebones_options['preloader'] ) ) :
 	?>
 <div id="wpb-preloader" role="status" aria-label="<?php esc_attr_e( 'Loading', 'wpwisebones' ); ?>">
 	<div class="spinner-border text-primary" role="status">
-		<span class="visually-hidden"><?php esc_html_e( 'Loadingâ€¦', 'wpwisebones' ); ?></span>
+		<span class="visually-hidden"><?php esc_html_e( 'Loading...', 'wpwisebones' ); ?></span>
 	</div>
 </div>
 

@@ -136,7 +136,7 @@ msgstr ""
 
 #: header.php:19
 #: inc/enqueue.php:104
-msgid "Loadingâ€¦"
+msgid "Loading..."
 msgstr ""
 
 #: header.php:25
@@ -390,7 +390,7 @@ msgid "Layout"
 msgstr ""
 
 #: inc/admin/meta-boxes.php:40
-msgid "â€” Default (from Customizer) â€”"
+msgid "- Default (from Customizer) -"
 msgstr ""
 
 #: inc/admin/meta-boxes.php:41
@@ -597,13 +597,13 @@ msgstr ""
 #. translators: %s: theme version
 #: inc/dashboard-widget.php:21
 #, php-format
-msgid "WPWiseBones — Getting Started (v%s)"
+msgid "WPWiseBones - Getting Started (v%s)"
 msgstr ""
 
 #. translators: %s: wprealwise.com link
 #: inc/dashboard-widget.php:83
 #, php-format
-msgid "Bootstrap 5 WordPress starter — by %s"
+msgid "Bootstrap 5 WordPress starter - by %s"
 msgstr ""
 
 #: inc/dashboard-widget.php:98
@@ -651,7 +651,7 @@ msgid "View Reference"
 msgstr ""
 
 #: inc/dashboard-widget.php:146
-msgid "Shortcodes — click to copy (requires companion plugin)"
+msgid "Shortcodes - click to copy (requires companion plugin)"
 msgstr ""
 
 #: inc/dashboard-widget.php:180
@@ -696,14 +696,6 @@ msgstr ""
 msgid "Local vendor"
 msgstr ""
 
-#: inc/dashboard-widget.php:207
-msgid "CDN (jsDelivr)"
-msgstr ""
-
-#: inc/dashboard-widget.php:213
-msgid "Switch to local for CSP compliance"
-msgstr ""
-
 #: inc/dashboard-widget.php:226
 msgid "Docs"
 msgstr ""
@@ -726,7 +718,7 @@ msgid "Demo content removed. Your site is clean again."
 msgstr ""
 
 #: inc/demo-importer.php:53
-msgid "WPWiseBones — Demo Content"
+msgid "WPWiseBones - Demo Content"
 msgstr ""
 
 #: inc/demo-importer.php:64
@@ -734,7 +726,7 @@ msgid "What gets installed"
 msgstr ""
 
 #: inc/demo-importer.php:66
-msgid "4 pages — Home, About, Blog, Contact"
+msgid "4 pages - Home, About, Blog, Contact"
 msgstr ""
 
 #: inc/demo-importer.php:67
@@ -917,13 +909,13 @@ msgstr ""
 msgid "Appears on posts and pages with a sidebar layout."
 msgstr ""
 
-#. translators: %d: footer column number (1â€“4)
+#. translators: %d: footer column number (1-4)
 #: inc/sidebars.php:29
 #, php-format
 msgid "Footer Column %d"
 msgstr ""
 
-#. translators: %d: footer column number (1â€“4)
+#. translators: %d: footer column number (1-4)
 #: inc/sidebars.php:32
 #, php-format
 msgid "Footer widget area column %d."
@@ -1111,7 +1103,7 @@ msgid "Read More"
 msgstr ""
 
 #: template-parts/content/content-single.php:40
-msgid "Continue readingâ€¦"
+msgid "Continue reading..."
 msgstr ""
 
 #: template-parts/content/content-single.php:42

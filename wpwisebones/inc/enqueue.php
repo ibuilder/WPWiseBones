@@ -2,7 +2,7 @@
 /**
  * Enqueue scripts and styles.
  *
- * Bootstrap is served from local vendor/ (WP.org Guideline 8 — no remote CDN assets).
+ * Bootstrap is served from local vendor/ (WP.org Guideline 8 - no remote CDN assets).
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -13,7 +13,7 @@ function wpwisebones_enqueue_assets() {
 	$v      = WPWISEBONES_VERSION;
 	$vendor = WPWISEBONES_URI . '/assets/vendor';
 
-	/* â"€â"€ Bootstrap 5 CSS â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+	/* -- Bootstrap 5 CSS -------------------------------------------- */
 	wp_enqueue_style(
 		'bootstrap',
 		$vendor . '/css/bootstrap.min.css',
@@ -21,7 +21,7 @@ function wpwisebones_enqueue_assets() {
 		'5.3.3'
 	);
 
-	/* â"€â"€ Bootstrap Icons â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+	/* -- Bootstrap Icons ------------------------------------------- */
 	wp_enqueue_style(
 		'bootstrap-icons',
 		$vendor . '/css/bootstrap-icons.min.css',
@@ -32,13 +32,13 @@ function wpwisebones_enqueue_assets() {
 	$inline   = "@font-face { font-family: 'bootstrap-icons'; src: url('" . esc_url( $font_url . '.woff2' ) . "') format('woff2'), url('" . esc_url( $font_url . '.woff' ) . "') format('woff'); }";
 	wp_add_inline_style( 'bootstrap-icons', $inline );
 
-	/* â"€â"€ Theme stylesheet (style.css) â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+	/* -- Theme stylesheet (style.css) ------------------------------ */
 	wp_enqueue_style( 'wpwisebones-style', get_stylesheet_uri(), array( 'bootstrap' ), $v );
 
-	/* â"€â"€ Custom theme CSS â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+	/* -- Custom theme CSS ------------------------------------------ */
 	wp_enqueue_style( 'wpwisebones-main', WPWISEBONES_URI . '/assets/css/main.css', array( 'wpwisebones-style' ), $v );
 
-	/* â"€â"€ Bootstrap 5 JS bundle â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+	/* -- Bootstrap 5 JS bundle ------------------------------------- */
 	wp_enqueue_script(
 		'bootstrap',
 		$vendor . '/js/bootstrap.bundle.min.js',
@@ -47,10 +47,10 @@ function wpwisebones_enqueue_assets() {
 		true
 	);
 
-	/* â"€â"€ Theme main JS â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+	/* -- Theme main JS --------------------------------------------- */
 	wp_enqueue_script( 'wpwisebones-main', WPWISEBONES_URI . '/assets/js/main.js', array( 'bootstrap' ), $v, true );
 
-	/* â"€â"€ Pass data to JS â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+	/* -- Pass data to JS ------------------------------------------- */
 	wp_localize_script(
 		'wpwisebones-main',
 		'wpwisebonesData',
@@ -60,19 +60,19 @@ function wpwisebones_enqueue_assets() {
 			'siteUrl'  => home_url(),
 			'themeUrl' => WPWISEBONES_URI,
 			'i18n'     => array(
-				'loading' => __( 'Loadingâ€¦', 'wpwisebones' ),
+				'loading' => __( 'Loading...', 'wpwisebones' ),
 				'error'   => __( 'An error occurred.', 'wpwisebones' ),
 			),
 		)
 	);
 
-	/* â"€â"€ Comments reply script â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+	/* -- Comments reply script ------------------------------------- */
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
 
-/* â"€â"€ Admin enqueue â€" only on theme-related admin pages â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€ */
+/* -- Admin enqueue - only on theme-related admin pages ---------- */
 add_action( 'admin_enqueue_scripts', 'wpwisebones_admin_enqueue' );
 
 function wpwisebones_admin_enqueue( string $hook ) {

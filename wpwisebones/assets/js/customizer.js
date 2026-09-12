@@ -1,5 +1,5 @@
 /**
- * WPWiseBones — customizer.js
+ * WPWiseBones - customizer.js
  * Handles live postMessage preview updates in the Customizer.
  * Loaded only inside the Customizer preview frame.
  *
@@ -11,7 +11,7 @@
 
     var api = wp.customize;
 
-    /* ── Hero section ──────────────────────────────────────────── */
+    /* -- Hero section -------------------------------------------- */
 
     api( 'wpb_hero_heading', function( value ) {
         value.bind( function( newval ) {
@@ -37,7 +37,7 @@
         } );
     } );
 
-    /* ── Brand colours ─────────────────────────────────────────── */
+    /* -- Brand colours ------------------------------------------- */
 
     function setCSS( prop, val ) {
         document.documentElement.style.setProperty( prop, val );
@@ -88,7 +88,7 @@
         } );
     } );
 
-    /* ── Typography ────────────────────────────────────────────── */
+    /* -- Typography ---------------------------------------------- */
 
     api( 'wpb_base_font_size', function( value ) {
         value.bind( function( newval ) {

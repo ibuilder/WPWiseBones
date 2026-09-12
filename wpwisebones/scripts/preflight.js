@@ -1,5 +1,5 @@
 /**
- * preflight.js — WPWiseBones
+ * preflight.js - WPWiseBones
  * Production readiness checker. Run: npm run preflight
  * https://wprealwise.com
  */
@@ -83,7 +83,7 @@ let guardOk = 0, guardFail = [];
 function collectPhp(dir, isRoot) {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
         const full = path.join(dir, e.name);
-        if (e.isDirectory() && !["node_modules",".git","assets"].includes(e.name)) collectPhp(full, false);
+        if (e.isDirectory() && !["node_modules",".git","assets","tests"].includes(e.name)) collectPhp(full, false);
         else if (e.isFile() && e.name.endsWith(".php") && e.name !== "index.php") {
             if (isRoot && topLevel.has(e.name)) continue;
             /defined\s*\(\s*['"]ABSPATH['"]/.test(fs.readFileSync(full,"utf8")) ? guardOk++ : guardFail.push(path.relative(ROOT,full));
@@ -101,7 +101,7 @@ const allPhp = [];
 function collectAll(dir) {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
         const full = path.join(dir, e.name);
-        if (e.isDirectory() && !["node_modules",".git"].includes(e.name)) collectAll(full);
+        if (e.isDirectory() && !["node_modules",".git","tests"].includes(e.name)) collectAll(full);
         else if (e.isFile() && e.name.endsWith(".php")) allPhp.push(full);
     }
 }
@@ -162,8 +162,8 @@ console.log("\n[ Translation ]");
 if (fs.existsSync(POT)) {
     const potSrc = fs.readFileSync(POT,"utf8");
     const n = (potSrc.match(/^msgid\s+"/gm)||[]).length;
-    n > 50 ? ok(".pot file: " + n + " strings") : warn(".pot only " + n + " strings — run: npm run pot");
-} else err(".pot missing — run: npm run pot");
+    n > 50 ? ok(".pot file: " + n + " strings") : warn(".pot only " + n + " strings - run: npm run pot");
+} else err(".pot missing - run: npm run pot");
 
 // 12. WPWiseBones credits
 console.log("\n[ WPWiseBones Branding ]");
@@ -176,7 +176,7 @@ const ap = fs.readFileSync(path.join(ROOT,"inc/admin/admin-page.php"),"utf8");
 console.log("\n[ License ]");
 ["license.txt","LICENSE","LICENSE.txt","LICENSE.md"].some(n => fs.existsSync(path.join(ROOT,n)))
     ? ok("license.txt present")
-    : err("No license file found — required for WordPress.org");
+    : err("No license file found - required for WordPress.org");
 
 // 13c. Dashboard widget
 console.log("\n[ Dashboard Widget ]");
@@ -191,7 +191,7 @@ console.log("\n[ Folder Name ]");
 const folderName = path.basename(ROOT);
 const domainFromStyle = (fs.readFileSync(path.join(ROOT,"style.css"),"utf8").match(/Text Domain:\s*(.+)/) || [])[1];
 if (domainFromStyle && folderName !== domainFromStyle.trim()) {
-    warn("Folder name '" + folderName + "' != text domain '" + domainFromStyle.trim() + "' — rename folder before installing");
+    warn("Folder name '" + folderName + "' != text domain '" + domainFromStyle.trim() + "' - rename folder before installing");
 } else {
     ok("Folder name matches text domain: " + folderName);
 }

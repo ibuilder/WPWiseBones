@@ -1,6 +1,6 @@
 <?php
 /**
- * Fallback singular template â€” used for any single post/page that doesn't
+ * Fallback singular template - used for any single post/page that doesn't
  * match a more specific template (single.php, page.php, etc.).
  */
 defined( 'ABSPATH' ) || exit;

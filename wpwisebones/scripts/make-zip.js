@@ -16,7 +16,7 @@ const OUTFILE  = path.join(ROOT, '..', `${THEME}.zip`);
 const IGNORE_FILE = path.join(ROOT, '.distignore');
 
 // Read .distignore and expand each pattern so archiver glob matches
-// subdirectories too (e.g. "node_modules" → also "node_modules/**")
+// subdirectories too (e.g. "node_modules" -> also "node_modules/**")
 const rawIgnore = fs.existsSync(IGNORE_FILE)
     ? fs.readFileSync(IGNORE_FILE, 'utf8').split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('#'))
     : [];
@@ -36,7 +36,7 @@ for (const p of rawIgnore) {
 try {
     require.resolve('archiver');
 } catch {
-    console.log('archiver not found â€” using system zip fallback.');
+    console.log('archiver not found - using system zip fallback.');
     useFallback();
     process.exit(0);
 }
@@ -47,7 +47,7 @@ const archive  = archiver('zip', { zlib: { level: 9 } });
 
 output.on('close', () => {
     const mb = (archive.pointer() / 1024 / 1024).toFixed(2);
-    console.log(`\nâœ”  ${OUTFILE} (${mb} MB)`);
+    console.log(`\n✔  ${OUTFILE} (${mb} MB)`);
 });
 archive.on('error', e => { throw e; });
 archive.pipe(output);
@@ -68,7 +68,7 @@ function useFallback() {
             `powershell -Command "Compress-Archive -Path '${ROOT}' -DestinationPath '${OUTFILE}' -Force"`,
             { stdio: 'inherit' }
         );
-        console.log(`âœ”  ${OUTFILE}`);
+        console.log(`✔  ${OUTFILE}`);
     } catch (e) {
         console.error('Zip failed:', e.message);
         process.exit(1);

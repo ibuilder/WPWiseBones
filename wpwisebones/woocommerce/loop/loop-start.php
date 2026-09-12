@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce loop start — Bootstrap card grid.
+ * WooCommerce loop start - Bootstrap card grid.
  * Overrides: woocommerce/templates/loop/loop-start.php
  */
 defined( 'ABSPATH' ) || exit;

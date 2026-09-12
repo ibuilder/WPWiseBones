@@ -1,6 +1,6 @@
 <?php
 /**
- * Comments template â€“ Bootstrap-styled.
+ * Comments template - Bootstrap-styled.
  */
 
 defined( 'ABSPATH' ) || exit;
