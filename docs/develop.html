@@ -56,6 +56,7 @@ npm install          # bootstrap 5.3.3, bootstrap-icons 1.11.3, archiver</code><
 wisebones-shortcodes/      companion plugin, 17 shortcodes
 realwise/                  child theme — real-estate marketing site + EDD storefront
 aec-forge/                 child theme — AEC/BIM marketplace skin
+antivig-child/             child theme — sports-analysis membership skin (vendored)
 docs/                      this documentation site (GitHub Pages)
 tools/docs-screenshots/    renders the themes and shortcodes for the screenshots
 wpwisebones.zip            built theme package
@@ -145,13 +146,15 @@ npm run zip          # writes ../wpwisebones.zip</code></pre></div>
 				<tr><td><code>render-shortcodes.php</code></td><td>Runs all 17 shortcodes and writes the demo page plus a JSON manifest</td></tr>
 				<tr><td><code>capture.mjs</code></td><td>Playwright: screenshots each page and each shortcode element</td></tr>
 				<tr><td><code>build-shortcodes-page.php</code></td><td>Regenerates the marked-up block in <code>docs/shortcodes.html</code> from the manifest</td></tr>
+				<tr><td><code>set-image-dims.php</code></td><td>Stamps each screenshot's real dimensions onto its <code>&lt;img&gt;</code>, so the lazy-loaded images reserve their space and anchor links land accurately</td></tr>
 			</tbody>
 		</table>
 		</div>
 		<div class="snippet"><pre><code># from the repository root
 php tools/docs-screenshots/render.php build
 node tools/docs-screenshots/capture.mjs build docs/assets/img
-php tools/docs-screenshots/build-shortcodes-page.php build docs</code></pre></div>
+php tools/docs-screenshots/build-shortcodes-page.php build docs
+php tools/docs-screenshots/set-image-dims.php docs</code></pre></div>
 		<p>The capture step needs Playwright's <code>chromium</code> package; set <code>CHROMIUM_PATH</code> if your
 		browser lives somewhere other than Playwright's own download directory. Because the attribute tables are
 		read out of <code>shortcode_atts()</code> at build time, they cannot drift from the plugin source.</p>

@@ -188,7 +188,7 @@ main strong { color: var(--text); font-weight: 620; }
 	background: var(--bg-soft);
 	box-shadow: var(--shadow);
 }
-.shot img { display: block; width: 100%; background: #fff; }
+.shot img { display: block; width: 100%; height: auto; background: #fff; }
 figure { margin: 24px 0; }
 figcaption { font-size: .85rem; color: var(--text-faint); margin-top: 8px; }
 

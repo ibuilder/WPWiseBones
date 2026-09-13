@@ -23,6 +23,7 @@ to execute the real templates and shortcode callbacks and capture their output.
 | `render-shortcodes.php` | Runs all 17 shortcodes; writes the demo page and `shortcodes.json` |
 | `capture.mjs` | Playwright: screenshots each page and each shortcode element |
 | `build-shortcodes-page.php` | Rewrites the generated block of `docs/shortcodes.html` from the manifest |
+| `set-image-dims.php` | Stamps each screenshot's real dimensions onto its `<img>` tag |
 
 ## Running it
 
@@ -31,6 +32,7 @@ npm install playwright            # once, anywhere on PATH for node
 php  tools/docs-screenshots/render.php build
 node tools/docs-screenshots/capture.mjs build docs/assets/img
 php  tools/docs-screenshots/build-shortcodes-page.php build docs
+php  tools/docs-screenshots/set-image-dims.php docs
 ```
 
 `build/` is a scratch directory; only `docs/` is committed. Set `CHROMIUM_PATH` if
@@ -50,3 +52,6 @@ CHROMIUM_PATH=/path/to/chromium node tools/docs-screenshots/capture.mjs build do
   stylesheets load in the same order they do on a real site.
 - Sample post content and images are obvious placeholders, and the testimonial demo
   is labelled as illustrative rather than a customer quote.
+- `get_theme_mod()` in the stub runs the `theme_mod_{$name}` filter, as WordPress does.
+  Antivig sets the parent's header style and brand colours that way, so without it the
+  child themes render with the parent's defaults instead of their own.

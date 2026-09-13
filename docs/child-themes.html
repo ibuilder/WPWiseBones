@@ -33,13 +33,16 @@
 		<a href="#realwise-importer">— The importer</a>
 		<a href="#aec-forge">AEC Forge</a>
 		<a href="#aec-install">— Install</a>
+		<a href="#antivig">Antivig</a>
+		<a href="#antivig-install">— Install</a>
 		<a href="#roll-your-own">Your own skin</a>
 	</nav>
 
 	<main id="main">
 		<h1>Child themes</h1>
-		<p class="lede">Both child themes keep WPWiseBones as the parent and add a brand stylesheet, a
-		self-contained marketing front page and a one-click builder that creates the rest of the site.</p>
+		<p class="lede">Three child themes keep WPWiseBones as the parent and add a brand stylesheet and a
+		self-contained front page. RealWise and AEC Forge also ship a one-click builder that creates the rest
+		of the site; Antivig leaves its content to its own plugins.</p>
 
 		<h2 id="how">How the skins work</h2>
 		<p>Each child theme is deliberately thin: a <code>style.css</code> header pointing at
@@ -49,7 +52,7 @@
 		overriding Bootstrap's, so nothing in the parent has to be forked.</p>
 		<p>The parent handles the stylesheet order for you: Bootstrap, then the parent
 		<code>style.css</code> and <code>main.css</code>, then the child's <code>style.css</code> — the child
-		theme only has to enqueue its own brand CSS (both of these do, at priority 20). This needs theme
+		theme only has to enqueue its own brand CSS (all three do, at priority 20). This needs theme
 		1.0.13 or newer; earlier versions left the parent <code>style.css</code> out on a child theme site.</p>
 
 		<h2 id="realwise">RealWise</h2>
@@ -57,7 +60,7 @@
 		<figure>
 			<div class="shot">
 				<div class="browser"><i></i><i></i><i></i><span>realwise — front page</span></div>
-				<img src="assets/img/theme-realwise.png" alt="RealWise front page with a navy headline, amber Start free button and a floating property card showing a deal score." loading="lazy">
+				<img alt="RealWise front page with a navy headline, amber Start free button and a floating property card showing a deal score." loading="lazy" src="assets/img/theme-realwise.png" width="1440" height="940">
 			</div>
 			<figcaption>Rendered from <code>realwise/front-page.php</code> with the parent header and footer.
 			<a href="assets/img/theme-realwise-full.png">See the whole page</a>.</figcaption>
@@ -92,7 +95,7 @@
 		Schema.org output for the marketing pages.</p>
 		<figure>
 			<div class="shot" style="max-width:420px">
-				<img src="assets/img/theme-realwise-mobile.png" alt="The RealWise front page at phone width, with the hero stacked above the property card." loading="lazy">
+				<img alt="The RealWise front page at phone width, with the hero stacked above the property card." loading="lazy" src="assets/img/theme-realwise-mobile.png" width="414" height="860">
 			</div>
 			<figcaption>RealWise at 414&nbsp;px.</figcaption>
 		</figure>
@@ -102,7 +105,7 @@
 		<figure>
 			<div class="shot">
 				<div class="browser"><i></i><i></i><i></i><span>aec-forge — front page</span></div>
-				<img src="assets/img/theme-aec-forge.png" alt="AEC Forge front page: dark hero with orange accents, floating cards for a licensed program and a premium service." loading="lazy">
+				<img alt="AEC Forge front page: dark hero with orange accents, floating cards for a licensed program and a premium service." loading="lazy" src="assets/img/theme-aec-forge.png" width="1440" height="940">
 			</div>
 			<figcaption>Rendered from <code>aec-forge/front-page.php</code>.
 			<a href="assets/img/theme-aec-forge-full.png">See the whole page</a>.</figcaption>
@@ -124,9 +127,59 @@
 
 		<figure>
 			<div class="shot" style="max-width:420px">
-				<img src="assets/img/theme-aec-forge-mobile.png" alt="The AEC Forge front page at phone width, with the dark hero stacked above the product cards." loading="lazy">
+				<img alt="The AEC Forge front page at phone width, with the dark hero stacked above the product cards." loading="lazy" src="assets/img/theme-aec-forge-mobile.png" width="414" height="860">
 			</div>
 			<figcaption>AEC Forge at 414&nbsp;px.</figcaption>
+		</figure>
+
+		<h2 id="antivig">Antivig</h2>
+		<p class="lede">Version 0.4.1 · text domain <code>antivig-child</code> · midnight navy and amber.
+		Requires WordPress 6.5 and PHP 8.1 — a higher floor than the parent's 6.0 / 7.4.</p>
+		<figure>
+			<div class="shot">
+				<div class="browser"><i></i><i></i><i></i><span>antivig-child — front page</span></div>
+				<img alt="Antivig front page: dark navy hero with a condensed headline, an amber call-to-action and a worked example of a moneyline with the house margin removed." loading="lazy" src="assets/img/theme-antivig.png" width="1440" height="940">
+			</div>
+			<figcaption>Rendered from <code>antivig-child/front-page.php</code>.
+			<a href="assets/img/theme-antivig-full.png">See the whole page</a>.</figcaption>
+		</figure>
+		<p>Antivig is the brand layer for a paid sports-analysis membership, and deliberately nothing else —
+		the odds board, the pick ledger and the membership gate live in the <code>antivig-engine</code> and
+		<code>antivig-membership</code> plugins, so the site keeps working if the theme is swapped. The front
+		page renders with or without them: it shows the live board when the engine plugin is active and the
+		static argument for the product when it isn't.</p>
+
+		<h3>What it adds on top of the parent</h3>
+		<ul>
+			<li><strong>Brand through the parent's own filters.</strong> Rather than restyling the chrome, it
+			filters <code>theme_mod_wpwisebones_header_style</code> to dark and supplies defaults for the
+			parent's colour and layout mods — so the header, footer, buttons and hero gradient the parent
+			prints come out branded, and any value the owner sets in the Customizer still wins.</li>
+			<li><strong>Self-hosted webfonts</strong> — IBM Plex Sans, IBM Plex Mono and Saira Condensed as
+			<code>.woff2</code> in <code>assets/fonts/</code>, so the board typography needs no third-party request.</li>
+			<li><strong>Installable web app</strong> — <code>inc/pwa.php</code> serves a manifest, a service
+			worker and an offline page from the site root.</li>
+			<li><strong>Three extra menu locations</strong> — member navigation, sports and a legal footer,
+			added alongside the parent's four rather than replacing them.</li>
+			<li>A <code>theme.json</code> of its own and a <em>board hero</em> block pattern.</li>
+		</ul>
+
+		<h3 id="antivig-install">Install</h3>
+		<ol>
+			<li>Install and activate <strong>WPWiseBones 1.0.13 or newer</strong>, then <strong>Antivig</strong>.
+			1.0.10 is the hard floor; on 1.0.10–1.0.12 the child corrects the stylesheet cascade itself.</li>
+			<li>Add <code>antivig-membership</code> and <code>antivig-engine</code> for the board, the ledger
+			and the paywall. They are not part of this repository.</li>
+		</ol>
+		<div class="note">
+			This copy is vendored from the theme's own repository so the parent and its skins can be read in
+			one place. The canonical source stays there — changes made here need porting back.
+		</div>
+		<figure>
+			<div class="shot" style="max-width:420px">
+				<img alt="The Antivig front page at phone width, with the hero stacked above the worked example." loading="lazy" src="assets/img/theme-antivig-mobile.png" width="414" height="860">
+			</div>
+			<figcaption>Antivig at 414&nbsp;px.</figcaption>
 		</figure>
 
 		<h2 id="roll-your-own">Rolling your own skin</h2>

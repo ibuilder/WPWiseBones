@@ -1,0 +1,94 @@
+/*
+Theme Name: Antivig
+Theme URI: https://antivig.com/
+Description: Child theme of WPWiseBones for Antivig — a paid sports-analysis membership. Supplies the brand, the board typography and the member chrome. The Antivig plugins supply the odds board, the pick ledger and the membership gate.
+Author: Antivig
+Author URI: https://antivig.com/
+Template: wpwisebones
+Version: 0.4.1
+Requires at least: 6.5
+Tested up to: 6.7
+Requires PHP: 8.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: antivig-child
+Tags: sports, membership, bootstrap, light, dark
+*/
+
+/*
+ * Only custom properties belong in this file. On WPWiseBones 1.0.13+ this sheet
+ * is enqueued as `wpwisebones-child-style`, after the parent's style.css and
+ * main.css; on older parents it took the `wpwisebones-style` handle and loaded
+ * before main.css, so anything but tokens here would lose to the parent. The
+ * brand layer lives in assets/css/antivig.css, which declares the parent and
+ * plugin handles as dependencies.
+ */
+
+/*
+ * Theme tokens are --avt-*, not --av-*, on purpose. The membership plugin
+ * publishes its own --av-* tokens for themes to retint, and several of its
+ * names are semantic where the brand's are literal: the plugin's --av-ink is
+ * "text colour" and flips to near-white in dark mode, while the brand's ink is
+ * always scoreboard navy. Sharing the prefix meant this sheet, which loads
+ * later, silently overwrote the plugin's dark-mode text colour and left every
+ * notice on the membership page navy-on-navy at a contrast ratio of 1.03:1.
+ */
+
+:root {
+	/* Brand */
+	--avt-ink:   #0E1A2B; /* scoreboard navy */
+	--avt-chalk: #F4F6F3; /* page ground */
+	--avt-steel: #5A6B80; /* secondary text, rules */
+	--avt-ember: #F2A900; /* the accent, used sparingly */
+
+	/* Semantic — results only, never decoration */
+	--avt-win:  #1F9D5B;
+	--avt-loss: #D1453B;
+
+	/* Surfaces, light */
+	--avt-ground:  var(--avt-chalk);
+	--avt-surface: #FFFFFF;
+	--avt-sunk:    #E9EDEA;
+	--avt-rule:    #D5DCDF;
+	--avt-text:    var(--avt-ink);
+	--avt-muted:   var(--avt-steel);
+	--avt-faint:   #8A97A6;
+	--avt-ember-ink:  #8A5F00; /* ember, dark enough for text on chalk */
+	--avt-ember-wash: #FDF3D6;
+
+	/* Type */
+	--avt-display: "Saira Condensed", "Arial Narrow", system-ui, sans-serif;
+	--avt-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	--avt-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+/*
+ * Dark surfaces. Both selectors matter: the media query covers a viewer whose
+ * OS asks for dark, and the attribute covers Bootstrap's own colour mode, which
+ * functions.php sets from the same signal.
+ */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-bs-theme="light"]) {
+		--avt-ground:  #0B1422;
+		--avt-surface: #111D2E;
+		--avt-sunk:    #0E1928;
+		--avt-rule:    #22324A;
+		--avt-text:    #E8EDF2;
+		--avt-muted:   #93A3B6;
+		--avt-faint:   #6B7C91;
+		--avt-ember-ink:  #F7C443;
+		--avt-ember-wash: #2A2414;
+	}
+}
+
+:root[data-bs-theme="dark"] {
+	--avt-ground:  #0B1422;
+	--avt-surface: #111D2E;
+	--avt-sunk:    #0E1928;
+	--avt-rule:    #22324A;
+	--avt-text:    #E8EDF2;
+	--avt-muted:   #93A3B6;
+	--avt-faint:   #6B7C91;
+	--avt-ember-ink:  #F7C443;
+	--avt-ember-wash: #2A2414;
+}
