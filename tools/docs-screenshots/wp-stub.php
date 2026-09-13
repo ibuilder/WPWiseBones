@@ -414,14 +414,24 @@ function get_locale() {
 function wp_get_theme( $slug = null ) {
 	return new class() {
 		public function get( $k ) {
-			return 'WPWiseBones'; }
+			global $wp_stub;
+			if ( 'Version' === $k ) {
+				return isset( $wp_stub['theme_version'] ) ? $wp_stub['theme_version'] : '1.0.0';
+			}
+			return isset( $wp_stub['theme_name'] ) ? $wp_stub['theme_name'] : 'WPWiseBones';
+		}
 		public function get_stylesheet() {
-			return 'wpwisebones'; }
+			global $wp_stub;
+			return basename( $wp_stub['stylesheet_dir'] ); }
 		public function exists() {
 			return true; }
 		public function __toString() {
-			return 'WPWiseBones'; }
+			return $this->get( 'Name' ); }
 	};
+}
+function is_child_theme() {
+	global $wp_stub;
+	return $wp_stub['stylesheet_dir'] !== $wp_stub['template_dir'];
 }
 function wp_get_environment_type() {
 	return 'production'; }

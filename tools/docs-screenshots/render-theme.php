@@ -81,23 +81,6 @@ $wp_stub['is_home']       = false;
 
 wpb_boot_theme( $repo, $parent, $child );
 
-/*
- * inc/enqueue.php registers the theme stylesheet as get_stylesheet_uri(), which
- * on a child theme resolves to the child's style.css — so the parent style.css
- * (skip link, hero, footer rules) is never enqueued on a child theme site.
- * The screenshots show the intended design, so the renderer adds it back.
- */
-if ( $child ) {
-	// Priority 15: after the parent's own enqueues (10), before the child's (20).
-	add_action(
-		'wp_enqueue_scripts',
-		static function () use ( $repo, $parent ) {
-			wp_enqueue_style( 'wpwisebones-parent-style', "file://$repo/$parent/style.css" );
-		},
-		15
-	);
-}
-
 /* The shortcodes plugin ships the [wpb_*] components used by child pages. */
 $wp_stub['plugin_uri'] = "file://$repo/wisebones-shortcodes/";
 require_once "$repo/wisebones-shortcodes/wisebones-shortcodes.php";

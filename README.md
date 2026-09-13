@@ -29,58 +29,58 @@ README.md                   # This file
 
 ## Theme — WPWiseBones
 
-**Version:** 1.0.2  
+**Version:** 1.0.13  
 **Folder / Text Domain / Slug:** `wpwisebones`  
-**PHP Prefix:** `wpb_` (functions) · `WPB_` (constants) · `wpb-` (CSS/HTML)  
+**PHP Prefix:** `wpwisebones_` (functions) · `WPWISEBONES_` (constants) · `wpb-` (CSS/HTML)  
 **License:** GPL-2.0-or-later  
-**Requires:** WordPress 6.0+, PHP 8.0+
+**Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.0
 
 ### Features
 
-- **Bootstrap 5.3** — CDN by default; switch to local vendor with one constant
-- **Bootstrap Icons 1.11** — full icon set included
-- **Full template hierarchy** — 22 templates (single, page, archive, category, tag, author, date, taxonomy, attachment, home, singular, 404, search, and more)
-- **Customizer** — 6 panels, 18 settings, live `postMessage` preview for colours, hero & font size
-- **Admin Options page** — Appearance → Theme Options (19 general + 5 performance toggles)
-- **Per-post meta boxes** — layout override, hero image, hide title
+- **Bootstrap 5.3.3** — served from `assets/vendor/`, never a CDN (WP.org Guideline 8)
+- **Bootstrap Icons 1.11.3** — full icon set bundled, webfont included
+- **Full template hierarchy** — index, home, singular, single, page, archive, category, tag, author, date, taxonomy, attachment, search, 404, comments, plus 2 page templates (Full Width, Landing Page)
+- **Customizer** — 1 panel, 7 sections, 25 settings; live `postMessage` preview for colours, hero & base font size
+- **Admin Options page** — Appearance → Theme Options (14 general + 5 performance toggles)
+- **Per-post meta boxes** — layout override, hero image, hero sub-text, hide title
 - **3 custom widgets** — Recent Posts (with thumbnails), Social Links, CTA Banner
-- **7 widget areas** — Primary Sidebar, 4× Footer columns, Header, Before/After Content, Shop Sidebar
-- **Block editor** — `theme.json` colour palette, font sizes, layout widths; 7 block styles, 3 block patterns
-- **SEO** — Open Graph, Twitter Card, Schema.org JSON-LD, canonical URL (auto-disabled when Yoast/RankMath/AIOSEO active)
+- **9 widget areas** — Primary Sidebar, 4× Footer columns, Header, Before/After Content, Shop Sidebar
+- **4 menu locations** — primary, footer, topbar, mobile, rendered through a Bootstrap 5 nav walker
+- **Block editor** — `theme.json` (9-colour palette, 6 font sizes, layout widths); 7 block styles, 3 block patterns
+- **SEO** — Open Graph, Twitter Card, Schema.org JSON-LD (auto-disabled when Yoast/RankMath/AIOSEO active; canonical left to WP core)
 - **WooCommerce** — Bootstrap wrapper, shop sidebar, styled notices
-- **AJAX** — load-more posts handler, live search handler
+- **AJAX** — load-more posts handler, live search handler (both nonce-checked)
 - **Dashboard widget** — Getting Started panel with companion plugin status
-- **Admin bar menu** — WPWiseBones → Theme Options / Customizer / Shortcodes
-- **Translation-ready** — `.pot` included (`languages/wpwisebones.pot`)
+- **Translation-ready** — `.pot` included (`languages/wpwisebones.pot`, 277 strings)
 
 ### Customizer Sections
 
 | Section | Transport | Notes |
 |---------|-----------|-------|
 | Header | refresh | Sticky toggle, light/dark scheme, top bar |
-| Layout | refresh | Sidebar position, container width |
+| Layout | refresh | Default layout (right/left sidebar, full width), container width |
 | Hero / Banner | postMessage | Heading, sub-heading, CTA button text/URL |
 | Footer | refresh | Copyright text, widget columns, back-to-top |
 | Brand Colours | postMessage | Primary, secondary, accent, header bg, footer bg |
 | Typography | refresh / postMessage | Google Fonts body/heading, base font size |
 | Social Links | refresh | Facebook, Twitter/X, Instagram, LinkedIn, YouTube, GitHub, Pinterest, TikTok |
 
-### Key Constants (`wp-config.php`)
+### Assets
 
-```php
-// Serve Bootstrap from assets/vendor/ instead of CDN (for strict CSP)
-define( 'WPB_LOCAL_ASSETS', true );
-```
+Bootstrap and Bootstrap Icons are always served from `assets/vendor/` — there is no CDN
+branch and no constant to switch, which is what WordPress.org Guideline 8 requires.
+`npm run sync` re-copies them from `node_modules/` after a dependency bump.
 
 ---
 
-## Companion Plugin — WPWiseBones Shortcodes
+## Companion Plugin — WiseBones Shortcodes
 
-**Version:** 1.0.0  
-**Slug / Text Domain:** `wpwisebones-shortcodes`  
-**Required by:** WordPress 6.0+, PHP 8.0+
+**Version:** 1.0.7  
+**Folder / Slug / Text Domain:** `wisebones-shortcodes`  
+**PHP Prefix:** `wpbs_`  
+**Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.0
 
-> Shortcodes are plugin-territory per WordPress.org guidelines, so they live here rather than in the theme. The theme detects whether this plugin is active and shows a one-click install prompt when it is not.
+> Shortcodes are plugin-territory per WordPress.org guidelines, so they live here rather than in the theme. The theme detects whether this plugin is active and shows a one-click install prompt when it is not. Bootstrap 5 and Bootstrap Icons are bundled with the plugin too and load only when the active theme does not already provide them, so the shortcodes work with any theme.
 
 ### Shortcodes (17)
 
@@ -106,13 +106,27 @@ define( 'WPB_LOCAL_ASSETS', true );
 
 ---
 
+## Child Themes
+
+Two ready-made skins keep WPWiseBones as the parent — each adds a brand stylesheet, a
+self-contained marketing front page and a one-click builder for the rest of the site.
+Full details on the [documentation site](https://ibuilder.github.io/wpwisebones/child-themes.html).
+
+| Theme | Version | What it is |
+|-------|---------|------------|
+| [`realwise/`](realwise/) | 1.3.4 | Navy/amber real-estate marketing site. Its importer (auto-run on activation, re-runnable from Appearance → RealWise Demo) builds the pages, menus, hero mods and an Easy Digital Downloads storefront. |
+| [`aec-forge/`](aec-forge/) | 1.1.2 | Charcoal/orange marketplace skin for AEC, BIM and Excel tooling. Appearance → AEC Forge Setup builds the promo pages and menus; reads live data from the AEC Market plugin when it is active. |
+
+---
+
 ## Development
 
 ### Prerequisites
 
 - Node.js 18+ / npm 9+
-- PHP 8.0+ (for syntax checks and WP-CLI)
-- WP-CLI (for `.pot` generation) — `C:\Server\wp-cli.phar`
+- PHP 7.4+ (for syntax checks and the test runner)
+- WP-CLI (for `.pot` generation) — the `pot` script points at `C:\Server\wp-cli.phar`;
+  on macOS or Linux run `wp i18n make-pot . languages/wpwisebones.pot --domain=wpwisebones` directly
 
 ### Setup
 
@@ -128,16 +142,17 @@ npm install          # installs Bootstrap 5, Bootstrap Icons, archiver
 | `npm run sync` | Re-copy Bootstrap from `node_modules/` to `assets/vendor/` |
 | `npm run pot` | Regenerate `.pot` translation file (requires WP-CLI + live WP install) |
 | `npm run zip` | Build distributable `wpwisebones.zip` (node_modules excluded) |
-| `npm run preflight` | Full production readiness check (20 assertions) |
+| `npm run preflight` | Full production readiness check — must report 0 errors before a release |
+| `npm test` | Integration tests against a real WordPress install (`WPWISEBONES_TEST_WP=/path/to/wp`) |
 
 ### Release Checklist
 
 When making a new release, bump the version in **all four** of these places:
 
 - `wpwisebones/style.css` → `Version:`
-- `wpwisebones/functions.php` → `define( 'WPB_VERSION', ... )`
+- `wpwisebones/functions.php` → `define( 'WPWISEBONES_VERSION', ... )`
 - `wpwisebones/package.json` → `"version"`
-- `wpwisebones/readme.txt` → `Version:` + new changelog entry
+- `wpwisebones/readme.txt` → `Stable tag:` + new changelog entry
 
 Then run:
 
@@ -172,47 +187,26 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 
 ## Changelog
 
-### Theme (wpwisebones)
+Full, per-release changelogs live with each package, where WordPress.org reads them:
 
-#### 1.0.2
-- Fixed: Removed `remove_action('rest_api_init','wp_oembed_register_route')` — plugin territory per WP.org Theme Check
+- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.13**)
+- Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.7**)
 
-#### 1.0.1
-- Fixed: Admin bar overlapping sticky header — header now correctly positioned below 32px (desktop) / 46px (mobile) admin bar
-- Fixed: Body padding-top adjusted when admin bar + sticky header are both active
-- Fixed: Customizer CSS output with null-safe hex color fallbacks
-- Added: Selective refresh partials for site title, tagline, logo, hero, footer copyright
-- Added: Google Fonts properly enqueued via `wp_enqueue_style`
-- Improved: Customizer live preview JS for colours, hero, and font size
+Most recent entries:
 
-#### 1.0.0
-- Initial production release
-- Full Bootstrap 5.3 integration (CDN + local vendor fallback)
-- 22 template files (full WP hierarchy)
-- 18 Customizer settings across 6 sections
-- Admin Options: 19 general + 5 performance toggles
-- Per-post meta boxes: layout, hero, title visibility
-- Open Graph, Twitter Card, Schema.org JSON-LD
-- WooCommerce compatibility layer
-- AJAX load-more and live search
-- `theme.json` for block editor
-- Translation-ready (`.pot` included)
+### Theme 1.0.13
 
-### Plugin (wisebones-shortcodes)
+- Fixed: the theme stylesheet was enqueued as `get_stylesheet_uri()`, which under a child
+  theme resolves to the child's `style.css` — so on a child theme site none of the parent
+  `style.css` loaded, and rules that live only there (including the `.skip-link`
+  visually-hidden rule, which made "Skip to content" render as a visible link on every
+  page) were missing. The parent stylesheet is now always enqueued, with the child's
+  after it when a child theme is active.
 
-#### 1.0.2
-- Fixed: Renamed shortcode callbacks wpb_sc_* → wpbs_sc_* (correct plugin prefix)
-- Fixed: Renamed shared globals to wpbs_ prefix (accordion, tabs)
-- Fixed: Loop variable and esc_url() inlined for Plugin Check compliance
+### Plugin 1.0.7
 
-#### 1.0.1
-- Fixed: Admin notice now correctly renders theme install link as HTML
-- Fixed: Cleaned up duplicate theme-detection notice registration
-
-#### 1.0.0
-- Initial release — 17 Bootstrap 5 shortcodes
-- Admin shortcode reference page (Plugins → WiseBones Shortcodes)
-- Theme detection notice with one-click install link
+- Fixed: BOM removed from `readme.txt`, dead `Plugin URI` header removed, `ABSPATH` guard
+  added to the silence files, `uninstall.php` added, bundled library sources documented.
 
 ---
 

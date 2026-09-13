@@ -45,9 +45,8 @@ CHROMIUM_PATH=/path/to/chromium node tools/docs-screenshots/capture.mjs build do
 - Screenshots are taken with `reducedMotion: 'reduce'`, so the child themes' own
   `prefers-reduced-motion` rules disable the scroll-reveal animation and off-screen
   sections are captured fully visible.
-- `render-theme.php` enqueues the parent `style.css` for the child themes. On a real
-  site it is not loaded, because `inc/enqueue.php` registers the theme stylesheet as
-  `get_stylesheet_uri()`, which resolves to the *child's* `style.css`. The screenshots
-  show the intended design; see the note in `render-theme.php`.
+- Stylesheets come from the themes' own `wp_enqueue_style()` calls, child themes
+  included — `is_child_theme()` is part of the stub, so the parent and child
+  stylesheets load in the same order they do on a real site.
 - Sample post content and images are obvious placeholders, and the testimonial demo
   is labelled as illustrative rather than a customer quote.

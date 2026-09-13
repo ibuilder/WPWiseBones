@@ -33,10 +33,22 @@ function wpwisebones_enqueue_assets() {
 	wp_add_inline_style( 'bootstrap-icons', $inline );
 
 	/* -- Theme stylesheet (style.css) ------------------------------ */
-	wp_enqueue_style( 'wpwisebones-style', get_stylesheet_uri(), array( 'bootstrap' ), $v );
+	// Always the parent style.css: get_stylesheet_uri() would resolve to the
+	// child's style.css under a child theme and leave the theme's own CSS out.
+	wp_enqueue_style( 'wpwisebones-style', WPWISEBONES_URI . '/style.css', array( 'bootstrap' ), $v );
 
 	/* -- Custom theme CSS ------------------------------------------ */
 	wp_enqueue_style( 'wpwisebones-main', WPWISEBONES_URI . '/assets/css/main.css', array( 'wpwisebones-style' ), $v );
+
+	/* -- Child theme stylesheet, last so it can override ----------- */
+	if ( is_child_theme() ) {
+		wp_enqueue_style(
+			'wpwisebones-child-style',
+			get_stylesheet_uri(),
+			array( 'wpwisebones-main' ),
+			wp_get_theme()->get( 'Version' )
+		);
+	}
 
 	/* -- Bootstrap 5 JS bundle ------------------------------------- */
 	wp_enqueue_script(

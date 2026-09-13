@@ -2,7 +2,7 @@
 Contributors:      wpwisebones
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.12
+Stable tag:        1.0.13
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,9 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
   npm run preflight    Full production readiness check
 
 == Changelog ==
+
+= 1.0.13 =
+* Fixed: the theme stylesheet was enqueued as get_stylesheet_uri(), which under a child theme resolves to the child's style.css - so on a child theme site none of the parent style.css loaded, and rules that live only there (the .skip-link visually-hidden rule among them, which made "Skip to content" render as a visible link on every page) were missing. The parent style.css is now always enqueued, and the child's is enqueued after it when a child theme is active
 
 = 1.0.12 =
 * Fixed: double-encoded UTF-8 repaired across 26 source files. The same CP1252 round-trip that produced the 1.0.11 BOM had mangled comments and user-facing strings, including the preloader Loading text in header.php and enqueue.php; some files had been through it twice
