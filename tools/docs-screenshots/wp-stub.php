@@ -359,7 +359,10 @@ function get_theme_file_uri( $f = '' ) {
 	return get_stylesheet_directory_uri() . '/' . ltrim( $f, '/' ); }
 function get_theme_mod( $name, $default = false ) {
 	global $wp_stub;
-	return array_key_exists( $name, $wp_stub['theme_mods'] ) ? $wp_stub['theme_mods'][ $name ] : $default;
+	$value = array_key_exists( $name, $wp_stub['theme_mods'] ) ? $wp_stub['theme_mods'][ $name ] : $default;
+	// WordPress runs theme_mod_{$name} over the value, which is how child themes
+	// such as Antivig set the parent's header style without a saved setting.
+	return apply_filters( 'theme_mod_' . $name, $value );
 }
 function set_theme_mod( $name, $value ) {
 	global $wp_stub;
@@ -1073,3 +1076,24 @@ $GLOBALS['wp_query'] = new class() {
 	public $found_posts   = 3;
 	public $post_count    = 3;
 };
+
+/* ── Used by the Antivig child theme ─────────────────────────────────── */
+
+function wp_make_link_relative( $link ) {
+	return preg_replace( '|^(https?:)?//[^/]+(/.*)|i', '$2', (string) $link ); }
+function get_site_url( $blog_id = null, $path = '', $scheme = null ) {
+	return home_url( $path ); }
+function get_home_url( $blog_id = null, $path = '', $scheme = null ) {
+	return home_url( $path ); }
+function wp_get_theme_file_uri( $file = '' ) {
+	return get_theme_file_uri( $file ); }
+function is_ssl() {
+	return true; }
+function get_the_permalink( $p = 0 ) {
+	return get_permalink( $p ); }
+function get_locale_stub() {
+	return get_locale(); }
+
+function get_theme_mods() {
+	global $wp_stub;
+	return $wp_stub['theme_mods']; }

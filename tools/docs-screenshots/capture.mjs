@@ -59,7 +59,7 @@ async function shootElements(file, { width = 1000 } = {}) {
   await page.close();
 }
 
-const themes = ['wpwisebones', 'realwise', 'aec-forge'];
+const themes = ['wpwisebones', 'realwise', 'aec-forge', 'antivig'];
 
 console.log('Theme pages (above the fold):');
 for (const theme of themes) {

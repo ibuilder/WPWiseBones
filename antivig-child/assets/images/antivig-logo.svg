@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" role="img" aria-label="Antivig">
+  <!-- Concept lockup for light grounds. Live text: outline the wordmark
+       (Saira Condensed 700/500) before production use. -->
+  <rect width="64" height="64" rx="12" fill="#0E1A2B"/>
+  <rect x="10" y="38" width="17" height="6" rx="1" fill="#F4F6F3"/>
+  <rect x="37" y="22" width="17" height="6" rx="1" fill="#F4F6F3"/>
+  <path d="M32 20c4.6 6.6 6.6 9.7 6.6 12.6a6.6 6.6 0 0 1-13.2 0C25.4 29.7 27.4 26.6 32 20z" fill="#F2A900"/>
+  <text x="80" y="47" font-family="'Saira Condensed', 'Arial Narrow', sans-serif" font-size="42" letter-spacing="1.5" fill="#0E1A2B"><tspan font-weight="700">EMBER</tspan><tspan font-weight="500" fill="#5A6B80">LINE</tspan></text>
+</svg>

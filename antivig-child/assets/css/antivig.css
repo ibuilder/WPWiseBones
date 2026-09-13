@@ -1,0 +1,959 @@
+/**
+ * Antivig brand layer.
+ *
+ * Loaded after WPWiseBones' main.css and after the Antivig plugin styles, so
+ * everything here wins on cascade order alone. The only `!important` in the
+ * file is the reduced-motion guard at the end, which has to beat animation
+ * declarations from the parent and from plugins. Colour comes from the tokens
+ * in style.css.
+ *
+ * @package Antivig
+ */
+
+/* --------------------------------------------------------------- Fonts */
+
+/*
+ * Self-hosted, latin subset, SIL Open Font License 1.1. The parent theme's
+ * Customizer fetches Google Fonts at render time; this theme deliberately does
+ * not, so no reader's IP reaches a third party to load a typeface. font-display
+ * is swap: the board is numbers, and numbers in a fallback face are better than
+ * no numbers at all.
+ */
+
+@font-face {
+	font-family: "Saira Condensed";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../fonts/SairaCondensed-600.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Saira Condensed";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../fonts/SairaCondensed-700.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/IBMPlexSans-400.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/IBMPlexSans-500.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../fonts/IBMPlexSans-600.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "IBM Plex Mono";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/IBMPlexMono-400.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "IBM Plex Mono";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("../fonts/IBMPlexMono-500.woff2") format("woff2");
+}
+
+/* ---------------------------------------------------------------- Type */
+
+body {
+	background: var(--avt-ground);
+	color: var(--avt-text);
+	font-family: var(--avt-body);
+}
+
+h1, h2, h3, .h1, .h2, .h3,
+.av-display {
+	font-family: var(--avt-display);
+	font-weight: 700;
+	letter-spacing: .005em;
+	text-transform: uppercase;
+	text-wrap: balance;
+}
+
+h4, h5, h6 {
+	font-family: var(--avt-body);
+	font-weight: 600;
+}
+
+/* Every price, probability and unit lines up in a column. */
+.av-num,
+.av-board td,
+.av-ledger td {
+	font-family: var(--avt-mono);
+	font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------ Bootstrap */
+
+:root {
+	--bs-body-bg: var(--avt-ground);
+	--bs-body-color: var(--avt-text);
+	--bs-border-color: var(--avt-rule);
+	--bs-primary: var(--avt-ink);
+	--bs-link-color: var(--avt-ember-ink);
+	--bs-link-hover-color: var(--avt-text);
+}
+
+/*
+ * The primary button is the ember, not the navy. A navy button on a navy page
+ * is a rectangle you have to hunt for — which is what the parent's inline
+ * `.btn-primary { background: <primary> }` produced once primary was set to the
+ * brand ink. The accent is legible on both grounds and matches the call to
+ * action in the member bar, so the same thing looks the same everywhere.
+ */
+.btn-primary {
+	--bs-btn-bg: var(--avt-ember);
+	--bs-btn-border-color: var(--avt-ember);
+	--bs-btn-color: #0E1A2B;
+	--bs-btn-hover-bg: #FFBC1F;
+	--bs-btn-hover-border-color: #FFBC1F;
+	--bs-btn-hover-color: #0E1A2B;
+	--bs-btn-active-bg: #D99800;
+	--bs-btn-active-border-color: #D99800;
+	--bs-btn-active-color: #0E1A2B;
+	font-weight: 600;
+}
+
+/* The parent prints `.btn-primary { background-color: <primary> }` inline from
+   its Customizer, which lands after this file; the variables above cannot win
+   against a literal declaration, so the background is restated here. */
+.site-header .btn-primary,
+.site-main .btn-primary,
+.wpb-hero .btn-primary {
+	background-color: var(--avt-ember);
+	border-color: var(--avt-ember);
+	color: #0E1A2B;
+}
+
+.btn-warning {
+	--bs-btn-bg: var(--avt-ember);
+	--bs-btn-border-color: var(--avt-ember);
+	--bs-btn-color: var(--avt-ink);
+}
+
+.wpb-hero {
+	background: var(--avt-ink);
+	background-image: linear-gradient(100deg, #0E1A2B 0%, #1A2A40 70%, #3A2E14 100%);
+	color: var(--avt-chalk);
+}
+
+.wpb-hero h1,
+.wpb-hero .lead {
+	color: var(--avt-chalk);
+}
+
+.site-header,
+.site-footer {
+	border-color: var(--avt-rule);
+}
+
+/* ------------------------------------------------------------ Member bar */
+
+.av-memberbar {
+	background: var(--avt-ink);
+	color: #C9D3DE;
+	font-size: .875rem;
+	padding: .45rem 0;
+}
+
+.av-memberbar__tagline {
+	letter-spacing: .01em;
+}
+
+.av-button {
+	display: inline-block;
+	border-radius: 6px;
+	padding: .35rem .8rem;
+	font-weight: 600;
+	font-size: .875rem;
+	text-decoration: none;
+	line-height: 1.4;
+}
+
+.av-button--primary {
+	background: var(--avt-ember);
+	color: var(--avt-ink);
+}
+
+.av-button--primary:hover,
+.av-button--primary:focus {
+	background: #FFBC1F;
+	color: var(--avt-ink);
+}
+
+.av-button--ghost {
+	border: 1px solid #3A4C66;
+	color: var(--avt-chalk);
+}
+
+.av-button--ghost:hover,
+.av-button--ghost:focus {
+	border-color: var(--avt-ember);
+	color: var(--avt-ember);
+}
+
+/* ------------------------------------------------- Responsible gambling */
+
+.av-rg {
+	background: var(--avt-ink);
+	color: #C9D3DE;
+	font-size: .8125rem;
+	padding: .75rem 0;
+}
+
+.av-rg__inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: .25rem 1.25rem;
+}
+
+.av-rg__age {
+	font-family: var(--avt-mono);
+	font-weight: 600;
+	color: var(--avt-chalk);
+}
+
+.av-rg__line {
+	color: var(--avt-ember);
+	font-family: var(--avt-mono);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.av-rg__line:hover,
+.av-rg__line:focus {
+	text-decoration: underline;
+}
+
+/* ----------------------------------------------------------- The board */
+
+.av-board {
+	background: var(--avt-surface);
+	border: 1px solid var(--avt-rule);
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.av-board__scroll {
+	overflow-x: auto;
+}
+
+.av-board table {
+	width: 100%;
+	min-width: 34rem;
+	border-collapse: collapse;
+}
+
+.av-board th {
+	font-family: var(--avt-body);
+	font-size: .6875rem;
+	font-weight: 600;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+	color: var(--avt-faint);
+	text-align: right;
+	padding: .7rem 1rem;
+	background: var(--avt-sunk);
+	border-bottom: 1px solid var(--avt-rule);
+	white-space: nowrap;
+}
+
+.av-board td {
+	padding: .65rem 1rem;
+	text-align: right;
+	border-bottom: 1px solid var(--avt-rule);
+	white-space: nowrap;
+}
+
+.av-board th:first-child,
+.av-board td:first-child {
+	text-align: left;
+}
+
+.av-board tr:last-child td {
+	border-bottom: 0;
+}
+
+.av-board td.av-team {
+	font-family: var(--avt-body);
+	font-weight: 600;
+}
+
+/*
+ * No accent on the best price. On every game the underdog pays the bigger
+ * number, so an accent there read as "bet this team"; colour on the board is
+ * kept for a price worth more than it costs.
+ */
+.av-best {
+	font-weight: 600;
+}
+
+.av-stale {
+	color: var(--avt-faint);
+}
+
+/* ------------------------------------------------------------- Results */
+
+.av-win  { color: var(--avt-win); }
+.av-loss { color: var(--avt-loss); }
+
+.av-badge {
+	display: inline-block;
+	font-family: var(--avt-body);
+	font-size: .6875rem;
+	font-weight: 600;
+	letter-spacing: .06em;
+	text-transform: uppercase;
+	padding: .2rem .45rem;
+	border-radius: 4px;
+}
+
+.av-badge--win  { background: rgba(31, 157, 91, .14); color: var(--avt-win); }
+.av-badge--loss { background: rgba(209, 69, 59, .14); color: var(--avt-loss); }
+.av-badge--push { background: var(--avt-sunk); color: var(--avt-muted); }
+
+/* --------------------------------------------------------------- Cards */
+
+.av-panel {
+	background: var(--avt-surface);
+	border: 1px solid var(--avt-rule);
+	border-radius: 10px;
+	padding: 1.25rem;
+}
+
+.av-label {
+	font-size: .6875rem;
+	font-weight: 600;
+	letter-spacing: .12em;
+	text-transform: uppercase;
+	color: var(--avt-faint);
+}
+
+/* -------------------------------------------------------------- Access */
+
+/* The paywall is a statement, not a tease: say what is behind it plainly. */
+.av-paywall {
+	background: var(--avt-ember-wash);
+	border: 1px solid var(--avt-ember);
+	border-radius: 10px;
+	padding: 1.25rem 1.5rem;
+}
+
+.av-paywall__head {
+	font-family: var(--avt-display);
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	margin-bottom: .35rem;
+}
+
+/* ================================================================ LANDING */
+
+/*
+ * The parent prints a search form into the navbar when no header widget is
+ * set. On a product site the first control in the header should be the one
+ * that moves somebody forward, not a site search of four pages. The parent
+ * gives that form Bootstrap's `d-flex`, which is `display:flex !important`, so
+ * nothing short of !important can hide it.
+ */
+.site-header .search-form {
+	display: none !important;
+}
+
+.site-header .navbar-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: .55rem;
+	font-family: var(--avt-display);
+	font-size: 1.5rem;
+	font-weight: 700;
+	letter-spacing: .04em;
+	text-transform: uppercase;
+}
+
+/* The mark rides with the wordmark, without needing a media-library upload. */
+.site-header .navbar-brand::before {
+	content: "";
+	width: 1.75rem;
+	height: 1.75rem;
+	flex: none;
+	background: url("../images/antivig-mark.svg") center / contain no-repeat;
+}
+
+.site-header .site-description {
+	font-size: .75rem;
+	letter-spacing: .02em;
+	color: #8FA0B3;
+	margin: 0;
+}
+
+/*
+ * Bootstrap's navbar-dark puts its links at 55% white, which is about 3:1 on
+ * this navy — readable enough to pass a glance and not enough to read. And the
+ * active link takes --bs-primary, which this theme sets to the brand navy, so
+ * the page you are actually on rendered navy-on-navy and disappeared from the
+ * menu entirely.
+ *
+ * So: links are near-white, and the ember marks where you are. The accent is
+ * the only colour here that reads at a glance against the navy bar.
+ */
+/*
+ * Bootstrap 5.3 resolves every navbar link colour through its own variables,
+ * so a plain `color:` rule on .nav-link loses to `color: var(--bs-navbar-...)`
+ * whatever its specificity. Setting the variables is the supported way in, and
+ * the only one that actually takes.
+ */
+.site-header {
+	--bs-navbar-color: rgba(244, 246, 243, .82);
+	--bs-navbar-hover-color: #F4F6F3;
+	--bs-navbar-active-color: var(--avt-ember);
+	--bs-navbar-brand-color: #F4F6F3;
+	--bs-navbar-brand-hover-color: #F4F6F3;
+}
+
+.site-header .navbar-nav .nav-link {
+	font-weight: 600;
+	font-size: .9375rem;
+	letter-spacing: .01em;
+}
+
+/* WordPress marks the current page with its own classes, not Bootstrap's. */
+.site-header .navbar-nav .current-menu-item > .nav-link,
+.site-header .navbar-nav .current_page_item > .nav-link,
+.site-header .navbar-nav .nav-link.active {
+	color: var(--avt-ember) !important;
+}
+
+.av-landing {
+	--avt-measure: 62ch;
+}
+
+.av-eyebrow {
+	font-size: .6875rem;
+	font-weight: 600;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+	color: var(--avt-ember);
+	margin-bottom: .6rem;
+}
+
+/* ------------------------------------------------------------------ Hero */
+
+.av-hero {
+	background:
+		radial-gradient(ellipse at 15% -10%, rgba(242, 169, 0, .16), transparent 55%),
+		linear-gradient(160deg, #0E1A2B 0%, #132338 60%, #0B1422 100%);
+	color: #F4F6F3;
+	padding: clamp(3rem, 7vw, 6rem) 0;
+	border-bottom: 1px solid rgba(244, 246, 243, .08);
+}
+
+.av-hero__inner {
+	display: grid;
+	grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+	gap: clamp(1.5rem, 4vw, 3.5rem);
+	align-items: center;
+}
+
+@media (max-width: 900px) {
+	.av-hero__inner {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.av-hero__title {
+	font-family: var(--avt-display);
+	font-weight: 700;
+	font-size: clamp(2.75rem, 6.5vw, 4.75rem);
+	line-height: .96;
+	letter-spacing: .005em;
+	text-transform: uppercase;
+	text-wrap: balance;
+	margin: 0 0 1rem;
+	color: #F4F6F3;
+}
+
+.av-hero__lede {
+	font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+	line-height: 1.55;
+	max-width: 52ch;
+	color: #C9D3DE;
+	margin-bottom: 1.6rem;
+}
+
+.av-hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .75rem;
+	margin-bottom: 1rem;
+}
+
+.av-hero__foot {
+	font-family: var(--avt-mono);
+	font-size: .75rem;
+	letter-spacing: .04em;
+	color: #8FA0B3;
+	margin: 0;
+}
+
+/* ------------------------------------------------------------------- CTA */
+
+.av-cta {
+	display: inline-block;
+	padding: .8rem 1.5rem;
+	border-radius: 6px;
+	font-weight: 600;
+	font-size: .9375rem;
+	line-height: 1.2;
+	text-decoration: none;
+	border: 1px solid transparent;
+	transition: transform .12s ease, background-color .12s ease, border-color .12s ease;
+}
+
+.av-cta--primary {
+	background: var(--avt-ember);
+	color: #0E1A2B;
+}
+
+.av-cta--primary:hover,
+.av-cta--primary:focus {
+	background: #FFBC1F;
+	color: #0E1A2B;
+	transform: translateY(-1px);
+}
+
+.av-cta--ghost {
+	border-color: rgba(244, 246, 243, .28);
+	color: #F4F6F3;
+}
+
+.av-cta--ghost:hover,
+.av-cta--ghost:focus {
+	border-color: var(--avt-ember);
+	color: var(--avt-ember);
+}
+
+.av-section:not(.av-section--dark):not(.av-section--cta) .av-cta--ghost {
+	border-color: var(--avt-rule);
+	color: var(--avt-text);
+}
+
+.av-section:not(.av-section--dark):not(.av-section--cta) .av-cta--ghost:hover {
+	border-color: var(--avt-ember);
+	color: var(--avt-ember-ink);
+}
+
+/* ---------------------------------------------------------------- Ticket */
+
+/*
+ * The one piece of ornament on the page, and it is really the product: two
+ * prices going in, two fair prices coming out.
+ */
+.av-ticket {
+	margin: 0;
+	background: rgba(11, 20, 34, .72);
+	border: 1px solid rgba(244, 246, 243, .14);
+	border-radius: 12px;
+	padding: 1.25rem 1.4rem 1.1rem;
+	backdrop-filter: blur(2px);
+}
+
+.av-ticket__tag {
+	font-size: .625rem;
+	font-weight: 600;
+	letter-spacing: .16em;
+	text-transform: uppercase;
+	color: #8FA0B3;
+	margin-bottom: .85rem;
+}
+
+.av-ticket__row {
+	display: grid;
+	grid-template-columns: 1fr auto auto auto;
+	align-items: baseline;
+	gap: .75rem;
+	padding: .55rem 0;
+	border-bottom: 1px dashed rgba(244, 246, 243, .12);
+	font-family: var(--avt-mono);
+	font-variant-numeric: tabular-nums;
+	font-size: 1.0625rem;
+	color: #F4F6F3;
+}
+
+.av-ticket__row--head {
+	grid-template-columns: 1fr auto;
+	font-family: var(--avt-body);
+	font-size: .8125rem;
+	color: #8FA0B3;
+	padding-top: 0;
+}
+
+.av-ticket__vig {
+	color: var(--avt-ember);
+	font-family: var(--avt-mono);
+}
+
+.av-ticket__side {
+	font-family: var(--avt-body);
+	font-size: .9375rem;
+	color: #C9D3DE;
+}
+
+.av-ticket__book {
+	color: #8FA0B3;
+	text-decoration: line-through;
+	text-decoration-color: rgba(209, 69, 59, .8);
+}
+
+.av-ticket__arrow {
+	color: #5A6B80;
+}
+
+.av-ticket__fair {
+	color: var(--avt-ember);
+	font-weight: 500;
+}
+
+.av-ticket__note {
+	margin: .9rem 0 0;
+	font-size: .8125rem;
+	line-height: 1.5;
+	color: #8FA0B3;
+}
+
+/* -------------------------------------------------------------- Sections */
+
+.av-section {
+	padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+}
+
+.av-section--tight {
+	padding-top: clamp(2rem, 4vw, 3rem);
+	padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.av-section--dark {
+	background: var(--avt-ink);
+	color: #E4EAF0;
+}
+
+.av-section--dark .av-section__title,
+.av-section--cta .av-section__title {
+	color: #F4F6F3;
+}
+
+.av-section--cta {
+	background:
+		radial-gradient(ellipse at 85% 120%, rgba(242, 169, 0, .18), transparent 60%),
+		var(--avt-ink);
+	color: #E4EAF0;
+	text-align: center;
+}
+
+.av-section__head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+	flex-wrap: wrap;
+}
+
+.av-section__head--center {
+	justify-content: center;
+	text-align: center;
+}
+
+.av-section__title {
+	font-family: var(--avt-display);
+	font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+	line-height: 1.05;
+	text-transform: uppercase;
+	margin: 0;
+}
+
+.av-section__more {
+	font-size: .875rem;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+/* ----------------------------------------------------------------- Grids */
+
+.av-grid {
+	display: grid;
+	gap: 1.25rem;
+}
+
+.av-grid--3 {
+	grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.av-feature {
+	background: var(--avt-surface);
+	border: 1px solid var(--avt-rule);
+	border-radius: 10px;
+	padding: 1.35rem 1.4rem;
+}
+
+.av-feature__title {
+	font-family: var(--avt-display);
+	font-size: 1.375rem;
+	text-transform: uppercase;
+	margin: 0 0 .5rem;
+}
+
+.av-feature p {
+	margin: 0;
+	color: var(--avt-muted);
+	font-size: .9375rem;
+	line-height: 1.6;
+}
+
+/* ----------------------------------------------------------------- Steps */
+
+.av-steps {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+	gap: 1.5rem;
+	counter-reset: av-step;
+}
+
+.av-step {
+	position: relative;
+	padding-top: 2.75rem;
+	border-top: 1px solid rgba(244, 246, 243, .14);
+}
+
+.av-step__n {
+	position: absolute;
+	top: 1rem;
+	left: 0;
+	font-family: var(--avt-mono);
+	font-size: .8125rem;
+	font-weight: 600;
+	color: var(--avt-ember);
+}
+
+.av-step__title {
+	font-family: var(--avt-display);
+	font-size: 1.25rem;
+	text-transform: uppercase;
+	margin: 0 0 .45rem;
+	color: #F4F6F3;
+}
+
+.av-step p {
+	margin: 0;
+	font-size: .9375rem;
+	line-height: 1.6;
+	color: #AFBDCC;
+}
+
+/* --------------------------------------------------------------- Promise */
+
+.av-promise {
+	display: grid;
+	grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr);
+	gap: clamp(1.5rem, 4vw, 3rem);
+	align-items: start;
+}
+
+@media (max-width: 900px) {
+	.av-promise {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.av-promise p {
+	max-width: var(--avt-measure);
+	color: var(--avt-muted);
+	line-height: 1.65;
+}
+
+.av-promise__aside {
+	background: var(--avt-sunk);
+	border-left: 3px solid var(--avt-ember);
+	border-radius: 0 10px 10px 0;
+	padding: 1.25rem 1.35rem;
+}
+
+.av-nots {
+	list-style: none;
+	margin: .6rem 0 0;
+	padding: 0;
+	display: grid;
+	gap: .55rem;
+}
+
+.av-nots li {
+	position: relative;
+	padding-left: 1.35rem;
+	font-size: .9375rem;
+	line-height: 1.5;
+	color: var(--avt-text);
+}
+
+.av-nots li::before {
+	content: "×";
+	position: absolute;
+	left: 0;
+	top: -.05em;
+	color: var(--avt-loss);
+	font-weight: 600;
+}
+
+.av-final__lede {
+	max-width: 52ch;
+	margin: 0 auto 1.5rem;
+	color: #AFBDCC;
+	font-size: 1.0625rem;
+	line-height: 1.6;
+}
+
+.av-final .av-hero__actions {
+	justify-content: center;
+}
+
+/* ---------------------------------------------------------------- Footer */
+
+.av-footer {
+	background: var(--avt-ink);
+	color: #AFBDCC;
+	border-top: 1px solid rgba(244, 246, 243, .1);
+}
+
+.av-footer__inner {
+	display: grid;
+	grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr) minmax(0, 1.3fr);
+	gap: clamp(1.5rem, 4vw, 3rem);
+	padding: clamp(2rem, 4vw, 3rem) 0;
+}
+
+@media (max-width: 800px) {
+	.av-footer__inner {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.av-footer__logo {
+	display: inline-flex;
+	align-items: center;
+	gap: .6rem;
+	text-decoration: none;
+}
+
+.av-footer__name {
+	font-family: var(--avt-display);
+	font-size: 1.5rem;
+	font-weight: 700;
+	letter-spacing: .04em;
+	color: #F4F6F3;
+}
+
+.av-footer__name span {
+	color: var(--avt-ember);
+}
+
+.av-footer__tagline {
+	margin: .7rem 0 0;
+	font-size: .875rem;
+	max-width: 30ch;
+}
+
+.av-footer__nav ul,
+.av-footer__legal ul {
+	list-style: none;
+	margin: .6rem 0 0;
+	padding: 0;
+	display: grid;
+	gap: .45rem;
+	font-size: .875rem;
+	line-height: 1.5;
+}
+
+.av-footer a {
+	color: #C9D3DE;
+	text-decoration: none;
+}
+
+.av-footer a:hover,
+.av-footer a:focus {
+	color: var(--avt-ember);
+	text-decoration: underline;
+}
+
+.av-footer .av-label {
+	color: #7D8EA1;
+}
+
+.av-footer__legal-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .25rem 1rem;
+	margin-top: .9rem;
+	font-size: .8125rem;
+}
+
+.av-footer__bottom {
+	border-top: 1px solid rgba(244, 246, 243, .1);
+	font-size: .8125rem;
+}
+
+.av-footer__bottom-inner {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: .5rem 1.5rem;
+	padding: 1rem 0;
+}
+
+.av-footer__bottom p {
+	margin: 0;
+}
+
+/* --------------------------------------------------------------- Focus */
+
+a:focus-visible,
+button:focus-visible,
+.av-button:focus-visible,
+.av-cta:focus-visible {
+	outline: 2px solid var(--avt-ember);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: .001ms !important;
+		transition-duration: .001ms !important;
+	}
+}

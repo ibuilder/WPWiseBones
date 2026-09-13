@@ -43,6 +43,18 @@ switch ( $theme ) {
 		);
 		break;
 
+	case 'antivig':
+		$parent = 'wpwisebones';
+		$child  = 'antivig-child';
+		$tpl    = "$repo/antivig-child/front-page.php";
+		$wp_stub['blogname']        = 'Antivig';
+		$wp_stub['blogdescription'] = 'Know the fair price before you bet';
+		$wp_stub['menu']            = array(
+			array( 'Today\'s board', '#' ), array( 'Ledger', '#' ), array( 'How it works', '#' ),
+			array( 'Membership', '#' ), array( 'Sports', '#' ),
+		);
+		break;
+
 	case 'aec-forge':
 		$parent = 'wpwisebones';
 		$child  = 'aec-forge';
