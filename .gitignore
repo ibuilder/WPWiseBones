@@ -1,0 +1,2 @@
+# Dependencies installed by npm (the theme ships assets/vendor, not the tooling)
+node_modules/

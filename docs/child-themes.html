@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RealWise and AEC Forge — WPWiseBones child themes</title>
+<meta name="description" content="Two ready-made child themes for WPWiseBones: RealWise, a real-estate marketing site and EDD storefront, and AEC Forge, a marketplace skin for AEC and BIM tooling.">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+	<div class="wrap">
+		<a class="brand" href="index.html"><span class="mark">W</span> WPWiseBones</a>
+		<nav class="site-nav">
+			<a href="index.html">Overview</a>
+			<a href="theme.html">Theme</a>
+			<a href="shortcodes.html">Shortcodes</a>
+			<a href="child-themes.html" aria-current="page">Child themes</a>
+			<a href="develop.html">Develop</a>
+			<a href="https://github.com/ibuilder/WPWiseBones">GitHub</a>
+		</nav>
+	</div>
+</header>
+
+<div class="wrap layout">
+	<nav class="toc" aria-label="On this page">
+		<h2>On this page</h2>
+		<a href="#how">How the skins work</a>
+		<a href="#realwise">RealWise</a>
+		<a href="#realwise-install">— Install</a>
+		<a href="#realwise-importer">— The importer</a>
+		<a href="#aec-forge">AEC Forge</a>
+		<a href="#aec-install">— Install</a>
+		<a href="#roll-your-own">Your own skin</a>
+	</nav>
+
+	<main id="main">
+		<h1>Child themes</h1>
+		<p class="lede">Both child themes keep WPWiseBones as the parent and add a brand stylesheet, a
+		self-contained marketing front page and a one-click builder that creates the rest of the site.</p>
+
+		<h2 id="how">How the skins work</h2>
+		<p>Each child theme is deliberately thin: a <code>style.css</code> header pointing at
+		<code>Template: wpwisebones</code>, a <code>functions.php</code> that enqueues one brand stylesheet after
+		the parent's, and a <code>front-page.php</code> that renders the marketing page with the parent's
+		<code>get_header()</code> and <code>get_footer()</code>. The brand colours are CSS custom properties
+		overriding Bootstrap's, so nothing in the parent has to be forked.</p>
+		<p>The parent handles the stylesheet order for you: Bootstrap, then the parent
+		<code>style.css</code> and <code>main.css</code>, then the child's <code>style.css</code> — the child
+		theme only has to enqueue its own brand CSS (both of these do, at priority 20). This needs theme
+		1.0.13 or newer; earlier versions left the parent <code>style.css</code> out on a child theme site.</p>
+
+		<h2 id="realwise">RealWise</h2>
+		<p class="lede">Version 1.3.4 · text domain <code>realwise</code> · navy, royal blue and amber.</p>
+		<figure>
+			<div class="shot">
+				<div class="browser"><i></i><i></i><i></i><span>realwise — front page</span></div>
+				<img src="assets/img/theme-realwise.png" alt="RealWise front page with a navy headline, amber Start free button and a floating property card showing a deal score." loading="lazy">
+			</div>
+			<figcaption>Rendered from <code>realwise/front-page.php</code> with the parent header and footer.
+			<a href="assets/img/theme-realwise-full.png">See the whole page</a>.</figcaption>
+		</figure>
+		<p>The marketing page is self-contained — it needs neither the importer nor the shortcodes plugin — and
+		covers a feature grid, workflow scenarios, pricing pillars and an FAQ. Easy Digital Downloads buy buttons
+		appear automatically once the storefront exists.</p>
+
+		<h3 id="realwise-install">Install</h3>
+		<ol>
+			<li>Install and activate the <strong>WPWiseBones</strong> parent theme.</li>
+			<li>Install and activate <strong>RealWise</strong>.</li>
+			<li>Optionally add <strong>WiseBones Shortcodes</strong> (for <code>[wpb_*]</code> blocks on the inner pages)
+			and <strong>Easy Digital Downloads</strong> — plus EDD Software Licensing if you want license keys.</li>
+		</ol>
+
+		<h3 id="realwise-importer">The demo importer</h3>
+		<p>The importer runs automatically on first activation, and can be re-run from
+		<strong>Appearance → RealWise Demo → Import</strong>. It is idempotent: pages and downloads are matched by
+		a meta flag and updated in place rather than duplicated. It creates:</p>
+		<ul>
+			<li><strong>Pages</strong> — Home, Features, Pricing, Docs, About, Contact on the RealWise Marketing
+			full-bleed template, plus a Blog posts page and a sample post.</li>
+			<li><strong>Reading settings</strong> — Home as the static front page, Blog as the posts page.</li>
+			<li><strong>Menus</strong> — <em>RealWise Primary</em> and <em>RealWise Footer</em>, assigned to their
+			theme locations.</li>
+			<li><strong>Theme mods</strong> — hero heading, sub-heading and a CTA pointing at Pricing.</li>
+			<li><strong>An EDD storefront</strong> when EDD is active — a free <em>RealWise</em> download and a paid
+			<em>RealWise MLS</em>, with the bundled plugin zips copied into a protected uploads folder and attached.</li>
+		</ul>
+		<p>The child theme also registers a <code>[realwise_contact_form]</code> shortcode and its own
+		Schema.org output for the marketing pages.</p>
+		<figure>
+			<div class="shot" style="max-width:420px">
+				<img src="assets/img/theme-realwise-mobile.png" alt="The RealWise front page at phone width, with the hero stacked above the property card." loading="lazy">
+			</div>
+			<figcaption>RealWise at 414&nbsp;px.</figcaption>
+		</figure>
+
+		<h2 id="aec-forge">AEC Forge</h2>
+		<p class="lede">Version 1.1.2 · text domain <code>aec-forge</code> · charcoal and molten orange.</p>
+		<figure>
+			<div class="shot">
+				<div class="browser"><i></i><i></i><i></i><span>aec-forge — front page</span></div>
+				<img src="assets/img/theme-aec-forge.png" alt="AEC Forge front page: dark hero with orange accents, floating cards for a licensed program and a premium service." loading="lazy">
+			</div>
+			<figcaption>Rendered from <code>aec-forge/front-page.php</code>.
+			<a href="assets/img/theme-aec-forge-full.png">See the whole page</a>.</figcaption>
+		</figure>
+		<p>AEC Forge promotes a multi-vendor marketplace where AEC/BIM specialists, Excel experts and AI tool
+		authors sell licensed digital products and tiered services. The front page reads live data from the AEC
+		Market and AEC Forge Tools plugins when they are active — the tool list, credit costs, featured vendors and
+		product cards — and falls back to a representative static list when they are not, so the page always
+		renders.</p>
+
+		<h3 id="aec-install">Install</h3>
+		<ol>
+			<li>Install and activate <strong>WPWiseBones</strong>, then <strong>AEC Forge</strong>.</li>
+			<li>Run <strong>Appearance → AEC Forge Setup → Build</strong> to create the promo pages
+			(Home, How It Works, The Concept) and the menus.</li>
+			<li>Add the AEC Market plugin for the live marketplace; WooCommerce product markup is themed through
+			<code>woocommerce/content-product.php</code>.</li>
+		</ol>
+
+		<figure>
+			<div class="shot" style="max-width:420px">
+				<img src="assets/img/theme-aec-forge-mobile.png" alt="The AEC Forge front page at phone width, with the dark hero stacked above the product cards." loading="lazy">
+			</div>
+			<figcaption>AEC Forge at 414&nbsp;px.</figcaption>
+		</figure>
+
+		<h2 id="roll-your-own">Rolling your own skin</h2>
+		<p>Copy either child theme as a starting point. The pattern that keeps upgrades painless:</p>
+		<ul>
+			<li>Point <code>Template:</code> at <code>wpwisebones</code> in <code>style.css</code>.</li>
+			<li>Enqueue one brand stylesheet on <code>wp_enqueue_scripts</code> at a later priority than the
+			parent's, and override Bootstrap's CSS custom properties (<code>--bs-primary</code> and friends) rather
+			than restyling components.</li>
+			<li>Version assets by <code>filemtime()</code> — both child themes do this, so edits bust caches without
+			a manual version bump.</li>
+			<li>Override single template parts from <code>template-parts/</code> instead of whole templates.</li>
+		</ul>
+	</main>
+</div>
+
+<footer class="site-foot">
+	<div class="wrap">
+		<span>WPWiseBones · GPL-2.0-or-later</span>
+		<span><a href="https://github.com/ibuilder/WPWiseBones">github.com/ibuilder/WPWiseBones</a></span>
+	</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
