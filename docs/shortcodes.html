@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WiseBones Shortcodes — all 17 components</title>
+<meta name="description" content="Every shortcode in the WiseBones Shortcodes plugin, with rendered output, usage and attribute defaults taken from the plugin source.">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+	<div class="wrap">
+		<a class="brand" href="index.html"><span class="mark">W</span> WPWiseBones</a>
+		<nav class="site-nav">
+			<a href="index.html">Overview</a>
+			<a href="theme.html">Theme</a>
+			<a href="shortcodes.html" aria-current="page">Shortcodes</a>
+			<a href="child-themes.html">Child themes</a>
+			<a href="develop.html">Develop</a>
+			<a href="https://github.com/ibuilder/wpwisebones">GitHub</a>
+		</nav>
+	</div>
+</header>
+
+<div class="wrap layout">
+	<nav class="toc" aria-label="On this page">
+		<h2>Shortcodes</h2>
+		<a href="#about">About the plugin</a>
+<!-- GENERATED:NAV:START -->
+		<a href="#alert">Alert</a>
+		<a href="#button">Button</a>
+		<a href="#card">Card</a>
+		<a href="#accordion">Accordion</a>
+		<a href="#tabs">Tabs</a>
+		<a href="#columns">Row &amp; columns</a>
+		<a href="#cta">Call to action</a>
+		<a href="#icon-box">Icon box</a>
+		<a href="#progress">Progress bar</a>
+		<a href="#testimonial">Testimonial</a>
+		<a href="#countdown">Countdown</a>
+		<a href="#posts">Post grid</a>
+		<a href="#modal">Modal</a>
+		<a href="#badge">Badge</a>
+		<a href="#divider">Divider</a>
+		<a href="#map">Map embed</a>
+		<a href="#contact-info">Contact info</a>
+<!-- GENERATED:NAV:END -->
+	</nav>
+
+	<main id="main">
+		<h1>WiseBones Shortcodes</h1>
+		<p class="lede">Version 1.0.7 · 17 components across 20 shortcode tags · works with any Bootstrap 5 theme.
+		Each screenshot below is the real output of the shortcode shown beside it.</p>
+
+		<h2 id="about">About the plugin</h2>
+		<p>Shortcodes are plugin territory under the WordPress.org theme guidelines, so they live in
+		<code>wisebones-shortcodes</code> rather than in the theme. The plugin bundles Bootstrap 5 and Bootstrap
+		Icons locally and enqueues them only when the active theme hasn't already provided them, so the components
+		render correctly on any theme without loading Bootstrap twice.</p>
+		<p>Every attribute value is escaped on output, colour and layout attributes are constrained to Bootstrap's
+		own class names through <code>sanitize_html_class()</code>, and inner content runs through
+		<code>wp_kses_post()</code> — so shortcodes can be nested (a <code>[wpb_card]</code> inside a
+		<code>[wpb_col]</code> inside a <code>[wpb_row]</code>) without hand-written HTML.</p>
+		<p>Three components come in pairs: <code>[wpb_accordion]</code> wraps <code>[wpb_accordion_item]</code>,
+		<code>[wpb_tabs]</code> wraps <code>[wpb_tab]</code>, and <code>[wpb_row]</code> wraps
+		<code>[wpb_col]</code>. A reference of all of them is also available in the admin under
+		Plugins → WiseBones Shortcodes.</p>
+
+		<div class="note">
+			The attribute tables below are extracted from each shortcode's <code>shortcode_atts()</code> defaults
+			when this page is built, so they can't drift from the code.
+		</div>
+
+<!-- GENERATED:BODY:START -->
+		<section class="sc-item" id="alert">
+			<div class="sc-head">
+				<h3>Alert</h3>
+				<code>[wpb_alert]</code>
+			</div>
+			<p>Contextual Bootstrap alert with an optional icon, bold heading and dismiss button.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-alert.png" alt="Rendered output of the Alert shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_alert type=&quot;success&quot; icon=&quot;bi-check-circle&quot; heading=&quot;Saved.&quot; dismissible=&quot;true&quot;]Your theme options were updated.[/wpb_alert]
+[wpb_alert type=&quot;warning&quot; icon=&quot;bi-exclamation-triangle&quot;]Bootstrap 5 is required for these components.[/wpb_alert]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>type</code></td><td><code>primary</code></td></tr>
+					<tr><td><code>dismissible</code></td><td><code>false</code></td></tr>
+					<tr><td><code>icon</code></td><td><code>—</code></td></tr>
+					<tr><td><code>heading</code></td><td><code>—</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="button">
+			<div class="sc-head">
+				<h3>Button</h3>
+				<code>[wpb_button]</code>
+			</div>
+			<p>Bootstrap button with variant, size, icon and target control.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-button.png" alt="Rendered output of the Button shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_button url=&quot;/pricing/&quot; style=&quot;primary&quot; size=&quot;lg&quot; icon=&quot;bi-rocket-takeoff&quot;]Start free[/wpb_button]
+[wpb_button url=&quot;/docs/&quot; style=&quot;outline-secondary&quot; icon=&quot;bi-book&quot; icon_pos=&quot;right&quot;]Read the docs[/wpb_button]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>url</code></td><td><code>#</code></td></tr>
+					<tr><td><code>style</code></td><td><code>primary</code></td></tr>
+					<tr><td><code>size</code></td><td><code>—</code></td></tr>
+					<tr><td><code>icon</code></td><td><code>—</code></td></tr>
+					<tr><td><code>icon_pos</code></td><td><code>left</code></td></tr>
+					<tr><td><code>target</code></td><td><code>_self</code></td></tr>
+					<tr><td><code>rel</code></td><td><code>—</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					<tr><td><code>id</code></td><td><code>—</code></td></tr>
+					<tr><td><code>disabled</code></td><td><code>false</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="card">
+			<div class="sc-head">
+				<h3>Card</h3>
+				<code>[wpb_card]</code>
+			</div>
+			<p>Image, title, subtitle, body, button and footer in a Bootstrap card.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-card.png" alt="Rendered output of the Card shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_row gutter=&quot;4&quot;]
+[wpb_col size=&quot;6&quot;][wpb_card title=&quot;Investor tools&quot; subtitle=&quot;NPV · IRR · DSCR&quot; image=&quot;https://example.com/investor-tools.jpg&quot; btn_text=&quot;Explore&quot; btn_url=&quot;/features/&quot; footer=&quot;Updated March 2025&quot;]Underwrite a deal in seconds instead of a spreadsheet afternoon.[/wpb_card][/wpb_col]
+[wpb_col size=&quot;6&quot;][wpb_card title=&quot;Agent portal&quot; subtitle=&quot;Front-end dashboard&quot; image=&quot;https://example.com/agent-portal.jpg&quot; btn_text=&quot;Explore&quot; btn_url=&quot;/features/&quot; btn_style=&quot;success&quot;]Give each agent their listings and leads without wp-admin access.[/wpb_card][/wpb_col]
+[/wpb_row]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>title</code></td><td><code>—</code></td></tr>
+					<tr><td><code>subtitle</code></td><td><code>—</code></td></tr>
+					<tr><td><code>image</code></td><td><code>—</code></td></tr>
+					<tr><td><code>btn_text</code></td><td><code>—</code></td></tr>
+					<tr><td><code>btn_url</code></td><td><code>#</code></td></tr>
+					<tr><td><code>btn_style</code></td><td><code>primary</code></td></tr>
+					<tr><td><code>footer</code></td><td><code>—</code></td></tr>
+					<tr><td><code>shadow</code></td><td><code>sm</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					<tr><td><code>border</code></td><td><code>—</code></td></tr>
+					<tr><td><code>text</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="accordion">
+			<div class="sc-head">
+				<h3>Accordion</h3>
+				<code>[wpb_accordion]</code>
+			</div>
+			<p>Collapsible FAQ list built from [wpb_accordion_item] children.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-accordion.png" alt="Rendered output of the Accordion shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_accordion]
+[wpb_accordion_item title=&quot;Do I need the shortcodes plugin?&quot; open=&quot;true&quot;]No — the theme works on its own. The plugin adds the 17 [wpb_*] components.[/wpb_accordion_item]
+[wpb_accordion_item title=&quot;Does it work with other Bootstrap 5 themes?&quot;]Yes. Bootstrap is auto-loaded only when the active theme does not already provide it.[/wpb_accordion_item]
+[wpb_accordion_item title=&quot;Is it translation ready?&quot;]Yes, every string is wrapped in the plugin text domain.[/wpb_accordion_item]
+[/wpb_accordion]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>flush</code></td><td><code>false</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					<tr><td><code>title</code></td><td><code>Item</code></td></tr>
+					<tr><td><code>open</code></td><td><code>false</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="tabs">
+			<div class="sc-head">
+				<h3>Tabs</h3>
+				<code>[wpb_tabs]</code>
+			</div>
+			<p>Tabbed panes in tabs, pills or underline style.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-tabs.png" alt="Rendered output of the Tabs shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_tabs style=&quot;pills&quot;]
+[wpb_tab title=&quot;Overview&quot; icon=&quot;bi-house&quot; active=&quot;true&quot;]A Bootstrap 5 starter theme with the full WordPress template hierarchy.[/wpb_tab]
+[wpb_tab title=&quot;Install&quot; icon=&quot;bi-download&quot;]Upload the theme zip, activate, then install the companion plugin when prompted.[/wpb_tab]
+[wpb_tab title=&quot;Support&quot; icon=&quot;bi-life-preserver&quot;]Open an issue on GitHub with your WordPress and PHP version.[/wpb_tab]
+[/wpb_tabs]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>style</code></td><td><code>tabs</code><br><span style="color:var(--text-faint)">tabs | pills | underline</span></td></tr>
+					<tr><td><code>fill</code></td><td><code>false</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					<tr><td><code>title</code></td><td><code>Tab</code></td></tr>
+					<tr><td><code>icon</code></td><td><code>—</code></td></tr>
+					<tr><td><code>active</code></td><td><code>false</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="columns">
+			<div class="sc-head">
+				<h3>Row &amp; columns</h3>
+				<code>[wpb_row]</code>
+			</div>
+			<p>The Bootstrap 12-column grid with responsive breakpoint attributes.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-columns.png" alt="Rendered output of the Row &amp; columns shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_row gutter=&quot;3&quot;]
+[wpb_col size=&quot;4&quot; class=&quot;p-3 bg-primary-subtle rounded&quot;]size=&quot;4&quot;[/wpb_col]
+[wpb_col size=&quot;4&quot; class=&quot;p-3 bg-success-subtle rounded&quot;]size=&quot;4&quot;[/wpb_col]
+[wpb_col size=&quot;4&quot; class=&quot;p-3 bg-warning-subtle rounded&quot;]size=&quot;4&quot;[/wpb_col]
+[/wpb_row]
+[wpb_row gutter=&quot;3&quot; class=&quot;mt-3&quot;]
+[wpb_col size=&quot;8&quot; class=&quot;p-3 bg-info-subtle rounded&quot;]size=&quot;8&quot;[/wpb_col]
+[wpb_col size=&quot;4&quot; class=&quot;p-3 bg-secondary-subtle rounded&quot;]size=&quot;4&quot;[/wpb_col]
+[/wpb_row]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>gutter</code></td><td><code>4</code></td></tr>
+					<tr><td><code>align</code></td><td><code>—</code><br><span style="color:var(--text-faint)">start|center|end</span></td></tr>
+					<tr><td><code>valign</code></td><td><code>—</code><br><span style="color:var(--text-faint)">align-items-*</span></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					<tr><td><code>size</code></td><td><code>—</code><br><span style="color:var(--text-faint)">1-12 or blank for auto</span></td></tr>
+					<tr><td><code>md</code></td><td><code>—</code></td></tr>
+					<tr><td><code>lg</code></td><td><code>—</code></td></tr>
+					<tr><td><code>sm</code></td><td><code>—</code></td></tr>
+					<tr><td><code>xl</code></td><td><code>—</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					<tr><td><code>align</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="cta">
+			<div class="sc-head">
+				<h3>Call to action</h3>
+				<code>[wpb_cta]</code>
+			</div>
+			<p>Full-width gradient banner with one or two buttons.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-cta.png" alt="Rendered output of the Call to action shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_cta heading=&quot;Ready to build?&quot; subtext=&quot;Install the theme and the shortcodes plugin in under two minutes.&quot; btn_text=&quot;Download&quot; btn_url=&quot;/download/&quot; btn2_text=&quot;See the docs&quot; btn2_url=&quot;/docs/&quot;]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>heading</code></td><td><code>Ready to Get Started?</code></td></tr>
+					<tr><td><code>subtext</code></td><td><code>—</code></td></tr>
+					<tr><td><code>btn_text</code></td><td><code>Learn More</code></td></tr>
+					<tr><td><code>btn_url</code></td><td><code>#</code></td></tr>
+					<tr><td><code>btn_style</code></td><td><code>light</code></td></tr>
+					<tr><td><code>btn2_text</code></td><td><code>—</code></td></tr>
+					<tr><td><code>btn2_url</code></td><td><code>#</code></td></tr>
+					<tr><td><code>btn2_style</code></td><td><code>outline-light</code></td></tr>
+					<tr><td><code>bg</code></td><td><code>gradient</code><br><span style="color:var(--text-faint)">gradient | primary | dark | image</span></td></tr>
+					<tr><td><code>image</code></td><td><code>—</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="icon-box">
+			<div class="sc-head">
+				<h3>Icon box</h3>
+				<code>[wpb_icon_box]</code>
+			</div>
+			<p>Bootstrap Icon, heading and text — the standard feature grid cell.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-icon-box.png" alt="Rendered output of the Icon box shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_row gutter=&quot;4&quot;]
+[wpb_col size=&quot;4&quot;][wpb_icon_box icon=&quot;bi-speedometer2&quot; title=&quot;Fast&quot; color=&quot;primary&quot;]No page builder, no jQuery — just Bootstrap 5 and the WordPress template hierarchy.[/wpb_icon_box][/wpb_col]
+[wpb_col size=&quot;4&quot;][wpb_icon_box icon=&quot;bi-shield-check&quot; title=&quot;Review ready&quot; color=&quot;success&quot;]Escaped output and sanitised settings throughout.[/wpb_icon_box][/wpb_col]
+[wpb_col size=&quot;4&quot;][wpb_icon_box icon=&quot;bi-translate&quot; title=&quot;Translatable&quot; color=&quot;danger&quot;]Every string carries the theme or plugin text domain.[/wpb_icon_box][/wpb_col]
+[/wpb_row]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>icon</code></td><td><code>bi-star</code></td></tr>
+					<tr><td><code>title</code></td><td><code>—</code></td></tr>
+					<tr><td><code>color</code></td><td><code>primary</code></td></tr>
+					<tr><td><code>bg</code></td><td><code>—</code></td></tr>
+					<tr><td><code>align</code></td><td><code>center</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					<tr><td><code>url</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="progress">
+			<div class="sc-head">
+				<h3>Progress bar</h3>
+				<code>[wpb_progress]</code>
+			</div>
+			<p>Labelled progress bar, optionally striped and animated.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-progress.png" alt="Rendered output of the Progress bar shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_progress label=&quot;Templates&quot; value=&quot;100&quot; color=&quot;primary&quot;]
+[wpb_progress label=&quot;Customizer coverage&quot; value=&quot;85&quot; color=&quot;success&quot; striped=&quot;true&quot; animated=&quot;true&quot;]
+[wpb_progress label=&quot;WooCommerce styling&quot; value=&quot;60&quot; color=&quot;warning&quot;]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>label</code></td><td><code>—</code></td></tr>
+					<tr><td><code>value</code></td><td><code>0</code></td></tr>
+					<tr><td><code>color</code></td><td><code>primary</code></td></tr>
+					<tr><td><code>striped</code></td><td><code>false</code></td></tr>
+					<tr><td><code>animated</code></td><td><code>false</code></td></tr>
+					<tr><td><code>height</code></td><td><code>20</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="testimonial">
+			<div class="sc-head">
+				<h3>Testimonial</h3>
+				<code>[wpb_testimonial]</code>
+			</div>
+			<p>Quote with star rating, author and role.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-testimonial.png" alt="Rendered output of the Testimonial shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_row gutter=&quot;4&quot;]
+[wpb_col size=&quot;6&quot;][wpb_testimonial author=&quot;Sample Author&quot; role=&quot;Illustrative example&quot; stars=&quot;5&quot;]Placeholder copy — replace with a real, attributable quote before publishing.[/wpb_testimonial][/wpb_col]
+[wpb_col size=&quot;6&quot;][wpb_testimonial author=&quot;Sample Author&quot; role=&quot;Illustrative example&quot; stars=&quot;4&quot;]Placeholder copy — the component renders the stars, avatar and role you pass in.[/wpb_testimonial][/wpb_col]
+[/wpb_row]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>author</code></td><td><code>—</code></td></tr>
+					<tr><td><code>role</code></td><td><code>—</code></td></tr>
+					<tr><td><code>avatar</code></td><td><code>—</code></td></tr>
+					<tr><td><code>stars</code></td><td><code>0</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="countdown">
+			<div class="sc-head">
+				<h3>Countdown</h3>
+				<code>[wpb_countdown]</code>
+			</div>
+			<p>Live JavaScript countdown to a date, rendered server-side then ticked in the browser.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-countdown.png" alt="Rendered output of the Countdown shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_countdown date=&quot;2026-12-31 23:59:59&quot; label=&quot;Launch countdown&quot;]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>date</code></td><td><code>—</code></td></tr>
+					<tr><td><code>label</code></td><td><code>—</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="posts">
+			<div class="sc-head">
+				<h3>Post grid</h3>
+				<code>[wpb_posts]</code>
+			</div>
+			<p>A WP_Query post grid with thumbnails, excerpt and meta.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-posts.png" alt="Rendered output of the Post grid shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_posts count=&quot;3&quot; columns=&quot;3&quot; excerpt=&quot;18&quot;]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>count</code></td><td><code>3</code></td></tr>
+					<tr><td><code>category</code></td><td><code>—</code></td></tr>
+					<tr><td><code>tag</code></td><td><code>—</code></td></tr>
+					<tr><td><code>orderby</code></td><td><code>date</code></td></tr>
+					<tr><td><code>order</code></td><td><code>DESC</code></td></tr>
+					<tr><td><code>columns</code></td><td><code>3</code></td></tr>
+					<tr><td><code>show_excerpt</code></td><td><code>true</code></td></tr>
+					<tr><td><code>show_date</code></td><td><code>true</code></td></tr>
+					<tr><td><code>show_thumb</code></td><td><code>true</code></td></tr>
+					<tr><td><code>show_author</code></td><td><code>false</code></td></tr>
+					<tr><td><code>image_size</code></td><td><code>wpb-card</code></td></tr>
+					<tr><td><code>btn_text</code></td><td><code>Read More</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="modal">
+			<div class="sc-head">
+				<h3>Modal</h3>
+				<code>[wpb_modal]</code>
+			</div>
+			<p>Trigger button plus a Bootstrap modal containing your content.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-modal.png" alt="Rendered output of the Modal shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_modal id=&quot;demoModal&quot; title=&quot;Theme options&quot; btn_text=&quot;Open the modal&quot; size=&quot;lg&quot;]Layout, hero, colours and performance toggles all live under Appearance → Theme Options.[/wpb_modal]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>id</code></td><td><code>—</code></td></tr>
+					<tr><td><code>title</code></td><td><code>Modal Title</code></td></tr>
+					<tr><td><code>btn_text</code></td><td><code>Open</code></td></tr>
+					<tr><td><code>btn_style</code></td><td><code>primary</code></td></tr>
+					<tr><td><code>size</code></td><td><code>—</code><br><span style="color:var(--text-faint)">sm | lg | xl</span></td></tr>
+					<tr><td><code>scrollable</code></td><td><code>false</code></td></tr>
+					<tr><td><code>centered</code></td><td><code>true</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="badge">
+			<div class="sc-head">
+				<h3>Badge</h3>
+				<code>[wpb_badge]</code>
+			</div>
+			<p>Inline badge or pill label.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-badge.png" alt="Rendered output of the Badge shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_badge type=&quot;primary&quot;]New[/wpb_badge] [wpb_badge type=&quot;success&quot; pill=&quot;true&quot;]Stable[/wpb_badge] [wpb_badge type=&quot;warning&quot; pill=&quot;true&quot;]Beta[/wpb_badge] [wpb_badge type=&quot;dark&quot;]GPL-2.0[/wpb_badge]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>color</code></td><td><code>primary</code></td></tr>
+					<tr><td><code>pill</code></td><td><code>false</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="divider">
+			<div class="sc-head">
+				<h3>Divider</h3>
+				<code>[wpb_divider]</code>
+			</div>
+			<p>Rule with optional centred label and border style.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-divider.png" alt="Rendered output of the Divider shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_divider text=&quot;OR&quot; style=&quot;dashed&quot; spacing=&quot;3&quot;]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>text</code></td><td><code>—</code></td></tr>
+					<tr><td><code>style</code></td><td><code>solid</code></td></tr>
+					<tr><td><code>spacing</code></td><td><code>4</code></td></tr>
+					<tr><td><code>color</code></td><td><code>muted</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="map">
+			<div class="sc-head">
+				<h3>Map embed</h3>
+				<code>[wpb_map]</code>
+			</div>
+			<p>Responsive iframe wrapper for a map embed URL.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-map.png" alt="Rendered output of the Map embed shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_map src=&quot;https://www.openstreetmap.org/export/embed.html?bbox=-0.16,51.49,-0.10,51.52&amp;layer=mapnik&quot; height=&quot;320&quot;]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>src</code></td><td><code>—</code></td></tr>
+					<tr><td><code>height</code></td><td><code>400</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+		<section class="sc-item" id="contact-info">
+			<div class="sc-head">
+				<h3>Contact info</h3>
+				<code>[wpb_contact_info]</code>
+			</div>
+			<p>Icon list of phone, email, address and opening hours.</p>
+			<div class="sc-body">
+				<div class="shot"><img src="assets/img/sc-contact-info.png" alt="Rendered output of the Contact info shortcode." loading="lazy"></div>
+				<div class="snippet"><pre><code>[wpb_contact_info phone=&quot;+1 555 0100&quot; email=&quot;hello@example.com&quot; address=&quot;123 Main Street, Springfield&quot; hours=&quot;Mon–Fri, 9–5&quot;]</code></pre></div>
+			</div>
+				<div class="table-scroll">
+				<table>
+					<thead><tr><th>Attribute</th><th>Default</th></tr></thead>
+					<tbody>
+					<tr><td><code>phone</code></td><td><code>—</code></td></tr>
+					<tr><td><code>email</code></td><td><code>—</code></td></tr>
+					<tr><td><code>address</code></td><td><code>—</code></td></tr>
+					<tr><td><code>hours</code></td><td><code>—</code></td></tr>
+					<tr><td><code>class</code></td><td><code>—</code></td></tr>
+					</tbody>
+				</table>
+				</div>
+		</section>
+<!-- GENERATED:BODY:END -->
+	</main>
+</div>
+
+<footer class="site-foot">
+	<div class="wrap">
+		<span>WPWiseBones · GPL-2.0-or-later</span>
+		<span><a href="https://github.com/ibuilder/wpwisebones">github.com/ibuilder/wpwisebones</a></span>
+	</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

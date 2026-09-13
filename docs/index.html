@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WPWiseBones — Bootstrap 5 starter theme for WordPress</title>
+<meta name="description" content="A Bootstrap 5 WordPress starter theme, a 17-shortcode companion plugin and two child themes — documented with screenshots rendered from the actual code.">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+	<div class="wrap">
+		<a class="brand" href="index.html"><span class="mark">W</span> WPWiseBones</a>
+		<nav class="site-nav">
+			<a href="index.html" aria-current="page">Overview</a>
+			<a href="theme.html">Theme</a>
+			<a href="shortcodes.html">Shortcodes</a>
+			<a href="child-themes.html">Child themes</a>
+			<a href="develop.html">Develop</a>
+			<a href="https://github.com/ibuilder/wpwisebones">GitHub</a>
+		</nav>
+	</div>
+</header>
+
+<section class="hero">
+	<div class="wrap">
+		<h1>Bootstrap 5, the WordPress way</h1>
+		<p class="lede">WPWiseBones is a production-ready starter theme built on Bootstrap 5.3, with a companion
+		shortcodes plugin and two ready-made child themes. Everything is plain PHP templates and local assets —
+		no page builder, no build step to view a page, no CDN calls.</p>
+		<div class="pill-row">
+			<span class="pill accent">Theme 1.0.12</span>
+			<span class="pill accent">Shortcodes 1.0.7</span>
+			<span class="pill">WordPress 6.0+</span>
+			<span class="pill">PHP 7.4+</span>
+			<span class="pill">Bootstrap 5.3.3</span>
+			<span class="pill">GPL-2.0-or-later</span>
+		</div>
+		<div class="btn-row">
+			<a class="btn btn-primary" href="develop.html#install">Install it</a>
+			<a class="btn btn-ghost" href="shortcodes.html">Browse the 17 shortcodes</a>
+			<a class="btn btn-ghost" href="https://github.com/ibuilder/wpwisebones">View on GitHub</a>
+		</div>
+	</div>
+</section>
+
+<div class="wrap layout">
+	<nav class="toc" aria-label="On this page">
+		<h2>On this page</h2>
+		<a href="#contents">What's in the repo</a>
+		<a href="#look">What it looks like</a>
+		<a href="#quick-start">Quick start</a>
+		<a href="#features">Feature tour</a>
+		<a href="#components">Components</a>
+		<a href="#skins">Child themes</a>
+		<a href="#compat">Compatibility</a>
+	</nav>
+
+	<main id="main">
+		<h2 id="contents">What's in the repository</h2>
+		<p>Four separate WordPress packages live side by side. The theme stands on its own; everything else is optional.</p>
+
+		<div class="grid two">
+			<div class="card">
+				<span class="kicker">Theme · 1.0.12</span>
+				<h3><a href="theme.html">wpwisebones</a></h3>
+				<p>The parent theme. Full template hierarchy, Customizer panel, admin options page, three widgets,
+				nine widget areas, <code>theme.json</code>, SEO meta and a WooCommerce layer.</p>
+			</div>
+			<div class="card">
+				<span class="kicker">Plugin · 1.0.7</span>
+				<h3><a href="shortcodes.html">wisebones-shortcodes</a></h3>
+				<p>17 Bootstrap components as shortcodes (20 tags in total). Works with any Bootstrap 5 theme, and
+				loads its own bundled Bootstrap when the active theme doesn't provide one.</p>
+			</div>
+			<div class="card">
+				<span class="kicker">Child theme · 1.3.4</span>
+				<h3><a href="child-themes.html#realwise">realwise</a></h3>
+				<p>A navy/amber real-estate brand skin with a conversion-focused front page and a demo importer
+				that builds the whole marketing site, plus an Easy Digital Downloads storefront.</p>
+			</div>
+			<div class="card">
+				<span class="kicker">Child theme · 1.1.2</span>
+				<h3><a href="child-themes.html#aec-forge">aec-forge</a></h3>
+				<p>A charcoal/molten-orange marketplace skin for AEC, BIM and Excel specialists, with a one-click
+				site builder under Appearance → AEC Forge Setup.</p>
+			</div>
+		</div>
+
+		<h2 id="look">What it looks like</h2>
+		<p>Every screenshot on this site is rendered from the actual templates and shortcode callbacks in this
+		repository — see <a href="develop.html#screenshots">how the screenshots are generated</a>.</p>
+
+		<figure>
+			<div class="shot">
+				<div class="browser"><i></i><i></i><i></i><span>WPWiseBones — front page</span></div>
+				<img src="assets/img/theme-wpwisebones.png" alt="The WPWiseBones front page: navbar with search, a gradient hero with heading and call-to-action button, and a three-column card grid of posts." width="1440" height="940" loading="lazy">
+			</div>
+			<figcaption>The stock theme: sticky navbar, Customizer-driven hero, Bootstrap card grid, widgetised footer.</figcaption>
+		</figure>
+
+		<h2 id="quick-start">Quick start</h2>
+		<p>Both zips are built and committed at the repository root, so you can install them straight from the
+		WordPress admin without a build step.</p>
+
+		<h3>1. Install the theme</h3>
+		<p>Appearance → Themes → Add New → Upload Theme → choose <code>wpwisebones.zip</code> → Activate.</p>
+
+		<h3>2. Add the shortcodes plugin</h3>
+		<p>Plugins → Add New → Upload Plugin → choose <code>wisebones-shortcodes.zip</code> → Activate. The theme's
+		dashboard panel shows whether the companion plugin is active and links to it when it isn't.</p>
+
+		<h3>3. Set up the front page</h3>
+		<p>Appearance → Customize → WPWiseBones → Hero / Banner sets the heading, sub-heading and button; Brand
+		Colours and the hero update live in the preview. Appearance → Theme Options carries the on/off switches
+		(breadcrumbs, reading time, related posts, performance toggles).</p>
+
+		<div class="note">
+			<strong>Building from source instead?</strong> <code>npm install &amp;&amp; npm run preflight &amp;&amp; npm run zip</code>
+			inside <code>wpwisebones/</code> rebuilds the theme zip. See <a href="develop.html">Develop</a>.
+		</div>
+
+		<h2 id="features">Feature tour</h2>
+		<div class="grid three">
+			<div class="card"><h3>Full template hierarchy</h3><p>index, home, singular, single, page, archive, category, tag, author, date, taxonomy, attachment, search, 404, comments — plus three page templates.</p></div>
+			<div class="card"><h3>Customizer</h3><p>One panel, seven sections, 25 settings. Colours, hero and base font size update over <code>postMessage</code>; the rest use selective refresh.</p></div>
+			<div class="card"><h3>Theme options page</h3><p>14 general options and 5 performance toggles under Appearance → Theme Options, including custom CSS and head/footer JS fields.</p></div>
+			<div class="card"><h3>Widgets</h3><p>Recent Posts with thumbnails, Social Links and a CTA Banner, across nine registered widget areas.</p></div>
+			<div class="card"><h3>Block editor</h3><p><code>theme.json</code> palette, font sizes and layout widths, plus registered block styles and patterns.</p></div>
+			<div class="card"><h3>SEO built in</h3><p>Open Graph, Twitter Card and Schema.org JSON-LD, which step aside automatically when Yoast, Rank Math or AIOSEO is active.</p></div>
+			<div class="card"><h3>WooCommerce</h3><p>Bootstrap wrapper markup, a dedicated shop sidebar and restyled store notices.</p></div>
+			<div class="card"><h3>Local assets only</h3><p>Bootstrap 5.3.3 and Bootstrap Icons 1.11.3 ship in <code>assets/vendor/</code> — no third-party CDN request at runtime.</p></div>
+			<div class="card"><h3>Translation ready</h3><p>Every string carries the theme or plugin text domain, and <code>languages/wpwisebones.pot</code> is committed.</p></div>
+		</div>
+
+		<h2 id="components">Components you can drop into content</h2>
+		<p>The companion plugin turns the Bootstrap component set into shortcodes you can type into any post, page
+		or widget. Here are three of the seventeen.</p>
+
+		<div class="grid two">
+			<div class="shot"><img src="assets/img/sc-alert.png" alt="Two Bootstrap alerts: a green dismissible success alert and an amber warning alert, each with an icon." loading="lazy"></div>
+			<div class="shot"><img src="assets/img/sc-progress.png" alt="Three labelled progress bars in blue, green and amber." loading="lazy"></div>
+		</div>
+		<div class="shot"><img src="assets/img/sc-icon-box.png" alt="Three icon boxes side by side with icons, headings and descriptive text." loading="lazy"></div>
+		<p><a href="shortcodes.html">See all 17 shortcodes, with attributes and rendered output →</a></p>
+
+		<h2 id="skins">Two child themes, ready to activate</h2>
+		<div class="grid two">
+			<figure>
+				<div class="shot"><img src="assets/img/theme-realwise.png" alt="RealWise front page: navy headline, amber Start free button and a floating property card with a deal score." loading="lazy"></div>
+				<figcaption><a href="child-themes.html#realwise">RealWise</a> — real-estate marketing site and EDD storefront.</figcaption>
+			</figure>
+			<figure>
+				<div class="shot"><img src="assets/img/theme-aec-forge.png" alt="AEC Forge front page: dark charcoal hero with orange accents and floating product and service cards." loading="lazy"></div>
+				<figcaption><a href="child-themes.html#aec-forge">AEC Forge</a> — marketplace skin for AEC and BIM tooling.</figcaption>
+			</figure>
+		</div>
+
+		<h2 id="compat">Compatibility and licence</h2>
+		<div class="table-scroll">
+		<table>
+			<thead><tr><th>Package</th><th>Version</th><th>Requires WP</th><th>Requires PHP</th><th>Tested to</th><th>Licence</th></tr></thead>
+			<tbody>
+				<tr><td>WPWiseBones (theme)</td><td>1.0.12</td><td>6.0</td><td>7.4</td><td>7.0</td><td>GPL-2.0-or-later</td></tr>
+				<tr><td>WiseBones Shortcodes (plugin)</td><td>1.0.7</td><td>6.0</td><td>7.4</td><td>7.0</td><td>GPL-2.0-or-later</td></tr>
+				<tr><td>RealWise (child theme)</td><td>1.3.4</td><td>6.0</td><td>7.4</td><td>—</td><td>GPL-2.0-or-later</td></tr>
+				<tr><td>AEC Forge (child theme)</td><td>1.1.2</td><td>6.0</td><td>7.4</td><td>—</td><td>GPL-2.0-or-later</td></tr>
+			</tbody>
+		</table>
+		</div>
+		<p>Bootstrap and Bootstrap Icons are bundled under the MIT licence; everything in this repository is
+		GPL-2.0-or-later. Copyright © 2025 WPWiseBones / WPRealWise.</p>
+	</main>
+</div>
+
+<footer class="site-foot">
+	<div class="wrap">
+		<span>WPWiseBones · GPL-2.0-or-later</span>
+		<span><a href="https://github.com/ibuilder/wpwisebones">github.com/ibuilder/wpwisebones</a></span>
+	</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

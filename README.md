@@ -3,18 +3,26 @@
 > A comprehensive, production-ready **Bootstrap 5** WordPress starter theme with a companion shortcodes plugin.  
 > Built and maintained by **[WPRealWise](https://wprealwise.com)** — Real Estate Tools for the Invested Realtor.
 
+📖 **[Documentation site with screenshots →](https://ibuilder.github.io/wpwisebones/)**
+(source in [`docs/`](docs/), screenshots rendered from the code by
+[`tools/docs-screenshots/`](tools/docs-screenshots/))
+
 ---
 
 ## Repository Contents
 
 ```
-wpbones/
-├── wpwisebones/               # WordPress theme
-├── wpwisebones-shortcodes/    # Companion plugin (17 Bootstrap shortcodes)
-├── wpwisebones.zip            # Distributable theme zip (built via npm run zip)
-├── wpwisebones-shortcodes.zip # Distributable plugin zip
-├── LICENSE                    # GNU GPL v2
-└── README.md                  # This file
+wpwisebones/                # WordPress theme
+wisebones-shortcodes/       # Companion plugin (17 Bootstrap shortcodes)
+realwise/                   # Child theme - real-estate marketing site + EDD storefront
+aec-forge/                  # Child theme - AEC/BIM marketplace skin
+docs/                       # Documentation site (GitHub Pages)
+tools/docs-screenshots/     # Renders the themes and shortcodes for the doc screenshots
+wpwisebones.zip             # Distributable theme zip (built via npm run zip)
+wisebones-shortcodes.zip    # Distributable plugin zip
+aec-forge-theme.zip         # Distributable child theme zip
+LICENSE                     # GNU GPL v2
+README.md                   # This file
 ```
 
 ---

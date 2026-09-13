@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The WPWiseBones theme — reference</title>
+<meta name="description" content="Templates, Customizer settings, theme options, widgets, block editor support and hooks in the WPWiseBones WordPress theme.">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+	<div class="wrap">
+		<a class="brand" href="index.html"><span class="mark">W</span> WPWiseBones</a>
+		<nav class="site-nav">
+			<a href="index.html">Overview</a>
+			<a href="theme.html" aria-current="page">Theme</a>
+			<a href="shortcodes.html">Shortcodes</a>
+			<a href="child-themes.html">Child themes</a>
+			<a href="develop.html">Develop</a>
+			<a href="https://github.com/ibuilder/wpwisebones">GitHub</a>
+		</nav>
+	</div>
+</header>
+
+<div class="wrap layout">
+	<nav class="toc" aria-label="On this page">
+		<h2>On this page</h2>
+		<a href="#install">Install</a>
+		<a href="#templates">Templates</a>
+		<a href="#customizer">Customizer</a>
+		<a href="#options">Theme options</a>
+		<a href="#layout">Layout &amp; meta boxes</a>
+		<a href="#widgets">Widgets &amp; areas</a>
+		<a href="#menus">Menus</a>
+		<a href="#blocks">Block editor</a>
+		<a href="#seo">SEO</a>
+		<a href="#woo">WooCommerce</a>
+		<a href="#ajax">AJAX</a>
+		<a href="#assets">Assets</a>
+		<a href="#mobile">On mobile</a>
+	</nav>
+
+	<main id="main">
+		<h1>The WPWiseBones theme</h1>
+		<p class="lede">Version 1.0.12 · text domain and folder <code>wpwisebones</code> · functions are prefixed
+		<code>wpwisebones_</code>, CSS and HTML classes <code>wpb-</code>. Requires WordPress 6.0 and PHP 7.4.</p>
+
+		<figure>
+			<div class="shot">
+				<div class="browser"><i></i><i></i><i></i><span>wpwisebones — front page</span></div>
+				<img src="assets/img/theme-wpwisebones.png" alt="WPWiseBones front page with navbar, search form, gradient hero and three post cards." loading="lazy">
+			</div>
+			<figcaption>Rendered from <code>index.php</code>, <code>header.php</code>,
+			<code>template-parts/header/hero.php</code> and <code>template-parts/content/content-post.php</code>.
+			<a href="assets/img/theme-wpwisebones-full.png">See the whole page</a>.</figcaption>
+		</figure>
+
+		<h2 id="install">Install</h2>
+		<p>Upload <code>wpwisebones.zip</code> under Appearance → Themes → Add New → Upload Theme, then activate.
+		On activation the dashboard gets a <em>Getting Started</em> panel that reports whether the companion
+		shortcodes plugin is installed and links to it when it isn't.</p>
+
+		<h2 id="templates">Template hierarchy</h2>
+		<p>The theme covers the classic hierarchy — no fallback to <code>index.php</code> for the common cases.</p>
+		<div class="table-scroll">
+		<table>
+			<thead><tr><th>File</th><th>Handles</th></tr></thead>
+			<tbody>
+				<tr><td><code>index.php</code></td><td>Fallback and blog listing; hero on the front page</td></tr>
+				<tr><td><code>home.php</code></td><td>Posts page when a static front page is set</td></tr>
+				<tr><td><code>front-page.php</code></td><td>Provided by the child themes (RealWise, AEC Forge)</td></tr>
+				<tr><td><code>singular.php</code> · <code>single.php</code> · <code>page.php</code></td><td>Single post, single page, generic singular</td></tr>
+				<tr><td><code>archive.php</code> · <code>category.php</code> · <code>tag.php</code> · <code>taxonomy.php</code></td><td>Archive views</td></tr>
+				<tr><td><code>author.php</code> · <code>date.php</code></td><td>Author and date archives</td></tr>
+				<tr><td><code>search.php</code> · <code>searchform.php</code></td><td>Results page and the Bootstrap search form</td></tr>
+				<tr><td><code>attachment.php</code> · <code>404.php</code> · <code>comments.php</code></td><td>Media, not-found and comment list</td></tr>
+				<tr><td><code>sidebar.php</code> · <code>header.php</code> · <code>footer.php</code></td><td>Shared chrome</td></tr>
+				<tr><td><code>page-templates/full-width.php</code></td><td>“Full Width” — page with no sidebar</td></tr>
+				<tr><td><code>page-templates/landing.php</code></td><td>“Landing Page” — no header/footer navigation</td></tr>
+			</tbody>
+		</table>
+		</div>
+		<p>Content markup lives in <code>template-parts/content/</code> (<code>content-post.php</code>,
+		<code>content-page.php</code>, <code>content-single.php</code>, <code>content-search.php</code>,
+		<code>content-none.php</code>) and the hero in <code>template-parts/header/hero.php</code>, so a child theme
+		can replace one piece without copying a whole template.</p>
+
+		<h2 id="customizer">Customizer</h2>
+		<p>All settings live under a single <strong>WPWiseBones</strong> panel with seven sections and 25 settings.
+		Every <code>add_setting()</code> call has a <code>sanitize_callback</code>.</p>
+		<div class="table-scroll">
+		<table>
+			<thead><tr><th>Section</th><th>Settings</th><th>Transport</th></tr></thead>
+			<tbody>
+				<tr><td>Header Settings</td><td>Sticky header, light/dark navbar, top bar toggle and text</td><td>refresh</td></tr>
+				<tr><td>Layout</td><td>Default layout (right sidebar, left sidebar, full width), container width (fixed 1320&nbsp;px or fluid)</td><td>refresh</td></tr>
+				<tr><td>Hero / Banner</td><td>Heading, sub-heading, button text and URL</td><td>postMessage</td></tr>
+				<tr><td>Footer Settings</td><td>Copyright text, widget columns, back-to-top button</td><td>refresh</td></tr>
+				<tr><td>Brand Colours</td><td>Primary, secondary, accent, header and footer background</td><td>postMessage</td></tr>
+				<tr><td>Typography</td><td>Google Font for body and headings, base font size</td><td>refresh / postMessage</td></tr>
+				<tr><td>Social Links</td><td>Facebook, Twitter/X, Instagram, LinkedIn, YouTube, GitHub, Pinterest, TikTok</td><td>refresh</td></tr>
+			</tbody>
+		</table>
+		</div>
+		<p>Selective-refresh partials are registered for the site title, tagline, logo, hero and footer copyright,
+		so those update in place rather than reloading the preview.</p>
+
+		<h2 id="options">Theme options page</h2>
+		<p>Appearance → Theme Options holds the switches that aren't design decisions.</p>
+		<div class="grid two">
+			<div class="card">
+				<span class="kicker">General · 14</span>
+				<h3>Behaviour and content</h3>
+				<p>Preloader · smooth scroll · back-to-top · breadcrumbs · author box on singles · related posts ·
+				reading time · social share buttons · posts per page · excerpt word count · copyright text ·
+				custom CSS · custom JS (head) · custom JS (footer).</p>
+			</div>
+			<div class="card">
+				<span class="kicker">Performance · 5</span>
+				<h3>Trim what you don't use</h3>
+				<p>Disable emojis · disable oEmbeds · disable XML-RPC · remove version query strings ·
+				defer non-essential scripts.</p>
+			</div>
+		</div>
+
+		<h2 id="layout">Layout and per-post meta boxes</h2>
+		<p>The global sidebar position comes from the Customizer, and each post or page can override it. The meta
+		box adds a layout override (default, right sidebar, left sidebar, full width), a hero image and hero text
+		for that entry, and a hide-title switch. <code>wpwisebones_get_layout()</code>, <code>wpwisebones_has_sidebar()</code> and
+		<code>wpwisebones_content_class()</code> resolve the two together, so templates just ask for the answer.</p>
+
+		<h2 id="widgets">Widgets and widget areas</h2>
+		<div class="grid two">
+			<div class="card"><h3>Three widgets</h3><p>Recent Posts (with thumbnails), Social Links and CTA Banner — registered classes, so they appear in the block widget editor as legacy widgets.</p></div>
+			<div class="card"><h3>Nine areas</h3><p>Primary Sidebar · Footer Column 1–4 · Shop Sidebar · Header Widget Area · Before Content · After Content.</p></div>
+		</div>
+		<p>The header area is a graceful fallback: when nothing is assigned to it, the header renders the search
+		form instead.</p>
+
+		<h2 id="menus">Menu locations</h2>
+		<p>Four locations are registered — <code>primary</code>, <code>footer</code>, <code>topbar</code> and
+		<code>mobile</code>. The primary menu renders through <code>WPWISEBONES_Bootstrap_Nav_Walker</code>, which
+		emits Bootstrap 5 navbar markup with dropdown support.</p>
+
+		<h2 id="blocks">Block editor</h2>
+		<p><code>theme.json</code> (v2) defines a nine-colour palette matching the Bootstrap contextual colours,
+		six font sizes, content and wide layout widths, and turns off the default WordPress palette and gradients.
+		On top of that the theme registers:</p>
+		<ul>
+			<li><strong>7 block styles</strong> — Button: Outline, Pill · Image: Rounded, Shadow · Quote: Bordered · Group: Card · List: Checkmarks</li>
+			<li><strong>3 block patterns</strong> — Hero Section, Two-Column Features, Call to Action</li>
+			<li>Four image sizes — <code>wpwisebones-card</code> (400×250), <code>-hero</code> (1920×600), <code>-square</code> (400×400), <code>-wide</code> (1200×400)</li>
+		</ul>
+
+		<h2 id="seo">SEO output</h2>
+		<p><code>inc/seo.php</code> prints Open Graph tags, a Twitter Card and Schema.org JSON-LD. It backs off
+		automatically when Yoast SEO, Rank Math or All in One SEO is active, so you never get two sets of tags.
+		Canonical URLs are left to WordPress core.</p>
+
+		<h2 id="woo">WooCommerce</h2>
+		<p><code>inc/woocommerce.php</code> declares support, wraps shop templates in the theme's Bootstrap
+		container, swaps in the dedicated Shop Sidebar and restyles store notices as Bootstrap alerts.</p>
+
+		<h2 id="ajax">AJAX endpoints</h2>
+		<div class="table-scroll">
+		<table>
+			<thead><tr><th>Action</th><th>Purpose</th></tr></thead>
+			<tbody>
+				<tr><td><code>wpwisebones_load_more</code></td><td>Appends the next page of posts to an archive without a reload</td></tr>
+				<tr><td><code>wpwisebones_live_search</code></td><td>Returns matching posts as you type in the header search</td></tr>
+			</tbody>
+		</table>
+		</div>
+		<p>Both are registered for logged-in and logged-out visitors and are nonce-checked; the front end gets the
+		nonce and endpoints through the <code>wpwisebonesData</code> object localised onto the theme's main script.</p>
+
+		<h2 id="assets">Assets</h2>
+		<p>Bootstrap 5.3.3 and Bootstrap Icons 1.11.3 are served from <code>assets/vendor/</code> — local files, no
+		CDN request, which is what WordPress.org's guidelines expect. <code>npm run sync</code> re-copies them from
+		<code>node_modules/</code> after a dependency bump. The icon webfont is pointed at the bundled
+		<code>.woff2</code>/<code>.woff</code> through an inline <code>@font-face</code> rule.</p>
+
+		<h2 id="mobile">On a phone</h2>
+		<figure>
+			<div class="shot" style="max-width:420px">
+				<img src="assets/img/theme-wpwisebones-mobile.png" alt="The WPWiseBones front page at phone width: collapsed navbar with hamburger toggle, hero and stacked post cards." loading="lazy">
+			</div>
+			<figcaption>Same templates at 414&nbsp;px: the navbar collapses to a toggler and the card grid stacks.</figcaption>
+		</figure>
+	</main>
+</div>
+
+<footer class="site-foot">
+	<div class="wrap">
+		<span>WPWiseBones · GPL-2.0-or-later</span>
+		<span><a href="https://github.com/ibuilder/wpwisebones">github.com/ibuilder/wpwisebones</a></span>
+	</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Develop — WPWiseBones</title>
+<meta name="description" content="Install, build, test and release WPWiseBones: npm scripts, the preflight check, the release checklist and how the documentation screenshots are generated.">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+	<div class="wrap">
+		<a class="brand" href="index.html"><span class="mark">W</span> WPWiseBones</a>
+		<nav class="site-nav">
+			<a href="index.html">Overview</a>
+			<a href="theme.html">Theme</a>
+			<a href="shortcodes.html">Shortcodes</a>
+			<a href="child-themes.html">Child themes</a>
+			<a href="develop.html" aria-current="page">Develop</a>
+			<a href="https://github.com/ibuilder/wpwisebones">GitHub</a>
+		</nav>
+	</div>
+</header>
+
+<div class="wrap layout">
+	<nav class="toc" aria-label="On this page">
+		<h2>On this page</h2>
+		<a href="#install">Install</a>
+		<a href="#repo">Repository layout</a>
+		<a href="#scripts">npm scripts</a>
+		<a href="#tests">Tests</a>
+		<a href="#preflight">Preflight</a>
+		<a href="#release">Release checklist</a>
+		<a href="#compliance">WordPress.org</a>
+		<a href="#screenshots">Docs &amp; screenshots</a>
+	</nav>
+
+	<main id="main">
+		<h1>Develop</h1>
+		<p class="lede">The theme has no compile step: PHP templates and plain CSS ship as they are. npm exists
+		only to vendor Bootstrap, build the distributable zip and run the checks.</p>
+
+		<h2 id="install">Install for development</h2>
+		<p>Clone the repository into <code>wp-content/themes/</code> (or symlink the <code>wpwisebones/</code>
+		folder there), and put <code>wisebones-shortcodes/</code> in <code>wp-content/plugins/</code>.</p>
+		<div class="snippet"><pre><code>git clone https://github.com/ibuilder/wpwisebones.git
+cd wpwisebones/wpwisebones
+npm install          # bootstrap 5.3.3, bootstrap-icons 1.11.3, archiver</code></pre></div>
+		<p>Prerequisites: Node.js 18+ with npm 9+, PHP 7.4+ for the syntax checks and test runner, and WP-CLI if
+		you want to regenerate the translation template.</p>
+
+		<h2 id="repo">Repository layout</h2>
+		<div class="snippet"><pre><code>wpwisebones/               parent theme (the package published to WordPress.org)
+wisebones-shortcodes/      companion plugin, 17 shortcodes
+realwise/                  child theme — real-estate marketing site + EDD storefront
+aec-forge/                 child theme — AEC/BIM marketplace skin
+docs/                      this documentation site (GitHub Pages)
+tools/docs-screenshots/    renders the themes and shortcodes for the screenshots
+wpwisebones.zip            built theme package
+wisebones-shortcodes.zip   built plugin package
+aec-forge-theme.zip        built child theme package</code></pre></div>
+
+		<h2 id="scripts">npm scripts</h2>
+		<p>Run these from inside <code>wpwisebones/</code>.</p>
+		<div class="table-scroll">
+		<table>
+			<thead><tr><th>Command</th><th>What it does</th></tr></thead>
+			<tbody>
+				<tr><td><code>npm run sync</code></td><td>Re-copies Bootstrap and Bootstrap Icons from <code>node_modules/</code> into <code>assets/vendor/</code></td></tr>
+				<tr><td><code>npm run pot</code></td><td>Regenerates <code>languages/wpwisebones.pot</code> with WP-CLI</td></tr>
+				<tr><td><code>npm run zip</code></td><td>Builds <code>wpwisebones.zip</code>, honouring <code>.distignore</code></td></tr>
+				<tr><td><code>npm run preflight</code></td><td>Production-readiness check — must report zero errors before a release</td></tr>
+				<tr><td><code>npm test</code></td><td>Runs the integration tests against a real WordPress install</td></tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="note">
+			<code>npm run pot</code> shells out to a Windows WP-CLI path (<code>C:\Server\wp-cli.phar</code>). On
+			macOS or Linux, run <code>wp i18n make-pot . languages/wpwisebones.pot --domain=wpwisebones</code>
+			directly instead.
+		</div>
+
+		<h2 id="tests">Tests</h2>
+		<p><code>tests/run.php</code> is a dependency-free integration runner — no PHPUnit, no Composer. It borrows
+		a real WordPress install, loads the theme against it, and puts the active-theme option back when it is
+		done. Point it at an install with an environment variable if it can't find one:</p>
+		<div class="snippet"><pre><code>WPWISEBONES_TEST_WP=/path/to/wordpress php tests/run.php</code></pre></div>
+		<p>The current suite covers asset enqueueing and the dashboard widget.</p>
+
+		<h2 id="preflight">The preflight check</h2>
+		<p><code>scripts/preflight.js</code> is the gate before packaging. It verifies, among other things:</p>
+		<ul>
+			<li>Required files exist, and <code>style.css</code> carries every required header</li>
+			<li>The text domain matches the folder name, and every <code>__()</code> call uses it</li>
+			<li>Every PHP file has an <code>ABSPATH</code> guard and every function uses the theme prefix</li>
+			<li><code>screenshot.png</code>, <code>license.txt</code> and the vendored Bootstrap files are present</li>
+			<li><code>theme.json</code> parses, the SEO and WooCommerce includes are in place, and the dashboard widget registers</li>
+			<li>The <code>.pot</code> file exists and carries a realistic number of strings</li>
+		</ul>
+
+		<h2 id="release">Release checklist</h2>
+		<p>Bump the version in <strong>all four</strong> places, or the preflight and WordPress disagree about
+		which version is installed:</p>
+		<ul>
+			<li><code>wpwisebones/style.css</code> → <code>Version:</code></li>
+			<li><code>wpwisebones/functions.php</code> → <code>define( 'WPWISEBONES_VERSION', … )</code></li>
+			<li><code>wpwisebones/package.json</code> → <code>"version"</code></li>
+			<li><code>wpwisebones/readme.txt</code> → <code>Stable tag:</code> plus a changelog entry</li>
+		</ul>
+		<div class="snippet"><pre><code>cd wpwisebones
+npm run preflight    # must pass with 0 errors
+npm run zip          # writes ../wpwisebones.zip</code></pre></div>
+
+		<h2 id="compliance">WordPress.org compliance</h2>
+		<p>The theme is written to the Theme Review Guidelines, and the plugin to the Plugin Directory guidelines.
+		The rules that shape the code most:</p>
+		<ul>
+			<li><strong>No plugin territory in the theme.</strong> Shortcodes live in the companion plugin, which is
+			why <code>wisebones-shortcodes</code> exists at all.</li>
+			<li><strong>No remote assets.</strong> Bootstrap and its icons are vendored into
+			<code>assets/vendor/</code> and served locally.</li>
+			<li><strong>Everything escaped and sanitised.</strong> Every Customizer setting has a
+			<code>sanitize_callback</code>; output goes through <code>esc_html()</code>, <code>esc_attr()</code>,
+			<code>esc_url()</code> or <code>wp_kses_post()</code>.</li>
+			<li><strong>Correct prefixes.</strong> <code>wpwisebones_</code> in the theme, <code>wpbs_</code> in the
+			plugin, for every function, class and global.</li>
+			<li><strong>Text domain equals folder slug</strong>, with a committed <code>.pot</code>.</li>
+		</ul>
+
+		<h2 id="screenshots">How this site and its screenshots are built</h2>
+		<p>Every screenshot here is produced from the project's own code — no mock-ups. <code>tools/docs-screenshots/</code>
+		holds a small WordPress API stub that is enough to execute the themes' templates and the plugin's shortcode
+		callbacks outside WordPress, render them to static HTML with the real stylesheets, and photograph the result
+		with headless Chromium.</p>
+		<div class="table-scroll">
+		<table>
+			<thead><tr><th>File</th><th>Role</th></tr></thead>
+			<tbody>
+				<tr><td><code>wp-stub.php</code></td><td>Minimal WordPress API — escaping, i18n, hooks, the shortcode parser, the loop, template loading</td></tr>
+				<tr><td><code>sample-data.php</code></td><td>Placeholder images and sample posts shared by the renderers</td></tr>
+				<tr><td><code>render.php</code></td><td>Entry point: renders the theme front pages and the shortcode demos</td></tr>
+				<tr><td><code>render-theme.php</code></td><td>Boots one theme (parent or child) and renders its front page</td></tr>
+				<tr><td><code>render-shortcodes.php</code></td><td>Runs all 17 shortcodes and writes the demo page plus a JSON manifest</td></tr>
+				<tr><td><code>capture.mjs</code></td><td>Playwright: screenshots each page and each shortcode element</td></tr>
+				<tr><td><code>build-shortcodes-page.php</code></td><td>Regenerates the marked-up block in <code>docs/shortcodes.html</code> from the manifest</td></tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="snippet"><pre><code># from the repository root
+php tools/docs-screenshots/render.php build
+node tools/docs-screenshots/capture.mjs build docs/assets/img
+php tools/docs-screenshots/build-shortcodes-page.php build docs</code></pre></div>
+		<p>The capture step needs Playwright's <code>chromium</code> package; set <code>CHROMIUM_PATH</code> if your
+		browser lives somewhere other than Playwright's own download directory. Because the attribute tables are
+		read out of <code>shortcode_atts()</code> at build time, they cannot drift from the plugin source.</p>
+		<div class="note warn">
+			The stub is a documentation tool only. It is not loaded by WordPress and is excluded from the
+			distributable zips.
+		</div>
+	</main>
+</div>
+
+<footer class="site-foot">
+	<div class="wrap">
+		<span>WPWiseBones · GPL-2.0-or-later</span>
+		<span><a href="https://github.com/ibuilder/wpwisebones">github.com/ibuilder/wpwisebones</a></span>
+	</div>
+</footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
