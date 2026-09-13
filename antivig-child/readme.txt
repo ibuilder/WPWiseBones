@@ -3,7 +3,7 @@ Contributors: antivig
 Requires at least: 6.5
 Tested up to: 6.7
 Requires PHP: 8.1
-Stable tag: 0.4.1
+Stable tag: 0.4.2
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: sports, membership, bootstrap, light, dark
@@ -54,6 +54,12 @@ reaches a third party in order to render a page.
 * The Antivig wordmark and chevron — original work, GPLv2 or later.
 
 == Changelog ==
+
+= 0.4.2 =
+* WPWiseBones 1.0.13 enqueues its own style.css and prints this theme's after
+  it, so the workaround that pinned the cascade by hand now runs only on older
+  parents. On 1.0.13 it would have printed the parent stylesheet twice and
+  stamped this theme's version on the parent's copy.
 
 = 0.4.1 =
 * The front page no longer lists model probabilities as a membership benefit
