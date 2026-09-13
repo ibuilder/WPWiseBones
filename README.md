@@ -3,7 +3,7 @@
 > A comprehensive, production-ready **Bootstrap 5** WordPress starter theme with a companion shortcodes plugin.  
 > Built and maintained by **[WPRealWise](https://wprealwise.com)** — Real Estate Tools for the Invested Realtor.
 
-📖 **[Documentation site with screenshots →](https://ibuilder.github.io/wpwisebones/)**
+📖 **[Documentation site with screenshots →](https://ibuilder.github.io/WPWiseBones/)**
 (source in [`docs/`](docs/), screenshots rendered from the code by
 [`tools/docs-screenshots/`](tools/docs-screenshots/))
 
@@ -110,7 +110,7 @@ branch and no constant to switch, which is what WordPress.org Guideline 8 requir
 
 Two ready-made skins keep WPWiseBones as the parent — each adds a brand stylesheet, a
 self-contained marketing front page and a one-click builder for the rest of the site.
-Full details on the [documentation site](https://ibuilder.github.io/wpwisebones/child-themes.html).
+Full details on the [documentation site](https://ibuilder.github.io/WPWiseBones/child-themes.html).
 
 | Theme | Version | What it is |
 |-------|---------|------------|

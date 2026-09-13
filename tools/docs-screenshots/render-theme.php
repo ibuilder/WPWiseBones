@@ -71,7 +71,7 @@ switch ( $theme ) {
 			'wpwisebones_hero_btn_text'   => 'Get started',
 			'wpwisebones_hero_btn_url'    => '#',
 			'wpwisebones_footer_copyright' => '&copy; 2025 WPWiseBones — GPL-2.0-or-later',
-			'wpwisebones_social_github'   => 'https://github.com/ibuilder/wpwisebones',
+			'wpwisebones_social_github'   => 'https://github.com/ibuilder/WPWiseBones',
 		);
 		break;
 }
