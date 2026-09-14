@@ -1,0 +1,46 @@
+/*
+Theme Name:   PHX After Dark
+Theme URI:    https://phxafterdark.com/
+Description:  Child theme for PHX After Dark — a private, member-only Phoenix metro event guide. Pairs with the PHX Events Membership plugin: it supplies the brand, the dark palette and the page chrome, while the plugin supplies the catalogue, membership and templates. Parent theme is WPWiseBones (Bootstrap 5, classic); see README.md to retarget it at a different parent.
+Author:       PHX After Dark
+Author URI:   https://phxafterdark.com/
+Template:     wpwisebones
+Version:      1.1.1
+Requires at least: 6.4
+Tested up to: 7.0
+Requires PHP: 8.1
+License:      GNU General Public License v2 or later
+License URI:  https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:  phx-after-dark
+Tags:         blog, one-column, two-columns, custom-colors, custom-logo, custom-menus, block-patterns, translation-ready
+*/
+
+/*
+ * Everything visual lives in assets/css/phx-after-dark.css and theme.json.
+ * This file exists for the header above and for the handful of overrides that
+ * genuinely belong in the child stylesheet's cascade position.
+ *
+ * Note on load order: WPWiseBones 1.0.13+ enqueues its own style.css, then
+ * main.css, then this file as "wpwisebones-child-style" — the order this theme
+ * wants, so functions.php leaves it alone. On older parents this file took the
+ * "wpwisebones-style" handle and the parent's own style.css never loaded at
+ * all; there functions.php still registers the parent sheet and pins it ahead
+ * of this one.
+ */
+
+:root {
+	--phx-brand-night: #0b0b12;
+	--phx-brand-neon: #12f7c0;
+	--phx-brand-ember: #ff6b4a;
+}
+
+/* Bootstrap's dark mode is switched on in functions.php via data-bs-theme;
+   these two variables are what Bootstrap 5.3 reads for the page ground. */
+[data-bs-theme="dark"] {
+	--bs-body-bg: var(--phx-brand-night);
+	--bs-body-color: #f2f2f5;
+	--bs-primary: var(--phx-brand-neon);
+	--bs-link-color: var(--phx-brand-neon);
+	--bs-link-hover-color: #3bffd2;
+	--bs-border-color: #2c2c3a;
+}

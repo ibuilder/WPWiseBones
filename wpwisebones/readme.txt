@@ -2,7 +2,7 @@
 Contributors:      wpwisebones
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.13
+Stable tag:        1.0.14
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,9 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
   npm run preflight    Full production readiness check
 
 == Changelog ==
+
+= 1.0.14 =
+* Fixed: post card titles were hardcoded to .text-dark, which Bootstrap 5.3 renders as dark text - unreadable on a child theme that puts Bootstrap into dark mode with data-bs-theme="dark". They now use .link-body-emphasis, which follows the colour mode and looks the same in light mode
 
 = 1.0.13 =
 * Fixed: the theme stylesheet was enqueued as get_stylesheet_uri(), which under a child theme resolves to the child's style.css - so on a child theme site none of the parent style.css loaded, and rules that live only there (the .skip-link visually-hidden rule among them, which made "Skip to content" render as a visible link on every page) were missing. The parent style.css is now always enqueued, and the child's is enqueued after it when a child theme is active

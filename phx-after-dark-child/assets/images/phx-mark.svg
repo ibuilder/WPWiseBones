@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="phx-mark-title">
+	<title id="phx-mark-title">PHX After Dark</title>
+
+	<defs>
+		<linearGradient id="phx-night" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0%" stop-color="#141426"/>
+			<stop offset="100%" stop-color="#08080F"/>
+		</linearGradient>
+		<linearGradient id="phx-neon" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="0%" stop-color="#3BFFD2"/>
+			<stop offset="100%" stop-color="#12F7C0"/>
+		</linearGradient>
+		<!-- A real falloff, so the horizon reads as light rather than as a plate. -->
+		<radialGradient id="phx-horizon" cx="50%" cy="50%" r="50%">
+			<stop offset="0%" stop-color="#FF6B4A" stop-opacity="0.40"/>
+			<stop offset="45%" stop-color="#FF8A44" stop-opacity="0.16"/>
+			<stop offset="100%" stop-color="#FF9E3D" stop-opacity="0"/>
+		</radialGradient>
+		<clipPath id="phx-clip">
+			<rect width="256" height="256" rx="56"/>
+		</clipPath>
+	</defs>
+
+	<g clip-path="url(#phx-clip)">
+		<rect width="256" height="256" fill="url(#phx-night)"/>
+
+		<!-- The ten minutes after sunset the brand is named for. -->
+		<ellipse cx="128" cy="222" rx="140" ry="52" fill="url(#phx-horizon)"/>
+
+		<!-- Waning crescent: one even-odd path, no mask needed. -->
+		<path
+			fill="url(#phx-neon)"
+			fill-rule="evenodd"
+			d="M200 32A32 32 0 1 0 200 96 A32 32 0 1 0 200 32 Z M192 36 A28 28 0 1 0 192 92 A28 28 0 1 0 192 36 Z"
+		/>
+
+		<!-- Saguaro: trunk, then two arms that turn upward at staggered heights. -->
+		<g fill="url(#phx-neon)">
+			<rect x="118" y="74" width="20" height="130" rx="10"/>
+			<rect x="90" y="150" width="36" height="18" rx="9"/>
+			<rect x="90" y="118" width="18" height="50" rx="9"/>
+			<rect x="126" y="126" width="42" height="18" rx="9"/>
+			<rect x="150" y="100" width="18" height="44" rx="9"/>
+		</g>
+	</g>
+</svg>

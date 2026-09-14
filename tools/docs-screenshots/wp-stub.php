@@ -410,8 +410,10 @@ function get_bloginfo( $show = '', $filter = 'raw' ) {
 }
 function bloginfo( $show = '' ) {
 	echo esc_html( get_bloginfo( $show ) ); }
-function language_attributes() {
-	echo 'lang="en-US"'; }
+function language_attributes( $doctype = 'html' ) {
+	// WordPress filters this string; PHX After Dark appends data-bs-theme="dark"
+	// through it, which is how the skin puts Bootstrap into dark mode.
+	echo apply_filters( 'language_attributes', 'lang="en-US"', $doctype ); }
 function get_locale() {
 	return 'en_US'; }
 function wp_get_theme( $slug = null ) {

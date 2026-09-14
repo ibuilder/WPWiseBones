@@ -55,6 +55,27 @@ switch ( $theme ) {
 		);
 		break;
 
+	case 'phx-after-dark':
+		$parent = 'wpwisebones';
+		$child  = 'phx-after-dark-child';
+		// The theme ships no front-page.php: its pages come from block patterns
+		// and the membership plugin's templates. The parent's index.php shows
+		// what the skin does to the chrome the parent renders.
+		$tpl    = "$repo/wpwisebones/index.php";
+		$wp_stub['blogname']        = 'PHX After Dark';
+		$wp_stub['blogdescription'] = 'A member-only guide to the Phoenix metro after hours';
+		$wp_stub['menu']            = array(
+			array( 'Tonight', '#' ), array( 'This weekend', '#' ), array( 'Venues', '#' ),
+			array( 'Membership', '#' ), array( 'About', '#' ),
+		);
+		$wp_stub['theme_mods'] = array(
+			'wpwisebones_hero_heading'    => 'The city after dark, for members only',
+			'wpwisebones_hero_subheading' => 'Every worthwhile room in the Phoenix metro tonight — curated, not scraped.',
+			'wpwisebones_hero_btn_text'   => 'See tonight',
+			'wpwisebones_hero_btn_url'    => '#',
+		);
+		break;
+
 	case 'aec-forge':
 		$parent = 'wpwisebones';
 		$child  = 'aec-forge';
