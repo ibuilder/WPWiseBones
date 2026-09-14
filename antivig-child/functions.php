@@ -15,7 +15,7 @@ declare( strict_types = 1 );
 
 defined( 'ABSPATH' ) || exit;
 
-const ANTIVIG_THEME_VERSION = '0.4.1';
+const ANTIVIG_THEME_VERSION = '0.4.2';
 
 require_once get_stylesheet_directory() . '/inc/navigation.php';
 require_once get_stylesheet_directory() . '/inc/pwa.php';

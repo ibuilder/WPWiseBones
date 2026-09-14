@@ -117,7 +117,7 @@ Full details on the [documentation site](https://ibuilder.github.io/WPWiseBones/
 |-------|---------|------------|
 | [`realwise/`](realwise/) | 1.3.4 | Navy/amber real-estate marketing site. Its importer (auto-run on activation, re-runnable from Appearance → RealWise Demo) builds the pages, menus, hero mods and an Easy Digital Downloads storefront. |
 | [`aec-forge/`](aec-forge/) | 1.1.2 | Charcoal/orange marketplace skin for AEC, BIM and Excel tooling. Appearance → AEC Forge Setup builds the promo pages and menus; reads live data from the AEC Market plugin when it is active. |
-| [`antivig-child/`](antivig-child/) | 0.4.1 | Navy/amber skin for a paid sports-analysis membership — brand, board typography, self-hosted webfonts and an installable web app. Brands the parent through its `theme_mod_wpwisebones_*` filters rather than restyling it. The board, ledger and paywall live in the `antivig-engine` / `antivig-membership` plugins, which are not in this repo. Requires WP 6.5 / PHP 8.1. **Vendored** from its own repository — the canonical source lives there. |
+| [`antivig-child/`](antivig-child/) | 0.4.2 | Navy/amber skin for a paid sports-analysis membership — brand, board typography, self-hosted webfonts and an installable web app. Brands the parent through its `theme_mod_wpwisebones_*` filters rather than restyling it. The board, ledger and paywall live in the `antivig-engine` / `antivig-membership` plugins, which are not in this repo. Requires WP 6.5 / PHP 8.1. **Vendored** from its own repository — the canonical source lives there. |
 
 ---
 
