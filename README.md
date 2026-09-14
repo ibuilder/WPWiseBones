@@ -31,11 +31,11 @@ README.md                   # This file
 
 ## Theme — WPWiseBones
 
-**Version:** 1.0.15  
+**Version:** 1.0.16  
 **Folder / Text Domain / Slug:** `wpwisebones`  
 **PHP Prefix:** `wpwisebones_` (functions) · `WPWISEBONES_` (constants) · `wpb-` (CSS/HTML)  
 **License:** GPL-2.0-or-later  
-**Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.0
+**Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.1
 
 ### Features
 
@@ -80,7 +80,7 @@ branch and no constant to switch, which is what WordPress.org Guideline 8 requir
 **Version:** 1.0.9  
 **Folder / Slug / Text Domain:** `wisebones-shortcodes`  
 **PHP Prefix:** `wpbs_`  
-**Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.0
+**Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.1
 
 > Shortcodes are plugin-territory per WordPress.org guidelines, so they live here rather than in the theme. The theme detects whether this plugin is active and shows a one-click install prompt when it is not. Bootstrap 5 and Bootstrap Icons are bundled with the plugin too and load only when the active theme does not already provide them, so the shortcodes work with any theme.
 
@@ -207,10 +207,17 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 
 Full, per-release changelogs live with each package, where WordPress.org reads them:
 
-- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.15**)
+- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.16**)
 - Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.9**)
 
 Most recent entries:
+
+### Theme 1.0.16
+
+- Changed: `Tested up to` raised to 7.1. WordPress 7.1 is the current release, and the
+  directory drops themes and plugins whose `Tested up to` trails it out of search results.
+  No code change. Plugin Check reports the plugin's stale value as an error, which is how
+  CI caught it.
 
 ### Theme 1.0.15
 

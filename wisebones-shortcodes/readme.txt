@@ -2,7 +2,7 @@
 Contributors:      wpwisebones
 Tags:              shortcodes, bootstrap, bootstrap-5, cards, accordion
 Requires at least: 6.0
-Tested up to:      7.0
+Tested up to:      7.1
 Stable tag:        1.0.9
 Requires PHP:      7.4
 License:           GPLv2 or later
@@ -92,6 +92,7 @@ This plugin bundles the following open-source libraries.
 == Changelog ==
 
 = 1.0.9 =
+* Changed: Tested up to raised to 7.1. WordPress 7.1 is the current release, and the directory excludes plugins whose Tested up to trails it from search results
 * Fixed: byte-order marks removed from the five index.php silence files. A BOM before <?php sends three bytes to the browser before WordPress can set any headers, which blanks admin responses and corrupts JSON. Plugin Check reports each one as an error, so this also clears the last blocker for a directory submission
 
 = 1.0.8 =
