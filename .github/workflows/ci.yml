@@ -127,6 +127,23 @@ jobs:
           coverage: none
           tools: wp-cli
 
+      # setup-php prints "✗ Could not setup wp-cli" and still exits 0, so a
+      # failed tool install does not fail the step -- it surfaces several steps
+      # later as a bare "wp: command not found". That is what happened on this
+      # job twice in a row. Install the phar ourselves when the tool is missing,
+      # and fail here, where the message says what is wrong.
+      - name: Ensure WP-CLI is available
+        run: |
+          if command -v wp > /dev/null 2>&1; then
+            echo "wp-cli from setup-php: $(wp --version)"
+            exit 0
+          fi
+          echo "::warning::setup-php did not provide wp-cli; installing the phar directly."
+          curl -fsSL -o /tmp/wp-cli.phar \
+            https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          sudo install -m 0755 /tmp/wp-cli.phar /usr/local/bin/wp
+          wp --version
+
       - name: Install WordPress
         run: |
           mkdir -p /tmp/wp && cd /tmp/wp
@@ -207,6 +224,23 @@ jobs:
           php-version: '8.3'
           coverage: none
           tools: wp-cli
+
+      # setup-php prints "✗ Could not setup wp-cli" and still exits 0, so a
+      # failed tool install does not fail the step -- it surfaces several steps
+      # later as a bare "wp: command not found". That is what happened on this
+      # job twice in a row. Install the phar ourselves when the tool is missing,
+      # and fail here, where the message says what is wrong.
+      - name: Ensure WP-CLI is available
+        run: |
+          if command -v wp > /dev/null 2>&1; then
+            echo "wp-cli from setup-php: $(wp --version)"
+            exit 0
+          fi
+          echo "::warning::setup-php did not provide wp-cli; installing the phar directly."
+          curl -fsSL -o /tmp/wp-cli.phar \
+            https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          sudo install -m 0755 /tmp/wp-cli.phar /usr/local/bin/wp
+          wp --version
 
       - name: Install WordPress and Plugin Check
         run: |
