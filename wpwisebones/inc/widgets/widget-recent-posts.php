@@ -45,7 +45,7 @@ class WPWISEBONES_Widget_Recent_Posts extends WP_Widget {
 					echo '</a>';
 				}
 				echo '<div>';
-				echo '<a href="' . esc_url( get_permalink() ) . '" class="rp-title d-block text-dark text-decoration-none">' . esc_html( get_the_title() ) . '</a>';
+				echo '<a href="' . esc_url( get_permalink() ) . '" class="rp-title d-block link-body-emphasis text-decoration-none">' . esc_html( get_the_title() ) . '</a>';
 				if ( $show_date ) {
 					echo '<span class="rp-date">' . esc_html( get_the_date() ) . '</span>';
 				}

@@ -23,7 +23,7 @@ $author    = get_queried_object();
 			<main id="main" tabindex="-1" class="site-main <?php echo esc_attr( wpwisebones_content_class() ); ?>">
 
 				<!-- Author card -->
-				<div class="card border-0 bg-light mb-5 p-4">
+				<div class="card border-0 bg-body-tertiary mb-5 p-4">
 					<div class="d-flex gap-4 align-items-center flex-wrap">
 						<?php echo wp_kses_post( get_avatar( $author_id, 96, '', '', array( 'class' => 'rounded-circle flex-shrink-0' ) ) ); ?>
 						<div>

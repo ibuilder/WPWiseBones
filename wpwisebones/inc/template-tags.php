@@ -95,7 +95,7 @@ function wpwisebones_related_posts( int $count = 3 ) {
 				<?php wpwisebones_post_thumbnail( 'wpwisebones-card' ); ?>
 				<div class="card-body">
 					<h6 class="card-title">
-						<a href="<?php the_permalink(); ?>" class="text-dark text-decoration-none">
+						<a href="<?php the_permalink(); ?>" class="link-body-emphasis text-decoration-none">
 							<?php the_title(); ?>
 						</a>
 					</h6>
