@@ -2,7 +2,7 @@
 Contributors:      wpwisebones
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.14
+Stable tag:        1.0.15
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,9 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
   npm run preflight    Full production readiness check
 
 == Changelog ==
+
+= 1.0.15 =
+* Fixed: the rest of the light-mode-only markup, completing what 1.0.14 started. Related post titles and the Recent Posts widget still used .text-dark, and the author box, each comment and the after-content widget area used .bg-light. Under data-bs-theme="dark" that meant dark text on dark cards, and near-white text on a near-white panel - measured at rgb(242,242,245) on rgb(248,249,250), a contrast ratio of about 1.03:1. Titles now use .link-body-emphasis and the panels .bg-body-tertiary, both of which follow the colour mode. In light mode .bg-body-tertiary resolves to the same rgb(248,249,250) .bg-light gave, so nothing changes for existing sites
 
 = 1.0.14 =
 * Fixed: post card titles were hardcoded to .text-dark, which Bootstrap 5.3 renders as dark text - unreadable on a child theme that puts Bootstrap into dark mode with data-bs-theme="dark". They now use .link-body-emphasis, which follows the colour mode and looks the same in light mode

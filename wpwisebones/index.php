@@ -72,7 +72,7 @@ if ( ! empty( $o['breadcrumbs'] ) && ! is_front_page() ) {
 
 <!-- After content widget area -->
 <?php if ( is_active_sidebar( 'after-content' ) ) : ?>
-	<div class="after-content-widgets py-4 bg-light">
+	<div class="after-content-widgets py-4 bg-body-tertiary">
 		<div class="<?php echo esc_attr( $container ); ?>">
 			<?php dynamic_sidebar( 'after-content' ); ?>
 		</div>

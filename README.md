@@ -31,7 +31,7 @@ README.md                   # This file
 
 ## Theme — WPWiseBones
 
-**Version:** 1.0.14  
+**Version:** 1.0.15  
 **Folder / Text Domain / Slug:** `wpwisebones`  
 **PHP Prefix:** `wpwisebones_` (functions) · `WPWISEBONES_` (constants) · `wpb-` (CSS/HTML)  
 **License:** GPL-2.0-or-later  
@@ -193,10 +193,18 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 
 Full, per-release changelogs live with each package, where WordPress.org reads them:
 
-- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.14**)
+- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.15**)
 - Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.8**)
 
 Most recent entries:
+
+### Theme 1.0.15
+
+- Fixed: the remaining light-mode-only markup. Related post titles and the Recent Posts widget still used
+  `.text-dark`; the author box, comments and after-content area used `.bg-light`, which is not colour-mode
+  aware — measured at `rgb(242,242,245)` text on `rgb(248,249,250)`, about 1.03:1. Now `.link-body-emphasis`
+  and `.bg-body-tertiary`; light mode is unchanged (`.bg-body-tertiary` resolves to the same
+  `rgb(248,249,250)`).
 
 ### Theme 1.0.14
 
