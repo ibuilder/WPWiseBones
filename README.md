@@ -77,7 +77,7 @@ branch and no constant to switch, which is what WordPress.org Guideline 8 requir
 
 ## Companion Plugin — WiseBones Shortcodes
 
-**Version:** 1.0.7  
+**Version:** 1.0.8  
 **Folder / Slug / Text Domain:** `wisebones-shortcodes`  
 **PHP Prefix:** `wpbs_`  
 **Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.0
@@ -194,7 +194,7 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 Full, per-release changelogs live with each package, where WordPress.org reads them:
 
 - Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.14**)
-- Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.7**)
+- Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.8**)
 
 Most recent entries:
 
@@ -212,6 +212,12 @@ Most recent entries:
   visually-hidden rule, which made "Skip to content" render as a visible link on every
   page) were missing. The parent stylesheet is now always enqueued, with the child's
   after it when a child theme is active.
+
+### Plugin 1.0.8
+
+- Fixed: `[wpb_posts]` card titles were hardcoded to `.text-dark`, which Bootstrap 5.3 renders as dark text —
+  unreadable on a theme that flips Bootstrap into dark mode. They now use `.link-body-emphasis`. Matches the
+  same fix in theme 1.0.14.
 
 ### Plugin 1.0.7
 

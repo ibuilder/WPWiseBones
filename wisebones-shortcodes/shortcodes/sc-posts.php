@@ -78,7 +78,7 @@ function wpbs_sc_posts( array $atts ): string {
 		}
 
 		$html .= '<div class="card-body d-flex flex-column">';
-		$html .= '<h5 class="card-title"><a href="' . esc_url( get_permalink() ) . '" class="text-dark text-decoration-none">' . esc_html( get_the_title() ) . '</a></h5>';
+		$html .= '<h5 class="card-title"><a href="' . esc_url( get_permalink() ) . '" class="link-body-emphasis text-decoration-none">' . esc_html( get_the_title() ) . '</a></h5>';
 
 		if ( 'true' === $a['show_date'] || 'true' === $a['show_author'] ) {
 			$html .= '<p class="card-text text-muted small mb-2">';
