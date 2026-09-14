@@ -3,7 +3,7 @@ Contributors:      wpwisebones
 Tags:              shortcodes, bootstrap, bootstrap-5, cards, accordion
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.7
+Stable tag:        1.0.8
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -91,6 +91,9 @@ This plugin bundles the following open-source libraries.
 
 == Changelog ==
 
+= 1.0.8 =
+* Fixed: [wpb_posts] card titles were hardcoded to .text-dark, which Bootstrap 5.3 renders as dark text - unreadable on a theme that puts Bootstrap into dark mode with data-bs-theme="dark". They now use .link-body-emphasis, which follows the colour mode and looks the same in light mode. Matches the same fix in WPWiseBones 1.0.14
+
 = 1.0.7 =
 * Fixed: BOM removed from readme.txt (was causing readme_title parse failure)
 * Fixed: Plugin URI header removed (was pointing to a non-existent page)
@@ -142,6 +145,9 @@ This plugin bundles the following open-source libraries.
 * Theme detection notice with one-click install link
 
 == Upgrade Notice ==
+
+= 1.0.8 =
+Post grid titles now follow Bootstrap's colour mode, so they stay readable on dark themes.
 
 = 1.0.7 =
 Compliance fixes: uninstall cleanup, readme improvements, and index.php guards added.

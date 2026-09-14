@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       WiseBones Shortcodes
  * Description:       17 Bootstrap 5 shortcodes â€” alerts, buttons, cards, accordions, tabs, grid columns, CTA banners, icon boxes, progress bars, testimonials, countdown timers, post grids, modals, badges, dividers, maps, and contact info. Works with any Bootstrap 5 theme; Bootstrap is auto-loaded when not already provided by the active theme.
- * Version:           1.0.7
+ * Version:           1.0.8
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            WPWiseBones
@@ -21,7 +21,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WISEBONES_SHORTCODES_VERSION', '1.0.7' );
+define( 'WISEBONES_SHORTCODES_VERSION', '1.0.8' );
 define( 'WISEBONES_SHORTCODES_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WISEBONES_SHORTCODES_URI', plugin_dir_url( __FILE__ ) );
 
