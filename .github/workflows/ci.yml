@@ -24,6 +24,30 @@ jobs:
         with:
           node-version: '20'
 
+      # A byte-order mark before <?php sends three bytes to the browser before
+      # WordPress can set a header, which blanks admin responses and corrupts
+      # JSON. Plugin Check reports each one as an error. Five shipped files
+      # carried one, so this is a gate, and it checks the committed zips too --
+      # the zip is what a reviewer downloads, and it is built by hand.
+      - name: No byte-order marks in any PHP file, source or shipped
+        run: |
+          status=0
+          if grep -rlIP '\xEF\xBB\xBF' --include='*.php' . ; then
+            echo "::error::byte-order mark found in a PHP file in the source tree"
+            status=1
+          fi
+          for zip in *.zip; do
+            [ -f "$zip" ] || continue
+            dir=$(mktemp -d)
+            unzip -q "$zip" -d "$dir"
+            if grep -rlIP '\xEF\xBB\xBF' --include='*.php' "$dir" | sed "s#$dir/#$zip: #" | grep . ; then
+              echo "::error::byte-order mark found in a PHP file inside $zip"
+              status=1
+            fi
+            rm -rf "$dir"
+          done
+          exit $status
+
       - name: PHP syntax, every shipped package
         run: |
           status=0
@@ -230,33 +254,35 @@ jobs:
       # --require: the CLI command lives in the plugin's own cli.php, which
       # WP-CLI does not load on its own. Run from /tmp so a bare slug cannot
       # resolve to the checkout instead of the staged copy.
+      #
+      # Plugin Check prints a 'FILE: <path>' header and a single-line JSON
+      # array per file, not one document. A CSV reader takes that first header
+      # line as its column names and then reports every field blank, which is
+      # indistinguishable from a clean plugin -- that is exactly how four
+      # byte-order-mark errors passed as green. The summariser refuses to call
+      # any output it cannot account for a pass.
       - name: Run Plugin Check
         run: |
           cd /tmp
           wp --path=/tmp/wp plugin check /tmp/wp/wp-content/plugins/wisebones-shortcodes \
             --require=/tmp/wp/wp-content/plugins/plugin-check/cli.php \
-            --format=csv --fields=type,code,file,line,message > /tmp/pcp.csv 2>/tmp/pcp.err || true
-          cat /tmp/pcp.err || true
-          python3 - <<'PYSUM'
-          import csv, collections, os, sys
-          path = '/tmp/pcp.csv'
-          if not os.path.exists(path) or os.path.getsize(path) == 0:
-              print('Plugin Check produced no output — treating as a failure to run.')
-              sys.exit(1)
-          with open(path, encoding='utf-8', errors='replace') as fh:
-              rows = [r for r in csv.DictReader(fh) if any((v or '').strip() for v in r.values())]
-          # Every field is optional: the CSV carries section rows whose columns are
-          # blank, and a None here previously crashed the summary instead of
-          # reporting the plugin.
-          def field(row, name):
-              return (row.get(name) or '').strip()
-          by = collections.Counter((field(r, 'type') or '-', field(r, 'code') or '-') for r in rows)
-          for (kind, code), n in by.most_common():
-              print(f'{n:4}  {kind:8}  {code}')
-          errors = [r for r in rows if field(r, 'type').upper() == 'ERROR']
-          for r in errors:
-              print(f"::error file=wisebones-shortcodes/{field(r, 'file')},line={field(r, 'line') or 0}::"
-                    f"{field(r, 'code')}: {field(r, 'message')}")
-          print(f'\n{len(rows)} finding(s), {len(errors)} error(s)')
-          sys.exit(1 if errors else 0)
-          PYSUM
+            --format=json --fields=file,line,column,type,code,message \
+            > /tmp/pcp.json 2>/tmp/pcp.err || true
+          echo "::group::Raw report (first 40 lines)"
+          head -40 /tmp/pcp.json || true
+          echo "--- stderr ---"
+          head -20 /tmp/pcp.err || true
+          echo "::endgroup::"
+          python3 "$GITHUB_WORKSPACE/tools/ci/summarise-plugin-check.py" \
+            wisebones-shortcodes /tmp/pcp.json /tmp/pcp.err
+
+      - name: Upload the raw report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-check-report
+          path: |
+            /tmp/pcp.json
+            /tmp/pcp.err
+          retention-days: 14
+          if-no-files-found: ignore

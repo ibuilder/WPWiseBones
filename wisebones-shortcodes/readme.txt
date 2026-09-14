@@ -3,7 +3,7 @@ Contributors:      wpwisebones
 Tags:              shortcodes, bootstrap, bootstrap-5, cards, accordion
 Requires at least: 6.0
 Tested up to:      7.0
-Stable tag:        1.0.8
+Stable tag:        1.0.9
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -90,6 +90,9 @@ This plugin bundles the following open-source libraries.
 * Bundled as: assets/vendor/bootstrap-icons/css/bootstrap-icons.min.css, assets/vendor/bootstrap-icons/fonts/ (unminified source included alongside)
 
 == Changelog ==
+
+= 1.0.9 =
+* Fixed: byte-order marks removed from the five index.php silence files. A BOM before <?php sends three bytes to the browser before WordPress can set any headers, which blanks admin responses and corrupts JSON. Plugin Check reports each one as an error, so this also clears the last blocker for a directory submission
 
 = 1.0.8 =
 * Fixed: [wpb_posts] card titles were hardcoded to .text-dark, which Bootstrap 5.3 renders as dark text - unreadable on a theme that puts Bootstrap into dark mode with data-bs-theme="dark". They now use .link-body-emphasis, which follows the colour mode and looks the same in light mode. Matches the same fix in WPWiseBones 1.0.14

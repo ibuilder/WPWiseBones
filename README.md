@@ -77,7 +77,7 @@ branch and no constant to switch, which is what WordPress.org Guideline 8 requir
 
 ## Companion Plugin — WiseBones Shortcodes
 
-**Version:** 1.0.8  
+**Version:** 1.0.9  
 **Folder / Slug / Text Domain:** `wisebones-shortcodes`  
 **PHP Prefix:** `wpbs_`  
 **Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.0
@@ -208,7 +208,7 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 Full, per-release changelogs live with each package, where WordPress.org reads them:
 
 - Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.15**)
-- Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.8**)
+- Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.9**)
 
 Most recent entries:
 
@@ -234,6 +234,14 @@ Most recent entries:
   visually-hidden rule, which made "Skip to content" render as a visible link on every
   page) were missing. The parent stylesheet is now always enqueued, with the child's
   after it when a child theme is active.
+
+### Plugin 1.0.9
+
+- Fixed: byte-order marks removed from the five `index.php` silence files. A BOM before
+  `<?php` sends three bytes to the browser before WordPress can set a header, which blanks
+  admin responses and corrupts JSON. Plugin Check reports each as an error, so this clears
+  the last blocker for a directory submission. CI now gates on BOMs in both the source tree
+  and the committed zips.
 
 ### Plugin 1.0.8
 
