@@ -17,6 +17,7 @@ wisebones-shortcodes/       # Companion plugin (17 Bootstrap shortcodes)
 realwise/                   # Child theme - real-estate marketing site + EDD storefront
 aec-forge/                  # Child theme - AEC/BIM marketplace skin
 antivig-child/              # Child theme - sports-analysis membership skin (vendored)
+phx-after-dark-child/       # Child theme - member-only event guide skin (vendored)
 docs/                       # Documentation site (GitHub Pages)
 tools/docs-screenshots/     # Renders the themes and shortcodes for the doc screenshots
 wpwisebones.zip             # Distributable theme zip (built via npm run zip)
@@ -30,7 +31,7 @@ README.md                   # This file
 
 ## Theme — WPWiseBones
 
-**Version:** 1.0.13  
+**Version:** 1.0.14  
 **Folder / Text Domain / Slug:** `wpwisebones`  
 **PHP Prefix:** `wpwisebones_` (functions) · `WPWISEBONES_` (constants) · `wpb-` (CSS/HTML)  
 **License:** GPL-2.0-or-later  
@@ -109,8 +110,8 @@ branch and no constant to switch, which is what WordPress.org Guideline 8 requir
 
 ## Child Themes
 
-Three ready-made skins keep WPWiseBones as the parent — each adds a brand stylesheet and a
-self-contained front page; two of them also build the rest of the site in one click.
+Four ready-made skins keep WPWiseBones as the parent — each adds a brand layer on top of it;
+two of them also ship a marketing front page and build the rest of the site in one click.
 Full details on the [documentation site](https://ibuilder.github.io/WPWiseBones/child-themes.html).
 
 | Theme | Version | What it is |
@@ -118,6 +119,7 @@ Full details on the [documentation site](https://ibuilder.github.io/WPWiseBones/
 | [`realwise/`](realwise/) | 1.3.4 | Navy/amber real-estate marketing site. Its importer (auto-run on activation, re-runnable from Appearance → RealWise Demo) builds the pages, menus, hero mods and an Easy Digital Downloads storefront. |
 | [`aec-forge/`](aec-forge/) | 1.1.2 | Charcoal/orange marketplace skin for AEC, BIM and Excel tooling. Appearance → AEC Forge Setup builds the promo pages and menus; reads live data from the AEC Market plugin when it is active. |
 | [`antivig-child/`](antivig-child/) | 0.4.2 | Navy/amber skin for a paid sports-analysis membership — brand, board typography, self-hosted webfonts and an installable web app. Brands the parent through its `theme_mod_wpwisebones_*` filters rather than restyling it. The board, ledger and paywall live in the `antivig-engine` / `antivig-membership` plugins, which are not in this repo. Requires WP 6.5 / PHP 8.1. **Vendored** from its own repository — the canonical source lives there. |
+| [`phx-after-dark-child/`](phx-after-dark-child/) | 1.1.1 | Night-palette skin for a private, member-only Phoenix metro event guide. Flips Bootstrap 5.3 into its own dark mode via `data-bs-theme="dark"` on the `<html>` element rather than overriding components, and ships two block patterns. The catalogue, membership and event templates live in the `phx-events-membership` plugin, which is not in this repo. Requires WP 6.4 / PHP 8.1. **Vendored** from its own repository — the canonical source lives there. |
 
 ---
 
@@ -191,10 +193,16 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 
 Full, per-release changelogs live with each package, where WordPress.org reads them:
 
-- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.13**)
+- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.14**)
 - Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.7**)
 
 Most recent entries:
+
+### Theme 1.0.14
+
+- Fixed: post card titles were hardcoded to `.text-dark`, which Bootstrap 5.3 renders as dark text —
+  unreadable on a child theme that flips Bootstrap into dark mode with `data-bs-theme="dark"`. They now
+  use `.link-body-emphasis`, which follows the colour mode and is unchanged in light mode.
 
 ### Theme 1.0.13
 

@@ -25,7 +25,7 @@ $o = get_option( 'wpwisebones_options', array() );
 			</div>
 
 			<h2 class="card-title h5">
-				<a href="<?php the_permalink(); ?>" class="text-dark text-decoration-none">
+				<a href="<?php the_permalink(); ?>" class="link-body-emphasis text-decoration-none">
 					<?php the_title(); ?>
 				</a>
 			</h2>

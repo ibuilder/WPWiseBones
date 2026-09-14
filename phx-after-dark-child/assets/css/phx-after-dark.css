@@ -1,0 +1,280 @@
+/**
+ * PHX After Dark — brand layer.
+ *
+ * The plugin ships theme-neutral styles driven by CSS custom properties. This
+ * file does two things and nothing else: it retints those properties to the
+ * brand, and it styles the chrome the plugin deliberately does not own.
+ */
+
+/* --------------------------------------------------------- brand tokens */
+
+:root,
+:root:not([data-theme="light"]) {
+	--phx-ink: #f2f2f5;
+	--phx-ink-soft: #b9b9c6;
+	--phx-ink-faint: #8d8d9c;
+	--phx-surface: #15151d;
+	--phx-surface-alt: #1c1c26;
+	--phx-line: #2c2c3a;
+	--phx-accent: #12f7c0;
+	--phx-accent-ink: #06120f;
+	--phx-night: #0b0b12;
+	--phx-neon: #12f7c0;
+	--phx-ember: #ff6b4a;
+	--phx-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.35);
+	--phx-focus: 0 0 0 3px rgba(18, 247, 192, 0.5);
+}
+
+body.phx-theme {
+	background: var(--phx-night);
+	color: var(--phx-ink);
+}
+
+/* ---------------------------------------------------------------- header */
+
+.phx-brand {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	color: var(--phx-ink);
+	text-decoration: none;
+}
+
+.phx-brand__mark {
+	width: 44px;
+	height: 44px;
+	flex: none;
+}
+
+.phx-brand__name {
+	display: flex;
+	flex-direction: column;
+	line-height: 1.1;
+}
+
+.phx-brand__title {
+	font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+	font-size: 1.35rem;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+.phx-brand__title em {
+	color: var(--phx-neon);
+	font-style: italic;
+}
+
+.phx-brand__tagline {
+	color: var(--phx-ink-faint);
+	font-size: 0.68rem;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------- sections */
+
+.phx-hero {
+	position: relative;
+	padding: clamp(3rem, 8vw, 6rem) 0;
+	overflow: hidden;
+}
+
+.phx-hero::after {
+	content: "";
+	position: absolute;
+	inset-inline: -20%;
+	inset-block-end: -60%;
+	height: 70%;
+	background: radial-gradient(ellipse at center, rgba(255, 107, 74, 0.22), transparent 70%);
+	pointer-events: none;
+}
+
+.phx-hero__title {
+	max-width: 18ch;
+	font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+	font-size: clamp(2.4rem, 6vw, 4rem);
+	line-height: 1.05;
+	letter-spacing: -0.03em;
+}
+
+.phx-hero__title em {
+	color: var(--phx-neon);
+	font-style: italic;
+}
+
+.phx-hero__lede {
+	max-width: 46ch;
+	margin-top: 1rem;
+	color: var(--phx-ink-soft);
+	font-size: clamp(1.05rem, 2vw, 1.25rem);
+	line-height: 1.6;
+}
+
+.phx-eyebrow {
+	display: inline-block;
+	margin-bottom: 0.8rem;
+	color: var(--phx-neon);
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------- footer */
+
+.phx-footer {
+	margin-top: 4rem;
+	padding: 2.5rem 0 3rem;
+	border-top: 1px solid var(--phx-line);
+	color: var(--phx-ink-faint);
+	font-size: 0.85rem;
+}
+
+.phx-footer a {
+	color: var(--phx-ink-soft);
+}
+
+.phx-footer__disclosure {
+	max-width: 60ch;
+	margin-top: 1rem;
+	line-height: 1.6;
+}
+
+/* -------------------------------------------------- editorial adjustments */
+
+.phx-theme .phx-card {
+	background: var(--phx-surface);
+}
+
+.phx-theme .phx-paywall,
+.phx-theme .phx-teaser__pitch {
+	background: linear-gradient(160deg, #141426, #08080f);
+	border: 1px solid var(--phx-line);
+}
+
+.phx-theme .phx-plan {
+	background: linear-gradient(160deg, #16161f, #101018);
+}
+
+.phx-theme .phx-plan:first-child {
+	border-color: var(--phx-neon);
+}
+
+/* Editor's note on a card, used by curated collection copy. */
+.phx-note {
+	margin: 1rem 0;
+	padding: 0.9rem 1.1rem;
+	border-left: 3px solid var(--phx-neon);
+	background: var(--phx-surface-alt);
+	color: var(--phx-ink-soft);
+	font-size: 0.92rem;
+	line-height: 1.6;
+}
+
+/* ------------------------------------------------------------ a11y bits */
+
+.skip-link:focus {
+	position: fixed;
+	inset-block-start: 0.5rem;
+	inset-inline-start: 0.5rem;
+	z-index: 999;
+	padding: 0.6rem 1rem;
+	background: var(--phx-neon);
+	color: var(--phx-night);
+	border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation-duration: 0.001ms !important;
+		transition-duration: 0.001ms !important;
+	}
+}
+
+/* Print: strip the night palette so a member can print a plan. */
+@media print {
+	body.phx-theme {
+		background: #fff;
+		color: #000;
+	}
+
+	.phx-hero::after,
+	.phx-paywall,
+	.phx-filters {
+		display: none !important;
+	}
+}
+
+/* ----------------------------------------------------------- member bar */
+
+/* Rendered on wp_body_open, above the WPWiseBones navbar. */
+.phx-memberbar {
+	background: #08080f;
+	border-bottom: 1px solid var(--phx-line);
+	padding: 0.45rem 0;
+	font-size: 0.8rem;
+}
+
+.phx-memberbar__tagline {
+	color: var(--phx-ink-faint);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+}
+
+.phx-memberbar__actions .phx-button {
+	padding: 0.3rem 0.85rem;
+	font-size: 0.8rem;
+}
+
+@media (max-width: 575.98px) {
+	.phx-memberbar__tagline {
+		display: none;
+	}
+}
+
+/* --------------------------------------------- WPWiseBones (Bootstrap 5) */
+
+/*
+ * The parent is a light Bootstrap theme. data-bs-theme="dark" (set in
+ * functions.php) does most of the work; these are the few places where the
+ * parent hard-codes a light value that Bootstrap's colour mode does not reach.
+ */
+
+.phx-theme .site-header {
+	background: var(--phx-night);
+	border-bottom: 1px solid var(--phx-line);
+}
+
+.phx-theme .site-header .site-description {
+	color: var(--phx-ink-faint);
+}
+
+.phx-theme .navbar-nav .nav-link {
+	color: var(--phx-ink-soft);
+}
+
+.phx-theme .navbar-nav .nav-link:hover,
+.phx-theme .navbar-nav .current-menu-item > .nav-link {
+	color: var(--phx-neon);
+}
+
+.phx-theme .site-footer,
+.phx-theme .wpb-footer {
+	background: #08080f;
+	border-top: 1px solid var(--phx-line);
+	color: var(--phx-ink-faint);
+}
+
+.phx-theme .card {
+	background: var(--phx-surface);
+	border-color: var(--phx-line);
+}
+
+.phx-theme .btn-primary {
+	--bs-btn-bg: var(--phx-neon);
+	--bs-btn-border-color: var(--phx-neon);
+	--bs-btn-color: var(--phx-night);
+	--bs-btn-hover-bg: #3bffd2;
+	--bs-btn-hover-border-color: #3bffd2;
+	--bs-btn-hover-color: var(--phx-night);
+}

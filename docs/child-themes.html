@@ -35,14 +35,16 @@
 		<a href="#aec-install">— Install</a>
 		<a href="#antivig">Antivig</a>
 		<a href="#antivig-install">— Install</a>
+		<a href="#phx-after-dark">PHX After Dark</a>
+		<a href="#phx-install">— Install</a>
 		<a href="#roll-your-own">Your own skin</a>
 	</nav>
 
 	<main id="main">
 		<h1>Child themes</h1>
-		<p class="lede">Three child themes keep WPWiseBones as the parent and add a brand stylesheet and a
-		self-contained front page. RealWise and AEC Forge also ship a one-click builder that creates the rest
-		of the site; Antivig leaves its content to its own plugins.</p>
+		<p class="lede">Four child themes keep WPWiseBones as the parent and add a brand layer on top of it.
+		RealWise and AEC Forge ship a marketing front page and a one-click builder for the rest of the site;
+		Antivig and PHX After Dark leave their content to their own plugins.</p>
 
 		<h2 id="how">How the skins work</h2>
 		<p>Each child theme is deliberately thin: a <code>style.css</code> header pointing at
@@ -52,7 +54,7 @@
 		overriding Bootstrap's, so nothing in the parent has to be forked.</p>
 		<p>The parent handles the stylesheet order for you: Bootstrap, then the parent
 		<code>style.css</code> and <code>main.css</code>, then the child's <code>style.css</code> — the child
-		theme only has to enqueue its own brand CSS (all three do, at priority 20). This needs theme
+		theme only has to enqueue its own brand CSS (all four do, at priority 20). This needs theme
 		1.0.13 or newer; earlier versions left the parent <code>style.css</code> out on a child theme site.</p>
 
 		<h2 id="realwise">RealWise</h2>
@@ -180,6 +182,57 @@
 				<img alt="The Antivig front page at phone width, with the hero stacked above the worked example." loading="lazy" src="assets/img/theme-antivig-mobile.png" width="414" height="860">
 			</div>
 			<figcaption>Antivig at 414&nbsp;px.</figcaption>
+		</figure>
+
+		<h2 id="phx-after-dark">PHX After Dark</h2>
+		<p class="lede">Version 1.1.1 · text domain <code>phx-after-dark</code> · a night palette on Bootstrap's
+		own dark mode. Requires WordPress 6.4 and PHP 8.1.</p>
+		<figure>
+			<div class="shot">
+				<div class="browser"><i></i><i></i><i></i><span>phx-after-dark-child — blog index</span></div>
+				<img alt="The PHX After Dark skin on the parent's blog index: black header and top bar, gradient hero and post cards on a near-black page." loading="lazy" src="assets/img/theme-phx-after-dark.png" width="1440" height="940">
+			</div>
+			<figcaption>The parent's <code>index.php</code> with the skin active — this theme ships no templates
+			of its own. <a href="assets/img/theme-phx-after-dark-full.png">See the whole page</a>.</figcaption>
+		</figure>
+		<p>PHX After Dark is the brand layer for a private, member-only event guide for the Phoenix metro. The
+		catalogue, the membership and every event template come from the <code>phx-events-membership</code>
+		plugin, which is not part of this repository — the theme supplies the palette, the chrome and the
+		patterns the pages are built from.</p>
+
+		<h3>What it adds on top of the parent</h3>
+		<ul>
+			<li><strong>Bootstrap's own dark mode</strong>, rather than a fight with overrides. It appends
+			<code>data-bs-theme="dark"</code> to the <code>&lt;html&gt;</code> element through WordPress's
+			<code>language_attributes</code> filter, then retints Bootstrap's variables from
+			<code>style.css</code>. Every Bootstrap component follows without being restyled one by one.</li>
+			<li><strong>A dark header</strong> by filtering the parent's
+			<code>theme_mod_wpwisebones_header_style</code>, the same way Antivig does.</li>
+			<li><strong>Two block patterns</strong> — a homepage hero and a membership call to action — under
+			their own pattern category, since the pages are assembled in the editor rather than templated.</li>
+			<li>Its own <code>theme.json</code>, brand marks and favicon.</li>
+		</ul>
+		<div class="note">
+			<strong>This is what surfaced the 1.0.14 fix.</strong> The parent hardcoded <code>.text-dark</code> on
+			post-card titles, which Bootstrap renders as dark text — unreadable once a child flips the colour
+			mode. It now uses <code>.link-body-emphasis</code>, which follows the mode and is unchanged in light.
+		</div>
+
+		<h3 id="phx-install">Install</h3>
+		<ol>
+			<li>Install and activate <strong>WPWiseBones 1.0.14 or newer</strong>, then <strong>PHX After Dark</strong>.</li>
+			<li>Add the <code>phx-events-membership</code> plugin — without it the theme is brand only, with no
+			event catalogue or membership.</li>
+		</ol>
+		<div class="note">
+			As with Antivig, this copy is vendored from the theme's own repository so the parent and its skins
+			can be read together. The canonical source stays there.
+		</div>
+		<figure>
+			<div class="shot" style="max-width:420px">
+				<img alt="The PHX After Dark skin at phone width, with a collapsed navbar and stacked cards on a near-black page." loading="lazy" src="assets/img/theme-phx-after-dark-mobile.png" width="414" height="860">
+			</div>
+			<figcaption>PHX After Dark at 414&nbsp;px.</figcaption>
 		</figure>
 
 		<h2 id="roll-your-own">Rolling your own skin</h2>
