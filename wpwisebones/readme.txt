@@ -2,7 +2,7 @@
 Contributors:      wpwisebones
 Requires at least: 6.0
 Tested up to:      7.1
-Stable tag:        1.0.16
+Stable tag:        1.0.17
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,9 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
   npm run preflight    Full production readiness check
 
 == Changelog ==
+
+= 1.0.17 =
+* Changed: the 66 bare variables the templates assigned at top level ($container, $o, $hero_img and friends) now carry the wpwisebones_ prefix. WordPress includes templates in global scope, so each of those was a global that could collide with core or another plugin - $o and $container in particular are names anything might use. $o is now $wpwisebones_options, which also says what it holds. No behaviour change: all five themes render byte-identically before and after
 
 = 1.0.16 =
 * Changed: Tested up to raised to 7.1. WordPress 7.1 is the current release, and the directory excludes themes and plugins whose Tested up to trails it from search results. No code change

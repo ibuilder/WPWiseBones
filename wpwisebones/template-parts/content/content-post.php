@@ -3,7 +3,7 @@
  * Template part: post card for blog loop.
  */
 defined( 'ABSPATH' ) || exit;
-$o = get_option( 'wpwisebones_options', array() );
+$wpwisebones_options = get_option( 'wpwisebones_options', array() );
 ?>
 <div class="col-md-6 col-lg-4">
 	<article id="post-<?php the_ID(); ?>" <?php post_class( 'card h-100 post-card border-0 shadow-sm' ); ?>>
@@ -19,7 +19,7 @@ $o = get_option( 'wpwisebones_options', array() );
 				wpwisebones_posted_on();
 				wpwisebones_posted_by();
 				?>
-				<?php if ( ! empty( $o['reading_time'] ) ) : ?>
+				<?php if ( ! empty( $wpwisebones_options['reading_time'] ) ) : ?>
 					<span class="reading-time"><i class="bi bi-clock me-1"></i><?php echo esc_html( wpwisebones_reading_time() ); ?></span>
 				<?php endif; ?>
 			</div>

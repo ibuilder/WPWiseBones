@@ -3,24 +3,24 @@
  * Template part: page.
  */
 defined( 'ABSPATH' ) || exit;
-$hide_title = get_post_meta( get_the_ID(), '_wpwisebones_hide_title', true );
-$hero_img   = get_post_meta( get_the_ID(), '_wpwisebones_hero_image', true );
-$hero_text  = get_post_meta( get_the_ID(), '_wpwisebones_hero_text', true );
+$wpwisebones_hide_title = get_post_meta( get_the_ID(), '_wpwisebones_hide_title', true );
+$wpwisebones_hero_img   = get_post_meta( get_the_ID(), '_wpwisebones_hero_image', true );
+$wpwisebones_hero_text  = get_post_meta( get_the_ID(), '_wpwisebones_hero_text', true );
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<?php if ( $hero_img ) : ?>
+	<?php if ( $wpwisebones_hero_img ) : ?>
 		<div class="entry-hero mb-4 rounded overflow-hidden" style="max-height:500px">
-			<img src="<?php echo esc_url( $hero_img ); ?>" alt="<?php the_title_attribute(); ?>" class="w-100 object-fit-cover">
+			<img src="<?php echo esc_url( $wpwisebones_hero_img ); ?>" alt="<?php the_title_attribute(); ?>" class="w-100 object-fit-cover">
 		</div>
 	<?php endif; ?>
 
 	<header class="entry-header mb-4">
-		<?php if ( ! $hide_title ) : ?>
+		<?php if ( ! $wpwisebones_hide_title ) : ?>
 			<h1 class="entry-title"><?php the_title(); ?></h1>
 		<?php endif; ?>
-		<?php if ( $hero_text ) : ?>
-			<p class="entry-subtitle lead text-muted mb-0"><?php echo esc_html( $hero_text ); ?></p>
+		<?php if ( $wpwisebones_hero_text ) : ?>
+			<p class="entry-subtitle lead text-muted mb-0"><?php echo esc_html( $wpwisebones_hero_text ); ?></p>
 		<?php endif; ?>
 	</header>
 	<div class="entry-content">

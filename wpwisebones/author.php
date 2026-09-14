@@ -4,16 +4,16 @@
  */
 defined( 'ABSPATH' ) || exit;
 get_header();
-$container = get_theme_mod( 'wpwisebones_container_width', 'container' );
-$o         = get_option( 'wpwisebones_options', array() );
-if ( ! empty( $o['breadcrumbs'] ) ) {
+$wpwisebones_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
+$wpwisebones_options   = get_option( 'wpwisebones_options', array() );
+if ( ! empty( $wpwisebones_options['breadcrumbs'] ) ) {
 	wpwisebones_breadcrumbs();
 }
-$author_id = get_queried_object_id();
-$author    = get_queried_object();
+$wpwisebones_author_id = get_queried_object_id();
+$wpwisebones_author    = get_queried_object();
 ?>
 <div id="content" class="site-content">
-	<div class="<?php echo esc_attr( $container ); ?>">
+	<div class="<?php echo esc_attr( $wpwisebones_container ); ?>">
 		<div class="row g-4">
 
 			<?php if ( wpwisebones_has_sidebar() && 'left-sidebar' === wpwisebones_get_layout() ) : ?>
@@ -25,24 +25,24 @@ $author    = get_queried_object();
 				<!-- Author card -->
 				<div class="card border-0 bg-body-tertiary mb-5 p-4">
 					<div class="d-flex gap-4 align-items-center flex-wrap">
-						<?php echo wp_kses_post( get_avatar( $author_id, 96, '', '', array( 'class' => 'rounded-circle flex-shrink-0' ) ) ); ?>
+						<?php echo wp_kses_post( get_avatar( $wpwisebones_author_id, 96, '', '', array( 'class' => 'rounded-circle flex-shrink-0' ) ) ); ?>
 						<div>
-							<h1 class="h3 mb-1"><?php echo esc_html( $author->display_name ); ?></h1>
-							<?php if ( $author->description ) : ?>
-								<p class="text-muted mb-2"><?php echo esc_html( $author->description ); ?></p>
+							<h1 class="h3 mb-1"><?php echo esc_html( $wpwisebones_author->display_name ); ?></h1>
+							<?php if ( $wpwisebones_author->description ) : ?>
+								<p class="text-muted mb-2"><?php echo esc_html( $wpwisebones_author->description ); ?></p>
 							<?php endif; ?>
 							<div class="d-flex gap-2 flex-wrap small text-muted">
-								<?php if ( $author->user_url ) : ?>
-									<a href="<?php echo esc_url( $author->user_url ); ?>" target="_blank" rel="noopener noreferrer">
-										<i class="bi bi-globe me-1"></i><?php echo esc_html( $author->user_url ); ?>
+								<?php if ( $wpwisebones_author->user_url ) : ?>
+									<a href="<?php echo esc_url( $wpwisebones_author->user_url ); ?>" target="_blank" rel="noopener noreferrer">
+										<i class="bi bi-globe me-1"></i><?php echo esc_html( $wpwisebones_author->user_url ); ?>
 									</a>
 								<?php endif; ?>
 								<span><i class="bi bi-file-post me-1"></i>
 									<?php
 									printf(
 										/* translators: %d: number of posts */
-										esc_html( _n( '%d post', '%d posts', (int) count_user_posts( $author_id ), 'wpwisebones' ) ),
-										(int) count_user_posts( $author_id )
+										esc_html( _n( '%d post', '%d posts', (int) count_user_posts( $wpwisebones_author_id ), 'wpwisebones' ) ),
+										(int) count_user_posts( $wpwisebones_author_id )
 									);
 									?>
 								</span>

@@ -88,46 +88,20 @@ jobs:
             /tmp/vendor/wp-coding-standards/wpcs,/tmp/vendor/phpcsstandards/phpcsutils,/tmp/vendor/phpcsstandards/phpcsextra
 
       # Escaping, sanitising, nonces, prepared SQL, text domains, enqueueing.
-      # These gate the build: they are what a directory reviewer acts on.
-      #
-      # A ruleset that matches no files reports zero findings and looks exactly
-      # like a clean run, so assert the file count before trusting the result.
+      # These are what a directory reviewer acts on.
       - name: Review sniffs
         run: |
           /tmp/vendor/bin/phpcs --standard=phpcs.xml.dist --report=json > /tmp/gate.json || true
-          python3 - <<'PYGATE'
-          import json, os, sys
-          path = '/tmp/gate.json'
-          # phpcs writes nothing at all when it cannot run or matches no files,
-          # so an unreadable report is a failure to check, not a clean result.
-          if not os.path.exists(path) or os.path.getsize(path) == 0:
-              print('::error::phpcs produced no report — it did not run.')
-              sys.exit(1)
-          try:
-              with open(path, encoding='utf-8') as fh:
-                  report = json.load(fh)
-          except ValueError as exc:
-              print(f'::error::phpcs report is not valid JSON ({exc}) — it did not run cleanly.')
-              sys.exit(1)
-          scanned = len(report['files'])
-          totals = report['totals']
-          print(f"{scanned} file(s) scanned, {totals['errors']} error(s), {totals['warnings']} warning(s)")
-          if scanned == 0:
-              print('::error::The ruleset matched no files — it is not actually checking anything.')
-              sys.exit(1)
-          for name, data in report['files'].items():
-              for m in data['messages']:
-                  level = 'error' if m['type'] == 'ERROR' else 'warning'
-                  print(f"::{level} file={name},line={m['line']}::{m['source']}: {m['message']}")
-          sys.exit(1 if totals['errors'] else 0)
-          PYGATE
+          python3 tools/ci/phpcs-gate.py Review /tmp/gate.json
 
-      # Global-scope prefixes. Reported, not gated: about 70 known occurrences
-      # in the template files, a mechanical rename that has not been done yet.
-      # Turn this into a gate once that is cleared.
-      - name: Prefix sniffs (advisory)
-        continue-on-error: true
-        run: /tmp/vendor/bin/phpcs --standard=phpcs-prefixes.xml.dist --report=summary
+      # Global-scope prefixes. WordPress includes templates in global scope, so
+      # a bare $container at the top of a template becomes a global that can
+      # collide with core or a plugin. This was advisory while ~70 occurrences
+      # were outstanding; they are renamed now, so it gates.
+      - name: Prefix sniffs
+        run: |
+          /tmp/vendor/bin/phpcs --standard=phpcs-prefixes.xml.dist --report=json > /tmp/prefixes.json || true
+          python3 tools/ci/phpcs-gate.py Prefixes /tmp/prefixes.json
 
   integration:
     name: Integration (real WordPress + MySQL)
@@ -152,6 +126,23 @@ jobs:
           php-version: '8.3'
           coverage: none
           tools: wp-cli
+
+      # setup-php prints "✗ Could not setup wp-cli" and still exits 0, so a
+      # failed tool install does not fail the step -- it surfaces several steps
+      # later as a bare "wp: command not found". That is what happened on this
+      # job twice in a row. Install the phar ourselves when the tool is missing,
+      # and fail here, where the message says what is wrong.
+      - name: Ensure WP-CLI is available
+        run: |
+          if command -v wp > /dev/null 2>&1; then
+            echo "wp-cli from setup-php: $(wp --version)"
+            exit 0
+          fi
+          echo "::warning::setup-php did not provide wp-cli; installing the phar directly."
+          curl -fsSL -o /tmp/wp-cli.phar \
+            https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          sudo install -m 0755 /tmp/wp-cli.phar /usr/local/bin/wp
+          wp --version
 
       - name: Install WordPress
         run: |
@@ -233,6 +224,23 @@ jobs:
           php-version: '8.3'
           coverage: none
           tools: wp-cli
+
+      # setup-php prints "✗ Could not setup wp-cli" and still exits 0, so a
+      # failed tool install does not fail the step -- it surfaces several steps
+      # later as a bare "wp: command not found". That is what happened on this
+      # job twice in a row. Install the phar ourselves when the tool is missing,
+      # and fail here, where the message says what is wrong.
+      - name: Ensure WP-CLI is available
+        run: |
+          if command -v wp > /dev/null 2>&1; then
+            echo "wp-cli from setup-php: $(wp --version)"
+            exit 0
+          fi
+          echo "::warning::setup-php did not provide wp-cli; installing the phar directly."
+          curl -fsSL -o /tmp/wp-cli.phar \
+            https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          sudo install -m 0755 /tmp/wp-cli.phar /usr/local/bin/wp
+          wp --version
 
       - name: Install WordPress and Plugin Check
         run: |

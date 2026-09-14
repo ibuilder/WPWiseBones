@@ -2,15 +2,15 @@
 get_header(); ?>
 
 <?php
-$o         = get_option( 'wpwisebones_options', array() );
-$container = get_theme_mod( 'wpwisebones_container_width', 'container' );
-if ( ! empty( $o['breadcrumbs'] ) ) {
+$wpwisebones_options   = get_option( 'wpwisebones_options', array() );
+$wpwisebones_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
+if ( ! empty( $wpwisebones_options['breadcrumbs'] ) ) {
 	wpwisebones_breadcrumbs();
 }
 ?>
 
 <div id="content" class="site-content">
-	<div class="<?php echo esc_attr( $container ); ?>">
+	<div class="<?php echo esc_attr( $wpwisebones_container ); ?>">
 		<div class="row g-4">
 
 			<?php if ( wpwisebones_has_sidebar() && 'left-sidebar' === wpwisebones_get_layout() ) : ?>
