@@ -4,24 +4,24 @@
  */
 defined( 'ABSPATH' ) || exit;
 get_header();
-$container = get_theme_mod( 'wpwisebones_container_width', 'container' );
-$o         = get_option( 'wpwisebones_options', array() );
-if ( ! empty( $o['breadcrumbs'] ) ) {
+$wpwisebones_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
+$wpwisebones_options   = get_option( 'wpwisebones_options', array() );
+if ( ! empty( $wpwisebones_options['breadcrumbs'] ) ) {
 	wpwisebones_breadcrumbs();
 }
 
 if ( is_year() ) {
-	$archive_title = get_the_date( 'Y' );
+	$wpwisebones_archive_title = get_the_date( 'Y' );
 } elseif ( is_month() ) {
-	$archive_title = get_the_date( 'F Y' );
+	$wpwisebones_archive_title = get_the_date( 'F Y' );
 } elseif ( is_day() ) {
-	$archive_title = get_the_date( get_option( 'date_format' ) );
+	$wpwisebones_archive_title = get_the_date( get_option( 'date_format' ) );
 } else {
-	$archive_title = get_the_date();
+	$wpwisebones_archive_title = get_the_date();
 }
 ?>
 <div id="content" class="site-content">
-	<div class="<?php echo esc_attr( $container ); ?>">
+	<div class="<?php echo esc_attr( $wpwisebones_container ); ?>">
 		<div class="row g-4">
 
 			<?php if ( wpwisebones_has_sidebar() && 'left-sidebar' === wpwisebones_get_layout() ) : ?>
@@ -32,7 +32,7 @@ if ( is_year() ) {
 				<header class="page-header mb-4 pb-3 border-bottom">
 					<h1 class="page-title">
 						<i class="bi bi-calendar3 me-2 text-primary"></i>
-						<?php echo esc_html( $archive_title ); ?>
+						<?php echo esc_html( $wpwisebones_archive_title ); ?>
 					</h1>
 				</header>
 

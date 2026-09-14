@@ -20,7 +20,12 @@ if ( ! $product || ! $product->is_visible() ) {
 		</a>
 		<?php endif; ?>
 
-		<?php do_action( 'woocommerce_before_shop_loop_item_title' ); ?>
+		<?php
+		// WooCommerce's own hook, not ours: a template override must fire it or
+		// every extension that hangs off it stops working.
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		do_action( 'woocommerce_before_shop_loop_item_title' );
+		?>
 
 		<div class="card-body d-flex flex-column">
 			<h5 class="card-title fs-6 fw-semibold">
@@ -33,7 +38,12 @@ if ( ! $product || ! $product->is_visible() ) {
 				<?php echo wp_kses_post( $product->get_price_html() ); ?>
 			</p>
 
-			<?php do_action( 'woocommerce_after_shop_loop_item_title' ); ?>
+			<?php
+		// WooCommerce's own hook, not ours: a template override must fire it or
+		// every extension that hangs off it stops working.
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		do_action( 'woocommerce_after_shop_loop_item_title' );
+		?>
 
 			<div class="mt-auto">
 				<?php woocommerce_template_loop_add_to_cart(); ?>

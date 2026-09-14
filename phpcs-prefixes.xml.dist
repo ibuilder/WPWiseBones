@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
 <ruleset name="WPWiseBones prefixes">
 	<description>
-		Global-scope symbols must carry the theme or plugin prefix. Reported rather
-		than gated for now: template files assign a handful of bare variables
-		($o, $container, $file and friends) at top level, and because WordPress
-		includes templates in global scope those become globals. Roughly 70
-		occurrences across the template files — a mechanical rename, not yet done.
+		Global-scope symbols must carry the theme or plugin prefix. WordPress
+		includes templates in global scope, so a bare $container or $o assigned at
+		the top of a template is a global that can collide with core or a plugin.
+		All 66 such occurrences are renamed, so this gates the build alongside
+		phpcs.xml.dist.
+
+		The sniff cannot tell a hook a theme *defines* from a hook it *fires*, so
+		template overrides that must fire WooCommerce's and core's own hooks carry
+		a phpcs:ignore with the reason at the call site. Those are the only
+		exemptions; do not add blanket excludes here.
 	</description>
 
 	<file>wpwisebones</file>

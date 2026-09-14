@@ -28,23 +28,23 @@ if ( ! empty( $wpwisebones_options['preloader'] ) ) :
 <?php
 // Top bar
 if ( get_theme_mod( 'wpwisebones_show_topbar', false ) ) :
-	$topbar_text = get_theme_mod( 'wpwisebones_topbar_text', '' );
-	if ( $topbar_text ) :
+	$wpwisebones_topbar_text = get_theme_mod( 'wpwisebones_topbar_text', '' );
+	if ( $wpwisebones_topbar_text ) :
 		?>
 <div class="wpb-topbar bg-dark text-white py-1 small text-center">
-	<div class="container"><?php echo wp_kses_post( $topbar_text ); ?></div>
+	<div class="container"><?php echo wp_kses_post( $wpwisebones_topbar_text ); ?></div>
 </div>
 		<?php
 	endif;
 endif;
 
-$header_style = get_theme_mod( 'wpwisebones_header_style', 'light' );
-$container    = get_theme_mod( 'wpwisebones_container_width', 'container' );
+$wpwisebones_header_style = get_theme_mod( 'wpwisebones_header_style', 'light' );
+$wpwisebones_container    = get_theme_mod( 'wpwisebones_container_width', 'container' );
 ?>
 
 <!-- ======================== SITE HEADER ======================== -->
-<header id="masthead" class="site-header navbar navbar-expand-lg navbar-<?php echo esc_attr( $header_style ); ?>">
-	<div class="<?php echo esc_attr( $container ); ?> d-flex align-items-center">
+<header id="masthead" class="site-header navbar navbar-expand-lg navbar-<?php echo esc_attr( $wpwisebones_header_style ); ?>">
+	<div class="<?php echo esc_attr( $wpwisebones_container ); ?> d-flex align-items-center">
 
 		<!-- Branding -->
 		<div class="site-branding me-4">

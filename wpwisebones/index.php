@@ -2,8 +2,8 @@
 get_header(); ?>
 
 <?php
-$o         = get_option( 'wpwisebones_options', array() );
-$container = get_theme_mod( 'wpwisebones_container_width', 'container' );
+$wpwisebones_options   = get_option( 'wpwisebones_options', array() );
+$wpwisebones_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
 
 // Hero on front page
 if ( is_front_page() && ! is_home() ) :
@@ -11,7 +11,7 @@ if ( is_front_page() && ! is_home() ) :
 endif;
 
 // Breadcrumbs
-if ( ! empty( $o['breadcrumbs'] ) && ! is_front_page() ) {
+if ( ! empty( $wpwisebones_options['breadcrumbs'] ) && ! is_front_page() ) {
 	wpwisebones_breadcrumbs();
 }
 ?>
@@ -19,14 +19,14 @@ if ( ! empty( $o['breadcrumbs'] ) && ! is_front_page() ) {
 <!-- Before content widget area -->
 <?php if ( is_active_sidebar( 'before-content' ) ) : ?>
 	<div class="before-content-widgets">
-		<div class="<?php echo esc_attr( $container ); ?>">
+		<div class="<?php echo esc_attr( $wpwisebones_container ); ?>">
 			<?php dynamic_sidebar( 'before-content' ); ?>
 		</div>
 	</div>
 <?php endif; ?>
 
 <div id="content" class="site-content">
-	<div class="<?php echo esc_attr( $container ); ?>">
+	<div class="<?php echo esc_attr( $wpwisebones_container ); ?>">
 		<div class="row g-4">
 
 			<?php if ( wpwisebones_has_sidebar() && 'left-sidebar' === wpwisebones_get_layout() ) : ?>
@@ -73,7 +73,7 @@ if ( ! empty( $o['breadcrumbs'] ) && ! is_front_page() ) {
 <!-- After content widget area -->
 <?php if ( is_active_sidebar( 'after-content' ) ) : ?>
 	<div class="after-content-widgets py-4 bg-body-tertiary">
-		<div class="<?php echo esc_attr( $container ); ?>">
+		<div class="<?php echo esc_attr( $wpwisebones_container ); ?>">
 			<?php dynamic_sidebar( 'after-content' ); ?>
 		</div>
 	</div>

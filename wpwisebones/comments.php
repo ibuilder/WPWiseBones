@@ -15,11 +15,11 @@ if ( post_password_required() ) {
 	<?php if ( have_comments() ) : ?>
 		<h3 class="comments-title mb-4">
 			<?php
-			$comment_count = get_comments_number();
+			$wpwisebones_comment_count = get_comments_number();
 			printf(
 				/* translators: %s: number of comments */
-				esc_html( _nx( '%s Response', '%s Responses', $comment_count, 'comments title', 'wpwisebones' ) ),
-				esc_html( number_format_i18n( $comment_count ) )
+				esc_html( _nx( '%s Response', '%s Responses', $wpwisebones_comment_count, 'comments title', 'wpwisebones' ) ),
+				esc_html( number_format_i18n( $wpwisebones_comment_count ) )
 			);
 			?>
 		</h3>

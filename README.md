@@ -31,7 +31,7 @@ README.md                   # This file
 
 ## Theme — WPWiseBones
 
-**Version:** 1.0.16  
+**Version:** 1.0.17  
 **Folder / Text Domain / Slug:** `wpwisebones`  
 **PHP Prefix:** `wpwisebones_` (functions) · `WPWISEBONES_` (constants) · `wpb-` (CSS/HTML)  
 **License:** GPL-2.0-or-later  
@@ -156,7 +156,7 @@ npm install          # installs Bootstrap 5, Bootstrap Icons, archiver
 | Job | What it proves |
 |-----|----------------|
 | Hygiene | Every PHP file in every shipped package parses; `npm run preflight` passes |
-| Coding standards | PHPCS/WordPress — security, SQL, i18n and enqueue sniffs gate the build (`phpcs.xml.dist`); global-scope prefixes are reported but not yet gated (`phpcs-prefixes.xml.dist`) |
+| Coding standards | PHPCS/WordPress — two gates: security, SQL, i18n and enqueue sniffs (`phpcs.xml.dist`), and global-scope prefixes (`phpcs-prefixes.xml.dist`). Both fail the build, and both refuse to pass on a report that matched no files |
 | Integration | Real WordPress + MySQL: activates the theme, all four child themes and the plugin, runs `tests/run.php`, fails on any PHP notice from our code |
 | Plugin Check | The official WordPress.org checker, run against the committed `wisebones-shortcodes.zip` |
 
@@ -207,10 +207,19 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 
 Full, per-release changelogs live with each package, where WordPress.org reads them:
 
-- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.16**)
+- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.17**)
 - Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.9**)
 
 Most recent entries:
+
+### Theme 1.0.17
+
+- Changed: the 66 bare variables the templates assigned at top level (`$container`, `$o`,
+  `$hero_img` and friends) now carry the `wpwisebones_` prefix. WordPress includes templates
+  in *global scope*, so each of those was a global that could collide with core or another
+  plugin — `$o` and `$container` especially. `$o` is now `$wpwisebones_options`, which also
+  says what it holds. No behaviour change: all five themes render byte-identically before
+  and after. `phpcs-prefixes.xml.dist` now gates the build instead of being advisory.
 
 ### Theme 1.0.16
 

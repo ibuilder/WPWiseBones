@@ -41,6 +41,9 @@ class WPWISEBONES_Bootstrap_Nav_Walker extends Walker_Nav_Menu {
 				$atts['aria-expanded']  = 'false';
 			}
 
+			// Core's filter, not ours: menu item titles must pass through it the
+			// same way core's walker passes them.
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			$title   = apply_filters( 'the_title', $item->title, $item->ID );
 			$output .= '<a' . $this->build_atts( $atts ) . '>' . esc_html( $title ) . '</a>';
 		} else {
@@ -50,6 +53,9 @@ class WPWISEBONES_Bootstrap_Nav_Walker extends Walker_Nav_Menu {
 				'href'  => ! empty( $item->url ) ? $item->url : '#',
 				'class' => $a_class,
 			);
+			// Core's filter, not ours: menu item titles must pass through it the
+			// same way core's walker passes them.
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			$title   = apply_filters( 'the_title', $item->title, $item->ID );
 			$output .= '<a' . $this->build_atts( $atts ) . '>' . esc_html( $title ) . '</a>';
 		}

@@ -93,7 +93,7 @@ aec-forge-theme.zip        built child theme package</code></pre></div>
 			<thead><tr><th>Job</th><th>What it proves</th></tr></thead>
 			<tbody>
 				<tr><td><strong>Hygiene</strong></td><td>Every PHP file in every shipped package parses, and the theme's own preflight passes</td></tr>
-				<tr><td><strong>Coding standards</strong></td><td>PHPCS with the WordPress standards — escaping, sanitising, nonces, prepared SQL, text domains and enqueueing gate the build; global-scope prefixes are reported but not yet gated</td></tr>
+				<tr><td><strong>Coding standards</strong></td><td>PHPCS with the WordPress standards — two gates: escaping, sanitising, nonces, prepared SQL, text domains and enqueueing; and global-scope prefixes. Both fail the build</td></tr>
 				<tr><td><strong>Integration</strong></td><td>Installs a real WordPress against MySQL, activates the theme, all four child themes and the plugin, runs <code>tests/run.php</code>, and fails on any PHP notice the packages raise</td></tr>
 				<tr><td><strong>Plugin Check</strong></td><td>Runs the official WordPress.org Plugin Check against the <em>committed zip</em> — what a reviewer actually downloads</td></tr>
 			</tbody>

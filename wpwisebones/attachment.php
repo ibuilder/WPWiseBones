@@ -4,10 +4,10 @@
  */
 defined( 'ABSPATH' ) || exit;
 get_header();
-$container = get_theme_mod( 'wpwisebones_container_width', 'container' );
+$wpwisebones_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
 ?>
 <div id="content" class="site-content">
-	<div class="<?php echo esc_attr( $container ); ?>">
+	<div class="<?php echo esc_attr( $wpwisebones_container ); ?>">
 		<main id="main" tabindex="-1" class="site-main col-12 py-4">
 			<?php
 			while ( have_posts() ) :
@@ -36,15 +36,15 @@ $container = get_theme_mod( 'wpwisebones_container_width', 'container' );
 					<div class="entry-content"><?php the_content(); ?></div>
 
 					<?php
-					$parent_id = get_post()->post_parent;
-					if ( $parent_id ) :
+					$wpwisebones_parent_id = get_post()->post_parent;
+					if ( $wpwisebones_parent_id ) :
 						?>
 						<p class="mt-3">
-							<a href="<?php echo esc_url( get_permalink( $parent_id ) ); ?>" class="btn btn-outline-secondary btn-sm">
+							<a href="<?php echo esc_url( get_permalink( $wpwisebones_parent_id ) ); ?>" class="btn btn-outline-secondary btn-sm">
 								<i class="bi bi-arrow-left me-1"></i>
 								<?php
 								/* translators: %s: parent post title */
-								printf( esc_html__( 'Back to: %s', 'wpwisebones' ), esc_html( get_the_title( $parent_id ) ) );
+								printf( esc_html__( 'Back to: %s', 'wpwisebones' ), esc_html( get_the_title( $wpwisebones_parent_id ) ) );
 								?>
 							</a>
 						</p>

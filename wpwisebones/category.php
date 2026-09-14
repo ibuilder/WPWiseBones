@@ -4,15 +4,15 @@
  */
 defined( 'ABSPATH' ) || exit;
 get_header();
-$container = get_theme_mod( 'wpwisebones_container_width', 'container' );
-$o         = get_option( 'wpwisebones_options', array() );
-if ( ! empty( $o['breadcrumbs'] ) ) {
+$wpwisebones_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
+$wpwisebones_options   = get_option( 'wpwisebones_options', array() );
+if ( ! empty( $wpwisebones_options['breadcrumbs'] ) ) {
 	wpwisebones_breadcrumbs();
 }
-$category = get_queried_object();
+$wpwisebones_category = get_queried_object();
 ?>
 <div id="content" class="site-content">
-	<div class="<?php echo esc_attr( $container ); ?>">
+	<div class="<?php echo esc_attr( $wpwisebones_container ); ?>">
 		<div class="row g-4">
 
 			<?php if ( wpwisebones_has_sidebar() && 'left-sidebar' === wpwisebones_get_layout() ) : ?>
@@ -27,8 +27,8 @@ $category = get_queried_object();
 							<?php
 							printf(
 								/* translators: %d: number of posts */
-								esc_html( _n( '%d post', '%d posts', (int) $category->count, 'wpwisebones' ) ),
-								(int) $category->count
+								esc_html( _n( '%d post', '%d posts', (int) $wpwisebones_category->count, 'wpwisebones' ) ),
+								(int) $wpwisebones_category->count
 							);
 							?>
 						</span>

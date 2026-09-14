@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPWISEBONES_VERSION', '1.0.16' );
+define( 'WPWISEBONES_VERSION', '1.0.17' );
 define( 'WPWISEBONES_DIR', get_template_directory() );
 define( 'WPWISEBONES_URI', get_template_directory_uri() );
 define( 'WPWISEBONES_INC', WPWISEBONES_DIR . '/inc/' );
@@ -38,8 +38,8 @@ $wpwisebones_includes = array(
 	'companion-plugin.php',
 );
 
-foreach ( $wpwisebones_includes as $file ) {
-	$wpwisebones_path = WPWISEBONES_INC . $file;
+foreach ( $wpwisebones_includes as $wpwisebones_file ) {
+	$wpwisebones_path = WPWISEBONES_INC . $wpwisebones_file;
 	if ( file_exists( $wpwisebones_path ) ) {
 		require_once $wpwisebones_path;
 	}
