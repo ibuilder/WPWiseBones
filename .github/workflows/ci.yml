@@ -1,0 +1,231 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  hygiene:
+    name: Hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: PHP syntax, every shipped package
+        run: |
+          status=0
+          for pkg in wpwisebones wisebones-shortcodes realwise aec-forge antivig-child phx-after-dark-child tools; do
+            [ -d "$pkg" ] || continue
+            while IFS= read -r file; do
+              php -l "$file" > /dev/null || { echo "::error file=$file::PHP parse error"; status=1; }
+            done < <(find "$pkg" -name '*.php' -not -path '*/node_modules/*')
+          done
+          exit $status
+
+      - name: Theme preflight
+        working-directory: wpwisebones
+        run: |
+          npm install --no-audit --no-fund
+          npm run preflight
+
+  standards:
+    name: Coding standards
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: cs2pr
+
+      - name: Install PHPCS and the WordPress standards
+        run: |
+          composer --no-interaction --no-plugins --working-dir=/tmp require --quiet \
+            squizlabs/php_codesniffer:^3.9 \
+            wp-coding-standards/wpcs:^3.1 \
+            phpcsstandards/phpcsutils \
+            phpcsstandards/phpcsextra
+          /tmp/vendor/bin/phpcs --config-set installed_paths \
+            /tmp/vendor/wp-coding-standards/wpcs,/tmp/vendor/phpcsstandards/phpcsutils,/tmp/vendor/phpcsstandards/phpcsextra
+
+      # Escaping, sanitising, nonces, prepared SQL, text domains, enqueueing.
+      # These gate the build: they are what a directory reviewer acts on.
+      - name: Review sniffs
+        run: /tmp/vendor/bin/phpcs --standard=phpcs.xml.dist --report-full --report-checkstyle=/tmp/gate.xml || true
+
+      - name: Annotate review sniffs
+        run: cs2pr --graceful-warnings /tmp/gate.xml
+
+      # Global-scope prefixes. Reported, not gated: about 70 known occurrences
+      # in the template files, a mechanical rename that has not been done yet.
+      # Turn this into a gate once that is cleared.
+      - name: Prefix sniffs (advisory)
+        continue-on-error: true
+        run: /tmp/vendor/bin/phpcs --standard=phpcs-prefixes.xml.dist --report=summary
+
+  integration:
+    name: Integration (real WordPress + MySQL)
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress
+        ports: [ '3306:3306' ]
+        options: >-
+          --health-cmd="mysqladmin ping -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: wp-cli
+
+      - name: Install WordPress
+        run: |
+          mkdir -p /tmp/wp && cd /tmp/wp
+          wp core download --version=latest
+          wp config create --dbname=wordpress --dbuser=root --dbpass=root --dbhost=127.0.0.1 \
+            --extra-php <<'PHP'
+          define( 'WP_ENVIRONMENT_TYPE', 'local' );
+          define( 'WP_DEBUG', true );
+          define( 'WP_DEBUG_LOG', true );
+          define( 'WP_DEBUG_DISPLAY', false );
+          define( 'DISABLE_WP_CRON', true );
+          PHP
+          wp core install --url=http://localhost --title=CI --admin_user=admin \
+            --admin_password=password --admin_email=ci@example.test --skip-email
+
+      - name: Install the theme, its children and the plugin
+        run: |
+          cp -r wpwisebones /tmp/wp/wp-content/themes/
+          for child in realwise aec-forge antivig-child phx-after-dark-child; do
+            [ -d "$child" ] && cp -r "$child" /tmp/wp/wp-content/themes/
+          done
+          cp -r wisebones-shortcodes /tmp/wp/wp-content/plugins/
+          wp --path=/tmp/wp plugin activate wisebones-shortcodes
+          wp --path=/tmp/wp theme activate wpwisebones
+
+      # The suite borrows the install above and puts the active theme back when
+      # it is done; see wpwisebones/tests/README.md.
+      - name: Theme integration suite
+        working-directory: wpwisebones
+        env:
+          WPWISEBONES_TEST_WP: /tmp/wp
+        run: php tests/run.php
+
+      # A child theme that cannot even be activated is broken, and none of them
+      # carry tests of their own.
+      - name: Every child theme activates
+        run: |
+          status=0
+          for child in realwise aec-forge antivig-child phx-after-dark-child; do
+            [ -d "/tmp/wp/wp-content/themes/$child" ] || continue
+            if wp --path=/tmp/wp theme activate "$child"; then
+              wp --path=/tmp/wp eval 'echo get_stylesheet() . " on " . get_template() . PHP_EOL;'
+            else
+              echo "::error::$child failed to activate"; status=1
+            fi
+          done
+          wp --path=/tmp/wp theme activate wpwisebones
+          exit $status
+
+      - name: No PHP errors in the debug log
+        if: always()
+        run: |
+          log=/tmp/wp/wp-content/debug.log
+          if [ -f "$log" ] && grep -iE "wpwisebones|wisebones|realwise|aec.forge|antivig|phx" "$log" \
+               | grep -iE "fatal|warning|notice|deprecated"; then
+            echo "::error::The packages raised PHP errors"; exit 1
+          fi
+          echo "clean"
+
+  plugin-check:
+    name: Plugin Check
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress
+        ports: [ '3306:3306' ]
+        options: >-
+          --health-cmd="mysqladmin ping -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: wp-cli
+
+      - name: Install WordPress and Plugin Check
+        run: |
+          mkdir -p /tmp/wp && cd /tmp/wp
+          wp core download --version=latest
+          wp config create --dbname=wordpress --dbuser=root --dbpass=root --dbhost=127.0.0.1
+          wp core install --url=http://localhost --title=PCP --admin_user=admin \
+            --admin_password=password --admin_email=ci@example.test --skip-email
+          wp plugin install plugin-check --activate
+
+      # The committed zip is what a reviewer downloads, so check that, not the
+      # source tree.
+      - name: Stage the plugin exactly as it ships
+        run: |
+          unzip -q wisebones-shortcodes.zip -d /tmp/stage
+          cp -r /tmp/stage/wisebones-shortcodes /tmp/wp/wp-content/plugins/
+          wp --path=/tmp/wp plugin activate wisebones-shortcodes
+
+      # --require: the CLI command lives in the plugin's own cli.php, which
+      # WP-CLI does not load on its own. Run from /tmp so a bare slug cannot
+      # resolve to the checkout instead of the staged copy.
+      - name: Run Plugin Check
+        run: |
+          cd /tmp
+          wp --path=/tmp/wp plugin check /tmp/wp/wp-content/plugins/wisebones-shortcodes \
+            --require=/tmp/wp/wp-content/plugins/plugin-check/cli.php \
+            --format=csv --fields=type,code,file,line,message > /tmp/pcp.csv 2>/tmp/pcp.err || true
+          cat /tmp/pcp.err || true
+          python3 - <<'PYSUM'
+          import csv, collections, os, sys
+          path = '/tmp/pcp.csv'
+          if not os.path.exists(path) or os.path.getsize(path) == 0:
+              print('Plugin Check produced no output — treating as a failure to run.')
+              sys.exit(1)
+          rows = list(csv.DictReader(open(path, encoding='utf-8', errors='replace')))
+          by = collections.Counter((r.get('type'), r.get('code')) for r in rows)
+          for (kind, code), n in by.most_common():
+              print(f'{n:4}  {kind:8}  {code}')
+          errors = [r for r in rows if (r.get('type') or '').upper() == 'ERROR']
+          for r in errors:
+              print(f"::error file=wisebones-shortcodes/{r.get('file')},line={r.get('line')}::"
+                    f"{r.get('code')}: {r.get('message')}")
+          print(f'\n{len(rows)} finding(s), {len(errors)} error(s)')
+          sys.exit(1 if errors else 0)
+          PYSUM

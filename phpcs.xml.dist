@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<ruleset name="WPWiseBones">
+	<description>
+		The sniffs a WordPress.org reviewer acts on. Deliberately narrower than the
+		full WordPress standard: that adds ~220 docblock and comment-style findings
+		which say nothing about whether the code is safe or shippable. Run the full
+		standard by hand when you want the style report:
+		phpcs --standard=WordPress wpwisebones
+	</description>
+
+	<file>wpwisebones</file>
+	<file>wisebones-shortcodes</file>
+
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/assets/vendor/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="s"/>
+
+	<!-- Escaping, sanitising, nonces, capabilities. -->
+	<rule ref="WordPress.Security"/>
+	<!-- Prepared statements and direct queries. -->
+	<rule ref="WordPress.DB"/>
+	<!-- Text domain must match the slug, in a literal. -->
+	<rule ref="WordPress.WP.I18n"/>
+	<!-- No CDN or hardcoded script/style tags. -->
+	<rule ref="WordPress.WP.EnqueuedResources"/>
+	<!-- Never clobber a core global. -->
+	<rule ref="WordPress.WP.GlobalVariablesOverride"/>
+	<rule ref="WordPress.PHP.NoSilencedErrors"/>
+
+	<config name="text_domain" value="wpwisebones,wisebones-shortcodes"/>
+	<config name="minimum_wp_version" value="6.0"/>
+</ruleset>

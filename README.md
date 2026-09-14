@@ -149,6 +149,20 @@ npm install          # installs Bootstrap 5, Bootstrap Icons, archiver
 | `npm run preflight` | Full production readiness check — must report 0 errors before a release |
 | `npm test` | Integration tests against a real WordPress install (`WPWISEBONES_TEST_WP=/path/to/wp`) |
 
+### Continuous Integration
+
+`.github/workflows/ci.yml` runs on every PR and on pushes to `main`:
+
+| Job | What it proves |
+|-----|----------------|
+| Hygiene | Every PHP file in every shipped package parses; `npm run preflight` passes |
+| Coding standards | PHPCS/WordPress — security, SQL, i18n and enqueue sniffs gate the build (`phpcs.xml.dist`); global-scope prefixes are reported but not yet gated (`phpcs-prefixes.xml.dist`) |
+| Integration | Real WordPress + MySQL: activates the theme, all four child themes and the plugin, runs `tests/run.php`, fails on any PHP notice from our code |
+| Plugin Check | The official WordPress.org checker, run against the committed `wisebones-shortcodes.zip` |
+
+Theme Check has no CLI equivalent — it runs only from Appearance → Theme Check in wp-admin, so
+run it by hand before a directory submission.
+
 ### Release Checklist
 
 When making a new release, bump the version in **all four** of these places:
