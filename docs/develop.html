@@ -30,6 +30,7 @@
 		<a href="#install">Install</a>
 		<a href="#repo">Repository layout</a>
 		<a href="#scripts">npm scripts</a>
+		<a href="#ci">CI</a>
 		<a href="#tests">Tests</a>
 		<a href="#preflight">Preflight</a>
 		<a href="#release">Release checklist</a>
@@ -82,6 +83,32 @@ aec-forge-theme.zip        built child theme package</code></pre></div>
 			<code>npm run pot</code> shells out to a Windows WP-CLI path (<code>C:\Server\wp-cli.phar</code>). On
 			macOS or Linux, run <code>wp i18n make-pot . languages/wpwisebones.pot --domain=wpwisebones</code>
 			directly instead.
+		</div>
+
+		<h2 id="ci">Continuous integration</h2>
+		<p><code>.github/workflows/ci.yml</code> runs on every pull request and on pushes to
+		<code>main</code>. Four jobs:</p>
+		<div class="table-scroll">
+		<table>
+			<thead><tr><th>Job</th><th>What it proves</th></tr></thead>
+			<tbody>
+				<tr><td><strong>Hygiene</strong></td><td>Every PHP file in every shipped package parses, and the theme's own preflight passes</td></tr>
+				<tr><td><strong>Coding standards</strong></td><td>PHPCS with the WordPress standards — escaping, sanitising, nonces, prepared SQL, text domains and enqueueing gate the build; global-scope prefixes are reported but not yet gated</td></tr>
+				<tr><td><strong>Integration</strong></td><td>Installs a real WordPress against MySQL, activates the theme, all four child themes and the plugin, runs <code>tests/run.php</code>, and fails on any PHP notice the packages raise</td></tr>
+				<tr><td><strong>Plugin Check</strong></td><td>Runs the official WordPress.org Plugin Check against the <em>committed zip</em> — what a reviewer actually downloads</td></tr>
+			</tbody>
+		</table>
+		</div>
+		<div class="note">
+			The two PHPCS rulesets live at the repository root. <code>phpcs.xml.dist</code> is deliberately
+			narrower than the full <code>WordPress</code> standard: that standard adds roughly 220 docblock and
+			comment-style findings which say nothing about whether the code is safe to ship. Run
+			<code>phpcs --standard=WordPress wpwisebones</code> by hand when you want the style report.
+		</div>
+		<div class="note warn">
+			<strong>Theme Check has no CLI.</strong> Unlike Plugin Check, it runs only from Appearance → Theme
+			Check inside wp-admin, so the theme's directory review cannot be fully automated here. Run it by
+			hand before submitting, alongside the Theme Unit Test data.
 		</div>
 
 		<h2 id="tests">Tests</h2>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset name="WPWiseBones prefixes">
+	<description>
+		Global-scope symbols must carry the theme or plugin prefix. Reported rather
+		than gated for now: template files assign a handful of bare variables
+		($o, $container, $file and friends) at top level, and because WordPress
+		includes templates in global scope those become globals. Roughly 70
+		occurrences across the template files — a mechanical rename, not yet done.
+	</description>
+
+	<file>wpwisebones</file>
+	<file>wisebones-shortcodes</file>
+
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/assets/vendor/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg value="s"/>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="wpwisebones"/>
+				<element value="wisebones"/>
+				<element value="wpbs"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

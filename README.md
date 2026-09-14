@@ -31,11 +31,11 @@ README.md                   # This file
 
 ## Theme — WPWiseBones
 
-**Version:** 1.0.15  
+**Version:** 1.0.16  
 **Folder / Text Domain / Slug:** `wpwisebones`  
 **PHP Prefix:** `wpwisebones_` (functions) · `WPWISEBONES_` (constants) · `wpb-` (CSS/HTML)  
 **License:** GPL-2.0-or-later  
-**Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.0
+**Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.1
 
 ### Features
 
@@ -77,10 +77,10 @@ branch and no constant to switch, which is what WordPress.org Guideline 8 requir
 
 ## Companion Plugin — WiseBones Shortcodes
 
-**Version:** 1.0.8  
+**Version:** 1.0.9  
 **Folder / Slug / Text Domain:** `wisebones-shortcodes`  
 **PHP Prefix:** `wpbs_`  
-**Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.0
+**Requires:** WordPress 6.0+, PHP 7.4+ · Tested up to WordPress 7.1
 
 > Shortcodes are plugin-territory per WordPress.org guidelines, so they live here rather than in the theme. The theme detects whether this plugin is active and shows a one-click install prompt when it is not. Bootstrap 5 and Bootstrap Icons are bundled with the plugin too and load only when the active theme does not already provide them, so the shortcodes work with any theme.
 
@@ -149,6 +149,20 @@ npm install          # installs Bootstrap 5, Bootstrap Icons, archiver
 | `npm run preflight` | Full production readiness check — must report 0 errors before a release |
 | `npm test` | Integration tests against a real WordPress install (`WPWISEBONES_TEST_WP=/path/to/wp`) |
 
+### Continuous Integration
+
+`.github/workflows/ci.yml` runs on every PR and on pushes to `main`:
+
+| Job | What it proves |
+|-----|----------------|
+| Hygiene | Every PHP file in every shipped package parses; `npm run preflight` passes |
+| Coding standards | PHPCS/WordPress — security, SQL, i18n and enqueue sniffs gate the build (`phpcs.xml.dist`); global-scope prefixes are reported but not yet gated (`phpcs-prefixes.xml.dist`) |
+| Integration | Real WordPress + MySQL: activates the theme, all four child themes and the plugin, runs `tests/run.php`, fails on any PHP notice from our code |
+| Plugin Check | The official WordPress.org checker, run against the committed `wisebones-shortcodes.zip` |
+
+Theme Check has no CLI equivalent — it runs only from Appearance → Theme Check in wp-admin, so
+run it by hand before a directory submission.
+
 ### Release Checklist
 
 When making a new release, bump the version in **all four** of these places:
@@ -193,10 +207,17 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 
 Full, per-release changelogs live with each package, where WordPress.org reads them:
 
-- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.15**)
-- Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.8**)
+- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.16**)
+- Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.9**)
 
 Most recent entries:
+
+### Theme 1.0.16
+
+- Changed: `Tested up to` raised to 7.1. WordPress 7.1 is the current release, and the
+  directory drops themes and plugins whose `Tested up to` trails it out of search results.
+  No code change. Plugin Check reports the plugin's stale value as an error, which is how
+  CI caught it.
 
 ### Theme 1.0.15
 
@@ -220,6 +241,14 @@ Most recent entries:
   visually-hidden rule, which made "Skip to content" render as a visible link on every
   page) were missing. The parent stylesheet is now always enqueued, with the child's
   after it when a child theme is active.
+
+### Plugin 1.0.9
+
+- Fixed: byte-order marks removed from the five `index.php` silence files. A BOM before
+  `<?php` sends three bytes to the browser before WordPress can set a header, which blanks
+  admin responses and corrupts JSON. Plugin Check reports each as an error, so this clears
+  the last blocker for a directory submission. CI now gates on BOMs in both the source tree
+  and the committed zips.
 
 ### Plugin 1.0.8
 
