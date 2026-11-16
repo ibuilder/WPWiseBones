@@ -1,0 +1,14 @@
+# Composer dev tooling — PHPCS and the WordPress Coding Standards.
+# composer.json and composer.lock are tracked; the installed packages are not,
+# since `composer install` reproduces them from the lock file.
+/vendor/
+
+# Node build output, for themes that have a build step.
+node_modules/
+
+# OS and editor noise.
+.DS_Store
+Thumbs.db
+*.swp
+*.orig
+*.rej
