@@ -1,0 +1,26 @@
+/*
+Theme Name:        Becoming
+Theme URI:         https://wprealwise.com/wpwisebones
+Template:          wpwisebones
+Author:            Becoming
+Author URI:        https://wprealwise.com
+Description:       A trans-pride skin for the WPWiseBones base, built for a community platform where trans women document and fund a transition. Takes its identity from the trans flag - sky #5BCEFA, rose #F5A9B8, white - and uses those colours where they are legible: as surfaces in light mode, as text and accents on a deep plum canvas in dark mode. Styles every tw-* module shortcode (journey, photos, funding, verification, resources, safety, Look Lab) on top of the tw-core front-end floor. System fonts only, no third-party requests, no layout JavaScript.
+Version:           1.0.1
+Requires at least: 6.0
+Tested up to:      7.1
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       becoming
+Tags:              custom-logo, custom-menu, featured-images, full-width-template, one-column, two-columns, accessibility-ready, translation-ready
+*/
+
+/*
+ * Brand styles live in assets/css/becoming.css, enqueued after the parent's
+ * stylesheet in functions.php. This file only carries the theme header -
+ * matching the house pattern used by RealWise and AEC Forge.
+ *
+ * Note that the parent enqueues get_stylesheet_uri() under the handle
+ * 'wpwisebones-style', which resolves to THIS file when the child is active,
+ * so it is loaded whether or not anything is in it.
+ */
