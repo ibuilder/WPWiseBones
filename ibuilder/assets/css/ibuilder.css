@@ -1,0 +1,1097 @@
+/*
+ * iBuilder brand skin — slate / teal over the WPWiseBones (Bootstrap 5) base.
+ * Loaded after the parent's assets/css/main.css.
+ *
+ * This file carries its own chrome on purpose. The parent enqueues
+ * get_stylesheet_uri(), which resolves to the CHILD's style.css once a child
+ * theme is active, so wpwisebones/style.css never loads and its header,
+ * navigation, footer and skip-link rules come with it. The parent's
+ * assets/css/main.css DOES still load and covers core block, gallery,
+ * alignment, form and screen-reader-text styles, so those are not repeated
+ * here.
+ *
+ * System fonts only. Every product this site sells advertises that it makes no
+ * outbound HTTP request of any kind, so the site saying so does not fetch a
+ * webfont from Google.
+ *
+ *   1  Tokens
+ *   2  Base
+ *   3  Accessibility chrome
+ *   4  Header and navigation
+ *   5  Buttons
+ *   6  Hero
+ *   7  Sections
+ *   8  Product cards
+ *   9  Product page
+ *  10  The no-licence callout
+ *  11  Footer
+ *  12  Blog and entry chrome
+ *  13  Responsive
+ */
+
+/* ============================================================
+   1  TOKENS
+   ============================================================ */
+
+:root {
+	--ibs-ink:      #10151d;
+	--ibs-ink-2:    #19212e;
+	--ibs-ink-3:    #243040;
+	--ibs-slate:    #5a6778;
+	--ibs-slate-2:  #8a95a4;
+	--ibs-line:     #e2e7ee;
+	--ibs-line-2:   #eef1f5;
+	--ibs-paper:    #f7f9fc;
+	--ibs-white:    #ffffff;
+
+	--ibs-brand:    #0d8f86;
+	--ibs-brand-2:  #14b8a6;
+	--ibs-brand-3:  #0a6f68;
+	--ibs-wash:     #e7f8f6;
+
+	--ibs-amber:    #b4690e;
+	--ibs-radius:   12px;
+	--ibs-radius-s: 8px;
+	--ibs-shadow:   0 1px 2px rgba(16, 21, 29, .05), 0 8px 24px rgba(16, 21, 29, .06);
+	--ibs-shadow-l: 0 2px 4px rgba(16, 21, 29, .06), 0 18px 48px rgba(16, 21, 29, .10);
+
+	/* The parent's sidebar.php reads this with a 72px fallback. Define it so
+	   the sticky sidebar offset matches this theme's actual header. */
+	--wpb-header-height: 72px;
+}
+
+/* ============================================================
+   2  BASE
+   ============================================================ */
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, "Noto Sans", sans-serif;
+	color: var(--ibs-ink-2);
+	background: var(--ibs-white);
+	-webkit-font-smoothing: antialiased;
+	line-height: 1.65;
+}
+
+h1, h2, h3, h4, h5, h6,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+	color: var(--ibs-ink);
+	font-weight: 700;
+	letter-spacing: -.021em;
+	line-height: 1.2;
+}
+
+a {
+	color: var(--ibs-brand);
+	text-decoration-thickness: 1px;
+	text-underline-offset: .15em;
+}
+
+a:hover,
+a:focus {
+	color: var(--ibs-brand-3);
+}
+
+code,
+kbd,
+.ibs-mono {
+	font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+		"Liberation Mono", monospace;
+	font-size: .92em;
+}
+
+code {
+	background: var(--ibs-line-2);
+	color: var(--ibs-ink-3);
+	padding: .12em .38em;
+	border-radius: 4px;
+}
+
+.lead {
+	color: var(--ibs-slate);
+	font-size: 1.14rem;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* ============================================================
+   3  ACCESSIBILITY CHROME
+   The parent's style.css carried the skip link; it does not load here.
+   ============================================================ */
+
+.skip-link {
+	position: absolute;
+	top: -100px;
+	left: 8px;
+	z-index: 100000;
+	display: inline-block;
+	padding: .65rem 1rem;
+	background: var(--ibs-ink);
+	color: #fff;
+	font-weight: 600;
+	border-radius: 0 0 var(--ibs-radius-s) var(--ibs-radius-s);
+	text-decoration: none;
+	transition: top .15s ease-in-out;
+}
+
+.skip-link:focus {
+	top: 0;
+	color: #fff;
+	outline: 3px solid var(--ibs-brand-2);
+	outline-offset: 2px;
+}
+
+/* A visible focus ring everywhere, since a keyboard user has nothing else. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+	outline: 3px solid var(--ibs-brand-2);
+	outline-offset: 2px;
+	border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: .001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: .001ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* ============================================================
+   4  HEADER AND NAVIGATION
+   ============================================================ */
+
+.site-header {
+	background: rgba(255, 255, 255, .92);
+	backdrop-filter: saturate(180%) blur(8px);
+	border-bottom: 1px solid var(--ibs-line);
+	min-height: var(--wpb-header-height);
+	display: flex;
+	align-items: center;
+}
+
+.site-header.sticky-top,
+.site-header .sticky-top {
+	z-index: 1030;
+}
+
+.site-branding .site-title,
+.site-branding .site-title a {
+	color: var(--ibs-ink);
+	font-weight: 800;
+	font-size: 1.22rem;
+	letter-spacing: -.03em;
+	text-decoration: none;
+}
+
+.site-branding .site-description {
+	color: var(--ibs-slate-2);
+	font-size: .82rem;
+	margin: 0;
+}
+
+.site-branding img,
+.custom-logo {
+	max-height: 40px;
+	width: auto;
+}
+
+.main-navigation ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: .15rem;
+	align-items: center;
+}
+
+.main-navigation a,
+.main-navigation .nav-link {
+	color: var(--ibs-ink-3);
+	font-weight: 550;
+	font-size: .945rem;
+	padding: .5rem .72rem;
+	border-radius: var(--ibs-radius-s);
+	text-decoration: none;
+	display: block;
+}
+
+.main-navigation a:hover,
+.main-navigation a:focus,
+.main-navigation .nav-link:hover {
+	color: var(--ibs-brand-3);
+	background: var(--ibs-wash);
+}
+
+.main-navigation .current-menu-item > a,
+.main-navigation .current_page_item > a {
+	color: var(--ibs-brand-3);
+	background: var(--ibs-wash);
+}
+
+/* Sub-menus: keep them usable without relying on parent JS. */
+.main-navigation ul ul {
+	display: none;
+	position: absolute;
+	min-width: 220px;
+	flex-direction: column;
+	background: #fff;
+	border: 1px solid var(--ibs-line);
+	border-radius: var(--ibs-radius-s);
+	box-shadow: var(--ibs-shadow);
+	padding: .35rem;
+	z-index: 1040;
+}
+
+.main-navigation li {
+	position: relative;
+}
+
+.main-navigation li:hover > ul,
+.main-navigation li:focus-within > ul {
+	display: flex;
+}
+
+/* ------------------------------------------------------------
+   4b  Chrome the parent's style.css would have provided
+   ------------------------------------------------------------
+   These are not cosmetic. Each one was measured as broken in a real install
+   with this child theme active, because the rules live in
+   wpwisebones/style.css and that file never loads under a child:
+
+     • #primaryNavbar computed to background rgba(0,0,0,0) and padding 0, so
+       the opened mobile menu rendered invisibly on top of the hero — the page
+       looked like the toggle did nothing.
+     • #back-to-top computed to position:static, so the button sat in the
+       document flow at the bottom-left of the footer instead of floating in
+       the corner. The parent's main.js still toggles .visible on it, so only
+       the CSS was missing.
+     • body.sticky-header was present but nothing made the header fixed, so
+       the sticky-header option silently did nothing.
+
+   Ported here in the brand palette rather than re-enqueuing the parent's
+   stylesheet, because that file also carries the base colours this theme
+   deliberately replaces.
+   ------------------------------------------------------------ */
+
+/* The collapsed mobile menu needs a surface of its own. */
+#primaryNavbar.collapse,
+#primaryNavbar.collapsing,
+#primaryNavbar.show {
+	background: var(--ibs-white);
+	padding: 1rem;
+	border-top: 1px solid var(--ibs-line);
+	border-radius: 0 0 var(--ibs-radius) var(--ibs-radius);
+	box-shadow: var(--ibs-shadow-l);
+}
+
+@media (min-width: 992px) {
+	/* Above the breakpoint the menu is inline, so drop the panel treatment. */
+	#primaryNavbar.collapse,
+	#primaryNavbar.show {
+		background: none;
+		padding: 0;
+		border-top: 0;
+		box-shadow: none;
+	}
+}
+
+/* Sticky header, and the offset that stops content hiding beneath it. */
+body.sticky-header .site-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+body.sticky-header {
+	padding-top: var(--wpb-header-height);
+}
+
+body.admin-bar.sticky-header .site-header {
+	top: 32px;
+}
+
+body.admin-bar.sticky-header {
+	padding-top: calc(var(--wpb-header-height) + 32px);
+}
+
+@media screen and (max-width: 782px) {
+	body.admin-bar.sticky-header .site-header {
+		top: 46px;
+	}
+
+	body.admin-bar.sticky-header {
+		padding-top: calc(var(--wpb-header-height) + 46px);
+	}
+}
+
+/* The admin bar pushes the skip link down too. */
+body.admin-bar .skip-link:focus {
+	top: 32px;
+}
+
+/* Back to top. The parent's main.js adds .visible past 300px of scroll. */
+#back-to-top {
+	position: fixed;
+	bottom: 1.5rem;
+	right: 1.5rem;
+	z-index: 999;
+	width: 42px;
+	height: 42px;
+	display: grid;
+	place-items: center;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity .3s ease, transform .16s ease;
+}
+
+#back-to-top.visible {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+#back-to-top:hover {
+	transform: translateY(-2px);
+}
+
+/* Content padding, and the full-width template that removes it. */
+#content {
+	padding: 3rem 0;
+}
+
+.template-full-width #content {
+	padding: 0;
+}
+
+@media (max-width: 991.98px) {
+	#content {
+		padding: 2rem 0;
+	}
+}
+
+/* Breadcrumbs, when the parent's option turns them on. */
+.wpb-breadcrumbs {
+	background: var(--ibs-paper);
+	border-bottom: 1px solid var(--ibs-line);
+	padding: .7rem 0;
+}
+
+.wpb-breadcrumbs .breadcrumb {
+	margin: 0;
+	font-size: .86rem;
+}
+
+/* ============================================================
+   5  BUTTONS
+   ============================================================ */
+
+.btn {
+	border-radius: var(--ibs-radius-s);
+	font-weight: 600;
+	padding: .6rem 1.1rem;
+}
+
+.btn-primary,
+.btn-success {
+	background: var(--ibs-brand);
+	border-color: var(--ibs-brand);
+	color: #fff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-success:hover,
+.btn-success:focus {
+	background: var(--ibs-brand-3);
+	border-color: var(--ibs-brand-3);
+	color: #fff;
+}
+
+.btn-outline-primary {
+	color: var(--ibs-brand-3);
+	border-color: var(--ibs-brand);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+	background: var(--ibs-brand);
+	border-color: var(--ibs-brand);
+	color: #fff;
+}
+
+.btn-dark {
+	background: var(--ibs-ink);
+	border-color: var(--ibs-ink);
+}
+
+.btn-dark:hover,
+.btn-dark:focus {
+	background: var(--ibs-ink-3);
+	border-color: var(--ibs-ink-3);
+}
+
+.btn-outline-light:hover,
+.btn-outline-light:focus {
+	color: var(--ibs-ink);
+}
+
+.btn-lg {
+	padding: .8rem 1.5rem;
+	font-size: 1.03rem;
+}
+
+.text-primary {
+	color: var(--ibs-brand-3) !important;
+}
+
+.bg-primary {
+	background-color: var(--ibs-brand) !important;
+}
+
+.link-primary {
+	color: var(--ibs-brand-3) !important;
+}
+
+/* ============================================================
+   6  HERO
+   ============================================================ */
+
+.ibs-hero {
+	background:
+		radial-gradient(1100px 420px at 12% -8%, rgba(20, 184, 166, .16), transparent 62%),
+		radial-gradient(900px 380px at 94% 4%, rgba(36, 48, 64, .10), transparent 60%),
+		linear-gradient(180deg, var(--ibs-paper), var(--ibs-white));
+	border-bottom: 1px solid var(--ibs-line);
+	padding: 4.25rem 0 3.5rem;
+}
+
+.ibs-hero h1 {
+	font-size: clamp(2rem, 4.4vw, 3.15rem);
+	letter-spacing: -.035em;
+}
+
+.ibs-hero .lead {
+	font-size: 1.16rem;
+	max-width: 44rem;
+}
+
+.ibs-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: .5rem;
+	background: var(--ibs-white);
+	border: 1px solid var(--ibs-line);
+	color: var(--ibs-ink-3);
+	border-radius: 999px;
+	padding: .34rem .85rem;
+	font-size: .835rem;
+	font-weight: 600;
+	box-shadow: var(--ibs-shadow);
+}
+
+.ibs-badge .dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--ibs-brand-2);
+	box-shadow: 0 0 0 3px rgba(20, 184, 166, .22);
+}
+
+.ibs-hero-points {
+	list-style: none;
+	padding: 0;
+	margin: 1.4rem 0 0;
+	display: grid;
+	gap: .5rem;
+}
+
+.ibs-hero-points li {
+	display: flex;
+	gap: .6rem;
+	align-items: flex-start;
+	color: var(--ibs-ink-3);
+	font-size: .975rem;
+}
+
+.ibs-hero-points i {
+	color: var(--ibs-brand);
+	margin-top: .22rem;
+	flex: 0 0 auto;
+}
+
+/* The hero's right-hand figure: a stack of plugin rows, drawn in CSS so there
+   is no image to load and nothing to go stale when a price changes. */
+.ibs-stack {
+	display: grid;
+	gap: .55rem;
+}
+
+.ibs-stack-row {
+	display: flex;
+	align-items: center;
+	gap: .8rem;
+	background: var(--ibs-white);
+	border: 1px solid var(--ibs-line);
+	border-radius: var(--ibs-radius);
+	padding: .72rem .9rem;
+	box-shadow: var(--ibs-shadow);
+}
+
+.ibs-stack-row i {
+	width: 34px;
+	height: 34px;
+	flex: 0 0 34px;
+	display: grid;
+	place-items: center;
+	background: var(--ibs-wash);
+	color: var(--ibs-brand-3);
+	border-radius: 9px;
+	font-size: 1.02rem;
+}
+
+.ibs-stack-name {
+	font-weight: 650;
+	color: var(--ibs-ink);
+	font-size: .95rem;
+	line-height: 1.3;
+}
+
+.ibs-stack-price {
+	margin-left: auto;
+	font-weight: 700;
+	color: var(--ibs-ink);
+	font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   7  SECTIONS
+   ============================================================ */
+
+.ibs-section {
+	padding: 3.5rem 0;
+}
+
+.ibs-section--tint {
+	background: var(--ibs-paper);
+	border-block: 1px solid var(--ibs-line);
+}
+
+.ibs-section--ink {
+	background: var(--ibs-ink);
+	color: #cfd7e2;
+}
+
+.ibs-section--ink h2,
+.ibs-section--ink h3 {
+	color: #fff;
+}
+
+.ibs-eyebrow {
+	display: inline-block;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+	font-size: .76rem;
+	font-weight: 700;
+	color: var(--ibs-brand-3);
+}
+
+.ibs-section--ink .ibs-eyebrow {
+	color: var(--ibs-brand-2);
+}
+
+.ibs-section h2 {
+	font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+}
+
+/* ============================================================
+   8  PRODUCT CARDS
+   ============================================================ */
+
+.ibs-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+	gap: 1.1rem;
+}
+
+.ibs-card {
+	display: flex;
+	flex-direction: column;
+	background: var(--ibs-white);
+	border: 1px solid var(--ibs-line);
+	border-radius: var(--ibs-radius);
+	padding: 1.3rem;
+	height: 100%;
+	transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+
+.ibs-card:hover,
+.ibs-card:focus-within {
+	transform: translateY(-2px);
+	border-color: #cfdbe6;
+	box-shadow: var(--ibs-shadow-l);
+}
+
+.ibs-card__head {
+	display: flex;
+	align-items: flex-start;
+	gap: .8rem;
+	margin-bottom: .7rem;
+}
+
+.ibs-card__icon {
+	width: 42px;
+	height: 42px;
+	flex: 0 0 42px;
+	display: grid;
+	place-items: center;
+	border-radius: 10px;
+	background: var(--ibs-wash);
+	color: var(--ibs-brand-3);
+	font-size: 1.2rem;
+}
+
+.ibs-card__title {
+	font-size: 1.06rem;
+	font-weight: 700;
+	margin: 0;
+	line-height: 1.3;
+}
+
+.ibs-card__title a {
+	color: var(--ibs-ink);
+	text-decoration: none;
+}
+
+.ibs-card__title a:hover,
+.ibs-card__title a:focus {
+	color: var(--ibs-brand-3);
+}
+
+.ibs-card__price {
+	margin-left: auto;
+	font-weight: 700;
+	color: var(--ibs-ink);
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.ibs-card__tagline {
+	color: var(--ibs-slate);
+	font-size: .945rem;
+	margin: 0 0 .9rem;
+}
+
+.ibs-card__features {
+	list-style: none;
+	margin: 0 0 1.1rem;
+	padding: 0;
+	display: grid;
+	gap: .4rem;
+}
+
+.ibs-card__features li {
+	position: relative;
+	padding-left: 1.3rem;
+	font-size: .89rem;
+	color: var(--ibs-ink-3);
+	line-height: 1.5;
+}
+
+.ibs-card__features li::before {
+	content: "";
+	position: absolute;
+	left: .22rem;
+	top: .52em;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--ibs-brand-2);
+}
+
+.ibs-card__actions {
+	margin-top: auto;
+	display: flex;
+	flex-wrap: wrap;
+	gap: .5rem;
+}
+
+/* ============================================================
+   9  PRODUCT PAGE
+   ============================================================ */
+
+.ibs-product-head {
+	background: linear-gradient(180deg, var(--ibs-paper), var(--ibs-white));
+	border-bottom: 1px solid var(--ibs-line);
+	padding: 2.6rem 0 2.2rem;
+}
+
+.ibs-product-head .ibs-card__icon {
+	width: 56px;
+	height: 56px;
+	flex: 0 0 56px;
+	font-size: 1.6rem;
+}
+
+.ibs-product-head h1 {
+	font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+	margin: 0;
+}
+
+.ibs-price-tag {
+	display: inline-flex;
+	align-items: baseline;
+	gap: .3rem;
+	font-weight: 800;
+	font-size: 1.6rem;
+	color: var(--ibs-ink);
+	font-variant-numeric: tabular-nums;
+}
+
+.ibs-price-tag small {
+	font-size: .8rem;
+	font-weight: 600;
+	color: var(--ibs-slate-2);
+}
+
+.ibs-meta {
+	list-style: none;
+	padding: 0;
+	margin: 1rem 0 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: .5rem .9rem;
+	font-size: .88rem;
+	color: var(--ibs-slate);
+}
+
+.ibs-meta li {
+	display: flex;
+	align-items: center;
+	gap: .35rem;
+}
+
+.ibs-meta i {
+	color: var(--ibs-brand);
+}
+
+/* ============================================================
+   10  THE NO-LICENCE CALLOUT
+   The single most load-bearing claim on the site, so it gets a treatment of
+   its own rather than becoming another bullet.
+   ============================================================ */
+
+.ibs-nolicence {
+	background: var(--ibs-wash);
+	border: 1px solid #bfe9e4;
+	border-left: 4px solid var(--ibs-brand);
+	border-radius: var(--ibs-radius);
+	padding: 1.15rem 1.3rem;
+	display: flex;
+	gap: .95rem;
+	align-items: flex-start;
+}
+
+.ibs-nolicence i {
+	color: var(--ibs-brand-3);
+	font-size: 1.35rem;
+	margin-top: .1rem;
+	flex: 0 0 auto;
+}
+
+.ibs-nolicence strong {
+	color: var(--ibs-ink);
+	display: block;
+	margin-bottom: .2rem;
+}
+
+.ibs-nolicence p {
+	margin: 0;
+	color: var(--ibs-ink-3);
+	font-size: .94rem;
+}
+
+.ibs-trust {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+	gap: 1rem;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.ibs-trust li {
+	background: rgba(255, 255, 255, .05);
+	border: 1px solid rgba(255, 255, 255, .11);
+	border-radius: var(--ibs-radius);
+	padding: 1.05rem 1.1rem;
+}
+
+.ibs-trust strong {
+	display: block;
+	color: #fff;
+	font-size: 1.02rem;
+	margin-bottom: .25rem;
+}
+
+.ibs-trust span {
+	font-size: .9rem;
+	color: #aeb9c7;
+}
+
+/* ============================================================
+   11  FOOTER
+   ============================================================ */
+
+.site-footer,
+.ibs-footer {
+	background: var(--ibs-ink);
+	color: #a9b4c2;
+	padding: 3rem 0 1.4rem;
+	font-size: .93rem;
+	border-top: 0;
+}
+
+.ibs-footer h3 {
+	color: #fff;
+	font-size: .82rem;
+	text-transform: uppercase;
+	letter-spacing: .09em;
+	margin-bottom: .85rem;
+	font-weight: 700;
+}
+
+.ibs-footer a {
+	color: #c6d0dc;
+	text-decoration: none;
+}
+
+.ibs-footer a:hover,
+.ibs-footer a:focus {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.ibs-footer ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	gap: .45rem;
+}
+
+.ibs-footer__brand {
+	font-weight: 800;
+	color: #fff;
+	font-size: 1.1rem;
+	letter-spacing: -.02em;
+	margin-bottom: .45rem;
+	display: block;
+}
+
+.ibs-footer__bottom {
+	border-top: 1px solid rgba(255, 255, 255, .1);
+	margin-top: 2.2rem;
+	padding-top: 1.2rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: .6rem 1.2rem;
+	align-items: center;
+	justify-content: space-between;
+	color: #8d99a8;
+	font-size: .86rem;
+}
+
+/* ============================================================
+   12  BLOG AND ENTRY CHROME
+   Also from the parent's unloaded style.css.
+   ============================================================ */
+
+.entry-header {
+	margin-bottom: 1.3rem;
+}
+
+.entry-header .entry-title {
+	margin-bottom: .35rem;
+}
+
+.entry-meta {
+	color: var(--ibs-slate-2);
+	font-size: .875rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: .3rem .9rem;
+}
+
+.entry-content {
+	font-size: 1.02rem;
+}
+
+.entry-content > * + * {
+	margin-top: 1.05rem;
+}
+
+.entry-content h2 {
+	margin-top: 2.1rem;
+	font-size: 1.5rem;
+}
+
+.entry-content h3 {
+	margin-top: 1.6rem;
+	font-size: 1.22rem;
+}
+
+.entry-content ul,
+.entry-content ol {
+	padding-left: 1.4rem;
+}
+
+.entry-content li + li {
+	margin-top: .35rem;
+}
+
+.entry-content blockquote {
+	border-left: 4px solid var(--ibs-brand);
+	background: var(--ibs-paper);
+	margin: 1.5rem 0;
+	padding: .9rem 1.2rem;
+	border-radius: 0 var(--ibs-radius-s) var(--ibs-radius-s) 0;
+	color: var(--ibs-ink-3);
+}
+
+.entry-content blockquote p:last-child {
+	margin-bottom: 0;
+}
+
+.entry-content table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1.4rem 0;
+	font-size: .94rem;
+}
+
+.entry-content th,
+.entry-content td {
+	border: 1px solid var(--ibs-line);
+	padding: .55rem .7rem;
+	text-align: left;
+}
+
+.entry-content th {
+	background: var(--ibs-paper);
+	font-weight: 650;
+}
+
+.post-card {
+	background: #fff;
+	border: 1px solid var(--ibs-line);
+	border-radius: var(--ibs-radius);
+	overflow: hidden;
+	height: 100%;
+}
+
+.post-card:hover {
+	box-shadow: var(--ibs-shadow-l);
+}
+
+.pagination {
+	gap: .3rem;
+}
+
+.pagination .page-numbers {
+	display: inline-block;
+	padding: .45rem .8rem;
+	border: 1px solid var(--ibs-line);
+	border-radius: var(--ibs-radius-s);
+	color: var(--ibs-ink-3);
+	text-decoration: none;
+}
+
+.pagination .page-numbers.current,
+.pagination .page-numbers:hover {
+	background: var(--ibs-brand);
+	border-color: var(--ibs-brand);
+	color: #fff;
+}
+
+.widget-title {
+	font-size: .84rem;
+	text-transform: uppercase;
+	letter-spacing: .08em;
+	color: var(--ibs-slate);
+	font-weight: 700;
+	margin-bottom: .7rem;
+}
+
+/* ============================================================
+   13  RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 991.98px) {
+	.ibs-hero {
+		padding: 3rem 0 2.5rem;
+	}
+
+	.main-navigation ul {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+	}
+
+	.main-navigation ul ul {
+		position: static;
+		display: flex;
+		border: 0;
+		box-shadow: none;
+		padding-left: .9rem;
+		background: transparent;
+	}
+}
+
+@media (max-width: 575.98px) {
+	.ibs-section {
+		padding: 2.5rem 0;
+	}
+
+	.ibs-card {
+		padding: 1.1rem;
+	}
+
+	.ibs-card__price {
+		margin-left: 0;
+		width: 100%;
+		order: 3;
+	}
+
+	.ibs-footer__bottom {
+		justify-content: flex-start;
+	}
+}
+
+/* Print: the docs pages get printed. Drop the chrome, keep the words. */
+@media print {
+	.site-header,
+	.ibs-footer,
+	.site-footer,
+	.ibs-card__actions,
+	.ibs-hero .ibs-badge {
+		display: none !important;
+	}
+
+	body {
+		color: #000;
+		background: #fff;
+	}
+}
