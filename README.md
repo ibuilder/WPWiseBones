@@ -216,3 +216,63 @@ See [LICENSE](LICENSE) for the full text.
 Theme and plugin copyright © 2025 [WPWiseBones / WPRealWise](https://wprealwise.com).  
 Bootstrap © The Bootstrap Authors — [MIT License](https://github.com/twbs/bootstrap/blob/main/LICENSE).  
 Bootstrap Icons © The Bootstrap Authors — [MIT License](https://github.com/twbs/icons/blob/main/LICENSE).
+
+---
+
+## Building a child theme: the chrome you must port
+
+Read this before starting a new child. It has caught every child theme in this
+repository.
+
+**`wpwisebones/style.css` does not load under a child theme.** The parent
+enqueues `get_stylesheet_uri()`, which resolves to the *child's* `style.css`
+once a child is active, so the parent's own 12 KB of chrome never arrives. The
+parent's `assets/css/main.css` *does* still load, and covers core block,
+gallery, alignment, form and `screen-reader-text` styles — so the gap is
+narrower than it looks, but it is real.
+
+**56 selectors exist only in that file.** Three of them matter enough to break
+a site, and each was measured as broken in a real WordPress 7.1.4 install by
+reading computed styles, not by diffing source:
+
+| What | Computed under a child | Consequence |
+|---|---|---|
+| `#primaryNavbar.show` | `background: rgba(0,0,0,0)`, `padding: 0` | the opened mobile menu is **invisible**, rendered over the page — the toggle looks dead |
+| `body.sticky-header .site-header` | `position: relative` | the sticky header option silently does nothing, and it **defaults to on** |
+| `#back-to-top` | `position: static` | the button sits in the footer instead of floating |
+
+As found, before the fix:
+
+| Theme | Mobile menu | Sticky header | Back to top |
+|---|---|---|---|
+| RealWise | broken | broken | broken |
+| AEC Forge | broken | broken | OK — its own `.af-b2t` |
+| Becoming | broken | OK — `position: sticky` | OK |
+| iBuilder | broken | broken | broken |
+
+All four are fixed. Each fix lives in that theme's own
+`assets/css/<slug>.css`, under a block headed **CHROME THE PARENT'S style.css
+WOULD HAVE PROVIDED**, written in that theme's own palette tokens.
+
+### If you start a new child
+
+Copy that block from any of them and re-tint it. Two notes on the way it is
+written:
+
+* The header fix uses **`position: sticky`**, not the parent's
+  `position: fixed`. Fixed takes the header out of flow and needs a body
+  `padding-top` equal to the header's height — and that height comes from
+  `--wpb-header-height`, which is itself defined only in the stylesheet that
+  does not load. Sticky stays in flow, needs no padding, and cannot mismatch.
+  Becoming already did it this way; the others now match.
+* Only port what the theme actually lacks. AEC Forge's back-to-top was already
+  complete and was left alone.
+
+The other 53 selectors cover the companion plugin's `wpb-*` shortcodes, blog
+comments, breadcrumbs and the landing template. Port those too **if the child
+uses them** — not on principle.
+
+### Why not just enqueue the parent's stylesheet
+
+Because it also carries the base colours and typography a child exists to
+replace. Loading it back would mean overriding it twice.
