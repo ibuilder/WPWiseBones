@@ -277,8 +277,9 @@ textarea:focus-visible,
        document flow at the bottom-left of the footer instead of floating in
        the corner. The parent's main.js still toggles .visible on it, so only
        the CSS was missing.
-     • body.sticky-header was present but nothing made the header fixed, so
-       the sticky-header option silently did nothing.
+     • body.sticky-header was present but nothing made the header stick, so
+       the sticky-header option silently did nothing. It defaults to ON, so
+       that was the shipped behaviour rather than an unused setting.
 
    Ported here in the brand palette rather than re-enqueuing the parent's
    stylesheet, because that file also carries the base colours this theme
@@ -307,33 +308,31 @@ textarea:focus-visible,
 	}
 }
 
-/* Sticky header, and the offset that stops content hiding beneath it. */
+/* Sticky header.
+ *
+ * `sticky`, not the parent's `fixed`. Fixed takes the header out of flow and
+ * needs a body padding-top equal to its height — which this theme could just
+ * about get away with, since it defines --wpb-header-height itself a few lines
+ * above and sets the header's min-height from the same token. But the coupling
+ * is invisible: change one and the other silently desyncs, leaving either a
+ * gap above the hero or content tucked under the header.
+ *
+ * Sticky stays in flow, so there is no padding to keep in step and no height
+ * to know. It is also what the other three children do, and four themes with
+ * two approaches is a trap for whoever reads them next. */
 body.sticky-header .site-header {
-	position: fixed;
+	position: sticky;
 	top: 0;
-	left: 0;
-	right: 0;
-}
-
-body.sticky-header {
-	padding-top: var(--wpb-header-height);
+	z-index: 1030;
 }
 
 body.admin-bar.sticky-header .site-header {
 	top: 32px;
 }
 
-body.admin-bar.sticky-header {
-	padding-top: calc(var(--wpb-header-height) + 32px);
-}
-
 @media screen and (max-width: 782px) {
 	body.admin-bar.sticky-header .site-header {
 		top: 46px;
-	}
-
-	body.admin-bar.sticky-header {
-		padding-top: calc(var(--wpb-header-height) + 46px);
 	}
 }
 
