@@ -9,7 +9,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AEC_FORGE_VERSION', '1.1.2' );
+define( 'AEC_FORGE_VERSION', '1.1.3' );
 
 /* Print the active theme version into the page <head> so you can confirm which
    build is live via "View Source" (search for "AEC Forge theme v"). */

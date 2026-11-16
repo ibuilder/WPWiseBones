@@ -940,3 +940,69 @@ button.wpaec-button:hover {
 .wpaec-dl-balance { display: block; font-size: .82rem; color: var(--af-steel); margin-top: .55rem; }
 .wpaec-dl-note { font-size: .8rem; color: var(--af-steel); margin: .7rem 0 0; }
 .wpaec-dl-msg { margin-top: .6rem; font-size: .88rem; font-weight: 600; color: var(--af-forge); }
+
+
+/* ============================================================
+   CHROME THE PARENT'S style.css WOULD HAVE PROVIDED
+   ============================================================
+   wpwisebones/style.css never loads under a child theme: the parent enqueues
+   get_stylesheet_uri(), which resolves to THIS theme's style.css once the
+   child is active. Its assets/css/main.css does still load and covers the
+   core block, gallery, alignment and form styles, so only the chrome below is
+   missing.
+
+   Each rule here was added because the theme was measured as broken in a real
+   install, not because the selector was absent from a diff.
+
+   This theme lacked the mobile menu and the sticky header. Its back-to-top
+   is already correct - .af-b2t is fixed with opacity 0, and .af-b2t.visible
+   matches what the parent's main.js toggles - so it is not touched here.
+   ============================================================ */
+
+/* The opened mobile menu computed to background rgba(0,0,0,0) with padding 0,
+   so it rendered invisibly on top of the page - the toggle looked dead. */
+#primaryNavbar.collapse,
+#primaryNavbar.collapsing,
+#primaryNavbar.show {
+	background: var(--af-paper, #fff);
+	padding: 1rem;
+	border-top: 1px solid var(--af-line, rgba(0,0,0,.1));
+	border-radius: 0 0 var(--af-radius, 12px) var(--af-radius, 12px);
+	box-shadow: 0 18px 40px rgba(0, 0, 0, .14);
+}
+
+@media (min-width: 992px) {
+	/* Above the breakpoint the menu is inline; drop the panel treatment. */
+	#primaryNavbar.collapse,
+	#primaryNavbar.show {
+		background: none;
+		padding: 0;
+		border-top: 0;
+		border-radius: 0;
+		box-shadow: none;
+	}
+}
+
+/* wpwisebones_sticky_header defaults to TRUE, so body.sticky-header is present
+   out of the box - but nothing made the header stick, so the option silently
+   did nothing.
+
+   `sticky` rather than the parent's `fixed`: fixed removes the header from
+   flow and needs a body padding-top matching its height, and the height comes
+   from --wpb-header-height, which is defined only in the stylesheet that does
+   not load. Sticky needs no padding and cannot mismatch. */
+body.sticky-header .site-header {
+	position: sticky;
+	top: 0;
+	z-index: 1030;
+}
+
+body.admin-bar.sticky-header .site-header {
+	top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	body.admin-bar.sticky-header .site-header {
+		top: 46px;
+	}
+}
