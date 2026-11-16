@@ -267,3 +267,85 @@ a { color: var(--rw-blue); } a:hover { color: var(--rw-blue-dk); }
 .rw-footer__bottom { border-top: 1px solid rgba(255,255,255,.10); color: #8398bd; font-size: .9rem; }
 .rw-footer__legal a { color: #aebfda; text-decoration: none; margin-left: 1.1rem; }
 .rw-footer__legal a:hover { color: #fff; }
+
+
+/* ============================================================
+   CHROME THE PARENT'S style.css WOULD HAVE PROVIDED
+   ============================================================
+   wpwisebones/style.css never loads under a child theme: the parent enqueues
+   get_stylesheet_uri(), which resolves to THIS theme's style.css once the
+   child is active. Its assets/css/main.css does still load and covers the
+   core block, gallery, alignment and form styles, so only the chrome below is
+   missing.
+
+   Each rule here was added because the theme was measured as broken in a real
+   install, not because the selector was absent from a diff.
+
+   This theme lacked all three: mobile menu, sticky header, back-to-top.
+   ============================================================ */
+
+/* The opened mobile menu computed to background rgba(0,0,0,0) with padding 0,
+   so it rendered invisibly on top of the page - the toggle looked dead. */
+#primaryNavbar.collapse,
+#primaryNavbar.collapsing,
+#primaryNavbar.show {
+	background: #ffffff;
+	padding: 1rem;
+	border-top: 1px solid var(--rw-line, rgba(0,0,0,.1));
+	border-radius: 0 0 12px 12px;
+	box-shadow: 0 18px 40px rgba(0, 0, 0, .14);
+}
+
+@media (min-width: 992px) {
+	/* Above the breakpoint the menu is inline; drop the panel treatment. */
+	#primaryNavbar.collapse,
+	#primaryNavbar.show {
+		background: none;
+		padding: 0;
+		border-top: 0;
+		border-radius: 0;
+		box-shadow: none;
+	}
+}
+
+/* wpwisebones_sticky_header defaults to TRUE, so body.sticky-header is present
+   out of the box - but nothing made the header stick, so the option silently
+   did nothing.
+
+   `sticky` rather than the parent's `fixed`: fixed removes the header from
+   flow and needs a body padding-top matching its height, and the height comes
+   from --wpb-header-height, which is defined only in the stylesheet that does
+   not load. Sticky needs no padding and cannot mismatch. */
+body.sticky-header .site-header {
+	position: sticky;
+	top: 0;
+	z-index: 1030;
+}
+
+body.admin-bar.sticky-header .site-header {
+	top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	body.admin-bar.sticky-header .site-header {
+		top: 46px;
+	}
+}
+
+/* The button computed to position: static, so it sat in the document flow at
+   the bottom of the footer instead of floating. The parent's main.js still
+   toggles .visible on it; only the CSS was missing. */
+#back-to-top {
+	position: fixed;
+	bottom: 1.5rem;
+	right: 1.5rem;
+	z-index: 999;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity .25s ease;
+}
+
+#back-to-top.visible {
+	opacity: 1;
+	pointer-events: auto;
+}
