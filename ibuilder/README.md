@@ -44,7 +44,7 @@ site whose entire claim is "these plugins never phone home" cannot.
 3. Optionally set the demo URL on the same screen, or in `wp-config.php`:
 
    ```php
-   define( 'IBUILDER_SITE_DEMO_URL', 'https://demo.wpibuilder.com' );
+   define( 'IBUILDER_SITE_DEMO_URL', 'https://demo.ibuilder.me' );
    ```
 
    The constant wins over the setting. Until one is set, every demo button is

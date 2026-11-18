@@ -10,7 +10,7 @@
  * the listing they read there say the same thing.
  *
  * Loaded ONLY by inc/site-builder.php, which writes it into page content once.
- * It is deliberately not required on every front-end request: eight full
+ * It is deliberately not required on every front-end request: ten full
  * descriptions is a lot of array to parse in order to render a menu. Once the
  * pages exist the copy lives in post_content, where it can be edited in the
  * block editor like any other page - and a rebuild will overwrite those edits,
@@ -230,6 +230,48 @@ function ibuilder_site_descriptions(): array {
 <p>Without iBuilder Projects active, the plugin still lets you save and test connections and tells you plainly that nothing can be written — so you can get credentials working before the host plugin is set up.</p>
 <p>CMiC is a trademark of Computer Methods International Corp. This plugin is an independent integration and is not affiliated with, endorsed by or sponsored by them.</p>
 <p>Full documentation ships inside the zip.</p>',
+		),
+		'kitchen' => array(
+			'description'  => '<p><strong>Most kitchen planners let somebody draw a counter wherever they like. This one works out where the counter actually is — from the cabinets standing under it — and then tells them what will not work, and why.</strong></p>
+<p>Put one shortcode on a page and a visitor gets a 3D kitchen they can lay out: base cabinets in the widths they are actually sold in — the full 9" to 48" series in 3" increments, not four round numbers — wall cabinets at the heights that clear a worktop, corner cabinets that admit they are corner cabinets, and appliances at published trade sizes. Every time something moves, the layout is re-measured and reported with the standard named on each finding.</p>
+<p><strong>The worktop is derived, not drawn</strong></p>
+<p>This is the part that makes the rest mean anything. Nobody draws a counter: you place cabinets, as you would in life, and the worktop follows. A base cabinet or dishwasher carries worktop over it. A tall cabinet or refrigerator ends the run. A sink or hob set into a run splits it in two — so a 9-foot counter with a hob in the middle is correctly read as two landing areas, not one. A 22" sink in a 24" cabinet does not leave a 2" lip to be counted as usable worktop.</p>
+<p><strong>What it checks</strong></p>
+<ul><li>Landing area at the sink, cooking surface, refrigerator, oven and microwave — the guidance that actually shapes a kitchen</li><li>The work triangle: each leg 4\'–9\', the three no more than 26\', measured from the front of the counter because that is where you stand. A leg that is too <strong>short</strong> fails too, and anything standing in a leg is reported</li><li>Aisle width: 42" for a work aisle, 36" for a walkway, measured between facing fronts — and to the wall ahead, which the guideline does not do but a cook does</li><li>Total countertop: 158" of frontage, 24" deep, 15" clear above</li><li>Combining landing areas (Guideline 24): where two adjoin, the worktop between them must be the longer requirement plus 12" — one stretch cannot do both jobs</li><li>The primary prep area: a continuous 36" × 24" beside a sink — continuous being the point, since two 20" stretches either side of a sink are 40" of worktop and nowhere to work</li><li>Clearance above the cooking surface, extract over the hob, microwave height, dishwasher within reach of the sink, door swing and leaf width</li><li>An accessible profile that adds ICC A117.1: clear floor space at each appliance, door clear width, and whether a 60" turning circle fits</li></ul>
+<p><strong>What the visitor gets out</strong></p>
+<p>A <strong>PDF specification sheet</strong> — a plan drawn at a real architectural scale, the cabinet and appliance schedule with classification codes, every check with its standard, and the materials list with the tile waste allowance on its own line. It is the document a homeowner hands a contractor. Generated on your server in plain PHP: no PDF library, no Composer dependency, no font to licence.</p>
+<p>And an <strong>IFC4 model</strong>, which no consumer kitchen planner produces. Full spatial hierarchy, real dimensions in metres, Uniclass classification codes — so the sketch opens directly in Revit, ArchiCAD, Solibri, Navisworks, BIMcollab or Bonsai. Priceable, not retyped.</p>
+<p><strong>Optional lead capture</strong></p>
+<p>If you fit kitchens for a living, ask visitors for their details before the specification sheet downloads. The lead that arrives already contains the layout, the materials list and the problems found. Leads land in wp-admin and in an email to you, with a CSV export and a Download PDF button on each one.</p>
+<p>It is <strong>off by default</strong> and stays off until you turn it on, name the recipient and write the consent wording yourself. No IP addresses are stored. Leads are wired into WordPress\'s own privacy export and erasure tools.</p>
+<p><strong>No external services, ever</strong></p>
+<p>The plugin makes no outbound requests at all. The 3D library, the catalogue, the rules and the PDF generator all ship inside it. No API key, no account, no CDN, no phone-home. It works on a site behind a firewall.</p>
+<p><strong>No licence key. No activation. No domain lock.</strong></p>
+<p>There is nothing to register, no key to paste and no server of ours in the loop. Upload, activate, and it works — on as many sites as your licence allows, forever, including the ones you build for clients.</p>
+<p><strong>Honest about what it is</strong></p>
+<p>Most of what governs a kitchen is recommended practice from the NKBA, a trade association, rather than law. The plugin says so on every finding: it names the guideline it applied and links the source, and it separates the handful of real code requirements from the guidance. It is a design tool that catches the mistakes that make a kitchen unpleasant to cook in — not a code compliance certificate, and it does not pretend to be one.</p>
+<p><strong>What you get</strong></p>
+<ul><li>17 families, 106 catalogue types, all at real published dimensions</li><li>23 rules across a recommended-practice and an accessible profile</li><li>3D WebGL editor, one shortcode, works on a phone</li><li>PDF specification sheet and IFC4 export</li><li>Optional lead capture with CSV export</li><li>Full HTML documentation in the download</li><li>Clean, prefixed, escaped PHP — passes the official WordPress Plugin Check with zero errors and zero warnings in all five categories</li></ul>',
+			'requirements' => '<ul><li>WordPress 6.5 or later (tested to 7.1)</li><li>PHP 7.4 or later (runs on 8.0–8.3)</li><li>A browser with WebGL 2 for the 3D view</li><li>No PHP extensions beyond a default build, no database tables added</li></ul>',
+		),
+		'bathroom' => array(
+			'description'  => '<p><strong>Most room planners let somebody drop a pretty toilet six inches from a wall. This one tells them that will not pass, and why.</strong></p>
+<p>Put one shortcode on a page and a visitor gets a 3D bathroom they can lay out: toilets at real 12" rough-ins, vanities in the widths they are actually sold in, 54" alcove tubs for the bath that will not take a 60" one. Every time they move something, the layout is measured against the dimensional minimums in the model codes, and the result is reported fixture by fixture with the standard named on it — so they, or their contractor, can look it up.</p>
+<p><strong>What it checks</strong></p>
+<ul><li>Clear floor space in front of the toilet, basin and tub</li><li>Toilet centreline to the nearest side wall or cabinet — the usual reason a vanity has to shrink</li><li>Minimum shower size, by both smallest dimension and floor area</li><li>Shower door clear opening and headroom over the drain</li><li>Whether the door swings into a fixture</li><li>Ventilation</li><li>An accessible mode that adds ICC A117.1 on top: the 16"–18" toilet centreline range, clear floor spaces, knee clearance under the basin, grab bar lengths and heights, and whether a 60" turning circle fits anywhere in the room</li></ul>
+<p><strong>What the visitor gets out</strong></p>
+<p>A <strong>PDF specification sheet</strong> — a plan drawn at a real architectural scale, the fixture schedule, every clearance check with its standard, and a quantity takeoff with the tile waste allowance on its own line. It is the document a homeowner hands a contractor. It is generated on your server in plain PHP: no PDF library, no Composer dependency, no font to licence.</p>
+<p>And an <strong>IFC4 model</strong> — the part no consumer room planner does. Full spatial hierarchy, real dimensions in metres, Uniclass classification codes and the retailer SKU for each fixture, so the homeowner\'s sketch opens directly in Revit, ArchiCAD, Solibri, Navisworks, BIMcollab or Bonsai. Priceable, not retyped.</p>
+<p><strong>Optional lead capture</strong></p>
+<p>If you fit out bathrooms for a living, ask visitors for their details before the specification sheet downloads. The lead that arrives already contains the room they laid out, the materials list and the code problems found — not just a name and "quote me please". Leads land in wp-admin and in an email to you, with a CSV export and a Download PDF button on each one.</p>
+<p>It is <strong>off by default</strong> and stays off until you turn it on, name the recipient and write the consent wording yourself. No IP addresses are stored. Leads are wired into WordPress\'s own privacy export and erasure tools.</p>
+<p><strong>No external services, ever</strong></p>
+<p>The plugin makes no outbound requests at all. The 3D library, the fixture catalogue, the clearance rules and the PDF generator all ship inside it. No API key, no account, no CDN, no phone-home. It works on a site behind a firewall.</p>
+<p><strong>No licence key. No activation. No domain lock.</strong></p>
+<p>There is nothing to register, no key to paste and no server of ours in the loop. Upload, activate, and it works — on as many sites as your licence allows, forever, including the ones you build for clients.</p>
+<p><strong>What you get</strong></p>
+<ul><li>16 fixture families, 83 catalogue types, all at real published dimensions</li><li>23 clearance rules across a residential and an accessible profile</li><li>3D WebGL editor, one shortcode, works on a phone</li><li>PDF specification sheet and IFC4 export</li><li>Optional lead capture with CSV export</li><li>Full HTML documentation in the download</li><li>Clean, prefixed, escaped PHP — passes the official WordPress Plugin Check with zero errors and zero warnings in all five categories</li></ul>',
+			'requirements' => '<ul><li>WordPress 6.5 or later (tested to 7.1)</li><li>PHP 7.4 or later (runs on 8.0–8.3)</li><li>A browser with WebGL 2</li><li>No PHP extensions, no custom database tables, no external services</li></ul>',
 		),
 	);
 }

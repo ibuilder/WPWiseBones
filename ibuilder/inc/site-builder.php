@@ -74,7 +74,13 @@ function ibuilder_site_render_setup_page(): void {
 		</h1>
 
 		<p class="description" style="max-width:720px">
-			<?php esc_html_e( 'One click builds the vendor site: the front page, a page for each of the eight plugins, and the Documentation, Support and About pages, with the menus wired up. Safe to run more than once — pages are matched on a hidden flag and updated rather than duplicated.', 'ibuilder' ); ?>
+			<?php
+			printf(
+				/* translators: %d: number of products. */
+				esc_html__( 'One click builds the vendor site: the front page, a page for each of the %d plugins, and the Documentation, Support and About pages, with the menus wired up. Safe to run more than once — pages are matched on a hidden flag and updated rather than duplicated.', 'ibuilder' ),
+				count( ibuilder_site_products() )
+			);
+			?>
 		</p>
 
 		<div class="notice notice-warning inline" style="max-width:720px">
@@ -103,7 +109,13 @@ function ibuilder_site_render_setup_page(): void {
 					<td><strong><?php esc_html_e( 'Codester links', 'ibuilder' ); ?></strong></td>
 					<td>
 						<?php if ( $with_urls === count( $products ) ) : ?>
-							<?php esc_html_e( 'All eight item URLs are filled in.', 'ibuilder' ); ?>
+							<?php
+							printf(
+								/* translators: %d: number of products. */
+								esc_html__( 'All %d item URLs are filled in.', 'ibuilder' ),
+								count( ibuilder_site_products() )
+							);
+							?>
 						<?php else : ?>
 							<?php
 							printf(
@@ -158,14 +170,14 @@ function ibuilder_site_render_setup_page(): void {
 					type="url"
 					name="ibuilder_site_demo_url"
 					class="regular-text code"
-					placeholder="https://demo.example.com"
+					placeholder="https://demo.ibuilder.me"
 					value="<?php echo esc_attr( $demo_opt ); ?>"
 					<?php disabled( $locked ); ?>
 				>
 				<?php submit_button( __( 'Save', 'ibuilder' ), 'secondary', 'submit', false ); ?>
 			</p>
 			<p class="description" style="max-width:720px">
-				<?php esc_html_e( 'The base URL of the public demo, with no trailing path. Product links are built from it — https://demo.example.com becomes https://demo.example.com/realty/. Leave it empty until the demo is live; anything that is not an http(s) URL is ignored. Setting it does not require a rebuild.', 'ibuilder' ); ?>
+				<?php esc_html_e( 'The base URL of the public demo, with no trailing path. Product links are built from it — https://demo.ibuilder.me becomes https://demo.ibuilder.me/realty/. Leave it empty until the demo is live; anything that is not an http(s) URL is ignored. Setting it does not require a rebuild.', 'ibuilder' ); ?>
 			</p>
 		</form>
 
@@ -362,7 +374,7 @@ function ibuilder_site_product_content( array $p, array $copy ): string {
 	}
 
 	// Wrapped once so the block editor treats it as a single HTML block rather
-	// than trying to parse eight sections into blocks it did not create.
+	// than trying to parse the generated sections into blocks it did not create.
 	return '<!-- wp:html -->' . $html . '<!-- /wp:html -->';
 }
 
@@ -379,7 +391,7 @@ function ibuilder_site_static_pages(): array {
 	$docs .= '<h2>' . esc_html__( 'Where to look first', 'ibuilder' ) . '</h2><ul>';
 	$docs .= '<li>' . esc_html__( 'readme.txt — what the plugin does, what it requires, and an "External services" section naming every host it can contact.', 'ibuilder' ) . '</li>';
 	$docs .= '<li>' . esc_html__( 'documentation/ — the full guide, including setup and the hooks available to developers.', 'ibuilder' ) . '</li>';
-	$docs .= '<li>' . esc_html__( 'LICENSE.txt — GPL v2 or later, plus the licence of anything bundled.', 'ibuilder' ) . '</li>';
+	$docs .= '<li>' . esc_html__( 'LICENSE.txt — GPL v2 or later, plus the license of anything bundled.', 'ibuilder' ) . '</li>';
 	$docs .= '</ul>';
 	$docs .= '<h2>' . esc_html__( 'Overriding templates', 'ibuilder' ) . '</h2>';
 	$docs .= '<p>' . esc_html__( 'Where a plugin renders front-end markup, every template can be overridden from your theme: copy the file into a folder named after the plugin in your theme directory and the plugin will use yours instead. The markup is yours to own.', 'ibuilder' ) . '</p>';
@@ -409,9 +421,9 @@ function ibuilder_site_static_pages(): array {
 	$support .= '<!-- /wp:html -->';
 
 	$about  = '<!-- wp:html -->';
-	$about .= '<p class="lead">' . esc_html__( 'iBuilder builds WordPress plugins for property, construction and the back office — the kind of software where the data matters and the licence check does not.', 'ibuilder' ) . '</p>';
+	$about .= '<p class="lead">' . esc_html__( 'iBuilder builds WordPress plugins for property, construction and the back office — the kind of software where the data matters and the license check does not.', 'ibuilder' ) . '</p>';
 	$about .= '<h2>' . esc_html__( 'How these are built', 'ibuilder' ) . '</h2><ul>';
-	$about .= '<li>' . esc_html__( 'No licence key, no activation, no domain lock, no phone-home. There is no server of ours in the loop, which means there is no server of ours to go down.', 'ibuilder' ) . '</li>';
+	$about .= '<li>' . esc_html__( 'No license key, no activation, no domain lock, no phone-home. There is no server of ours in the loop, which means there is no server of ours to go down.', 'ibuilder' ) . '</li>';
 	$about .= '<li>' . esc_html__( 'Readable, editable PHP. Nothing encrypted, nothing obfuscated, nothing minified beyond the JavaScript bundles — whose unminified source ships too.', 'ibuilder' ) . '</li>';
 	$about .= '<li>' . esc_html__( 'Their own database tables where the data warrants it, rather than bending wp_posts until it stops being fast.', 'ibuilder' ) . '</li>';
 	$about .= '<li>' . esc_html__( 'A clean uninstall: delete the plugin and it takes its tables, options and scheduled events with it.', 'ibuilder' ) . '</li>';
@@ -514,7 +526,7 @@ function ibuilder_site_build_menus( array $ids ): void {
 		$primary[] = array( 'page', (int) $ids['home'], __( 'Home', 'ibuilder' ) );
 	}
 
-	// The eight products as children of a "Plugins" parent, so the bar does
+	// Every product as a child of a "Plugins" parent, so the bar does
 	// not become eleven top-level items.
 	$children = array();
 	foreach ( ibuilder_site_products() as $p ) {

@@ -37,7 +37,7 @@ $ibs_half     = (int) ceil( count( $ibs_products ) / 2 );
 			<div class="col-lg-4">
 				<span class="ibs-footer__brand"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></span>
 				<p style="max-width:28rem">
-					<?php esc_html_e( 'WordPress plugins for property, construction and the back office. No licence keys, no activation, no phone-home — and the source stays readable.', 'ibuilder' ); ?>
+					<?php esc_html_e( 'WordPress plugins for property, construction and the back office. No license keys, no activation, no phone-home — and the source stays readable.', 'ibuilder' ); ?>
 				</p>
 				<p class="mt-3 mb-0">
 					<a href="<?php echo esc_url( IBUILDER_SITE_PROFILE_URL ); ?>" rel="noopener">
@@ -112,6 +112,19 @@ $ibs_half     = (int) ceil( count( $ibs_products ) / 2 );
 			<span>
 				<?php esc_html_e( 'No trackers and no third-party requests on this site.', 'ibuilder' ); ?>
 			</span>
+			<?php
+			/*
+			 * Only renders once a privacy page is set AND published -
+			 * get_privacy_policy_url() returns '' otherwise, so an unfinished
+			 * draft never gets a link pointing at it.
+			 */
+			$ibs_privacy = get_privacy_policy_url();
+			if ( '' !== $ibs_privacy ) :
+				?>
+				<span>
+					<a href="<?php echo esc_url( $ibs_privacy ); ?>"><?php esc_html_e( 'Privacy', 'ibuilder' ); ?></a>
+				</span>
+			<?php endif; ?>
 		</div>
 	</div>
 </footer>

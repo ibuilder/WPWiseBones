@@ -1,6 +1,6 @@
 <?php
 /**
- * iBuilder front page — presents the eight plugins and sends buyers to Codester.
+ * iBuilder front page — presents the plugins and sends buyers to Codester.
  *
  * Self-contained: Bootstrap 5 and Bootstrap Icons come from the parent, the
  * brand classes from assets/css/ibuilder.css. Every product fact on this page
@@ -17,6 +17,19 @@ get_header();
 
 $ibs_products = ibuilder_site_products();
 $ibs_demo     = ibuilder_site_demo_base();
+
+/*
+ * The same child theme serves two sites: the shop at ibuilder.me and the live
+ * demo at demo.ibuilder.me. IBUILDER_DEMO is defined only on the demo, by its
+ * wp-config, and is what the demo-guard mu-plugin keys off too.
+ *
+ * The demo used to carry a hand-written front page listing the products. It
+ * said "Eight WordPress products" and listed eight - it had drifted within a
+ * day of Kitchen and Bathroom being added, because a person had to remember
+ * to edit it. Everything below reads inc/products.php, which is generated
+ * from the Codester listing kits, so it cannot drift that way again.
+ */
+$ibs_is_demo = defined( 'IBUILDER_DEMO' ) && IBUILDER_DEMO;
 
 // The hero figure shows the first four, which is as many as fits without
 // scrolling on a laptop.
@@ -38,23 +51,42 @@ foreach ( $ibs_products as $ibs_p ) {
 					<?php
 					printf(
 						/* translators: %d: number of plugins. */
-						esc_html( _n( '%d WordPress plugin for property and construction', '%d WordPress plugins for property and construction', count( $ibs_products ), 'ibuilder' ) ),
+						esc_html(
+							$ibs_is_demo
+								? _n( '%d plugin, live and running on this site', '%d plugins, live and running on this site', count( $ibs_products ), 'ibuilder' )
+								: _n( '%d WordPress plugin for property and construction', '%d WordPress plugins for property and construction', count( $ibs_products ), 'ibuilder' )
+						),
 						count( $ibs_products )
 					);
 					?>
 				</span>
 
-				<h1 class="mt-3 mb-3"><?php esc_html_e( 'Serious WordPress plugins, with the licensing left out', 'ibuilder' ); ?></h1>
+				<h1 class="mt-3 mb-3">
+					<?php
+					echo esc_html(
+						$ibs_is_demo
+							? __( 'Every plugin installed, seeded and running. Break whatever you like.', 'ibuilder' )
+							: __( 'Serious WordPress plugins, with the licensing left out', 'ibuilder' )
+					);
+					?>
+				</h1>
 
 				<p class="lead mb-4">
-					<?php esc_html_e( 'Real estate, construction management, double-entry accounting, a 3D product configurator, a multi-vendor marketplace. Built for the work, not for a feature list — and every one of them runs on your own server with nothing to register and nothing phoning home.', 'ibuilder' ); ?>
+					<?php
+					echo esc_html(
+						$ibs_is_demo
+							? __( 'One WordPress install running the whole line, each product seeded so the screens show something worth reading. None of the data is real. The site resets on the hour, so nothing you do to it lasts.', 'ibuilder' )
+							: __( 'Real estate, construction management, double-entry accounting, a 3D product configurator, a multi-vendor marketplace. Built for the work, not for a feature list — and every one of them runs on your own server with nothing to register and nothing phoning home.', 'ibuilder' )
+					);
+					?>
 				</p>
 
 				<div class="d-flex gap-2 flex-wrap mb-2">
 					<a href="#products" class="btn btn-primary btn-lg">
-						<i class="bi bi-grid-3x3-gap me-2" aria-hidden="true"></i><?php esc_html_e( 'See the plugins', 'ibuilder' ); ?>
+						<i class="bi bi-grid-3x3-gap me-2" aria-hidden="true"></i>
+						<?php echo esc_html( $ibs_is_demo ? __( 'Pick one', 'ibuilder' ) : __( 'See the plugins', 'ibuilder' ) ); ?>
 					</a>
-					<?php if ( '' !== $ibs_demo ) : ?>
+					<?php if ( ! $ibs_is_demo && '' !== $ibs_demo ) : ?>
 						<a href="<?php echo esc_url( $ibs_demo ); ?>" class="btn btn-outline-primary btn-lg">
 							<i class="bi bi-play-circle me-2" aria-hidden="true"></i><?php esc_html_e( 'Open the live demo', 'ibuilder' ); ?>
 						</a>
@@ -64,7 +96,7 @@ foreach ( $ibs_products as $ibs_p ) {
 				<ul class="ibs-hero-points">
 					<li>
 						<i class="bi bi-shield-check" aria-hidden="true"></i>
-						<span><?php esc_html_e( 'No licence key, no activation, no domain lock — nothing to register and no server of ours in the loop.', 'ibuilder' ); ?></span>
+						<span><?php esc_html_e( 'No license key, no activation, no domain lock — nothing to register and no server of ours in the loop.', 'ibuilder' ); ?></span>
 					</li>
 					<li>
 						<i class="bi bi-code-slash" aria-hidden="true"></i>
@@ -106,12 +138,12 @@ foreach ( $ibs_products as $ibs_p ) {
 <!-- ───────── THE CLAIM THAT MATTERS ───────── -->
 <section class="ibs-section ibs-section--tint" style="padding-block:2rem">
 	<div class="container">
-		<div class="ibs-nolicence">
+		<div class="ibs-nolicense">
 			<i class="bi bi-unlock" aria-hidden="true"></i>
 			<div>
-				<strong><?php esc_html_e( 'Why there is no licence key', 'ibuilder' ); ?></strong>
+				<strong><?php esc_html_e( 'Why there is no license key', 'ibuilder' ); ?></strong>
 				<p>
-					<?php esc_html_e( 'A licence check is a thing that can break your site when a server you do not control goes down, and a reason you cannot move a site to a new domain on a Friday. None of these plugins has one. You buy the zip, you install it, it works — on as many of your own sites as you like, forever, with no key to paste and no call home to fail. Each readme states plainly which external services the plugin can talk to, and most of them talk to none.', 'ibuilder' ); ?>
+					<?php esc_html_e( 'A license check is a thing that can break your site when a server you do not control goes down, and a reason you cannot move a site to a new domain on a Friday. None of these plugins has one. You buy the zip, you install it, it works — on as many of your own sites as you like, forever, with no key to paste and no call home to fail. Each readme states plainly which external services the plugin can talk to, and most of them talk to none.', 'ibuilder' ); ?>
 				</p>
 			</div>
 		</div>
@@ -124,7 +156,15 @@ foreach ( $ibs_products as $ibs_p ) {
 		<div class="row mb-4">
 			<div class="col-lg-8">
 				<span class="ibs-eyebrow"><?php esc_html_e( 'The catalogue', 'ibuilder' ); ?></span>
-				<h2 class="mt-2 mb-2"><?php esc_html_e( 'Eight plugins, sold separately', 'ibuilder' ); ?></h2>
+				<h2 class="mt-2 mb-2">
+					<?php
+					printf(
+						/* translators: %d: number of products. */
+						esc_html__( '%d plugins, sold separately', 'ibuilder' ),
+						count( $ibs_products )
+					);
+					?>
+				</h2>
 				<p class="lead mb-0">
 					<?php
 					printf(
@@ -165,9 +205,9 @@ foreach ( $ibs_products as $ibs_p ) {
 
 					<div class="ibs-card__actions">
 						<a href="<?php echo esc_url( $ibs_href ); ?>" class="btn btn-primary btn-sm">
-							<?php esc_html_e( 'Details', 'ibuilder' ); ?>
+							<?php echo esc_html( $ibs_is_demo ? __( 'Open the demo', 'ibuilder' ) : __( 'Details', 'ibuilder' ) ); ?>
 						</a>
-						<?php if ( '' !== $ibs_demo_href ) : ?>
+						<?php if ( ! $ibs_is_demo && '' !== $ibs_demo_href ) : ?>
 							<a href="<?php echo esc_url( $ibs_demo_href ); ?>" class="btn btn-outline-primary btn-sm">
 								<?php esc_html_e( 'Try it', 'ibuilder' ); ?>
 							</a>
@@ -178,6 +218,32 @@ foreach ( $ibs_products as $ibs_p ) {
 		</div>
 	</div>
 </section>
+
+<?php
+/*
+ * The demo's own page content. front-page.php takes precedence over the
+ * static front page, so without this the curated "About this site" copy -
+ * which says plainly that every figure is invented and which products talk
+ * to an outside service - would simply stop being rendered. That copy is
+ * the honest part of the demo and is not derivable from the listing kits.
+ */
+if ( $ibs_is_demo ) :
+	$ibs_front_page = get_post( (int) get_option( 'page_on_front' ) );
+	if ( $ibs_front_page && '' !== trim( (string) $ibs_front_page->post_content ) ) :
+		?>
+<section class="ibs-section ibs-section--tint">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 ibs-demo-prose">
+				<?php echo wp_kses_post( apply_filters( 'the_content', $ibs_front_page->post_content ) ); ?>
+			</div>
+		</div>
+	</div>
+</section>
+		<?php
+	endif;
+endif;
+?>
 
 <!-- ───────── WHAT YOU GET ───────── -->
 <section class="ibs-section ibs-section--ink">
@@ -221,18 +287,36 @@ foreach ( $ibs_products as $ibs_p ) {
 <!-- ───────── CLOSE ───────── -->
 <section class="ibs-section ibs-section--tint">
 	<div class="container text-center">
-		<h2 class="mb-3"><?php esc_html_e( 'Have a look before you spend anything', 'ibuilder' ); ?></h2>
+		<h2 class="mb-3">
+			<?php
+			echo esc_html(
+				$ibs_is_demo
+					? __( 'Seen enough?', 'ibuilder' )
+					: __( 'Have a look before you spend anything', 'ibuilder' )
+			);
+			?>
+		</h2>
 		<p class="lead mx-auto mb-4" style="max-width:40rem">
 			<?php
-			if ( '' !== $ibs_demo ) {
-				esc_html_e( 'The demo is a real WordPress install with all eight plugins active and seeded with data. It resets every hour, so you can break whatever you like.', 'ibuilder' );
+			if ( $ibs_is_demo ) {
+				printf(
+					/* translators: %d: number of products. */
+					esc_html__( 'Each of the %d is sold separately on Codester, with the full description, the requirements and the readme on its listing. No licence key, no activation, nothing phoning home.', 'ibuilder' ),
+					count( $ibs_products )
+				);
+			} elseif ( '' !== $ibs_demo ) {
+				printf(
+					/* translators: %d: number of products. */
+					esc_html__( 'The demo is a real WordPress install with all %d plugins active and seeded with data. It resets every hour, so you can break whatever you like.', 'ibuilder' ),
+					count( $ibs_products )
+				);
 			} else {
 				esc_html_e( 'Every listing carries the full description, the requirements and the readme, so you can see exactly what you are buying before you buy it.', 'ibuilder' );
 			}
 			?>
 		</p>
 		<div class="d-flex gap-2 justify-content-center flex-wrap">
-			<?php if ( '' !== $ibs_demo ) : ?>
+			<?php if ( ! $ibs_is_demo && '' !== $ibs_demo ) : ?>
 				<a href="<?php echo esc_url( $ibs_demo ); ?>" class="btn btn-primary btn-lg">
 					<i class="bi bi-play-circle me-2" aria-hidden="true"></i><?php esc_html_e( 'Open the demo', 'ibuilder' ); ?>
 				</a>

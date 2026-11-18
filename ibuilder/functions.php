@@ -2,7 +2,7 @@
 /**
  * iBuilder — child theme of WPWiseBones.
  *
- * The vendor site for the eight iBuilder WordPress plugins sold on Codester.
+ * The vendor site for the iBuilder WordPress plugins sold on Codester.
  * Presents them, documents them, points at the public demo, and sends buyers
  * to the listing. It is deliberately NOT a storefront: see the note on
  * licensing below.
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'IBUILDER_SITE_VERSION', '1.0.0' );
+define( 'IBUILDER_SITE_VERSION', '1.3.0' );
 
 /** The Codester seller profile — where a product with no item URL yet lands. */
 define( 'IBUILDER_SITE_PROFILE_URL', 'https://www.codester.com/ibuilder/' );
@@ -26,7 +26,7 @@ define( 'IBUILDER_SITE_PROFILE_URL', 'https://www.codester.com/ibuilder/' );
  *
  *   1. Selling happens on Codester. A second checkout is work with no revenue
  *      attached to it.
- *   2. All eight readmes advertise that the product contains no license key,
+ *   2. Every readme advertises that the product contains no license key,
  *      no activation and no phone-home, and Codester rejects "activation
  *      systems, purchase-code checks, domain locks or remote license
  *      validation" outright. tools/audit_no_licensing.py in the codester
@@ -41,6 +41,7 @@ define( 'IBUILDER_SITE_PROFILE_URL', 'https://www.codester.com/ibuilder/' );
 
 /** The product table, generated from the listing kits. */
 require_once get_stylesheet_directory() . '/inc/products.php';
+require_once get_stylesheet_directory() . '/inc/screenshots.php';
 
 /* Print the live theme version into <head> so "View Source" can confirm which
    build is deployed - search for "iBuilder theme v". */
@@ -62,7 +63,7 @@ add_action(
  * template hides its demo button rather than rendering a dead one. Set it in
  * wp-config.php:
  *
- *     define( 'IBUILDER_SITE_DEMO_URL', 'https://demo.wpibuilder.com' );
+ *     define( 'IBUILDER_SITE_DEMO_URL', 'https://demo.ibuilder.me' );
  *
  * or from Appearance → iBuilder Setup, which writes the same value to an
  * option. The constant wins, so a staging site can point elsewhere without

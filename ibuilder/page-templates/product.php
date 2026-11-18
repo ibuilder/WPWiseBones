@@ -6,7 +6,7 @@
  * A product page. The branded header — icon, price, buy and demo buttons — is
  * rendered from inc/products.php rather than written into the page content, so
  * a price change in the listing kit reaches every page by regenerating one
- * file instead of editing eight pages.
+ * file instead of editing every page by hand.
  *
  * The page is matched to its product by the `_ibuilder_site_product` post
  * meta the site builder writes, not by its title. A page that has no such meta
@@ -47,7 +47,7 @@ $ibs_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
 					<ul class="ibs-meta">
 						<li>
 							<i class="bi bi-unlock" aria-hidden="true"></i>
-							<?php esc_html_e( 'No licence key or activation', 'ibuilder' ); ?>
+							<?php esc_html_e( 'No license key or activation', 'ibuilder' ); ?>
 						</li>
 						<li>
 							<i class="bi bi-file-earmark-code" aria-hidden="true"></i>
@@ -124,8 +124,59 @@ $ibs_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
 				endwhile;
 				?>
 
+				<?php
+				/*
+				 * The screenshots. These are the same images the Codester
+				 * listing carries, with the captions written when they were
+				 * taken - see inc/screenshots.php, which is generated from the
+				 * kits. They are clipped to a uniform window from the top,
+				 * because the set mixes 1440x941 viewport shots with
+				 * 1440x2600 full-page ones and a grid of both at natural
+				 * height is unreadable. The full image is one click away.
+				 */
+				$ibs_shots = ( $ibs_p && function_exists( 'ibuilder_site_screenshots' ) )
+					? ibuilder_site_screenshots( (string) $ibs_p['key'] )
+					: array();
+
+				if ( $ibs_shots ) :
+					$ibs_shots_base = get_stylesheet_directory_uri() . '/assets/img/screens/'
+						. rawurlencode( (string) $ibs_p['key'] ) . '/';
+					?>
+					<section class="ibs-shots" aria-labelledby="ibs-shots-heading">
+						<h2 id="ibs-shots-heading" class="ibs-shots__title">
+							<?php esc_html_e( 'What it looks like', 'ibuilder' ); ?>
+						</h2>
+						<p class="ibs-shots__note">
+							<?php esc_html_e( 'Screens from a working install, not mock-ups. Open any one for the full image.', 'ibuilder' ); ?>
+						</p>
+
+						<ul class="ibs-shots__grid">
+							<?php foreach ( $ibs_shots as $ibs_shot ) : ?>
+								<?php $ibs_src = $ibs_shots_base . rawurlencode( (string) $ibs_shot['file'] ); ?>
+								<li class="ibs-shots__item<?php echo empty( $ibs_shot['hero'] ) ? '' : ' is-hero'; ?>">
+									<figure class="ibs-shots__figure">
+										<a class="ibs-shots__frame" href="<?php echo esc_url( $ibs_src ); ?>">
+											<img
+												src="<?php echo esc_url( $ibs_src ); ?>"
+												width="<?php echo (int) $ibs_shot['w']; ?>"
+												height="<?php echo (int) $ibs_shot['h']; ?>"
+												loading="lazy"
+												decoding="async"
+												alt="<?php echo esc_attr( $ibs_shot['caption'] ); ?>"
+											>
+										</a>
+										<figcaption class="ibs-shots__caption">
+											<?php echo esc_html( $ibs_shot['caption'] ); ?>
+										</figcaption>
+									</figure>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					</section>
+				<?php endif; ?>
+
 				<?php if ( $ibs_p ) : ?>
-					<div class="ibs-nolicence mb-4">
+					<div class="ibs-nolicense mb-4">
 						<i class="bi bi-hdd-network" aria-hidden="true"></i>
 						<div>
 							<strong><?php esc_html_e( 'What it talks to', 'ibuilder' ); ?></strong>
@@ -138,7 +189,13 @@ $ibs_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
 					<p>
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>#products" class="btn btn-outline-primary btn-sm">
 							<i class="bi bi-arrow-left me-1" aria-hidden="true"></i>
-							<?php esc_html_e( 'All eight plugins', 'ibuilder' ); ?>
+							<?php
+							printf(
+								/* translators: %d: number of products. */
+								esc_html__( 'All %d plugins', 'ibuilder' ),
+								count( ibuilder_site_products() )
+							);
+							?>
 						</a>
 					</p>
 				<?php endif; ?>

@@ -26,10 +26,11 @@
  *   7  Sections
  *   8  Product cards
  *   9  Product page
- *  10  The no-licence callout
- *  11  Footer
- *  12  Blog and entry chrome
- *  13  Responsive
+ *  10  Screenshots
+ *  11  The no-license callout
+ *  12  Footer
+ *  13  Blog and entry chrome
+ *  14  Responsive
  */
 
 /* ============================================================
@@ -639,12 +640,110 @@ textarea:focus-visible,
 }
 
 /* ============================================================
-   10  THE NO-LICENCE CALLOUT
+   10  SCREENSHOTS
+   The set mixes 1440x941 viewport shots with 1440x2600 full-page ones - a
+   grid of both at their natural height is unreadable, and tall ones push the
+   rest of the page away. So every frame is the same window and the image is
+   anchored to its top edge, which is where a screenshot's subject is. The
+   full image is one click away.
+   ============================================================ */
+
+.ibs-shots {
+	margin: 2.5rem 0 2rem;
+}
+
+.ibs-shots__title {
+	font-size: 1.35rem;
+	font-weight: 650;
+	letter-spacing: -.01em;
+	margin: 0 0 .35rem;
+}
+
+.ibs-shots__note {
+	color: var(--ibs-slate-2);
+	font-size: .92rem;
+	margin: 0 0 1.25rem;
+}
+
+.ibs-shots__grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1.5rem 1.25rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.ibs-shots__item.is-hero {
+	grid-column: 1 / -1;
+}
+
+.ibs-shots__figure {
+	margin: 0;
+}
+
+.ibs-shots__frame {
+	display: block;
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
+	border: 1px solid var(--ibs-line);
+	border-radius: var(--ibs-radius-s);
+	background: var(--ibs-wash);
+	box-shadow: var(--ibs-shadow);
+	transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+
+.ibs-shots__item.is-hero .ibs-shots__frame {
+	aspect-ratio: 16 / 9;
+}
+
+.ibs-shots__frame img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	/* Top, not centre: a screenshot's heading and toolbar are the part that
+	   says what you are looking at. */
+	object-position: top center;
+	display: block;
+}
+
+.ibs-shots__frame:hover,
+.ibs-shots__frame:focus-visible {
+	border-color: var(--ibs-brand);
+	box-shadow: var(--ibs-shadow-l);
+	transform: translateY(-2px);
+}
+
+.ibs-shots__caption {
+	color: var(--ibs-slate-2);
+	font-size: .88rem;
+	line-height: 1.45;
+	margin-top: .55rem;
+}
+
+@media (max-width: 767.98px) {
+	.ibs-shots__grid {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1.25rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ibs-shots__frame,
+	.ibs-shots__frame:hover,
+	.ibs-shots__frame:focus-visible {
+		transition: none;
+		transform: none;
+	}
+}
+
+/* ============================================================
+   11  THE NO-LICENSE CALLOUT
    The single most load-bearing claim on the site, so it gets a treatment of
    its own rather than becoming another bullet.
    ============================================================ */
 
-.ibs-nolicence {
+.ibs-nolicense {
 	background: var(--ibs-wash);
 	border: 1px solid #bfe9e4;
 	border-left: 4px solid var(--ibs-brand);
@@ -655,20 +754,20 @@ textarea:focus-visible,
 	align-items: flex-start;
 }
 
-.ibs-nolicence i {
+.ibs-nolicense i {
 	color: var(--ibs-brand-3);
 	font-size: 1.35rem;
 	margin-top: .1rem;
 	flex: 0 0 auto;
 }
 
-.ibs-nolicence strong {
+.ibs-nolicense strong {
 	color: var(--ibs-ink);
 	display: block;
 	margin-bottom: .2rem;
 }
 
-.ibs-nolicence p {
+.ibs-nolicense p {
 	margin: 0;
 	color: var(--ibs-ink-3);
 	font-size: .94rem;
@@ -703,7 +802,7 @@ textarea:focus-visible,
 }
 
 /* ============================================================
-   11  FOOTER
+   12  FOOTER
    ============================================================ */
 
 .site-footer,
@@ -766,7 +865,7 @@ textarea:focus-visible,
 }
 
 /* ============================================================
-   12  BLOG AND ENTRY CHROME
+   13  BLOG AND ENTRY CHROME
    Also from the parent's unloaded style.css.
    ============================================================ */
 
@@ -887,7 +986,7 @@ textarea:focus-visible,
 }
 
 /* ============================================================
-   13  RESPONSIVE
+   14  RESPONSIVE
    ============================================================ */
 
 @media (max-width: 991.98px) {

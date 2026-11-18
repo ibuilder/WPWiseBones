@@ -1,11 +1,11 @@
 <?php
 /**
- * The eight products, generated - do not hand-edit.
+ * The products, generated - do not hand-edit.
  *
  * Source: C:\Server\codester\_listing-kits\<slug>\listing.md
  * Generator: C:\Server\codester\tools\make_site_products.py
  *
- * The site and the Codester listings sell the same eight things, so the name,
+ * The site and the Codester listings sell the same things, so the name,
  * the one-line pitch and the price exist in two places. Typed twice they
  * drift, and the version a buyer reads on the site is the one that makes the
  * listing look wrong. So they are read from the kits instead. Re-run the
@@ -156,6 +156,38 @@ function ibuilder_site_products(): array {
 				'Read-only against CMiC: it fetches, and never writes back',
 				'Built for CMiC\'s real limits - 5 concurrent requests, 15 per second per IP, and a cap on any single response - rather than for a happy path',
 				'Operating companies discovered from CMiC rather than typed in, each with its own currency',
+			),
+		),
+		array(
+			'slug'         => 'ibuilder-kitchen',
+			'key'          => 'kitchen',
+			'name'         => 'iBuilder Kitchen Renovator - 3D NKBA Planner',
+			'label'        => 'Kitchen Renovator',
+			'tagline'      => 'Let visitors lay out a kitchen in 3D at real cabinet sizes, check NKBA clearances, and download a PDF spec sheet.',
+			'price'        => '59',
+			'icon'         => 'grid-3x3-gap',
+			'codester_url' => '',
+			'features'     => array(
+				'The worktop is derived from the cabinets standing under it, not drawn: a base cabinet carries worktop, a tall cabinet ends the run, and a sink or hob set into a run splits it in two — so a 9-foot counter with a hob in the middle reads as two landing areas, not one',
+				'Base cabinets in the widths they are actually sold in — the full 9" to 48" series in 3" increments, not four round numbers — plus wall, corner and tall cabinets and appliances at published trade sizes',
+				'The work triangle measured properly: each leg 4\'–9\', the three no more than 26\', taken from the front of the counter because that is where you stand, with a leg that is too *short* failing too and anything standing in a leg reported',
+				'Landing areas at the sink, cooking surface, refrigerator, oven and microwave, including Guideline 24 — where two landing areas adjoin, the worktop between them must be the longer requirement plus 12", because one stretch cannot do both jobs',
+			),
+		),
+		array(
+			'slug'         => 'ibuilder-bathroom',
+			'key'          => 'bathroom',
+			'name'         => 'iBuilder Bathroom Renovator - 3D Code Planner',
+			'label'        => 'Bathroom Renovator',
+			'tagline'      => 'Let visitors lay out a bathroom in 3D at real fixture sizes, check code clearances, and download a PDF spec sheet.',
+			'price'        => '49',
+			'icon'         => 'droplet',
+			'codester_url' => '',
+			'features'     => array(
+				'A 3D bathroom a visitor lays out from one shortcode: toilets at real 12" rough-ins, vanities in the widths they are actually sold in, 54" alcove tubs for the bath that will not take a 60" one',
+				'23 clearance rules checked on every move, reported fixture by fixture with the standard named, so the homeowner or their contractor can look it up',
+				'An accessible profile that adds ICC A117.1 on top: the 16"–18" toilet centreline range, clear floor spaces, knee clearance under the basin, grab bar lengths and heights, and whether a 60" turning circle fits anywhere in the room',
+				'A PDF specification sheet drawn at architectural scale, with the fixture schedule, every check with its standard, and a quantity takeoff with the tile waste allowance on its own line — generated in plain PHP, no library, no Composer dependency, no font to licence',
 			),
 		),
 	);
