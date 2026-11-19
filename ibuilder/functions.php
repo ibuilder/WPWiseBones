@@ -94,6 +94,46 @@ function ibuilder_site_demo_base(): string {
 }
 
 /**
+ * Codester's buyer fee, in whole dollars.
+ *
+ * Codester adds this to every item at checkout; the seller sets the price
+ * below it. Measured across all seven live listings on 2026-11-19, spanning
+ * the whole catalogue range:
+ *
+ *   $29 -> $34    $39 -> $44    $39 -> $44    $59 -> $64
+ *   $69 -> $74    $79 -> $84    $79 -> $84
+ *
+ * Seven points, every one exactly +$5, so it is a flat fee rather than a
+ * percentage. Stated rather than hedged for that reason - when only two
+ * listings were live this said merely that "a fee is added", because two
+ * points at $59 and $69 could not tell a flat fee from a band from a
+ * percentage that rounded the same way twice.
+ *
+ * Filterable because it is Codester's number, not ours, and they can change
+ * it without telling anybody.
+ *
+ * @return float
+ */
+function ibuilder_site_buyer_fee(): float {
+	/**
+	 * Filter the buyer fee Codester adds at checkout.
+	 *
+	 * @param float $fee Fee in dollars.
+	 */
+	return (float) apply_filters( 'ibuilder_site_buyer_fee', 5.0 );
+}
+
+/**
+ * What a buyer actually pays on Codester for a product.
+ *
+ * @param array<string, mixed> $product Product row.
+ * @return float
+ */
+function ibuilder_site_checkout_price( array $product ): float {
+	return (float) $product['price'] + ibuilder_site_buyer_fee();
+}
+
+/**
  * Asset version from file mtime, so an edit busts the cache without a bump.
  *
  * @param string $rel Path relative to the theme directory.

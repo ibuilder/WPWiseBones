@@ -38,7 +38,7 @@ function ibuilder_site_products(): array {
 			'tagline'      => 'Real estate for WordPress: listings, MLS/IDX import, investor proformas, a lead CRM, agent portal, property management and tours.',
 			'price'        => '69',
 			'icon'         => 'house-door',
-			'codester_url' => '',
+			'codester_url' => 'https://www.codester.com/items/75999/ibuilder-realty-real-estate-mls-for-wordpress',
 			'features'     => array(
 				'Listings live in their own tables rather than wp_posts, so tens of thousands of them stay fast',
 				'MLS / IDX import with fifteen feed adapters - RESO Web API, Bridge, SimplyRETS, legacy RETS, ATTOM, Crexi, CSV, and a demo feed to test the pipeline end to end',
@@ -54,7 +54,7 @@ function ibuilder_site_products(): array {
 			'tagline'      => 'A 3D product configurator for WooCommerce with server-side pricing, production-ready artwork files and a fabrication job board.',
 			'price'        => '59',
 			'icon'         => 'badge-3d',
-			'codester_url' => '',
+			'codester_url' => 'https://www.codester.com/items/76012/ibuilder-signage-3d-configurator-for-woocommerce',
 			'features'     => array(
 				'A 3D product configurator: text, material, size, finish, surface and options on an extruded plate the customer can orbit, zoom and reset',
 				'An SVG fallback that configures and prices identically where WebGL is unavailable',
@@ -70,7 +70,7 @@ function ibuilder_site_products(): array {
 			'tagline'      => 'Auto-post WordPress content to a LinkedIn company page through a queue that retries properly and logs every attempt.',
 			'price'        => '39',
 			'icon'         => 'linkedin',
-			'codester_url' => '',
+			'codester_url' => 'https://www.codester.com/items/76077/ibuilder-social-linkedin-post-scheduler',
 			'features'     => array(
 				'Auto-posts to LinkedIn company pages from a queue, rather than firing an HTTP request during the publish request and hoping',
 				'Retries that back off sensibly - 5 minutes, 30 minutes, 2 hours, 12 hours - and honour a Retry-After header',
@@ -102,7 +102,7 @@ function ibuilder_site_products(): array {
 			'tagline'      => 'Turn WooCommerce into a multi-vendor marketplace: digital downloads with license keys, tiered services, commissions, payouts.',
 			'price'        => '79',
 			'icon'         => 'shop',
-			'codester_url' => '',
+			'codester_url' => 'https://www.codester.com/items/76084/ibuilder-market-multi-vendor-for-woocommerce',
 			'features'     => array(
 				'A multi-vendor marketplace where vendors never touch wp-admin',
 				'Front-end vendor applications, approved manually or automatically',
@@ -118,7 +118,7 @@ function ibuilder_site_products(): array {
 			'tagline'      => 'Construction project management in WordPress: RFIs, submittals, a role-gated change-order workflow, costs and G702/G703 pay apps.',
 			'price'        => '79',
 			'icon'         => 'kanban',
-			'codester_url' => '',
+			'codester_url' => 'https://www.codester.com/items/76090/ibuilder-projects-construction-pm-for-wordpress',
 			'features'     => array(
 				'The change-order workflow is the product: the whole chain a change actually follows, not a list with a hard-hat icon',
 				'Two role dimensions - a CRUD capability role and a project role - which is why the permission gates hold',
@@ -134,7 +134,7 @@ function ibuilder_site_products(): array {
 			'tagline'      => 'Publish live Procore project data on your WordPress site with shortcodes and blocks - cached, rate-limit aware and read-only.',
 			'price'        => '39',
 			'icon'         => 'diagram-3',
-			'codester_url' => '',
+			'codester_url' => 'https://www.codester.com/items/76092/ibuilder-connect-procore-data-on-wordpress',
 			'features'     => array(
 				'Eighteen shortcodes and a block, reading live from the Procore API - project directories, teams, drawings and more',
 				'Read-only: nothing this plugin does can change your project data in Procore',
@@ -150,7 +150,7 @@ function ibuilder_site_products(): array {
 			'tagline'      => 'Read-only sync from the CMiC ERP into WordPress: operating companies, RFIs, submittals, change orders and cost codes.',
 			'price'        => '29',
 			'icon'         => 'arrow-repeat',
-			'codester_url' => '',
+			'codester_url' => 'https://www.codester.com/items/76094/ibuilder-sync-for-cmic-cmic-erp-to-wordpress',
 			'features'     => array(
 				'Keeps an iBuilder Projects dashboard populated from the CMiC construction ERP',
 				'Read-only against CMiC: it fetches, and never writes back',

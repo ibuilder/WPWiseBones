@@ -80,15 +80,24 @@ $ibs_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
 						 * The figure above is what we set on the listing. Codester adds its own
 						 * buyer fee on top at checkout - the upload form calls it that - so a
 						 * visitor who clicks Buy sees a higher number than the one they just
-						 * read. On the two listings live so far it has been $5 on each, but
-						 * two points at $59 and $69 are not enough to state a rule for a
-						 * catalogue spanning $29 to $79, so this says that a fee is added
-						 * without claiming to know its size. Once all ten are live the real
-						 * figure is readable at every price point and this can show totals.
+						 * read. The fee is a flat $5: measured across all seven live
+						 * listings, from $29 to $79, every one came to exactly $5 more.
+						 * That is enough to state the figure rather than hedge, which is
+						 * what this said when only two listings were live and two points
+						 * could not tell a flat fee from a percentage. See
+						 * ibuilder_site_buyer_fee(), which is filterable - it is
+						 * Codester's number and they can change it.
 						 */
 						?>
 						<p class="ibs-fee-note">
-							<?php esc_html_e( 'Codester adds its own buyer fee at checkout, so the total there is a little higher.', 'ibuilder' ); ?>
+							<?php
+							printf(
+								/* translators: 1: Codester's buyer fee. 2: total the buyer pays. */
+								esc_html__( 'Codester adds a $%1$s buyer fee at checkout, so you pay $%2$s there.', 'ibuilder' ),
+								esc_html( number_format_i18n( ibuilder_site_buyer_fee() ) ),
+								esc_html( number_format_i18n( ibuilder_site_checkout_price( $ibs_p ) ) )
+							);
+							?>
 						</p>
 
 						<div class="ibs-card__actions">
