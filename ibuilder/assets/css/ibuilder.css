@@ -1045,3 +1045,13 @@ textarea:focus-visible,
 		background: #fff;
 	}
 }
+
+/* The buyer-fee note under a product's price. Quiet on purpose: it is a
+   caveat, not a selling point, but it sits where the buy decision happens
+   rather than in small print at the bottom of the page. */
+.ibs-fee-note {
+	margin: -.25rem 0 1rem;
+	font-size: .8125rem;
+	line-height: 1.45;
+	color: var(--ibs-slate);
+}

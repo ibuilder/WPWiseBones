@@ -75,6 +75,22 @@ $ibs_container = get_theme_mod( 'wpwisebones_container_width', 'container' );
 							<?php esc_html_e( 'Bought once, used on as many of your own sites as you like.', 'ibuilder' ); ?>
 						</p>
 
+						<?php
+						/*
+						 * The figure above is what we set on the listing. Codester adds its own
+						 * buyer fee on top at checkout - the upload form calls it that - so a
+						 * visitor who clicks Buy sees a higher number than the one they just
+						 * read. On the two listings live so far it has been $5 on each, but
+						 * two points at $59 and $69 are not enough to state a rule for a
+						 * catalogue spanning $29 to $79, so this says that a fee is added
+						 * without claiming to know its size. Once all ten are live the real
+						 * figure is readable at every price point and this can show totals.
+						 */
+						?>
+						<p class="ibs-fee-note">
+							<?php esc_html_e( 'Codester adds its own buyer fee at checkout, so the total there is a little higher.', 'ibuilder' ); ?>
+						</p>
+
 						<div class="ibs-card__actions">
 							<a href="<?php echo esc_url( $ibs_buy ); ?>" class="btn btn-primary" rel="noopener">
 								<i class="bi bi-box-arrow-up-right me-2" aria-hidden="true"></i>

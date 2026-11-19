@@ -169,7 +169,7 @@ foreach ( $ibs_products as $ibs_p ) {
 					<?php
 					printf(
 						/* translators: 1: total price of every plugin. */
-						esc_html__( 'Each one does a whole job rather than part of one. Buy the one you need; the lot comes to $%s.', 'ibuilder' ),
+						esc_html__( 'Each one does a whole job rather than part of one. Buy the one you need; the lot comes to $%s. Codester adds its own buyer fee on top at checkout.', 'ibuilder' ),
 						esc_html( number_format_i18n( $ibs_total ) )
 					);
 					?>
