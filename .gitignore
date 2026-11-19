@@ -1,3 +1,7 @@
 # Dependencies installed by npm (the theme ships assets/vendor, not the tooling)
 node_modules/
 __pycache__/
+
+# Composer dev tooling: composer.json and composer.lock are tracked, the
+# installed packages are not — `composer install` reproduces them.
+/vendor/

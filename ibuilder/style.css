@@ -1,0 +1,27 @@
+/*
+Theme Name:        iBuilder
+Theme URI:         https://ibuilder.me
+Template:          wpwisebones
+Author:            iBuilder
+Author URI:        https://ibuilder.me
+Description:       The iBuilder vendor theme — a slate/teal skin for the WPWiseBones base, built to present the eight iBuilder WordPress plugins sold on Codester: Realty, Signage, Social, Ledger, Market, Projects, Connect for Procore and Sync for CMiC. Ships a product-led front page, a page per product generated from the listing kits, and a one-click site builder (Appearance → iBuilder Setup). No storefront and no licensing: selling happens on Codester, and every product it presents ships without a license key, an activation call or a phone-home.
+Version:           1.5.0
+Requires at least: 6.5
+Tested up to:      7.1
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       ibuilder
+Tags:              custom-logo, custom-menu, featured-images, full-width-template, one-column, two-columns, blog
+*/
+
+/*
+ * Brand styles live in assets/css/ibuilder.css. This file carries only the
+ * theme header.
+ *
+ * WPWiseBones 1.0.13 fixed the enqueue so a child theme gets the parent's own
+ * style.css, then main.css, then this one last. So the brand stylesheet is
+ * brand styling, not a reimplementation of the base - and it should not
+ * override the parent's structural tokens, --wpb-header-height above all,
+ * since the parent computes its sticky-header padding from it.
+ */

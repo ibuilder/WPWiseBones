@@ -1,0 +1,3047 @@
+@charset "UTF-8";
+/*
+ * Becoming - brand stylesheet
+ * Child theme of WPWiseBones. Loaded after the parent's style.css and main.css,
+ * and after tw-core's tw-front.css (see functions.php for why that order is
+ * forced rather than hoped for).
+ *
+ * ---------------------------------------------------------------------------
+ * The colour problem, and how this theme solves it
+ * ---------------------------------------------------------------------------
+ * The trans flag is sky #5BCEFA, rose #F5A9B8 and white. Those are the
+ * identity and they are not negotiable. But measured against white they come
+ * out at 1.80:1 and 1.87:1 - so as text, or as a link colour, or as a thin
+ * outline on a white card, they are illegible. A "trans colours" theme that
+ * simply sets `a { color: #F5A9B8 }` looks like the flag in a screenshot and
+ * fails anyone reading it on a phone in daylight.
+ *
+ * Measured the other way round they are excellent. Deep plum ink on flag rose
+ * is 9.91:1; on flag sky, 10.26:1. On a deep plum canvas the flag colours
+ * themselves run 10.5:1 and 10.9:1 as text.
+ *
+ * So:
+ *   - light mode uses the flag colours as SURFACES (buttons, stripes,
+ *     gradients, washes) with deep plum ink on top, and darkens them for
+ *     anything that has to be text: links are #0B5F85 (7.02:1).
+ *   - dark mode uses the flag colours AS THEMSELVES for text and accents on
+ *     #0D0A12. The dark theme is the more faithful of the two.
+ * Every pair in this file was computed, not eyeballed.
+ *
+ * ---------------------------------------------------------------------------
+ * Two deliberate exceptions to "make it hot"
+ * ---------------------------------------------------------------------------
+ * 1. .tw-crisis and the panic / lockdown controls get no gradients, no glow
+ *    and no animation. Someone reaching for those is not browsing. They are
+ *    styled for one quality only: being found instantly and read without
+ *    effort.
+ * 2. No webfont. The house pattern (RealWise) pulls Plus Jakarta Sans from
+ *    Google Fonts, which hands a visitor's IP to a third party on every page
+ *    view. For this audience that is a privacy cost, not a performance one,
+ *    so the display face is a modern system stack. There is a commented
+ *    opt-in block at the end of this file if you decide otherwise.
+ */
+
+/* ===========================================================================
+   1. TOKENS
+   =========================================================================== */
+
+:root {
+	/* The flag, untouched. */
+	--bc-sky: #5bcefa;
+	--bc-rose: #f5a9b8;
+	--bc-white: #ffffff;
+
+	/*
+	 * The flag as a five-stripe gradient, in the real proportions. Used as a
+	 * hairline on the header, the footer and section edges. Hard stops, so it
+	 * reads as a flag rather than as a smear.
+	 */
+	--bc-flag: linear-gradient(
+		90deg,
+		var(--bc-sky) 0 20%,
+		var(--bc-rose) 20% 40%,
+		var(--bc-white) 40% 60%,
+		var(--bc-rose) 60% 80%,
+		var(--bc-sky) 80% 100%
+	);
+
+	/* Soft diagonal used for display text and accent edges. */
+	--bc-sheen: linear-gradient(135deg, var(--bc-sky), var(--bc-rose));
+
+	/* --- light mode surfaces and ink ------------------------------------- */
+	--bc-bg: #ffffff;
+	--bc-bg-sunk: #f7f4f9;
+	--bc-surface: #ffffff;
+	--bc-surface-2: #fbf8fc;
+	--bc-wash-sky: #f1fafe;
+	--bc-wash-rose: #fef5f7;
+
+	--bc-ink: #16121a;        /* 18.49:1 on white */
+	--bc-ink-soft: #413b48;
+	--bc-ink-muted: #5a5560;  /*  7.23:1 on white */
+
+	--bc-line: #e7e2ec;
+	--bc-line-strong: #cfc8d6;
+
+	/* Interactive colours that are legible as text. */
+	--bc-link: #0b5f85;       /*  7.02:1 on white */
+	--bc-link-hover: #084a68;
+	--bc-accent-text: #b21f49; /* 6.59:1 on white */
+
+	/* Buttons: flag colour behind, plum ink on top. */
+	--bc-btn-bg: var(--bc-sky);
+	--bc-btn-ink: #0d0a12;
+	--bc-btn-bg-alt: var(--bc-rose);
+
+	/* Crisis / danger, computed on both backgrounds. */
+	--bc-danger-ink: #8a1020;  /* 9.65:1 on white, 8.96:1 on its own wash */
+	--bc-danger-wash: #fff4f4;
+	--bc-danger-line: #e9b3b8;
+
+	--bc-good-ink: #18613f;
+	--bc-good-wash: #f0faf5;
+	--bc-good-line: #b4ddc6;
+
+	--bc-warn-ink: #7a4a07;
+	--bc-warn-wash: #fff8ec;
+	--bc-warn-line: #e8cfa3;
+
+	/* --- shape ----------------------------------------------------------- */
+	--bc-r-xs: 0.375rem;
+	--bc-r-sm: 0.625rem;
+	--bc-r-md: 0.875rem;
+	--bc-r-lg: 1.25rem;
+	--bc-r-xl: 1.75rem;
+	--bc-r-pill: 999px;
+
+	/* Shadows tinted plum rather than black: black shadows over a warm page
+	   read as dirt. */
+	--bc-shadow-1: 0 1px 2px rgba(22, 18, 26, 0.06), 0 1px 3px rgba(22, 18, 26, 0.05);
+	--bc-shadow-2: 0 4px 10px -2px rgba(22, 18, 26, 0.08), 0 12px 28px -8px rgba(22, 18, 26, 0.1);
+	--bc-shadow-3: 0 10px 20px -6px rgba(22, 18, 26, 0.12), 0 28px 60px -16px rgba(22, 18, 26, 0.16);
+	--bc-glow-sky: 0 0 0 4px rgba(91, 206, 250, 0.3);
+	--bc-glow-rose: 0 0 0 4px rgba(245, 169, 184, 0.35);
+
+	/* --- space ----------------------------------------------------------- */
+	--bc-sp-1: 0.25rem;
+	--bc-sp-2: 0.5rem;
+	--bc-sp-3: 0.75rem;
+	--bc-sp-4: 1rem;
+	--bc-sp-5: 1.5rem;
+	--bc-sp-6: 2rem;
+	--bc-sp-7: 3rem;
+	--bc-sp-8: 4rem;
+	--bc-sp-9: 6rem;
+
+	/* --- fluid type: no media queries needed ----------------------------- */
+	--bc-text-xs: clamp(0.75rem, 0.73rem + 0.1vw, 0.8125rem);
+	--bc-text-sm: clamp(0.875rem, 0.85rem + 0.12vw, 0.9375rem);
+	--bc-text-base: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+	--bc-text-lg: clamp(1.125rem, 1.07rem + 0.28vw, 1.25rem);
+	--bc-text-xl: clamp(1.375rem, 1.27rem + 0.5vw, 1.625rem);
+	--bc-text-2xl: clamp(1.625rem, 1.42rem + 1vw, 2.125rem);
+	--bc-text-3xl: clamp(2rem, 1.6rem + 2vw, 3rem);
+	--bc-text-4xl: clamp(2.5rem, 1.8rem + 3.4vw, 4.25rem);
+
+	--bc-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI Variable Text",
+		"Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+	--bc-font-display: ui-sans-serif, system-ui, -apple-system,
+		"Segoe UI Variable Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--bc-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+		"Liberation Mono", monospace;
+
+	--bc-measure: 68ch;
+	--bc-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+	/* Fed back into Bootstrap so parent components inherit the brand. */
+	--bs-primary: #0b5f85;
+	--bs-link-color: var(--bc-link);
+	--bs-link-hover-color: var(--bc-link-hover);
+	--bs-body-color: var(--bc-ink);
+	--bs-body-bg: var(--bc-bg);
+	--bs-border-radius: var(--bc-r-md);
+	--bs-font-sans-serif: var(--bc-font);
+
+	color-scheme: light dark;
+	accent-color: #0b5f85;
+}
+
+/* --- dark mode -------------------------------------------------------------
+ * Guarded so an explicit light choice wins over the system preference, and
+ * repeated for the explicit dark choice. The flag colours come forward here.
+ */
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		--bc-bg: #0d0a12;
+		--bc-bg-sunk: #09070d;
+		--bc-surface: #171320;
+		--bc-surface-2: #1e1829;
+		--bc-wash-sky: #0f1e27;
+		--bc-wash-rose: #231722;
+
+		--bc-ink: #f6f2f8;        /* 17.75:1 on the canvas */
+		--bc-ink-soft: #d6cfdd;
+		--bc-ink-muted: #a79fb0;  /*  7.70:1 on the canvas */
+
+		--bc-line: #2b2338;
+		--bc-line-strong: #3d3350;
+
+		--bc-link: #5bcefa;       /* 10.90:1 - the flag colour itself */
+		--bc-link-hover: #9ae0fc;
+		--bc-accent-text: #f5a9b8; /* 10.52:1 */
+
+		--bc-btn-bg: var(--bc-sky);
+		--bc-btn-ink: #0d0a12;
+		--bc-btn-bg-alt: var(--bc-rose);
+
+		--bc-danger-ink: #ffb3b8;
+		--bc-danger-wash: #241318;
+		--bc-danger-line: #5e2a33;
+
+		--bc-good-ink: #8fe3b4;
+		--bc-good-wash: #10211a;
+		--bc-good-line: #2c4d3c;
+
+		--bc-warn-ink: #f3cd8a;
+		--bc-warn-wash: #241c10;
+		--bc-warn-line: #4e3d22;
+
+		--bc-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+		--bc-shadow-2: 0 4px 12px -2px rgba(0, 0, 0, 0.55), 0 14px 32px -10px rgba(0, 0, 0, 0.6);
+		--bc-shadow-3: 0 12px 24px -8px rgba(0, 0, 0, 0.6), 0 32px 64px -16px rgba(0, 0, 0, 0.7);
+
+		--bs-primary: #5bcefa;
+		--bs-body-color: var(--bc-ink);
+		--bs-body-bg: var(--bc-bg);
+		accent-color: #5bcefa;
+	}
+}
+
+:root[data-theme="dark"] {
+	--bc-bg: #0d0a12;
+	--bc-bg-sunk: #09070d;
+	--bc-surface: #171320;
+	--bc-surface-2: #1e1829;
+	--bc-wash-sky: #0f1e27;
+	--bc-wash-rose: #231722;
+
+	--bc-ink: #f6f2f8;
+	--bc-ink-soft: #d6cfdd;
+	--bc-ink-muted: #a79fb0;
+
+	--bc-line: #2b2338;
+	--bc-line-strong: #3d3350;
+
+	--bc-link: #5bcefa;
+	--bc-link-hover: #9ae0fc;
+	--bc-accent-text: #f5a9b8;
+
+	--bc-btn-bg: var(--bc-sky);
+	--bc-btn-ink: #0d0a12;
+	--bc-btn-bg-alt: var(--bc-rose);
+
+	--bc-danger-ink: #ffb3b8;
+	--bc-danger-wash: #241318;
+	--bc-danger-line: #5e2a33;
+
+	--bc-good-ink: #8fe3b4;
+	--bc-good-wash: #10211a;
+	--bc-good-line: #2c4d3c;
+
+	--bc-warn-ink: #f3cd8a;
+	--bc-warn-wash: #241c10;
+	--bc-warn-line: #4e3d22;
+
+	--bc-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+	--bc-shadow-2: 0 4px 12px -2px rgba(0, 0, 0, 0.55), 0 14px 32px -10px rgba(0, 0, 0, 0.6);
+	--bc-shadow-3: 0 12px 24px -8px rgba(0, 0, 0, 0.6), 0 32px 64px -16px rgba(0, 0, 0, 0.7);
+
+	--bs-primary: #5bcefa;
+	--bs-body-color: var(--bc-ink);
+	--bs-body-bg: var(--bc-bg);
+	accent-color: #5bcefa;
+}
+
+/* ===========================================================================
+   2. BASE
+   =========================================================================== */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+body {
+	background-color: var(--bc-bg);
+	color: var(--bc-ink);
+	font-family: var(--bc-font);
+	font-size: var(--bc-text-base);
+	line-height: 1.65;
+	font-synthesis-weight: none;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+/* The aurora and the flag stripes are decorative and must never create a
+   horizontal scrollbar. clip beats hidden: it does not break position:sticky
+   on descendants the way an overflow container does. */
+body {
+	overflow-x: clip;
+}
+
+@supports not (overflow: clip) {
+	body {
+		overflow-x: hidden;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3 {
+	font-family: var(--bc-font-display);
+	color: var(--bc-ink);
+	font-weight: 700;
+	letter-spacing: -0.021em;
+	line-height: 1.12;
+	text-wrap: balance;
+	margin-top: 0;
+}
+
+h1,
+.entry-title {
+	font-size: var(--bc-text-3xl);
+	letter-spacing: -0.028em;
+}
+
+h2 {
+	font-size: var(--bc-text-2xl);
+}
+
+h3 {
+	font-size: var(--bc-text-xl);
+}
+
+h4 {
+	font-size: var(--bc-text-lg);
+}
+
+p,
+li {
+	text-wrap: pretty;
+}
+
+.entry-content > p,
+.entry-content > ul,
+.entry-content > ol {
+	max-width: var(--bc-measure);
+}
+
+a {
+	color: var(--bc-link);
+	text-decoration-thickness: max(1px, 0.055em);
+	text-underline-offset: 0.18em;
+	transition: color 0.16s var(--bc-ease);
+}
+
+a:hover,
+a:focus {
+	color: var(--bc-link-hover);
+}
+
+::selection {
+	background: var(--bc-sky);
+	color: #0d0a12;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background: var(--bc-line);
+	opacity: 1;
+	margin: var(--bc-sp-7) 0;
+}
+
+code,
+kbd,
+samp,
+pre {
+	font-family: var(--bc-font-mono);
+	font-size: 0.925em;
+}
+
+code {
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-xs);
+	padding: 0.1em 0.38em;
+	color: var(--bc-accent-text);
+}
+
+blockquote {
+	margin: var(--bc-sp-6) 0;
+	padding: var(--bc-sp-2) 0 var(--bc-sp-2) var(--bc-sp-5);
+	border-left: 3px solid transparent;
+	border-image: var(--bc-sheen) 1;
+	color: var(--bc-ink-soft);
+	font-size: var(--bc-text-lg);
+}
+
+/* Focus: one obvious, high-contrast ring everywhere. The parent ships a blue
+   one hard-coded to Bootstrap's default; this replaces it on both themes. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible,
+.btn:focus-visible,
+.nav-link:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+	outline: 3px solid var(--bc-link);
+	outline-offset: 2px;
+	box-shadow: var(--bc-glow-sky);
+	border-radius: var(--bc-r-xs);
+}
+
+/* ===========================================================================
+   3. THE FLAG, AS A DEVICE
+   =========================================================================== */
+
+.bc-flagline {
+	height: 4px;
+	width: 100%;
+	background: var(--bc-flag);
+	flex: 0 0 auto;
+}
+
+/* A hairline the full width of the viewport, used under the header. */
+.bc-flagline--thin {
+	height: 3px;
+}
+
+/* ===========================================================================
+   4. HEADER
+   =========================================================================== */
+
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 1030;
+	display: block;
+	padding: 0;
+	background: color-mix(in oklab, var(--bc-bg) 82%, transparent);
+	border-bottom: 1px solid var(--bc-line);
+	box-shadow: none;
+	transition: box-shadow 0.2s var(--bc-ease), background-color 0.2s var(--bc-ease);
+}
+
+/* color-mix is the nice path; this is the floor for anything without it. */
+@supports not (background: color-mix(in oklab, red 50%, transparent)) {
+	.site-header {
+		background: var(--bc-bg);
+	}
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	.site-header {
+		-webkit-backdrop-filter: saturate(1.6) blur(14px);
+		backdrop-filter: saturate(1.6) blur(14px);
+	}
+}
+
+.site-header > .bc-flagline {
+	position: absolute;
+	inset: 0 0 auto;
+}
+
+.bc-header-inner {
+	display: flex;
+	align-items: center;
+	gap: var(--bc-sp-4);
+	padding-top: var(--bc-sp-3);
+	padding-bottom: var(--bc-sp-3);
+	min-height: 4rem;
+}
+
+.site-branding {
+	margin: 0;
+	display: flex;
+	align-items: center;
+	gap: var(--bc-sp-3);
+	min-width: 0;
+}
+
+.site-branding .site-title,
+.site-branding .navbar-brand {
+	font-family: var(--bc-font-display);
+	font-size: var(--bc-text-lg);
+	font-weight: 800;
+	letter-spacing: -0.025em;
+	margin: 0;
+	color: var(--bc-ink);
+	text-decoration: none;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.site-branding .site-title a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.site-description {
+	margin: 0;
+	font-size: var(--bc-text-xs);
+	color: var(--bc-ink-muted);
+}
+
+/* A small flag chip standing in for a logo until one is set. */
+.bc-mark {
+	inline-size: 2rem;
+	block-size: 2rem;
+	border-radius: var(--bc-r-sm);
+	background: var(--bc-flag);
+	box-shadow: var(--bc-shadow-1), inset 0 0 0 1px rgba(22, 18, 26, 0.08);
+	flex: 0 0 auto;
+}
+
+/*
+ * Child combinators, not descendant ones.
+ *
+ * `.main-navigation ul` also matches every `.dropdown-menu` nested inside the
+ * nav, so it handed them `display: flex` and beat Bootstrap's
+ * `.dropdown-menu { display: none }` - every dropdown on the site rendered
+ * open at once, stacked on top of each other under the bar. The same went for
+ * `.main-navigation a`, which gave each `.dropdown-item` the top-level pill
+ * treatment. Both are now scoped to the top level only.
+ */
+.main-navigation > ul,
+.navbar-nav {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--bc-sp-1);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.main-navigation > ul > li > a,
+.navbar-nav > .nav-item > .nav-link {
+	display: inline-block;
+	padding: 0.45rem 0.8rem;
+	border-radius: var(--bc-r-pill);
+	color: var(--bc-ink-soft);
+	font-size: var(--bc-text-sm);
+	font-weight: 600;
+	text-decoration: none;
+	transition: background-color 0.16s var(--bc-ease), color 0.16s var(--bc-ease);
+}
+
+.main-navigation > ul > li > a:hover,
+.navbar-nav > .nav-item > .nav-link:hover,
+.navbar-nav > .nav-item > .nav-link:focus {
+	background: var(--bc-wash-sky);
+	color: var(--bc-ink);
+}
+
+.main-navigation > ul > .current-menu-item > a,
+.main-navigation > ul > .current_page_item > a,
+.main-navigation > ul > .current-menu-ancestor > a,
+.navbar-nav > .nav-item > .nav-link.active {
+	background: var(--bc-wash-rose);
+	color: var(--bc-ink);
+	box-shadow: inset 0 0 0 1px var(--bc-line-strong);
+}
+
+.navbar-toggler {
+	border: 1px solid var(--bc-line-strong);
+	border-radius: var(--bc-r-sm);
+	background: var(--bc-surface);
+	padding: 0.4rem 0.55rem;
+}
+
+/* --- dropdowns ------------------------------------------------------------
+ * Bootstrap 5.3 drives these from custom properties, so the whole menu can be
+ * rebranded by resetting the variables rather than by overriding a dozen
+ * selectors. Without this the dropdown is Bootstrap's white panel, which on
+ * the dark canvas is white text on white.
+ */
+.dropdown-menu {
+	--bs-dropdown-bg: var(--bc-surface);
+	--bs-dropdown-color: var(--bc-ink-soft);
+	--bs-dropdown-border-color: var(--bc-line);
+	--bs-dropdown-border-radius: var(--bc-r-md);
+	--bs-dropdown-link-color: var(--bc-ink-soft);
+	--bs-dropdown-link-hover-color: var(--bc-ink);
+	--bs-dropdown-link-hover-bg: var(--bc-wash-sky);
+	--bs-dropdown-link-active-color: var(--bc-ink);
+	--bs-dropdown-link-active-bg: var(--bc-wash-rose);
+	--bs-dropdown-padding-x: 0.4rem;
+	--bs-dropdown-padding-y: 0.4rem;
+	box-shadow: var(--bc-shadow-2);
+	margin-top: 0.4rem;
+}
+
+.dropdown-item {
+	border-radius: var(--bc-r-sm);
+	padding: 0.5rem 0.75rem;
+	font-size: var(--bc-text-sm);
+	font-weight: 600;
+}
+
+/*
+ * The crisis page. It is a top-level item with no children on purpose - a
+ * Bootstrap dropdown-toggle swallows the click to open its menu, so making
+ * "Help" a parent would mean the one page somebody might be opening in a hurry
+ * no longer opens on the first click. Related pages went to the footer menu
+ * instead. This just makes it findable at a glance.
+ */
+.main-navigation .bc-nav-help > a,
+.navbar-nav .bc-nav-help > .nav-link {
+	background: var(--bc-danger-wash);
+	color: var(--bc-danger-ink);
+	box-shadow: inset 0 0 0 1px var(--bc-danger-line);
+}
+
+.main-navigation .bc-nav-help > a:hover,
+.navbar-nav .bc-nav-help > .nav-link:hover,
+.main-navigation .bc-nav-help > a:focus,
+.navbar-nav .bc-nav-help > .nav-link:focus {
+	background: var(--bc-danger-wash);
+	color: var(--bc-danger-ink);
+	box-shadow: inset 0 0 0 2px var(--bc-danger-ink);
+}
+
+/* The parent's toggler icon is a Bootstrap background-image tinted for light
+   navbars, so it disappears on the dark canvas. header.php renders .bc-burger
+   instead, drawn from currentColor; the .navbar-toggler-icon rule below is
+   kept so any other template still using the parent's markup is legible. */
+.bc-burger {
+	display: grid;
+	gap: 4px;
+	inline-size: 1.25rem;
+	color: var(--bc-ink);
+}
+
+.bc-burger > span {
+	display: block;
+	block-size: 2px;
+	border-radius: 2px;
+	background: currentColor;
+}
+
+.navbar-toggler-icon {
+	background-image: none;
+	position: relative;
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 2px;
+	border-radius: 2px;
+	background: var(--bc-ink);
+}
+
+.navbar-toggler-icon::before {
+	top: 0.3rem;
+}
+
+.navbar-toggler-icon::after {
+	bottom: 0.3rem;
+}
+
+/* --- theme switch --------------------------------------------------------- */
+
+.bc-theme-toggle {
+	margin-left: auto;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	border: 1px solid var(--bc-line-strong);
+	background: var(--bc-surface);
+	color: var(--bc-ink-soft);
+	border-radius: var(--bc-r-pill);
+	padding: 0.4rem 0.75rem;
+	font-size: var(--bc-text-xs);
+	font-weight: 600;
+	cursor: pointer;
+	line-height: 1;
+	transition: border-color 0.16s var(--bc-ease), color 0.16s var(--bc-ease),
+		background-color 0.16s var(--bc-ease);
+}
+
+.bc-theme-toggle:hover {
+	border-color: var(--bc-link);
+	color: var(--bc-ink);
+	background: var(--bc-wash-sky);
+}
+
+.bc-theme-toggle svg {
+	inline-size: 1rem;
+	block-size: 1rem;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.8;
+	stroke-linecap: round;
+}
+
+.bc-theme-toggle .bc-icon-moon {
+	display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) .bc-theme-toggle .bc-icon-sun {
+		display: none;
+	}
+	:root:not([data-theme="light"]) .bc-theme-toggle .bc-icon-moon {
+		display: inline;
+	}
+}
+
+:root[data-theme="dark"] .bc-theme-toggle .bc-icon-sun {
+	display: none;
+}
+
+:root[data-theme="dark"] .bc-theme-toggle .bc-icon-moon {
+	display: inline;
+}
+
+:root[data-theme="light"] .bc-theme-toggle .bc-icon-sun {
+	display: inline;
+}
+
+:root[data-theme="light"] .bc-theme-toggle .bc-icon-moon {
+	display: none;
+}
+
+/* ===========================================================================
+   5. THE AURORA
+   =========================================================================== */
+
+/*
+ * The stage clips its own decoration.
+ *
+ * The first build gave .bc-aurora a negative horizontal inset so the glow
+ * could bleed past the section edges. Its own overflow:hidden clips the blobs
+ * INSIDE it, but not the element itself - so the aurora measured 1645px in a
+ * 1265px viewport and put 190px of horizontal scroll on every page. body
+ * { overflow-x: clip } hid the symptom; this removes the cause. Decoration is
+ * contained by the section it decorates, and the soft edge comes from a mask
+ * rather than from geometry that escapes the page.
+ */
+.bc-stage {
+	position: relative;
+	isolation: isolate;
+	overflow: clip;
+}
+
+@supports not (overflow: clip) {
+	.bc-stage {
+		overflow: hidden;
+	}
+}
+
+.bc-aurora {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	overflow: hidden;
+	contain: paint;
+	-webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent 100%);
+	mask-image: linear-gradient(to bottom, #000 58%, transparent 100%);
+}
+
+.bc-aurora span {
+	position: absolute;
+	display: block;
+	border-radius: 50%;
+	filter: blur(72px);
+	opacity: 0.5;
+	will-change: transform;
+}
+
+.bc-aurora span:nth-child(1) {
+	inline-size: 46vw;
+	block-size: 46vw;
+	min-inline-size: 320px;
+	min-block-size: 320px;
+	left: -6%;
+	top: -8%;
+	background: var(--bc-sky);
+}
+
+.bc-aurora span:nth-child(2) {
+	inline-size: 40vw;
+	block-size: 40vw;
+	min-inline-size: 280px;
+	min-block-size: 280px;
+	right: -4%;
+	top: 4%;
+	background: var(--bc-rose);
+}
+
+.bc-aurora span:nth-child(3) {
+	inline-size: 30vw;
+	block-size: 30vw;
+	min-inline-size: 220px;
+	min-block-size: 220px;
+	left: 38%;
+	top: 26%;
+	background: var(--bc-white);
+	opacity: 0.4;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) .bc-aurora span {
+		opacity: 0.32;
+	}
+	:root:not([data-theme="light"]) .bc-aurora span:nth-child(3) {
+		opacity: 0.1;
+	}
+}
+
+:root[data-theme="dark"] .bc-aurora span {
+	opacity: 0.32;
+}
+
+:root[data-theme="dark"] .bc-aurora span:nth-child(3) {
+	opacity: 0.1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.bc-aurora span:nth-child(1) {
+		animation: bc-drift-a 22s var(--bc-ease) infinite alternate;
+	}
+	.bc-aurora span:nth-child(2) {
+		animation: bc-drift-b 26s var(--bc-ease) infinite alternate;
+	}
+	.bc-aurora span:nth-child(3) {
+		animation: bc-drift-a 30s var(--bc-ease) infinite alternate-reverse;
+	}
+}
+
+@keyframes bc-drift-a {
+	from {
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+	to {
+		transform: translate3d(5%, 7%, 0) scale(1.12);
+	}
+}
+
+@keyframes bc-drift-b {
+	from {
+		transform: translate3d(0, 0, 0) scale(1.08);
+	}
+	to {
+		transform: translate3d(-6%, 5%, 0) scale(1);
+	}
+}
+
+/* A fine grain over the wash, so the gradient does not band on cheap panels.
+   One inline SVG, no request. */
+.bc-aurora::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	opacity: 0.22;
+	mix-blend-mode: soft-light;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ===========================================================================
+   6. PAGE HEAD AND LAYOUT
+   =========================================================================== */
+
+#page.site {
+	position: relative;
+}
+
+#content.site-content {
+	padding-top: var(--bc-sp-7);
+	padding-bottom: var(--bc-sp-9);
+}
+
+.bc-pagehead {
+	padding: clamp(2.5rem, 7vw, 6rem) 0 clamp(1.75rem, 4vw, 3rem);
+	text-align: left;
+}
+
+.bc-pagehead .bc-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: var(--bc-text-xs);
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--bc-ink-muted);
+	margin-bottom: var(--bc-sp-3);
+}
+
+.bc-pagehead .bc-eyebrow::before {
+	content: "";
+	inline-size: 1.75rem;
+	block-size: 4px;
+	border-radius: 2px;
+	background: var(--bc-flag);
+}
+
+.bc-pagehead h1 {
+	font-size: var(--bc-text-4xl);
+	margin: 0;
+	max-width: 22ch;
+}
+
+.bc-pagehead .bc-lede {
+	margin: var(--bc-sp-4) 0 0;
+	font-size: var(--bc-text-lg);
+	color: var(--bc-ink-soft);
+	max-width: 56ch;
+}
+
+/* Display type with the flag running through it. Guarded, because
+   background-clip:text with a transparent fill is invisible if it fails. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+	.bc-gradient-text {
+		background: linear-gradient(115deg, #0b5f85, #b21f49 62%, #0b5f85);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root:not([data-theme="light"]) .bc-gradient-text {
+			background: linear-gradient(115deg, var(--bc-sky), var(--bc-rose) 62%, var(--bc-sky));
+			-webkit-background-clip: text;
+			background-clip: text;
+		}
+	}
+
+	:root[data-theme="dark"] .bc-gradient-text {
+		background: linear-gradient(115deg, var(--bc-sky), var(--bc-rose) 62%, var(--bc-sky));
+		-webkit-background-clip: text;
+		background-clip: text;
+	}
+}
+
+/* ===========================================================================
+   7. SURFACES
+   =========================================================================== */
+
+/*
+ * The card look for this theme: a 1px gradient edge drawn with two
+ * backgrounds, one clipped to the padding box and one to the border box. No
+ * extra element, no pseudo-element, and it survives a border-radius.
+ */
+.bc-card,
+.card,
+.tw-journey-entry,
+.tw-journey-milestone,
+.tw-resource,
+.tw-funding-request,
+.tw-funding-payout,
+.tw-verify-status,
+.tw-looklab-job,
+.tw-safety-report,
+.tw-photo-slot {
+	background: var(--bc-surface);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-lg);
+	box-shadow: var(--bc-shadow-1);
+	padding: var(--bc-sp-5);
+	transition: box-shadow 0.2s var(--bc-ease), transform 0.2s var(--bc-ease),
+		border-color 0.2s var(--bc-ease);
+}
+
+@supports (background-clip: padding-box) {
+	.bc-card--edge {
+		border-color: transparent;
+		background:
+			linear-gradient(var(--bc-surface), var(--bc-surface)) padding-box,
+			var(--bc-sheen) border-box;
+	}
+}
+
+.bc-card > :last-child,
+.card > :last-child,
+.tw-journey-entry > :last-child,
+.tw-journey-milestone > :last-child,
+.tw-resource > :last-child,
+.tw-looklab-job > :last-child {
+	margin-bottom: 0;
+}
+
+/* ===========================================================================
+   8. BUTTONS
+   =========================================================================== */
+
+.btn,
+.tw-submit,
+.tw-journey-compose button,
+.tw-resource-suggest button,
+.tw-funding-donate button,
+.tw-photo-upload button,
+.tw-verify-attest button,
+.tw-looklab button,
+input[type="submit"],
+button[type="submit"] {
+	--_bg: var(--bc-btn-bg);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	font-family: var(--bc-font);
+	font-size: var(--bc-text-sm);
+	font-weight: 700;
+	letter-spacing: -0.005em;
+	line-height: 1.2;
+	padding: 0.7rem 1.15rem;
+	border: 1px solid transparent;
+	border-radius: var(--bc-r-pill);
+	background: var(--_bg);
+	color: var(--bc-btn-ink);
+	text-decoration: none;
+	cursor: pointer;
+	box-shadow: var(--bc-shadow-1);
+	transition: transform 0.14s var(--bc-ease), box-shadow 0.18s var(--bc-ease),
+		filter 0.18s var(--bc-ease);
+}
+
+.btn:hover,
+.tw-submit:hover,
+.tw-journey-compose button:hover,
+.tw-resource-suggest button:hover,
+.tw-funding-donate button:hover,
+.tw-photo-upload button:hover,
+.tw-verify-attest button:hover,
+.tw-looklab button:hover,
+input[type="submit"]:hover,
+button[type="submit"]:hover {
+	filter: saturate(1.1) brightness(1.04);
+	box-shadow: var(--bc-shadow-2);
+	color: var(--bc-btn-ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.btn:hover,
+	.tw-submit:hover,
+	input[type="submit"]:hover,
+	button[type="submit"]:hover {
+		transform: translateY(-1px);
+	}
+}
+
+.btn:active,
+.tw-submit:active,
+input[type="submit"]:active,
+button[type="submit"]:active {
+	transform: translateY(0);
+	box-shadow: var(--bc-shadow-1);
+}
+
+.btn-primary {
+	--_bg: var(--bc-btn-bg);
+	background: var(--_bg);
+	border-color: transparent;
+	color: var(--bc-btn-ink);
+}
+
+/* The one gradient button, for the single most important action on a page. */
+.btn-hero,
+.tw-funding-donate .tw-submit {
+	background: linear-gradient(118deg, var(--bc-sky), var(--bc-rose));
+	color: #0d0a12;
+	padding: 0.85rem 1.6rem;
+	font-size: var(--bc-text-base);
+	box-shadow: var(--bc-shadow-2);
+}
+
+.btn-secondary,
+.btn-outline-primary,
+.bc-btn-quiet {
+	background: transparent;
+	border: 1px solid var(--bc-line-strong);
+	color: var(--bc-ink);
+	box-shadow: none;
+}
+
+.btn-secondary:hover,
+.btn-outline-primary:hover,
+.bc-btn-quiet:hover {
+	background: var(--bc-wash-sky);
+	border-color: var(--bc-link);
+	color: var(--bc-ink);
+	filter: none;
+}
+
+.btn:disabled,
+button:disabled,
+.tw-submit:disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+	box-shadow: none;
+	transform: none;
+	filter: none;
+}
+
+/* ===========================================================================
+   9. FORMS
+   =========================================================================== */
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="password"],
+input[type="date"],
+input[type="file"],
+select,
+textarea,
+.form-control,
+.form-select {
+	inline-size: 100%;
+	max-inline-size: 100%;
+	font-family: inherit;
+	font-size: var(--bc-text-base);
+	color: var(--bc-ink);
+	background: var(--bc-surface);
+	border: 1px solid var(--bc-line-strong);
+	border-radius: var(--bc-r-sm);
+	padding: 0.6rem 0.8rem;
+	transition: border-color 0.16s var(--bc-ease), box-shadow 0.16s var(--bc-ease);
+}
+
+textarea {
+	min-block-size: 7rem;
+	resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+	color: var(--bc-ink-muted);
+	opacity: 1;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.form-control:focus,
+.form-select:focus {
+	border-color: var(--bc-link);
+	box-shadow: var(--bc-glow-sky);
+	outline: none;
+}
+
+label,
+.tw-field > label {
+	font-size: var(--bc-text-sm);
+	font-weight: 650;
+	color: var(--bc-ink-soft);
+}
+
+.tw-field {
+	margin-bottom: var(--bc-sp-4);
+}
+
+fieldset {
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-md);
+	padding: var(--bc-sp-4);
+	margin: 0 0 var(--bc-sp-4);
+}
+
+legend {
+	font-size: var(--bc-text-sm);
+	font-weight: 700;
+	padding: 0 0.4rem;
+	color: var(--bc-ink);
+	width: auto;
+	float: none;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	inline-size: 1.05rem;
+	block-size: 1.05rem;
+	accent-color: var(--bc-link);
+	margin-right: 0.45rem;
+	vertical-align: -0.12em;
+}
+
+.search-form {
+	gap: 0;
+}
+
+.search-form .search-field {
+	border: 1px solid var(--bc-line-strong);
+	border-right: 0;
+	border-radius: var(--bc-r-pill) 0 0 var(--bc-r-pill);
+	padding-left: 0.95rem;
+	background: var(--bc-surface);
+	color: var(--bc-ink);
+}
+
+.search-form .search-submit {
+	border-radius: 0 var(--bc-r-pill) var(--bc-r-pill) 0;
+	background: var(--bc-btn-bg);
+	color: var(--bc-btn-ink);
+	font-weight: 700;
+	padding: 0.5rem 1rem;
+	border: 0;
+}
+
+/* ===========================================================================
+   10. THE tw-* MODULES
+   ---------------------------------------------------------------------------
+   tw-core's tw-front.css is the floor: it stops the photo grid overflowing and
+   keeps the markup usable in a theme that styles nothing. Everything below is
+   the theme's own layer on top - colour, type, depth, state. Nothing here
+   changes a layout decision the floor made on purpose.
+   =========================================================================== */
+
+/* --- shared notices and flashes ------------------------------------------ */
+
+/*
+ * The flash was green whatever it said, so "What is it called?" arrived in
+ * the success palette: a reassuring box telling somebody their submission
+ * failed. Green is now the default because most of these are confirmations,
+ * and a failure says so in the warn palette below.
+ *
+ * Warn rather than danger on purpose. Danger red belongs to the crisis block
+ * and the lockdown controls, and a form that needs a title is not an
+ * emergency. Two reds on one page teaches people to ignore one of them.
+ */
+.tw-journey-flash,
+.tw-verify-flash,
+.tw-funding-flash,
+.tw-resources-flash,
+.tw-safety-flash,
+.tw-looklab-flash,
+.tw-photo-flash {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.6rem;
+	background: var(--bc-good-wash);
+	border: 1px solid var(--bc-good-line);
+	border-left: 4px solid var(--bc-good-ink);
+	color: var(--bc-good-ink);
+	border-radius: var(--bc-r-sm);
+	padding: 0.8rem 1rem;
+	margin: 0 0 var(--bc-sp-5);
+	font-size: var(--bc-text-sm);
+	font-weight: 600;
+}
+
+.tw-journey-flash-error,
+.tw-verify-flash-error,
+.tw-funding-flash-error,
+.tw-resources-flash-error,
+.tw-safety-flash-error,
+.tw-looklab-flash-error,
+.tw-photo-flash-error {
+	background: var(--bc-warn-wash);
+	border-color: var(--bc-warn-line);
+	border-left-color: var(--bc-warn-ink);
+	color: var(--bc-warn-ink);
+}
+
+.tw-journey-notice,
+.tw-verify-notice,
+.tw-funding-notice,
+.tw-resources-notice,
+.tw-safety-notice,
+.tw-photo-notice,
+.tw-looklab-notice {
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+	border-left: 4px solid var(--bc-line-strong);
+	border-radius: var(--bc-r-sm);
+	padding: 0.8rem 1rem;
+	margin: 0 0 var(--bc-sp-4);
+	color: var(--bc-ink-soft);
+	font-size: var(--bc-text-sm);
+}
+
+.tw-danger,
+.tw-resource-warning,
+.tw-looklab-caveat {
+	background: var(--bc-danger-wash);
+	border: 1px solid var(--bc-danger-line);
+	border-left: 4px solid var(--bc-danger-ink);
+	color: var(--bc-danger-ink);
+	border-radius: var(--bc-r-sm);
+	padding: 0.8rem 1rem;
+	font-size: var(--bc-text-sm);
+	font-weight: 600;
+}
+
+/* Fine print that must be readable, not hidden. Muted, never below 7:1. */
+.tw-journey-disclaimer,
+.tw-resource-disclaimer,
+.tw-funding-tax,
+.tw-looklab-terms,
+.tw-verify-promise {
+	color: var(--bc-ink-muted);
+	font-size: var(--bc-text-sm);
+	border-top: 1px solid var(--bc-line);
+	padding-top: var(--bc-sp-4);
+	margin-top: var(--bc-sp-5);
+	max-width: var(--bc-measure);
+}
+
+.tw-verify-promise {
+	border-top: 0;
+	border-left: 3px solid transparent;
+	border-image: var(--bc-sheen) 1;
+	padding: var(--bc-sp-2) 0 var(--bc-sp-2) var(--bc-sp-4);
+	margin-top: var(--bc-sp-4);
+}
+
+/* --- 10a. journey -------------------------------------------------------- */
+
+.tw-journey-intro {
+	font-size: var(--bc-text-lg);
+	color: var(--bc-ink-soft);
+	max-width: 58ch;
+}
+
+/*
+ * Filter panels.
+ *
+ * `.tw-journey-library form` used to be in this list. It was wrong twice
+ * over: the library ships no filter form at all, so the only thing the
+ * selector ever matched was the per-milestone status form inside each card -
+ * which it then gave a second box inside the card it already sits in. And
+ * because the floor turns these into flex containers that switch to
+ * flex-direction: column under 480px, the `align-items: end` meant for a
+ * horizontal row aligned every label to the RIGHT edge on a phone. The cross
+ * axis flips with the direction; the alignment did not.
+ *
+ * So: the real filter rows only, and the end-alignment only while the row is
+ * actually a row.
+ */
+.tw-resources-filters,
+.tw-name-filters,
+.tw-resources-area {
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-lg);
+	padding: var(--bc-sp-4);
+	margin-bottom: var(--bc-sp-6);
+}
+
+@media (min-width: 481px) {
+	.tw-resources-filters,
+	.tw-name-filters,
+	.tw-resources-area {
+		align-items: flex-end;
+	}
+}
+
+/* The status form inside a milestone card. It is already inside a card, so it
+   gets separation from a rule above it rather than a border around it. */
+.tw-journey-milestone form {
+	margin-top: var(--bc-sp-4);
+	padding-top: var(--bc-sp-4);
+	border-top: 1px solid var(--bc-line);
+}
+
+.tw-journey-milestone form label {
+	display: block;
+	text-align: left;
+}
+
+.tw-journey-category-note {
+	font-size: var(--bc-text-sm);
+	color: var(--bc-ink-muted);
+	margin: 0 0 var(--bc-sp-4);
+	max-width: var(--bc-measure);
+}
+
+.tw-journey-milestones {
+	display: grid;
+	gap: var(--bc-sp-4);
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+}
+
+.tw-journey-milestone {
+	position: relative;
+	overflow: hidden;
+}
+
+/* The flag edge appears on hover and focus-within, so a keyboard user gets
+   the same signal as a mouse user. */
+.tw-journey-milestone::before,
+.tw-resource::before {
+	content: "";
+	position: absolute;
+	inset: 0 auto 0 0;
+	inline-size: 3px;
+	background: var(--bc-flag);
+	opacity: 0;
+	transition: opacity 0.2s var(--bc-ease);
+}
+
+.tw-journey-milestone:hover,
+.tw-journey-milestone:focus-within,
+.tw-resource:hover,
+.tw-resource:focus-within,
+.tw-looklab-job:hover {
+	border-color: var(--bc-line-strong);
+	box-shadow: var(--bc-shadow-2);
+}
+
+.tw-journey-milestone:hover::before,
+.tw-journey-milestone:focus-within::before,
+.tw-resource:hover::before,
+.tw-resource:focus-within::before {
+	opacity: 1;
+}
+
+.tw-journey-milestone h3,
+.tw-journey-milestone h4 {
+	font-size: var(--bc-text-lg);
+	margin-bottom: var(--bc-sp-2);
+}
+
+.tw-journey-body {
+	color: var(--bc-ink-soft);
+}
+
+/* Facts and flags as pills. The floor turns them into a bare inline list;
+   this gives each fact an edge so a scan picks out the costly or gatekept
+   ones without reading the sentence. */
+.tw-journey-facts,
+.tw-resource-flags {
+	gap: 0.4rem;
+	margin-top: var(--bc-sp-3);
+}
+
+.tw-journey-facts li,
+.tw-resource-flags li {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3rem;
+	background: var(--bc-wash-sky);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-pill);
+	padding: 0.2rem 0.65rem;
+	font-size: var(--bc-text-xs);
+	font-weight: 650;
+	color: var(--bc-ink-soft);
+	line-height: 1.5;
+}
+
+/* The floor draws a separator before each fact; inside a pill that reads as a
+   stray character. */
+.tw-journey-facts li::before,
+.tw-resource-flags li::before {
+	content: none;
+}
+
+.tw-journey-meta {
+	font-size: var(--bc-text-xs);
+	color: var(--bc-ink-muted);
+	letter-spacing: 0.01em;
+}
+
+.tw-journey-timeline {
+	display: grid;
+	gap: var(--bc-sp-4);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.tw-journey-entry {
+	position: relative;
+	padding-left: var(--bc-sp-6);
+}
+
+.tw-journey-entry::before {
+	content: "";
+	position: absolute;
+	left: var(--bc-sp-5);
+	top: 1.9rem;
+	bottom: -1.9rem;
+	inline-size: 2px;
+	background: var(--bc-line);
+}
+
+.tw-journey-timeline > .tw-journey-entry:last-child::before {
+	display: none;
+}
+
+.tw-journey-entry::after {
+	content: "";
+	position: absolute;
+	left: calc(var(--bc-sp-5) - 5px);
+	top: 1.45rem;
+	inline-size: 12px;
+	block-size: 12px;
+	border-radius: 50%;
+	background: var(--bc-sky);
+	box-shadow: 0 0 0 3px var(--bc-surface), 0 0 0 4px var(--bc-line);
+}
+
+.tw-journey-compose fieldset {
+	background: var(--bc-surface-2);
+}
+
+/* --- 10b. photos --------------------------------------------------------- */
+
+.tw-photo-timeline,
+.tw-photo-manage {
+	margin-top: var(--bc-sp-5);
+}
+
+.tw-photo-month {
+	margin-bottom: var(--bc-sp-7);
+}
+
+.tw-photo-month-label {
+	display: flex;
+	align-items: center;
+	gap: var(--bc-sp-3);
+	font-family: var(--bc-font-display);
+	font-size: var(--bc-text-sm);
+	font-weight: 750;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--bc-ink-muted);
+	margin-bottom: var(--bc-sp-4);
+}
+
+.tw-photo-month-label::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background: var(--bc-line);
+}
+
+/* Container queries so a photo grid in a narrow column behaves like a narrow
+   grid, rather than keying off the viewport and ignoring its own box. */
+.tw-photo-timeline,
+.tw-photo-manage,
+.tw-photo-comparison {
+	container-type: inline-size;
+}
+
+.tw-photo {
+	border-radius: var(--bc-r-md);
+	overflow: hidden;
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+	box-shadow: var(--bc-shadow-1);
+	transition: box-shadow 0.22s var(--bc-ease), transform 0.22s var(--bc-ease);
+}
+
+.tw-photo img {
+	border-radius: 0;
+	aspect-ratio: auto;
+	background: var(--bc-bg-sunk);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.tw-photo:hover {
+		transform: translateY(-3px);
+		box-shadow: var(--bc-shadow-3);
+	}
+}
+
+.tw-photo-caption {
+	padding: 0.7rem 0.85rem;
+	border-top: 1px solid var(--bc-line);
+	background: var(--bc-surface);
+}
+
+.tw-photo-caption-text {
+	font-size: var(--bc-text-sm);
+	color: var(--bc-ink-soft);
+	display: block;
+}
+
+/* Visibility is the single most consequential thing on a photo. It gets a
+   chip, not grey small print. */
+.tw-photo-visibility {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.3rem;
+	margin-top: 0.4rem;
+	font-size: var(--bc-text-xs);
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	padding: 0.15rem 0.55rem;
+	border-radius: var(--bc-r-pill);
+	background: var(--bc-wash-rose);
+	border: 1px solid var(--bc-line);
+	color: var(--bc-ink-soft);
+}
+
+.tw-photo-slots {
+	display: grid;
+	gap: var(--bc-sp-4);
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/*
+ * A tick before each month, in the same two tokens the mood dots use, so the
+ * series reads as one timeline and the colour stays legible on both themes.
+ * It sits on the label rather than on the photo: a gradient frame around an
+ * image competes with the image, and these images are the content.
+ */
+.tw-photo-slot-label::before {
+	content: "";
+	flex: 0 0 auto;
+	inline-size: 1.25rem;
+	block-size: 3px;
+	border-radius: var(--bc-r-pill);
+	background-image: linear-gradient(90deg, var(--bc-link), var(--bc-accent-text));
+}
+
+.tw-photo-slot-label {
+	display: flex;
+	align-items: center;
+	gap: var(--bc-sp-2);
+	font-size: var(--bc-text-xs);
+	font-weight: 750;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--bc-ink-muted);
+	margin-bottom: var(--bc-sp-2);
+}
+
+/*
+ * A month with no photo in it.
+ *
+ * This used to be a 2px dashed box the height of a photo, which is the
+ * universal drawing for "something belongs here and is missing" - a drop
+ * zone. The module's own comment says the opposite in as many words: an empty
+ * slot says nothing about the member, no placeholder, no prompt to fill it
+ * in, the comparison view is not a checklist. A dashed outline the size of
+ * the thing that is absent argues with that on every row.
+ *
+ * So: no border, a surface barely distinguishable from the card, and short.
+ * Height is the honest part. A gap the same size as a photo reads as a hole
+ * in a sequence; a gap that takes only the room it needs reads as a quiet
+ * month, which is all it is. Plenty of women have months with no photos in
+ * them, and the page should not ask about them.
+ */
+.tw-photo-slot-empty {
+	display: grid;
+	place-items: center;
+	min-block-size: 5.5rem;
+	border: 0;
+	border-radius: var(--bc-r-md);
+	background: color-mix(in srgb, var(--bc-ink) 4%, transparent);
+	color: var(--bc-ink-muted);
+	font-size: var(--bc-text-sm);
+	text-align: center;
+	padding: var(--bc-sp-4);
+	box-shadow: none;
+}
+
+/*
+ * Nothing to open, so nothing lifts. The slot card's hover transition is for
+ * photos; an empty month that rises to meet the cursor is offering something
+ * it does not have.
+ */
+.tw-photo-slot:has(.tw-photo-slot-empty) {
+	align-self: start;
+}
+
+.tw-photo-slot:has(.tw-photo-slot-empty):hover {
+	transform: none;
+	box-shadow: var(--bc-shadow-1);
+}
+
+.tw-photo-selectable {
+	cursor: pointer;
+}
+
+.tw-photo-selectable:has(input:checked) {
+	border-color: var(--bc-link);
+	box-shadow: var(--bc-glow-sky);
+}
+
+.tw-photo-bulk-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--bc-sp-3);
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-lg);
+	padding: var(--bc-sp-4);
+	margin-top: var(--bc-sp-5);
+}
+
+.tw-photo-comparison {
+	gap: var(--bc-sp-5);
+	align-items: start;
+}
+
+/* --- 10c. funding -------------------------------------------------------- */
+
+.tw-funding-request {
+	padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.tw-funding-story {
+	color: var(--bc-ink-soft);
+	max-width: var(--bc-measure);
+}
+
+/* --- how she was doing ----------------------------------------------------
+ *
+ * The dots are one colour at every height. Giving a hard month a different
+ * colour from a good one would be the chart grading her feelings, and the
+ * platform has no business doing that on a page she keeps for herself. The
+ * position carries the value; the sky-to-rose fill is the same wherever it
+ * sits, so the shape reads without anything being judged.
+ *
+ * The plot area gets no gradient wash either, for the same reason: a surface
+ * that is brighter at the top makes the bottom of the scale look like a worse
+ * place to be.
+ */
+.tw-journey-moods {
+	margin: var(--bc-sp-5) 0;
+	padding: var(--bc-sp-4) var(--bc-sp-5);
+	border-radius: var(--bc-r-lg);
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+}
+
+.tw-journey-moods figcaption {
+	font-family: var(--bc-font-display);
+	font-size: var(--bc-text-md);
+	font-weight: 750;
+	color: var(--bc-ink);
+	margin-bottom: var(--bc-sp-3);
+}
+
+.tw-journey-moods-high,
+.tw-journey-moods-low {
+	color: var(--bc-ink-soft);
+}
+
+.tw-journey-moods-points {
+	border-bottom-color: var(--bc-line);
+}
+
+/*
+ * The dots are built from --bc-link and --bc-accent-text, not from the raw
+ * flag colours, and the reason is measured rather than felt. Against the
+ * light surface the flag colours come out at sky 1.71:1, rose 1.77:1 and
+ * lilac 1.71:1 - a long way under the 3:1 a meaningful graphic needs, and the
+ * chart looked it: pale lavender smudges on a pale card. Those two tokens are
+ * the theme's existing answer to exactly this, flipping to the darkened pair
+ * in light mode (6.67:1 and 6.26:1) and back to the flag colours themselves
+ * in dark (9.57:1 and 9.24:1), so the dots stay legible both ways without a
+ * separate rule for each theme.
+ *
+ * The glow is decoration and carries nothing, so it is allowed to disappear
+ * against the light surface.
+ */
+.tw-journey-mood-point {
+	width: 0.7rem;
+	height: 0.7rem;
+	margin: 0 0 -0.35rem -0.35rem;
+	background-image: linear-gradient(135deg, var(--bc-link), var(--bc-accent-text));
+	box-shadow: 0 0 8px color-mix(in srgb, #c9b8f5 55%, transparent);
+}
+
+.tw-journey-moods-range,
+.tw-journey-moods-note {
+	color: var(--bc-ink-soft);
+}
+
+.tw-journey-moods-note {
+	margin: var(--bc-sp-3) 0 0;
+	max-width: var(--bc-measure);
+}
+
+/* --- where things stand ---------------------------------------------------
+ *
+ * The milestone library says of itself that it is a menu and not a ladder, so
+ * this is a composition and not a progress bar. The palette follows from that
+ * and is the one place in this theme where hue carries a meaning, so it is
+ * chosen to avoid the meanings it must not carry: nothing here is red or
+ * green, because "Not for me" and "Paused" are answers rather than failures
+ * and a traffic light would grade them. The counts beside the band carry the
+ * numbers in text, so a reader who sees none of this loses nothing.
+ */
+.tw-journey-standing {
+	margin: var(--bc-sp-5) 0;
+	padding: var(--bc-sp-4) var(--bc-sp-5);
+	border-radius: var(--bc-r-lg);
+	background: var(--bc-wash-sky);
+	border: 1px solid var(--bc-line);
+}
+
+.tw-journey-standing-title {
+	font-size: var(--bc-text-md);
+	margin: 0 0 var(--bc-sp-3);
+}
+
+.tw-journey-band {
+	height: 1rem;
+	border-radius: var(--bc-r-pill);
+	background: color-mix(in srgb, var(--bc-ink) 8%, transparent);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/*
+ * The separator is the page behind the band rather than white, so it works on
+ * either theme without being a bright line on the dark one.
+ */
+.tw-journey-band-seg + .tw-journey-band-seg {
+	box-shadow: inset 2px 0 0 var(--bc-wash-sky);
+}
+
+.tw-journey-band-seg {
+	opacity: 1;
+}
+
+/*
+ * Each status paints two things that are not nested in one another: its
+ * segment in the band, and the legend dot beside its count. The rule names
+ * both rather than letting the dot inherit from its list item, because the
+ * list item has to stay unpainted - a coloured block behind the number would
+ * read as a highlight.
+ */
+.tw-journey-band-seg.tw-journey-is-done,
+.tw-journey-standing-count.tw-journey-is-done::before {
+	background-image: linear-gradient(90deg, var(--bc-sky), var(--bc-rose));
+}
+
+.tw-journey-band-seg.tw-journey-is-in_progress,
+.tw-journey-standing-count.tw-journey-is-in_progress::before {
+	background-color: var(--bc-sky);
+}
+
+/* Waiting is its own colour on purpose: it is the one she cannot move. */
+.tw-journey-band-seg.tw-journey-is-waiting,
+.tw-journey-standing-count.tw-journey-is-waiting::before {
+	background-color: color-mix(in srgb, var(--bc-rose) 65%, #ffcf9b);
+}
+
+.tw-journey-band-seg.tw-journey-is-planned,
+.tw-journey-standing-count.tw-journey-is-planned::before {
+	background-color: #c9b8f5;
+}
+
+.tw-journey-band-seg.tw-journey-is-curious,
+.tw-journey-standing-count.tw-journey-is-curious::before {
+	background-color: color-mix(in srgb, var(--bc-sky) 45%, var(--bc-surface-2));
+}
+
+.tw-journey-band-seg.tw-journey-is-paused,
+.tw-journey-standing-count.tw-journey-is-paused::before {
+	background-color: color-mix(in srgb, var(--bc-ink) 28%, transparent);
+}
+
+.tw-journey-band-seg.tw-journey-is-not_for_me,
+.tw-journey-standing-count.tw-journey-is-not_for_me::before {
+	background-color: color-mix(in srgb, var(--bc-ink) 14%, transparent);
+}
+
+.tw-journey-standing-count {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.4rem;
+	color: var(--bc-ink-soft);
+}
+
+.tw-journey-standing-count b {
+	font-family: var(--bc-font-display);
+	font-size: var(--bc-text-md);
+	font-weight: 750;
+	color: var(--bc-ink);
+}
+
+/* The legend dot ties a count to its segment; the rules above paint it. */
+.tw-journey-standing-count::before {
+	content: "";
+	flex: 0 0 auto;
+	width: 0.6rem;
+	height: 0.6rem;
+	border-radius: 50%;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--bc-ink) 15%, transparent);
+	align-self: center;
+}
+
+.tw-journey-standing-note {
+	margin: var(--bc-sp-3) 0 0;
+	color: var(--bc-ink-soft);
+	max-width: var(--bc-measure);
+}
+
+/*
+ * The raised figure.
+ *
+ * This used to be a sentence and nothing else, with a comment here saying a
+ * bar would mean inventing a denominator. That was right about the theme and
+ * wrong about where to fix it: the goal was sitting in post meta the whole
+ * time, and the shortcode now emits the real ratio as --tw-funding-fill. So
+ * the bar is drawn from her actual numbers, and only when a goal exists.
+ *
+ * The sentence stays the headline. It carries exact amounts; the bar is the
+ * feeling of them.
+ */
+.tw-funding-progress {
+	margin: var(--bc-sp-4) 0;
+	padding: var(--bc-sp-4) var(--bc-sp-5);
+	border-radius: var(--bc-r-lg);
+	background: var(--bc-wash-sky);
+	border: 1px solid var(--bc-line);
+}
+
+.tw-funding-raised {
+	font-family: var(--bc-font-display);
+	font-size: var(--bc-text-xl);
+	font-weight: 750;
+	letter-spacing: -0.02em;
+	color: var(--bc-ink);
+	margin: 0;
+	text-wrap: balance;
+}
+
+/*
+ * Iridescent rather than a single accent: the fill runs sky to lilac to rose
+ * so it reads as one moving surface rather than a loading bar. The sheen is a
+ * second, lighter gradient over the top at an angle, which is what makes it
+ * look like a surface catching light instead of a flat swatch.
+ */
+.tw-funding-bar {
+	height: 0.9rem;
+	margin: var(--bc-sp-3) 0 0;
+	border-radius: var(--bc-r-pill);
+	background: color-mix(in srgb, var(--bc-ink) 10%, transparent);
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+	overflow: hidden;
+}
+
+.tw-funding-bar span {
+	background-color: var(--bc-sky);
+	background-image:
+		linear-gradient(115deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 38%),
+		linear-gradient(90deg, var(--bc-sky) 0%, #c9b8f5 52%, var(--bc-rose) 100%);
+	box-shadow: 0 0 10px rgba(201, 184, 245, 0.55);
+	transition: width 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/*
+ * Reached. One extra ring of glow and nothing else: a goal being met is worth
+ * marking, and it is also the moment somebody is most likely to be reading
+ * this page in a hurry to check it is real.
+ */
+.tw-funding-bar-met {
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), var(--bc-glow-rose);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tw-funding-bar span {
+		transition: none;
+	}
+}
+
+.tw-funding-supporters {
+	display: grid;
+	gap: var(--bc-sp-3);
+	list-style: none;
+	margin: var(--bc-sp-5) 0 0;
+	padding: 0;
+}
+
+/*
+ * The accent stripe is painted as a background, not with border-image.
+ * border-image replaces ALL four borders - it has no per-side form - so
+ * `border: 1px solid; border-left: 3px solid transparent; border-image: ...`
+ * draws a gradient frame right round the row instead of a stripe down one
+ * edge, and silently cancels border-radius while it is at it. A background
+ * gradient sized to 3px keeps the radius and the 1px outline intact.
+ */
+.tw-funding-supporter {
+	background-color: var(--bc-surface-2);
+	background-image: linear-gradient(180deg, var(--bc-sky), var(--bc-rose));
+	background-repeat: no-repeat;
+	background-size: 3px 100%;
+	background-position: left center;
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-md);
+	padding: 0.7rem 1rem 0.7rem calc(1rem + 3px);
+	font-size: var(--bc-text-sm);
+	color: var(--bc-ink-soft);
+}
+
+.tw-funding-supporter strong {
+	color: var(--bc-ink);
+	font-weight: 700;
+}
+
+.tw-funding-message {
+	display: block;
+	margin-top: 0.3rem;
+	color: var(--bc-ink-soft);
+	font-style: normal;
+}
+
+.tw-funding-donate {
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-lg);
+	padding: var(--bc-sp-5);
+	margin-top: var(--bc-sp-6);
+}
+
+.tw-funding-closed,
+.tw-funding-external {
+	background: var(--bc-warn-wash);
+	border: 1px solid var(--bc-warn-line);
+	border-left: 4px solid var(--bc-warn-ink);
+	color: var(--bc-warn-ink);
+	border-radius: var(--bc-r-sm);
+	padding: 0.8rem 1rem;
+	font-size: var(--bc-text-sm);
+	font-weight: 600;
+}
+
+.tw-funding-payout table,
+.tw-funding-payout .tw-table {
+	inline-size: 100%;
+	border-collapse: collapse;
+	font-size: var(--bc-text-sm);
+}
+
+.tw-funding-payout th,
+.tw-funding-payout td {
+	text-align: left;
+	padding: 0.55rem 0.6rem;
+	border-bottom: 1px solid var(--bc-line);
+}
+
+.tw-funding-payout th {
+	font-size: var(--bc-text-xs);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--bc-ink-muted);
+}
+
+/* --- 10d. verification --------------------------------------------------- */
+
+.tw-verify-status {
+	padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.tw-verify-current {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-family: var(--bc-font-display);
+	font-size: var(--bc-text-lg);
+	font-weight: 750;
+	padding: 0.4rem 0.95rem;
+	border-radius: var(--bc-r-pill);
+	background: var(--bc-sky);
+	color: #0d0a12;
+	box-shadow: var(--bc-shadow-1);
+}
+
+.tw-verify-routes {
+	display: grid;
+	gap: var(--bc-sp-4);
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+	list-style: none;
+	margin: var(--bc-sp-5) 0 0;
+	padding: 0;
+}
+
+.tw-verify-routes > li {
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-md);
+	padding: var(--bc-sp-4);
+}
+
+.tw-verify-partner,
+.tw-verify-attest {
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-lg);
+	padding: var(--bc-sp-5);
+}
+
+/* --- 10e. resources ------------------------------------------------------ */
+
+.tw-resources-area {
+	font-size: var(--bc-text-sm);
+}
+
+.tw-resource-list {
+	display: grid;
+	gap: var(--bc-sp-4);
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+}
+
+.tw-resource {
+	position: relative;
+	overflow: hidden;
+}
+
+.tw-resource h3,
+.tw-resource h4 {
+	font-size: var(--bc-text-lg);
+	margin-bottom: var(--bc-sp-2);
+}
+
+.tw-resource-contact {
+	font-size: var(--bc-text-sm);
+	margin-top: var(--bc-sp-3);
+}
+
+/*
+ * Every card's phone number and website link, measured at 19px tall. These
+ * are the two things on a resource card anybody ever touches, and on a phone
+ * they sat between other links at under half a thumb.
+ *
+ * inline-flex with a floor, and a row gap on the parent so two of them side
+ * by side cannot be tapped by accident for each other.
+ */
+.tw-resource-contact {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem 0.75rem;
+	align-items: center;
+}
+
+.tw-resource-contact a {
+	display: inline-flex;
+	align-items: center;
+	min-block-size: 2.75rem;
+	font-weight: 650;
+	word-break: break-word;
+}
+
+/* --- 10f. crisis, panic and lockdown ------------------------------------
+ * The exception to everything above. No gradient, no glow, no animation, no
+ * hover lift. Someone opening this page is not browsing. It needs to be the
+ * first thing the eye lands on and the easiest thing on the page to read.
+ */
+
+.tw-crisis {
+	background: var(--bc-danger-wash);
+	border: 2px solid var(--bc-danger-ink);
+	border-radius: var(--bc-r-md);
+	padding: clamp(1rem, 3vw, 1.75rem);
+	margin: 0 0 var(--bc-sp-7);
+	color: var(--bc-ink);
+	box-shadow: none;
+}
+
+.tw-crisis h2,
+.tw-crisis h3 {
+	color: var(--bc-danger-ink);
+	font-size: var(--bc-text-xl);
+	margin-bottom: var(--bc-sp-3);
+}
+
+.tw-crisis li {
+	font-size: var(--bc-text-lg);
+	line-height: 1.5;
+	padding: 0.4rem 0;
+}
+
+/*
+ * The typography here was already right - monospace digits, set large,
+ * because digits that blur together are useless to someone whose hands are
+ * shaking. The target was not. Measured at 375px, these were 24x19 and
+ * 119x25: the smallest things on the page were the crisis numbers.
+ *
+ * So each one is a block with a floor under it. Still no glow, no lift, no
+ * animation - the rule for this component is unchanged. It is just big enough
+ * to hit now.
+ */
+.tw-crisis a {
+	display: inline-flex;
+	align-items: center;
+	min-block-size: 2.75rem;
+	padding-inline: 0.5rem;
+	margin-inline-start: -0.5rem;
+	color: var(--bc-danger-ink);
+	font-weight: 750;
+	text-decoration-thickness: 2px;
+}
+
+.tw-crisis a:hover,
+.tw-crisis a:focus {
+	color: var(--bc-danger-ink);
+}
+
+/* Phone numbers are the payload. Make them selectable, big and monospaced so
+   digits do not blur together when someone's hands are shaking. */
+.tw-crisis strong,
+.tw-crisis .tw-crisis-number {
+	font-family: var(--bc-font-mono);
+	font-size: 1.05em;
+	letter-spacing: 0.02em;
+	user-select: all;
+}
+
+.tw-journey-panic,
+.tw-photo-panic,
+.tw-safety-lockdown {
+	background: var(--bc-danger-wash);
+	border: 2px solid var(--bc-danger-ink);
+	border-radius: var(--bc-r-md);
+	padding: var(--bc-sp-4);
+	margin: var(--bc-sp-5) 0;
+	box-shadow: none;
+}
+
+.tw-journey-panic button,
+.tw-photo-panic button,
+.tw-safety-lockdown button,
+.tw-safety-lockdown .tw-submit {
+	background: var(--bc-danger-ink);
+	color: #ffffff;
+	border: 0;
+	border-radius: var(--bc-r-sm);
+	font-size: var(--bc-text-base);
+	font-weight: 750;
+	padding: 0.8rem 1.4rem;
+	box-shadow: none;
+	filter: none;
+}
+
+.tw-journey-panic button:hover,
+.tw-photo-panic button:hover,
+.tw-safety-lockdown button:hover {
+	background: #6d0c19;
+	color: #ffffff;
+	transform: none;
+	box-shadow: none;
+	filter: none;
+}
+
+.tw-safety-controls {
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-lg);
+	padding: var(--bc-sp-5);
+}
+
+.tw-safety-report {
+	margin-top: var(--bc-sp-5);
+}
+
+/* --- 10g. Look Lab ------------------------------------------------------- */
+
+.tw-looklab {
+	margin-top: var(--bc-sp-5);
+}
+
+.tw-looklab-budget {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--bc-sp-4);
+	background: var(--bc-wash-rose);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-lg);
+	padding: var(--bc-sp-4) var(--bc-sp-5);
+	font-size: var(--bc-text-sm);
+	font-weight: 650;
+	color: var(--bc-ink-soft);
+	margin-bottom: var(--bc-sp-5);
+}
+
+.tw-looklab-jobs {
+	display: grid;
+	gap: var(--bc-sp-4);
+}
+
+.tw-looklab-job {
+	display: grid;
+	gap: var(--bc-sp-2);
+}
+
+.tw-looklab-images {
+	display: grid;
+	gap: var(--bc-sp-3);
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+	margin-top: var(--bc-sp-3);
+}
+
+.tw-looklab-images img {
+	border-radius: var(--bc-r-md);
+	border: 1px solid var(--bc-line);
+}
+
+.tw-name-explorer {
+	margin-top: var(--bc-sp-6);
+}
+
+.tw-name-list {
+	display: grid;
+	gap: var(--bc-sp-2);
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr));
+}
+
+.tw-name-list li {
+	background: var(--bc-surface);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-md);
+	padding: 0.6rem 0.85rem;
+	font-family: var(--bc-font-display);
+	font-size: var(--bc-text-base);
+	font-weight: 650;
+	transition: border-color 0.16s var(--bc-ease), background-color 0.16s var(--bc-ease);
+}
+
+.tw-name-list li:hover {
+	border-color: var(--bc-link);
+	background: var(--bc-wash-sky);
+}
+
+/* --- the demo index ------------------------------------------------------ */
+
+.tw-demo-index .tw-note {
+	background: var(--bc-surface-2);
+	border: 1px solid var(--bc-line);
+	border-left: 4px solid var(--bc-line-strong);
+	border-radius: var(--bc-r-sm);
+	padding: 0.8rem 1rem;
+	font-size: var(--bc-text-sm);
+	color: var(--bc-ink-soft);
+}
+
+.tw-demo-index h2 {
+	font-size: var(--bc-text-sm);
+	font-weight: 750;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--bc-ink-muted);
+	margin: var(--bc-sp-7) 0 var(--bc-sp-4);
+	display: flex;
+	align-items: center;
+	gap: var(--bc-sp-3);
+}
+
+.tw-demo-index h2::after {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background: var(--bc-line);
+}
+
+.tw-demo-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: var(--bc-sp-4);
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+}
+
+.tw-demo-list li {
+	background: var(--bc-surface);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-lg);
+	padding: var(--bc-sp-4) var(--bc-sp-5);
+	box-shadow: var(--bc-shadow-1);
+	transition: box-shadow 0.2s var(--bc-ease), transform 0.2s var(--bc-ease),
+		border-color 0.2s var(--bc-ease);
+}
+
+.tw-demo-list li:hover {
+	border-color: var(--bc-line-strong);
+	box-shadow: var(--bc-shadow-2);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.tw-demo-list li:hover {
+		transform: translateY(-2px);
+	}
+}
+
+.tw-demo-list a {
+	font-family: var(--bc-font-display);
+	font-size: var(--bc-text-lg);
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.tw-demo-list a:hover {
+	text-decoration: underline;
+}
+
+.tw-demo-list span {
+	display: block;
+	margin-top: 0.3rem;
+	font-size: var(--bc-text-sm);
+	color: var(--bc-ink-muted);
+}
+
+/* ===========================================================================
+   11. ENTRY CONTENT, WIDGETS, PAGINATION
+   =========================================================================== */
+
+.entry-content > * + * {
+	margin-top: var(--bc-sp-5);
+}
+
+.entry-content a {
+	text-decoration: underline;
+}
+
+.entry-content .btn,
+.entry-content .tw-submit,
+.entry-content .tw-demo-list a {
+	text-decoration: none;
+}
+
+.widget-area .widget {
+	background: var(--bc-surface);
+	border: 1px solid var(--bc-line);
+	border-radius: var(--bc-r-lg);
+	padding: var(--bc-sp-5);
+	margin-bottom: var(--bc-sp-5);
+	box-shadow: var(--bc-shadow-1);
+}
+
+.widget-title {
+	font-size: var(--bc-text-sm);
+	font-weight: 750;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--bc-ink-muted);
+	border: 0;
+	border-bottom: 2px solid transparent;
+	border-image: var(--bc-sheen) 1;
+	padding-bottom: var(--bc-sp-3);
+	margin-bottom: var(--bc-sp-4);
+}
+
+.pagination {
+	gap: 0.35rem;
+}
+
+.pagination .page-link {
+	border: 1px solid var(--bc-line-strong);
+	border-radius: var(--bc-r-sm);
+	color: var(--bc-ink);
+	background: var(--bc-surface);
+}
+
+.pagination .page-item.active .page-link {
+	background: var(--bc-sky);
+	border-color: var(--bc-sky);
+	color: #0d0a12;
+	font-weight: 700;
+}
+
+.breadcrumb,
+.wpb-breadcrumbs {
+	font-size: var(--bc-text-xs);
+	color: var(--bc-ink-muted);
+	padding-top: var(--bc-sp-5);
+}
+
+/* The parent's card-based archive grid. */
+.card {
+	overflow: hidden;
+}
+
+.card-title {
+	font-size: var(--bc-text-lg);
+}
+
+.card-body {
+	padding: var(--bc-sp-5);
+}
+
+/* ===========================================================================
+   12. FOOTER
+   =========================================================================== */
+
+.site-footer {
+	position: relative;
+	background: var(--bc-bg-sunk);
+	color: var(--bc-ink-soft);
+	border-top: 1px solid var(--bc-line);
+	padding: var(--bc-sp-8) 0 var(--bc-sp-6);
+	font-size: var(--bc-text-sm);
+}
+
+/*
+ * The flag line is drawn with a pseudo-element rather than markup, so
+ * footer.php does not have to be overridden at all - the parent's footer
+ * already carries the widget columns, the footer menu and the social links,
+ * and forking 90 lines of template to insert a 4px stripe would be a bad
+ * trade.
+ */
+.site-footer::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto;
+	height: 4px;
+	background: var(--bc-flag);
+}
+
+.site-footer a {
+	color: var(--bc-link);
+}
+
+.site-footer a:hover {
+	color: var(--bc-link-hover);
+}
+
+.site-footer h2,
+.site-footer h3,
+.site-footer .widget-title {
+	color: var(--bc-ink);
+}
+
+.site-footer .widget {
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+	padding: 0;
+}
+
+.footer-widgets {
+	padding-bottom: var(--bc-sp-6);
+}
+
+.footer-bottom {
+	margin-top: var(--bc-sp-2);
+	padding-top: var(--bc-sp-5);
+	border-top: 1px solid var(--bc-line);
+	font-size: var(--bc-text-xs);
+	color: var(--bc-ink-muted);
+}
+
+.footer-nav ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--bc-sp-4);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.footer-nav a {
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.footer-nav a:hover {
+	text-decoration: underline;
+}
+
+.footer-social a {
+	display: inline-grid;
+	place-items: center;
+	inline-size: 2rem;
+	block-size: 2rem;
+	border-radius: 50%;
+	border: 1px solid var(--bc-line-strong);
+	color: var(--bc-ink-soft);
+	text-decoration: none;
+	transition: border-color 0.16s var(--bc-ease), color 0.16s var(--bc-ease),
+		background-color 0.16s var(--bc-ease);
+}
+
+.footer-social a:hover {
+	border-color: var(--bc-link);
+	background: var(--bc-wash-sky);
+	color: var(--bc-ink);
+}
+
+/* ===========================================================================
+   12b. CHROME THIS CHILD NOW OWNS
+   ---------------------------------------------------------------------------
+   A child theme's style.css REPLACES the parent's, because the parent enqueues
+   get_stylesheet_uri() under the handle 'wpwisebones-style'. Only the parent's
+   assets/css/main.css still loads. So the 356 lines of chrome in the parent's
+   style.css - header positioning, back-to-top, the landing template, the
+   admin-bar offsets - are simply gone the moment this theme is activated, and
+   have to be re-stated here. (Both sibling children have header-only
+   style.css files too, so they inherit the same situation.)
+   =========================================================================== */
+
+/* The admin bar is position:fixed at top:0. A sticky header at top:0 slides
+   underneath it, so it has to start below. Easy to miss, because you only see
+   it while logged in - which is exactly how you browse your own site. */
+body.admin-bar .site-header {
+	top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	body.admin-bar .site-header {
+		top: 46px;
+	}
+}
+
+/* The parent's JS toggles .visible on scroll; without the parent's style.css
+   the button would otherwise sit in the layout, permanently visible. */
+#back-to-top {
+	position: fixed;
+	bottom: 1.5rem;
+	right: 1.5rem;
+	z-index: 999;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s var(--bc-ease);
+	border-radius: 50%;
+	inline-size: 2.75rem;
+	block-size: 2.75rem;
+	padding: 0;
+	background: var(--bc-sky);
+	color: #0d0a12;
+	border: 0;
+	box-shadow: var(--bc-shadow-2);
+}
+
+#back-to-top.visible {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.template-full-width #content {
+	padding: 0;
+}
+
+.template-landing .site-header,
+.template-landing .site-footer {
+	display: none !important;
+}
+
+.wpb-topbar {
+	background: var(--bc-ink);
+	color: var(--bc-bg);
+	font-size: var(--bc-text-xs);
+	padding: 0.4rem 0;
+}
+
+.wpb-topbar a {
+	color: var(--bc-sky);
+}
+
+/* The parent's hero gets a flag gradient instead of the customizer's
+   primary-to-accent ramp. */
+.wpb-hero {
+	background: linear-gradient(135deg, var(--bc-sky), var(--bc-rose)) !important;
+	color: #0d0a12;
+	padding: clamp(3rem, 8vw, 6rem) 0;
+}
+
+.wpb-hero h1,
+.wpb-hero h2,
+.wpb-hero p {
+	color: #0d0a12;
+}
+
+/* ===========================================================================
+   13. PRELOADER
+   =========================================================================== */
+
+#wpb-preloader {
+	background: var(--bc-bg);
+}
+
+/* ===========================================================================
+   14. NARROW VIEWPORTS
+   =========================================================================== */
+
+@media (max-width: 991.98px) {
+	.bc-header-inner {
+		flex-wrap: wrap;
+	}
+
+	.navbar-collapse {
+		flex-basis: 100%;
+		order: 10;
+	}
+
+	.main-navigation > ul,
+	.navbar-nav {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0.15rem;
+		padding: var(--bc-sp-3) 0;
+	}
+
+	.main-navigation > ul > li > a,
+	.navbar-nav > .nav-item > .nav-link {
+		border-radius: var(--bc-r-sm);
+		padding: 0.6rem 0.75rem;
+	}
+
+	/*
+	 * Inside the collapsed burger a floating dropdown has nothing to float
+	 * over, so each group opens inline, indented under its label.
+	 */
+	.navbar-nav .dropdown-menu {
+		position: static;
+		border: 0;
+		box-shadow: none;
+		background: transparent;
+		margin: 0 0 0 var(--bc-sp-4);
+		padding: 0;
+		border-left: 2px solid var(--bc-line);
+		border-radius: 0;
+	}
+
+	.navbar-nav .dropdown-item {
+		padding-left: var(--bc-sp-4);
+	}
+
+	.search-form {
+		margin-top: var(--bc-sp-3);
+	}
+}
+
+@media (max-width: 575.98px) {
+	#content.site-content {
+		padding-top: var(--bc-sp-5);
+		padding-bottom: var(--bc-sp-7);
+	}
+
+	.bc-card,
+	.card,
+	.tw-journey-entry,
+	.tw-journey-milestone,
+	.tw-resource,
+	.tw-funding-request,
+	.tw-funding-payout,
+	.tw-verify-status,
+	.tw-looklab-job,
+	.tw-safety-report,
+	.tw-funding-donate,
+	.tw-safety-controls,
+	.tw-verify-partner,
+	.tw-verify-attest,
+	.widget-area .widget {
+		padding: var(--bc-sp-4);
+		border-radius: var(--bc-r-md);
+	}
+
+	.tw-journey-entry {
+		padding-left: var(--bc-sp-5);
+	}
+
+	.tw-journey-entry::before {
+		left: var(--bc-sp-4);
+	}
+
+	.tw-journey-entry::after {
+		left: calc(var(--bc-sp-4) - 5px);
+	}
+
+	.bc-theme-toggle span {
+		display: none;
+	}
+
+	.bc-theme-toggle {
+		padding: 0.4rem 0.5rem;
+	}
+}
+
+/* Hairlines are decoration; on a very wide screen keep the content readable
+   rather than letting the measure run away. */
+@media (min-width: 1400px) {
+	.bc-pagehead h1 {
+		max-width: 24ch;
+	}
+}
+
+/* ===========================================================================
+   15. MOTION, FORCED COLOURS, PRINT
+   =========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+@media (forced-colors: active) {
+	.bc-aurora,
+	.bc-flagline {
+		display: none;
+	}
+
+	.bc-card,
+	.card,
+	.tw-journey-milestone,
+	.tw-resource,
+	.tw-photo,
+	.tw-crisis {
+		border: 1px solid CanvasText;
+	}
+
+	.btn,
+	.tw-submit {
+		border: 1px solid ButtonText;
+	}
+}
+
+@media print {
+	.bc-aurora,
+	.bc-flagline,
+	.bc-theme-toggle,
+	.tw-journey-panic,
+	.tw-photo-panic,
+	.tw-safety-lockdown {
+		display: none !important;
+	}
+
+	.bc-card,
+	.card,
+	.tw-journey-milestone,
+	.tw-resource,
+	.tw-crisis {
+		box-shadow: none;
+		border: 1px solid #999;
+		break-inside: avoid;
+	}
+
+	.tw-crisis {
+		border-width: 2px;
+	}
+}
+
+/* ===========================================================================
+   15a. REACHABLE UNDER PRESSURE
+   ---------------------------------------------------------------------------
+   Measured on a 375px viewport, not estimated. Before this block: filter
+   checkboxes 17x17, the burger 40x29, the colour-scheme button 34x31, footer
+   links 20px tall, and every submit button 41px - thirty-nine of them on the
+   milestones page alone. All of them under the 44px that a thumb needs, most
+   under the 24px WCAG 2.2 requires outright.
+
+   This is the page somebody opens on a phone with no battery left, in a
+   hurry, possibly shaking. Nothing here changes what anything does. It makes
+   the things she has to hit big enough to hit.
+   =========================================================================== */
+
+/*
+ * The first thing a keyboard reaches on every page, and it was unreadable
+ * when it arrived: WordPress's default #ddd box, inheriting this theme's sky
+ * link colour, which comes out at 1.33:1. The flag colour works as a surface
+ * with dark ink on it - 10.26:1 - which is the same rule the rest of the
+ * theme follows.
+ */
+.skip-link:focus {
+	position: fixed;
+	inset-block-start: var(--bc-sp-3);
+	inset-inline-start: var(--bc-sp-3);
+	z-index: 100001;
+	display: block;
+	inline-size: auto;
+	block-size: auto;
+	padding: var(--bc-sp-3) var(--bc-sp-4);
+	clip-path: none;
+	border-radius: var(--bc-r-pill);
+	background: var(--bc-sky);
+	color: var(--bc-btn-ink);
+	font-weight: 650;
+	text-decoration: none;
+	outline: 3px solid var(--bc-btn-ink);
+	outline-offset: 2px;
+}
+
+/*
+ * 44px is the target, not the ornament: the buttons keep their padding and
+ * gain a floor, so short labels stop collapsing to 41px.
+ */
+[class^="tw-"] button,
+[class*=" tw-"] button,
+.wpb-btn,
+.btn {
+	min-block-size: 2.75rem;
+}
+
+.navbar-toggler,
+.bc-theme-toggle {
+	min-inline-size: 2.75rem;
+	min-block-size: 2.75rem;
+}
+
+/*
+ * The whole label is the target, not the 24px box inside it. A label that
+ * wraps its own checkbox is already one hit area; this just makes it a
+ * thumb-sized one, and centres the box against the text now that the box is
+ * bigger than the line.
+ */
+[class^="tw-"] label:has(> input[type="checkbox"]),
+[class*=" tw-"] label:has(> input[type="checkbox"]) {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--bc-sp-2);
+	min-block-size: 2.75rem;
+}
+
+/* The footer menu: 20px tall links, in the part of the page people reach for
+   when the thing they wanted is not in the main nav. */
+.site-footer .nav-link {
+	display: inline-flex;
+	align-items: center;
+	min-block-size: 2.75rem;
+	padding-inline: var(--bc-sp-2);
+}
+
+/* The site title, 180x35, and the thing people press to get back out. */
+.navbar-brand {
+	display: inline-flex;
+	align-items: center;
+	min-block-size: 2.75rem;
+}
+
+/* ===========================================================================
+   15b. SECTION NAVIGATION
+   ---------------------------------------------------------------------------
+   A strip under the page head carrying the current page's siblings, so moving
+   between "My journey" and "Milestones" is one click rather than reopening
+   the dropdown you just closed.
+
+   The current page is marked two ways on purpose. The flag gradient reads at
+   a glance, and `aria-current` carries it to anyone the gradient never
+   reaches. The ink on that gradient is --bc-btn-ink rather than the page's
+   own ink: the flag colours work as surfaces with dark ink on top (9.91:1 on
+   rose, 10.26:1 on sky) and fail as text, which is the whole colour decision
+   of this theme in miniature.
+   =========================================================================== */
+
+.bc-sectionnav-wrap {
+	background: var(--bc-surface);
+	border-bottom: 1px solid var(--bc-line);
+}
+
+/*
+ * The row scrolls inside itself rather than wrapping. A section has two or
+ * three items, so it almost never scrolls - but a long pair of titles on a
+ * 320px phone must not be what puts a horizontal scrollbar on the document.
+ */
+.bc-sectionnav {
+	display: flex;
+	align-items: center;
+	gap: var(--bc-sp-3);
+	padding: var(--bc-sp-3) 0;
+	overflow-x: auto;
+	scrollbar-width: thin;
+	overscroll-behavior-x: contain;
+}
+
+.bc-sectionnav-label {
+	flex: 0 0 auto;
+	font-size: var(--bc-text-xs);
+	font-weight: 750;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--bc-ink-muted);
+}
+
+.bc-sectionnav ul {
+	display: flex;
+	gap: var(--bc-sp-2);
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.bc-sectionnav-link {
+	display: flex;
+	align-items: center;
+	/* Thumb-sized, same floor as every other control. */
+	min-block-size: 2.75rem;
+	padding: 0.35rem 0.9rem;
+	border-radius: var(--bc-r-pill);
+	border: 1px solid transparent;
+	color: var(--bc-ink-soft);
+	text-decoration: none;
+	white-space: nowrap;
+	transition: background-color 0.2s var(--bc-ease), color 0.2s var(--bc-ease),
+		border-color 0.2s var(--bc-ease);
+}
+
+.bc-sectionnav-link:hover,
+.bc-sectionnav-link:focus-visible {
+	background-color: var(--bc-surface-2);
+	border-color: var(--bc-line);
+	color: var(--bc-ink);
+}
+
+.bc-sectionnav-link.is-current,
+.bc-sectionnav-link.is-current:hover,
+.bc-sectionnav-link.is-current:focus-visible {
+	background-image: linear-gradient(90deg, var(--bc-sky), var(--bc-rose));
+	border-color: transparent;
+	color: var(--bc-btn-ink);
+	font-weight: 650;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.bc-sectionnav-link {
+		transition: none;
+	}
+}
+
+/* ===========================================================================
+   16. OPT-IN WEBFONT
+   ---------------------------------------------------------------------------
+   Left commented on purpose. Enqueuing a Google font hands every visitor's IP
+   to a third party on every page view. On a site where some members are
+   hiding from someone, that is a safety question rather than a performance
+   one. If you want the font, self-host the files and point these rules at
+   them - do not re-add the fonts.googleapis.com request.
+
+   @font-face {
+       font-family: "Becoming Display";
+       src: url("../fonts/display-variable.woff2") format("woff2-variations");
+       font-weight: 400 800;
+       font-display: swap;
+   }
+   :root { --bc-font-display: "Becoming Display", ui-sans-serif, system-ui, sans-serif; }
+   =========================================================================== */
