@@ -10,6 +10,51 @@ defined( 'ABSPATH' ) || exit;
 
 add_action( 'wp_head', 'wpwisebones_seo_meta', 2 );
 
+/**
+ * Trim text to a character budget at a word boundary, for the meta description.
+ *
+ * A search result and a link preview are not the same slot and do not have the
+ * same room. Google shows roughly 155 characters of a meta description; Open
+ * Graph consumers show appreciably more. This theme computed ONE 30-word string
+ * and spent it on both, so every product page emitted a description of about
+ * 200 characters that Google then cut again - and because the 30-word trim had
+ * already appended its own ellipsis, the cut landed mid-sentence and the
+ * ellipsis the theme added was never seen. og:description was fine at that
+ * length; only the search snippet was over budget. So the two are budgeted
+ * separately now.
+ *
+ * Entities are decoded before counting. The source text can already contain
+ * them - wp_trim_words() appends &hellip;, and an apostrophe arrives as
+ * &#039; - and those cost six characters inside the attribute while occupying
+ * one on screen, so counting the encoded string budgets the wrong thing.
+ * Whatever survives is re-encoded by esc_attr() at the point of output.
+ *
+ * @param string $text  Description text, encoded or not.
+ * @param int    $limit Maximum characters, ellipsis included.
+ * @return string
+ */
+function wpwisebones_seo_meta_description( $text, $limit = 155 ) {
+	$text = html_entity_decode( (string) $text, ENT_QUOTES, 'UTF-8' );
+	$text = trim( (string) preg_replace( '/\s+/u', ' ', $text ) );
+
+	// Drop a trailing ellipsis from the source so we do not end up with two.
+	$text = (string) preg_replace( '/\s*(\[\x{2026}\]|\x{2026}|\.\.\.)$/u', '', $text );
+
+	if ( '' === $text || mb_strlen( $text ) <= $limit ) {
+		return $text;
+	}
+
+	// One character of the budget belongs to the ellipsis we are about to add.
+	$cut = mb_substr( $text, 0, $limit - 1 );
+
+	// Back off to the last whole word, unless there is no space to back off to.
+	if ( preg_match( '/^(.*)\s\S*$/su', $cut, $m ) && '' !== $m[1] ) {
+		$cut = $m[1];
+	}
+
+	return rtrim( $cut, " \t,;:.-" ) . "\xE2\x80\xA6";
+}
+
 function wpwisebones_seo_meta() {
 	// Yield to popular SEO plugins
 	if (
@@ -110,10 +155,23 @@ function wpwisebones_seo_meta() {
 		return; // Nothing useful to output for other pages
 	}
 
+	// Kept before either trim, because the two consumers get different budgets.
+	$raw_description = (string) $description;
+
 	$title       = esc_attr( $title );
-	$description = esc_attr( wp_trim_words( $description, 30 ) );
+	$description = esc_attr( wp_trim_words( $raw_description, 30 ) );
 	$url         = esc_url( $url );
 	$image       = $image ? esc_url( $image ) : '';
+
+	/**
+	 * Filter the character budget for the meta description.
+	 *
+	 * @param int $limit Default 155, about what Google shows on desktop.
+	 */
+	$meta_description = wpwisebones_seo_meta_description(
+		$raw_description,
+		(int) apply_filters( 'wpwisebones_meta_description_length', 155 )
+	);
 
 	/* -- Meta description ------------------------------------ */
 	//
@@ -126,8 +184,8 @@ function wpwisebones_seo_meta() {
 	// Leaving it out does not break a page, which is why it went unnoticed:
 	// Google falls back to assembling a snippet out of the page body, so the
 	// result looks fine and simply is not the sentence anyone chose.
-	if ( $description ) {
-		echo '<meta name="description" content="' . esc_attr( $description ) . '">' . "\n";
+	if ( $meta_description ) {
+		echo '<meta name="description" content="' . esc_attr( $meta_description ) . '">' . "\n";
 	}
 
 	/* -- Open Graph ------------------------------------------ */
