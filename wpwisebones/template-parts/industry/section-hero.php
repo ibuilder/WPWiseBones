@@ -26,7 +26,7 @@ $wpwisebones_bg      = $wpwisebones_image ? ' style="--wpb-ind-hero-image:url(' 
 ?>
 <section class="wpb-ind-hero wpb-ind-hero--<?php echo esc_attr( $wpwisebones_style ); ?><?php echo $wpwisebones_image ? ' has-image' : ''; ?>"<?php echo $wpwisebones_bg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from esc_url above. ?>>
 	<div class="container">
-		<div class="row align-items-center g-5">
+		<div class="row align-items-center g-4 g-lg-5">
 			<div class="<?php echo esc_attr( 'none' === $wpwisebones_panel ? 'col-lg-9' : 'col-lg-6' ); ?>">
 				<?php if ( '' !== $wpwisebones_eyebrow ) : ?>
 					<span class="wpb-ind-badge"><span class="dot" aria-hidden="true"></span><?php echo esc_html( $wpwisebones_eyebrow ); ?></span>

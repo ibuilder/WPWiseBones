@@ -14,7 +14,7 @@ if ( empty( $wpwisebones_section['items'] ) ) {
 ?>
 <section class="wpb-ind-section wpb-ind-faq" id="faq">
 	<div class="container">
-		<div class="row g-5">
+		<div class="row g-4 g-lg-5">
 			<div class="col-lg-4">
 				<?php wpwisebones_industry_heading( $wpwisebones_section, 'start' ); ?>
 			</div>

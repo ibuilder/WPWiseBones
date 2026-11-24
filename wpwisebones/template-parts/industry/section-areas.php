@@ -37,7 +37,7 @@ if ( ! $wpwisebones_areas ) {
 ?>
 <section class="wpb-ind-section wpb-ind-areas" id="areas">
 	<div class="container">
-		<div class="row g-5 align-items-center">
+		<div class="row g-4 g-lg-5 align-items-center">
 			<div class="col-lg-5">
 				<?php wpwisebones_industry_heading( $wpwisebones_section, 'start' ); ?>
 				<?php

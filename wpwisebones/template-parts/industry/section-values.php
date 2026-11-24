@@ -15,7 +15,7 @@ if ( empty( $wpwisebones_section['heading'] ) ) {
 ?>
 <section class="wpb-ind-section wpb-ind-values wpb-ind-section--alt" id="why">
 	<div class="container">
-		<div class="row g-5 align-items-center">
+		<div class="row g-4 g-lg-5 align-items-center">
 			<div class="col-lg-6">
 				<?php wpwisebones_industry_heading( $wpwisebones_section, 'start' ); ?>
 				<?php if ( ! empty( $wpwisebones_section['points'] ) ) : ?>
