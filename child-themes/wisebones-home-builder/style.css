@@ -1,0 +1,42 @@
+/*
+Theme Name:        WiseBones Home Builder
+Theme URI:         https://wprealwise.com/wpwisebones/child-themes/wisebones-home-builder/
+Template:          wpwisebones
+Author:            WPWiseBones
+Author URI:        https://wprealwise.com
+Description:       New-home builder and community developer theme for WPWiseBones: move-in-ready homes and floor plans, communities, the build process, design-studio options and a schedule-a-tour form. Pair with the WiseBones Industry Kit plugin.
+Version:           1.0.0
+Requires at least: 6.0
+Tested up to:      7.1
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       wisebones-home-builder
+Tags:              real-estate, business, custom-colors, custom-logo, custom-menu, featured-images, full-width-template, one-column, two-columns, translation-ready
+*/
+
+/*
+ * WiseBones Home Builder — part of the WPWiseBones child theme library.
+ *
+ * The page structure, sections and Customizer controls come from the parent
+ * (wpwisebones/inc/industry.php); the copy and starter site come from
+ * industry-config.php. This file only re-skins: change the tokens below and
+ * the whole front page follows. --ind-primary follows the Customizer colour.
+ */
+
+:root {
+	--ind-primary-ink: #fff;
+	--ind-accent: #6f8f6a;
+	--ind-ink: #2b211c;
+	--ind-muted: #6b5e56;
+	--ind-surface: #f7f2ec;
+	--ind-hero-bg: linear-gradient(135deg, #2f2119 0%, #5a3b2b 60%, #7a4e35 100%);
+	--ind-cta-bg: linear-gradient(135deg, #b3542d 0%, #c96a3f 100%);
+	--ind-radius: 12px;
+	--ind-heading-font: Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+
+body.wpb-industry {
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	color: var(--ind-ink);
+}

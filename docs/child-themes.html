@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RealWise and AEC Forge — WPWiseBones child themes</title>
-<meta name="description" content="Two ready-made child themes for WPWiseBones: RealWise, a real-estate marketing site and EDD storefront, and AEC Forge, a marketplace skin for AEC and BIM tooling.">
+<title>Child theme library — WPWiseBones</title>
+<meta name="description" content="The WPWiseBones child theme library: twelve real estate, construction and design themes on a shared industry framework, plus four brand themes.">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
@@ -27,6 +27,9 @@
 <div class="wrap layout">
 	<nav class="toc" aria-label="On this page">
 		<h2>On this page</h2>
+		<a href="#library">The library</a>
+		<a href="#framework">— How it works</a>
+		<a href="#brand-themes">Brand themes</a>
 		<a href="#how">How the skins work</a>
 		<a href="#realwise">RealWise</a>
 		<a href="#realwise-install">— Install</a>
@@ -42,9 +45,99 @@
 
 	<main id="main">
 		<h1>Child themes</h1>
-		<p class="lede">Four child themes keep WPWiseBones as the parent and add a brand layer on top of it.
-		RealWise and AEC Forge ship a marketing front page and a one-click builder for the rest of the site;
-		Antivig and PHX After Dark leave their content to their own plugins.</p>
+		<p class="lede">Sixteen child themes live in <code>child-themes/</code>, all with WPWiseBones as the parent:
+		twelve industry themes for real estate, construction and design firms, and four brand themes.</p>
+
+		<h2 id="library">The library</h2>
+		<p>Twelve industry themes are built on one shared framework rather than each carrying its own front
+		page. Every one is a handful of files — <code>style.css</code> (header and brand tokens),
+		<code>theme.json</code>, a three-line <code>front-page.php</code>, a <code>screenshot.png</code> and an
+		<code>industry-config.php</code> that holds the copy, the section order and the starter site. The parent
+		renders the sections; the <strong>WiseBones Industry Kit</strong> plugin supplies the content types,
+		lead forms, schema markup and the one-click starter site. Samples in the screenshots are marked
+		<em>Sample</em> and are only ever shown to the site owner.</p>
+		<h3>Real estate</h3>
+		<div class="grid two">
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Residential front page" loading="lazy" src="assets/img/lib-wisebones-residential.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Residential</h3><p>Residential real estate agent and brokerage.</p><p class="kicker">RealEstateAgent · lead form: valuation</p></figcaption>
+			</figure>
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Commercial front page" loading="lazy" src="assets/img/lib-wisebones-commercial.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Commercial</h3><p>Commercial real estate and investment brokerage.</p><p class="kicker">RealEstateAgent · lead form: contact</p></figcaption>
+			</figure>
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Property Management front page" loading="lazy" src="assets/img/lib-wisebones-property-management.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Property Management</h3><p>Property management.</p><p class="kicker">ProfessionalService · lead form: owner</p></figcaption>
+			</figure>
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Mortgage front page" loading="lazy" src="assets/img/lib-wisebones-mortgage.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Mortgage</h3><p>Mortgage broker and lender.</p><p class="kicker">FinancialService · lead form: prequal</p></figcaption>
+			</figure>
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Title & Escrow front page" loading="lazy" src="assets/img/lib-wisebones-title-escrow.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Title &amp; Escrow</h3><p>Title, escrow and settlement company.</p><p class="kicker">ProfessionalService · lead form: order</p></figcaption>
+			</figure>
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Home Builder front page" loading="lazy" src="assets/img/lib-wisebones-home-builder.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Home Builder</h3><p>New-home builder and community developer.</p><p class="kicker">HomeAndConstructionBusiness · lead form: showing</p></figcaption>
+			</figure>
+		</div>
+		<h3>Construction & trades</h3>
+		<div class="grid two">
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones General Contractor front page" loading="lazy" src="assets/img/lib-wisebones-general-contractor.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones General Contractor</h3><p>General contractor and construction manager.</p><p class="kicker">GeneralContractor · lead form: quote</p></figcaption>
+			</figure>
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Remodeling front page" loading="lazy" src="assets/img/lib-wisebones-remodeling.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Remodeling</h3><p>Remodeling and design-build.</p><p class="kicker">HomeAndConstructionBusiness · lead form: quote</p></figcaption>
+			</figure>
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Trades front page" loading="lazy" src="assets/img/lib-wisebones-trades.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Trades</h3><p>Specialty trade contractor  with presets for roofing, HVAC, plumbing and electrical.</p><p class="kicker">RoofingContractor / HVACBusiness / Plumber / Electrician · lead form: quote</p></figcaption>
+			</figure>
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Landscaping front page" loading="lazy" src="assets/img/lib-wisebones-landscaping.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Landscaping</h3><p>Landscaping, hardscape and outdoor-living contractor.</p><p class="kicker">HomeAndConstructionBusiness · lead form: quote</p></figcaption>
+			</figure>
+		</div>
+		<h3>Design</h3>
+		<div class="grid two">
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Architecture front page" loading="lazy" src="assets/img/lib-wisebones-architecture.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Architecture</h3><p>Architecture, engineering and design firm.</p><p class="kicker">ProfessionalService · lead form: contact</p></figcaption>
+			</figure>
+			<figure class="card" style="margin:0">
+				<img alt="WiseBones Interiors front page" loading="lazy" src="assets/img/lib-wisebones-interiors.png" width="1200" height="900" style="width:100%;height:auto;border-radius:6px">
+				<figcaption><h3 style="margin-top:10px">WiseBones Interiors</h3><p>Interior design and home staging.</p><p class="kicker">ProfessionalService · lead form: contact</p></figcaption>
+			</figure>
+		</div>
+
+		<h3 id="framework">How the industry themes work</h3>
+		<ul>
+			<li><strong>Sections.</strong> <code>hero</code>, <code>stats</code>, <code>services</code>,
+			<code>featured</code> (listings or projects), <code>values</code>, <code>process</code>, <code>team</code>,
+			<code>testimonials</code>, <code>areas</code>, <code>faq</code>, <code>content</code>, <code>posts</code> and
+			<code>cta</code> live in <code>wpwisebones/template-parts/industry/</code>. A child overrides one by
+			copying the file to the same path.</li>
+			<li><strong>Hero panels.</strong> Property search, quote request, mortgage payment calculator, or a
+			key/value spec card.</li>
+			<li><strong>Owner controls.</strong> Customizer → WPWiseBones → Front Page Sections switches sections on
+			and off and edits the phone number, hero photo, stats and closing call to action. Brand colours are
+			defaults for the existing Brand Colours settings.</li>
+			<li><strong>Industry Kit.</strong> Listings, projects, services, team, testimonials and service areas
+			(switched on per theme), seven lead forms stored under Leads and emailed to you, schema.org business
+			markup, and Appearance → Starter Site.</li>
+			<li><strong>Trades presets.</strong> WiseBones Trades switches between roofing, HVAC, plumbing and
+			electrical from the Customizer, changing copy, services, colour and schema type together.</li>
+		</ul>
+		<p>Build installable zips with <code>tools/build-library.sh</code>. The full list, including the four
+		brand themes below, is in <code>child-themes/library.json</code>.</p>
+
+		<h2 id="brand-themes">Brand themes</h2>
+		<p>The four themes below predate the framework and keep their own front pages.</p>
+
 
 		<h2 id="how">How the skins work</h2>
 		<p>Each child theme is deliberately thin: a <code>style.css</code> header pointing at
@@ -64,7 +157,7 @@
 				<div class="browser"><i></i><i></i><i></i><span>realwise — front page</span></div>
 				<img alt="RealWise front page with a navy headline, amber Start free button and a floating property card showing a deal score." loading="lazy" src="assets/img/theme-realwise.png" width="1440" height="940">
 			</div>
-			<figcaption>Rendered from <code>realwise/front-page.php</code> with the parent header and footer.
+			<figcaption>Rendered from <code>child-themes/realwise/front-page.php</code> with the parent header and footer.
 			<a href="assets/img/theme-realwise-full.png">See the whole page</a>.</figcaption>
 		</figure>
 		<p>The marketing page is self-contained — it needs neither the importer nor the shortcodes plugin — and
@@ -109,7 +202,7 @@
 				<div class="browser"><i></i><i></i><i></i><span>aec-forge — front page</span></div>
 				<img alt="AEC Forge front page: dark hero with orange accents, floating cards for a licensed program and a premium service." loading="lazy" src="assets/img/theme-aec-forge.png" width="1440" height="940">
 			</div>
-			<figcaption>Rendered from <code>aec-forge/front-page.php</code>.
+			<figcaption>Rendered from <code>child-themes/aec-forge/front-page.php</code>.
 			<a href="assets/img/theme-aec-forge-full.png">See the whole page</a>.</figcaption>
 		</figure>
 		<p>AEC Forge promotes a multi-vendor marketplace where AEC/BIM specialists, Excel experts and AI tool
@@ -142,7 +235,7 @@
 				<div class="browser"><i></i><i></i><i></i><span>antivig-child — front page</span></div>
 				<img alt="Antivig front page: dark navy hero with a condensed headline, an amber call-to-action and a worked example of a moneyline with the house margin removed." loading="lazy" src="assets/img/theme-antivig.png" width="1440" height="940">
 			</div>
-			<figcaption>Rendered from <code>antivig-child/front-page.php</code>.
+			<figcaption>Rendered from <code>child-themes/antivig-child/front-page.php</code>.
 			<a href="assets/img/theme-antivig-full.png">See the whole page</a>.</figcaption>
 		</figure>
 		<p>Antivig is the brand layer for a paid sports-analysis membership, and deliberately nothing else —

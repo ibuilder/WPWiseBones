@@ -1,0 +1,51 @@
+/*
+Theme Name:        WiseBones General Contractor
+Theme URI:         https://wprealwise.com/wpwisebones/child-themes/wisebones-general-contractor/
+Template:          wpwisebones
+Author:            WPWiseBones
+Author URI:        https://wprealwise.com
+Description:       General contractor and construction manager theme for WPWiseBones: a blueprint hero, delivery methods, a project portfolio by sector, safety and quality commitments, preconstruction process and a bid / estimate request form with GeneralContractor schema. Pair with the WiseBones Industry Kit plugin.
+Version:           1.0.0
+Requires at least: 6.0
+Tested up to:      7.1
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       wisebones-general-contractor
+Tags:              business, portfolio, custom-colors, custom-logo, custom-menu, featured-images, full-width-template, one-column, two-columns, translation-ready
+*/
+
+/*
+ * WiseBones General Contractor — part of the WPWiseBones child theme library.
+ *
+ * The page structure, sections and Customizer controls come from the parent
+ * (wpwisebones/inc/industry.php); the copy and starter site come from
+ * industry-config.php. This file only re-skins: change the tokens below and
+ * the whole front page follows. --ind-primary follows the Customizer colour.
+ */
+
+:root {
+	--ind-primary-ink: #111;
+	--ind-accent: #f28c1b;
+	--ind-ink: #15191d;
+	--ind-muted: #5b636b;
+	--ind-surface: #f1f2f3;
+	--ind-hero-bg: linear-gradient(160deg, #101418 0%, #1b242c 100%);
+	--ind-cta-bg: linear-gradient(135deg, #1b242c 0%, #27333e 100%);
+	--ind-radius: 4px;
+	--ind-radius-sm: 3px;
+	--ind-heading-weight: 800;
+	--ind-heading-tracking: .01em;
+	--ind-heading-font: "Arial Narrow", "Roboto Condensed", "Helvetica Neue", Arial, sans-serif;
+}
+
+body.wpb-industry {
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	color: var(--ind-ink);
+}
+
+.wpb-industry .wpb-ind-hero__title,
+.wpb-industry .wpb-ind-title,
+.wpb-industry .wpb-ind-cta__title { text-transform: uppercase; }
+.wpb-industry .wpb-ind-step { border-top: 4px solid var(--ind-accent); }
+.wpb-industry .wpb-ind-icon { color: #111; background: var(--ind-accent); }

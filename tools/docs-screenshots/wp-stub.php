@@ -463,7 +463,10 @@ function is_admin() {
 function is_user_logged_in() {
 	return false; }
 function current_user_can( $c ) {
-	return false; }
+	global $wp_stub;
+	// The library renders set this so the owner-only samples show, which is
+	// what a theme screenshot is meant to illustrate.
+	return ! empty( $wp_stub['can'] ); }
 function is_customize_preview() {
 	return false; }
 function is_wp_error( $t ) {
@@ -606,7 +609,10 @@ function get_template_part( $slug, $name = null, $args = array() ) {
 	$templates[] = "{$slug}.php";
 	$located     = locate_template( $templates );
 	if ( $located ) {
-		include $located;
+		// WordPress 5.5+ hands $args to the template part.
+		( static function ( $wpb_stub_file, $args ) {
+			include $wpb_stub_file;
+		} )( $located, $args );
 	}
 }
 function get_header( $name = null ) {
@@ -1062,6 +1068,11 @@ function get_template_directory_uri_stub() {
 
 function post_type_exists( $t ) {
 	return false; }
+function taxonomy_exists( $t ) {
+	return false; }
+function get_stylesheet() {
+	global $wp_stub;
+	return basename( $wp_stub['stylesheet_dir'] ); }
 function get_users( $args = array() ) {
 	return array(); }
 function wc_get_product( $p = false ) {

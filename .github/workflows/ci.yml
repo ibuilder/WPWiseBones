@@ -51,7 +51,7 @@ jobs:
       - name: PHP syntax, every shipped package
         run: |
           status=0
-          for pkg in wpwisebones wisebones-shortcodes realwise aec-forge antivig-child phx-after-dark-child tools; do
+          for pkg in wpwisebones wisebones-shortcodes wisebones-industry-kit child-themes tools; do
             [ -d "$pkg" ] || continue
             while IFS= read -r file; do
               php -l "$file" > /dev/null || { echo "::error file=$file::PHP parse error"; status=1; }
@@ -159,10 +159,10 @@ jobs:
           wp core install --url=http://localhost --title=CI --admin_user=admin \
             --admin_password=password --admin_email=ci@example.test --skip-email
 
-      - name: Install the plugin
+      - name: Install the plugins
         run: |
-          cp -r wisebones-shortcodes /tmp/wp/wp-content/plugins/
-          wp --path=/tmp/wp plugin activate wisebones-shortcodes
+          cp -r wisebones-shortcodes wisebones-industry-kit /tmp/wp/wp-content/plugins/
+          wp --path=/tmp/wp plugin activate wisebones-shortcodes wisebones-industry-kit
 
       # The suite copies the theme into the borrowed install itself, and exits 3
       # if a copy is already there, so nothing may pre-stage wpwisebones. It puts
@@ -175,17 +175,33 @@ jobs:
 
       # A child theme that cannot even be activated is broken, and none of them
       # carry tests of their own. Staged after the suite for the reason above.
-      - name: Every child theme activates
+      # Library themes built on the industry framework (an industry-config.php)
+      # also render their whole front page, with the Industry Kit active, so a
+      # bad config or section template fails here rather than on a live site.
+      - name: Every child theme in the library activates
         run: |
           status=0
           cp -r wpwisebones /tmp/wp/wp-content/themes/
-          for child in realwise aec-forge antivig-child phx-after-dark-child; do
-            [ -d "$child" ] || continue
-            cp -r "$child" /tmp/wp/wp-content/themes/
+          for dir in child-themes/*/; do
+            child=$(basename "$dir")
+            [ -f "$dir/style.css" ] || continue
+            cp -r "$dir" "/tmp/wp/wp-content/themes/$child"
             if wp --path=/tmp/wp theme activate "$child"; then
               wp --path=/tmp/wp eval 'echo "  " . get_stylesheet() . " on " . get_template() . PHP_EOL;'
             else
-              echo "::error::$child failed to activate"; status=1
+              echo "::error::$child failed to activate"; status=1; continue
+            fi
+            if [ -f "$dir/industry-config.php" ]; then
+              wp --path=/tmp/wp eval '
+                $c = wpwisebones_industry_config();
+                if ( ! $c ) { fwrite( STDERR, "no industry config\n" ); exit( 1 ); }
+                foreach ( (array) $c["content_types"] as $t ) {
+                  if ( ! post_type_exists( "wbik_" . $t ) ) { fwrite( STDERR, "kit did not register wbik_$t\n" ); exit( 1 ); }
+                }
+                ob_start(); wpwisebones_industry_front_page(); $html = ob_get_clean();
+                if ( false === strpos( $html, "wpb-ind-hero" ) ) { fwrite( STDERR, "front page rendered no hero\n" ); exit( 1 ); }
+                echo "    front page: " . count( $c["order"] ) . " sections, " . strlen( $html ) . " bytes" . PHP_EOL;
+              ' || { echo "::error::$child front page failed to render"; status=1; }
             fi
           done
           wp --path=/tmp/wp theme activate wpwisebones
@@ -195,7 +211,7 @@ jobs:
         if: always()
         run: |
           log=/tmp/wp/wp-content/debug.log
-          if [ -f "$log" ] && grep -iE "wpwisebones|wisebones|realwise|aec.forge|antivig|phx" "$log" \
+          if [ -f "$log" ] && grep -iE "wpwisebones|wisebones|wbik|realwise|aec.forge|antivig|phx" "$log" \
                | grep -iE "fatal|warning|notice|deprecated"; then
             echo "::error::The packages raised PHP errors"; exit 1
           fi

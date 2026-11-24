@@ -76,10 +76,43 @@ function wpb_boot_theme( string $repo, string $parent, ?string $child = null ): 
 	$wp_stub['stylesheet_uri'] = "file://$dir";
 
 	require_once "$repo/$parent/functions.php";
-	if ( $child ) {
+	if ( $child && file_exists( "$repo/$child/functions.php" ) ) {
 		require_once "$repo/$child/functions.php";
 	}
 	do_action( 'after_setup_theme' );
 	do_action( 'init' );
 	do_action( 'widgets_init' );
+}
+
+/**
+ * A fictional business, and three on-topic blog posts, for each library theme.
+ */
+function wpb_library_sample( string $theme, array $ph ): array {
+	$biz = array(
+		'wisebones-residential'         => array( 'Evergreen Realty Group', 'Local agents, real results', array( 'Spring market update: what buyers should know', 'Five upgrades that pay off at resale', 'A first-time buyer\'s guide to closing costs' ) ),
+		'wisebones-commercial'          => array( 'Harborline Commercial', 'Office, industrial, retail and multifamily advisory', array( 'Q2 industrial vacancy report', 'Sale-leaseback: when it makes sense', 'Reading a cap rate the right way' ) ),
+		'wisebones-property-management' => array( 'Keystone Property Management', 'Full-service residential management', array( 'Preparing your rental for winter', 'How we screen applicants fairly', 'Owner FAQ: reserves and repairs' ) ),
+		'wisebones-mortgage'            => array( 'Brightpath Home Loans', 'Mortgages explained in plain language', array( 'Fixed or adjustable: choosing a rate type', 'What lenders look for in a pre-approval', 'Down-payment assistance programs, explained' ) ),
+		'wisebones-title-escrow'        => array( 'Cornerstone Title & Escrow', 'Title insurance and settlement services', array( 'Wire fraud: how to protect your closing', 'What an owner\'s title policy covers', 'Timeline of a typical escrow' ) ),
+		'wisebones-home-builder'        => array( 'Ridgeway Homes', 'New homes, built around how you live', array( 'Inside the design studio', 'Building on your lot: the first 90 days', 'Energy-efficient features in every Ridgeway home' ) ),
+		'wisebones-general-contractor'  => array( 'Ironline Builders', 'General contracting and construction management', array( 'Topping out at the Riverside medical office', 'Why preconstruction saves money', 'Our 2025 safety record' ) ),
+		'wisebones-remodeling'          => array( 'Hearthstone Remodeling', 'Design-build kitchens, baths and additions', array( 'Kitchen remodel budget guide', 'Planning an addition: permits and timing', 'Bathroom trends worth the investment' ) ),
+		'wisebones-trades'              => array( 'Summit Roofing Co.', 'Licensed roofing contractor — 24/7 emergency repairs', array( 'Storm damage? What to do first', 'Asphalt vs. metal roofing', 'Signs your roof needs replacing' ) ),
+		'wisebones-architecture'        => array( 'Atelier North', 'Architecture and interiors', array( 'Library renovation wins regional award', 'Designing for daylight', 'Adaptive reuse in the old mill district' ) ),
+		'wisebones-landscaping'         => array( 'Greenway Outdoor Living', 'Landscape design, build and care', array( 'Spring cleanup checklist', 'Choosing pavers for your patio', 'Drought-tolerant planting ideas' ) ),
+		'wisebones-interiors'           => array( 'Maison Rose Interiors', 'Interior design and home staging', array( 'Staging tips that sell faster', 'Layering texture in a neutral room', 'How a design consultation works' ) ),
+	);
+	$row   = isset( $biz[ $theme ] ) ? $biz[ $theme ] : array( 'WiseBones', 'Industry theme', array( 'Post one', 'Post two', 'Post three' ) );
+	$posts = wpb_sample_posts( $ph );
+	foreach ( $posts as $i => &$post ) {
+		$post['title']   = $row[2][ $i ];
+		$post['excerpt'] = 'Placeholder post for the theme screenshot.';
+		$post['author']  = 'Sample author';
+	}
+	unset( $post );
+	return array(
+		'name'    => $row[0],
+		'tagline' => $row[1],
+		'posts'   => $posts,
+	);
 }

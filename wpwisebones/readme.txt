@@ -2,7 +2,7 @@
 Contributors:      wpwisebones
 Requires at least: 6.0
 Tested up to:      7.1
-Stable tag:        1.0.17
+Stable tag:        1.1.0
 Requires PHP:      7.4
 License:           GPLv2 or later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,13 @@ Bootstrap 5 and Bootstrap Icons are bundled in assets/vendor/ and served locally
   npm run preflight    Full production readiness check
 
 == Changelog ==
+
+= 1.1.0 =
+* Added: industry framework for child themes. A child theme that ships an industry-config.php gets a front page built from sections (hero with property search, quote, payment calculator or spec-card panel; stats; services; featured listings or projects; values; process; team; testimonials; service areas; FAQ; page content; latest posts; call to action), each a template part in template-parts/industry/ that the child can override. Used by the twelve themes in the WPWiseBones child theme library
+* Added: Customizer > WPWiseBones > Front Page Sections (industry child themes only) - section toggles, phone number, hero photo, stats strip and closing call to action
+* Added: hooks wpwisebones_header_fallback and wpwisebones_footer_widgets_fallback, and the wpwisebones_industry_config filter
+* Added: assets/css/industry.css and assets/js/industry.js (the calculator; enqueued only on a front page that uses it). Both load only for industry child themes
+* Changed: a child theme's style.css also depends on the industry stylesheet when that is loaded
 
 = 1.0.17 =
 * Changed: the 66 bare variables the templates assigned at top level ($container, $o, $hero_img and friends) now carry the wpwisebones_ prefix. WordPress includes templates in global scope, so each of those was a global that could collide with core or another plugin - $o and $container in particular are names anything might use. $o is now $wpwisebones_options, which also says what it holds. No behaviour change: all five themes render byte-identically before and after

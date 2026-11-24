@@ -26,6 +26,8 @@
 				</div>
 			</div>
 		</div>
+		<?php else : ?>
+			<?php do_action( 'wpwisebones_footer_widgets_fallback' ); ?>
 		<?php endif; ?>
 
 		<div class="footer-bottom">

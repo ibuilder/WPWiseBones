@@ -1,0 +1,27 @@
+{
+	"$comment": "The WPWiseBones child theme library. Every theme here has Template: wpwisebones. 'kit' marks themes built on the industry framework (wpwisebones/inc/industry.php + the WiseBones Industry Kit plugin). 'vendored' themes are copied from their own repositories.",
+	"families": {
+		"real-estate": "Real estate",
+		"construction": "Construction & trades",
+		"design": "Design",
+		"product": "Product & brand sites"
+	},
+	"themes": [
+		{ "slug": "wisebones-residential",         "name": "WiseBones Residential",         "family": "real-estate",  "kit": true,  "schema": "RealEstateAgent",             "lead": "valuation" },
+		{ "slug": "wisebones-commercial",          "name": "WiseBones Commercial",          "family": "real-estate",  "kit": true,  "schema": "RealEstateAgent",             "lead": "contact" },
+		{ "slug": "wisebones-property-management", "name": "WiseBones Property Management", "family": "real-estate",  "kit": true,  "schema": "ProfessionalService",         "lead": "owner" },
+		{ "slug": "wisebones-mortgage",            "name": "WiseBones Mortgage",            "family": "real-estate",  "kit": true,  "schema": "FinancialService",            "lead": "prequal" },
+		{ "slug": "wisebones-title-escrow",        "name": "WiseBones Title & Escrow",      "family": "real-estate",  "kit": true,  "schema": "ProfessionalService",         "lead": "order" },
+		{ "slug": "wisebones-home-builder",        "name": "WiseBones Home Builder",        "family": "real-estate",  "kit": true,  "schema": "HomeAndConstructionBusiness", "lead": "showing" },
+		{ "slug": "wisebones-general-contractor",  "name": "WiseBones General Contractor",  "family": "construction", "kit": true,  "schema": "GeneralContractor",           "lead": "quote" },
+		{ "slug": "wisebones-remodeling",          "name": "WiseBones Remodeling",          "family": "construction", "kit": true,  "schema": "HomeAndConstructionBusiness", "lead": "quote" },
+		{ "slug": "wisebones-trades",              "name": "WiseBones Trades",              "family": "construction", "kit": true,  "schema": "RoofingContractor / HVACBusiness / Plumber / Electrician", "lead": "quote" },
+		{ "slug": "wisebones-landscaping",         "name": "WiseBones Landscaping",         "family": "construction", "kit": true,  "schema": "HomeAndConstructionBusiness", "lead": "quote" },
+		{ "slug": "wisebones-architecture",        "name": "WiseBones Architecture",        "family": "design",       "kit": true,  "schema": "ProfessionalService",         "lead": "contact" },
+		{ "slug": "wisebones-interiors",           "name": "WiseBones Interiors",           "family": "design",       "kit": true,  "schema": "ProfessionalService",         "lead": "contact" },
+		{ "slug": "realwise",                      "name": "RealWise",                      "family": "real-estate",  "kit": false, "note": "wprealwise.com marketing site and EDD storefront" },
+		{ "slug": "aec-forge",                     "name": "AEC Forge",                     "family": "construction", "kit": false, "note": "AEC/BIM marketplace skin for the AEC Market plugin" },
+		{ "slug": "antivig-child",                 "name": "Antivig",                       "family": "product",      "kit": false, "vendored": true, "note": "Sports-analysis membership skin" },
+		{ "slug": "phx-after-dark-child",          "name": "PHX After Dark",                "family": "product",      "kit": false, "vendored": true, "note": "Member-only event guide skin" }
+	]
+}

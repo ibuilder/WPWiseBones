@@ -1,0 +1,42 @@
+/*
+Theme Name:        WiseBones Property Management
+Theme URI:         https://wprealwise.com/wpwisebones/child-themes/wisebones-property-management/
+Template:          wpwisebones
+Author:            WPWiseBones
+Author URI:        https://wprealwise.com
+Description:       Property management theme for WPWiseBones: available rentals with search, owner services and pricing, a tenant resource hub, owner management-proposal form and service-area pages. Pair with the WiseBones Industry Kit plugin, which relabels listings as Rentals.
+Version:           1.0.0
+Requires at least: 6.0
+Tested up to:      7.1
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       wisebones-property-management
+Tags:              real-estate, business, custom-colors, custom-logo, custom-menu, featured-images, full-width-template, one-column, two-columns, translation-ready
+*/
+
+/*
+ * WiseBones Property Management — part of the WPWiseBones child theme library.
+ *
+ * The page structure, sections and Customizer controls come from the parent
+ * (wpwisebones/inc/industry.php); the copy and starter site come from
+ * industry-config.php. This file only re-skins: change the tokens below and
+ * the whole front page follows. --ind-primary follows the Customizer colour.
+ */
+
+:root {
+	--ind-primary-ink: #fff;
+	--ind-accent: #f0715a;
+	--ind-ink: #1b2533;
+	--ind-muted: #5a6577;
+	--ind-surface: #f3f6fb;
+	--ind-hero-bg: linear-gradient(135deg, #1c3a63 0%, #2d5b9a 100%);
+	--ind-cta-bg: linear-gradient(135deg, #2d5b9a 0%, #3b6fb6 100%);
+	--ind-radius: 16px;
+	--ind-heading-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body.wpb-industry {
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	color: var(--ind-ink);
+}

@@ -3,7 +3,10 @@
  * Renders one theme's front page to static HTML using the theme's own
  * templates, so documentation screenshots show real output.
  *
- * Usage: php render-theme.php <out-dir> <wpwisebones|realwise|aec-forge>
+ * Usage: php render-theme.php <out-dir> <wpwisebones|realwise|aec-forge|antivig|phx-after-dark|wisebones-*>
+ *
+ * Any wisebones-* name renders that library theme from child-themes/, with the
+ * owner-only samples visible (a screenshot is the owner's view of the layout).
  *
  * @package WPWiseBones\Tools
  */
@@ -32,8 +35,8 @@ $wp_stub['options'] = array(
 switch ( $theme ) {
 	case 'realwise':
 		$parent = 'wpwisebones';
-		$child  = 'realwise';
-		$tpl    = "$repo/realwise/front-page.php";
+		$child  = 'child-themes/realwise';
+		$tpl    = "$repo/child-themes/realwise/front-page.php";
 		$wp_stub['blogname']        = 'RealWise';
 		$wp_stub['blogdescription'] = 'Real estate tools for the invested realtor';
 		$wp_stub['menu']            = array(
@@ -45,8 +48,8 @@ switch ( $theme ) {
 
 	case 'antivig':
 		$parent = 'wpwisebones';
-		$child  = 'antivig-child';
-		$tpl    = "$repo/antivig-child/front-page.php";
+		$child  = 'child-themes/antivig-child';
+		$tpl    = "$repo/child-themes/antivig-child/front-page.php";
 		$wp_stub['blogname']        = 'Antivig';
 		$wp_stub['blogdescription'] = 'Know the fair price before you bet';
 		$wp_stub['menu']            = array(
@@ -57,7 +60,7 @@ switch ( $theme ) {
 
 	case 'phx-after-dark':
 		$parent = 'wpwisebones';
-		$child  = 'phx-after-dark-child';
+		$child  = 'child-themes/phx-after-dark-child';
 		// The theme ships no front-page.php: its pages come from block patterns
 		// and the membership plugin's templates. The parent's index.php shows
 		// what the skin does to the chrome the parent renders.
@@ -78,14 +81,27 @@ switch ( $theme ) {
 
 	case 'aec-forge':
 		$parent = 'wpwisebones';
-		$child  = 'aec-forge';
-		$tpl    = "$repo/aec-forge/front-page.php";
+		$child  = 'child-themes/aec-forge';
+		$tpl    = "$repo/child-themes/aec-forge/front-page.php";
 		$wp_stub['blogname']        = 'AEC Forge';
 		$wp_stub['blogdescription'] = 'The marketplace for AEC, BIM and Excel specialists';
 		$wp_stub['menu']            = array(
 			array( 'Home', '#' ), array( 'Marketplace', '#' ), array( 'Forge Tools', '#' ),
 			array( 'How it works', '#' ), array( 'Pricing', '#' ), array( 'Become a vendor', '#' ),
 		);
+		break;
+
+	case ( 0 === strpos( $theme, 'wisebones-' ) ? $theme : null ):
+		$parent = 'wpwisebones';
+		$child  = "child-themes/$theme";
+		$tpl    = "$repo/$child/front-page.php";
+		$wp_stub['can'] = true;
+		$wpb_lib        = wpb_library_sample( $theme, $ph );
+		$wp_stub['blogname']        = $wpb_lib['name'];
+		$wp_stub['blogdescription'] = $wpb_lib['tagline'];
+		$wp_stub['posts']           = $wpb_lib['posts'];
+		$wp_stub['post']            = $wp_stub['posts'][0];
+		$wp_stub['theme_mods']      = array( 'wpwisebones_ind_phone' => '(555) 010-0142' );
 		break;
 
 	default:
@@ -113,6 +129,15 @@ $wp_stub['is_front_page'] = true;
 $wp_stub['is_home']       = false;
 
 wpb_boot_theme( $repo, $parent, $child );
+
+/* A library theme's menu is the one its starter site would build. */
+if ( isset( $wpb_lib ) && function_exists( 'wpwisebones_industry_config' ) ) {
+	$wpb_cfg          = wpwisebones_industry_config();
+	$wp_stub['menu'] = array();
+	foreach ( (array) $wpb_cfg['starter']['menu'] as $wpb_item ) {
+		$wp_stub['menu'][] = array( $wpb_item[0], '#' );
+	}
+}
 
 /* The shortcodes plugin ships the [wpb_*] components used by child pages. */
 $wp_stub['plugin_uri'] = "file://$repo/wisebones-shortcodes/";

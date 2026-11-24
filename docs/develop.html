@@ -55,15 +55,20 @@ npm install          # bootstrap 5.3.3, bootstrap-icons 1.11.3, archiver</code><
 		<h2 id="repo">Repository layout</h2>
 		<div class="snippet"><pre><code>wpwisebones/               parent theme (the package published to WordPress.org)
 wisebones-shortcodes/      companion plugin, 17 shortcodes
-realwise/                  child theme — real-estate marketing site + EDD storefront
-aec-forge/                 child theme — AEC/BIM marketplace skin
-antivig-child/             child theme — sports-analysis membership skin (vendored)
-phx-after-dark-child/      child theme — member-only event guide skin (vendored)
+wisebones-industry-kit/    companion plugin — listings, projects, leads, schema, starter site
+child-themes/              the child theme library — see child-themes/README.md
+  wisebones-*/             12 industry themes (real estate, construction, design)
+  realwise/                real-estate marketing site + EDD storefront
+  aec-forge/               AEC/BIM marketplace skin
+  antivig-child/           sports-analysis membership skin (vendored)
+  phx-after-dark-child/    member-only event guide skin (vendored)
+  library.json             machine-readable catalog
+  aec-forge-theme.zip      built AEC Forge package
 docs/                      this documentation site (GitHub Pages)
 tools/docs-screenshots/    renders the themes and shortcodes for the screenshots
+tools/build-library.sh     zips the library themes and the Industry Kit into dist/
 wpwisebones.zip            built theme package
-wisebones-shortcodes.zip   built plugin package
-aec-forge-theme.zip        built child theme package</code></pre></div>
+wisebones-shortcodes.zip   built plugin package</code></pre></div>
 
 		<h2 id="scripts">npm scripts</h2>
 		<p>Run these from inside <code>wpwisebones/</code>.</p>
