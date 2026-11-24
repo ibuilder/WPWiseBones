@@ -12,17 +12,22 @@
 ## Repository Contents
 
 ```
-wpwisebones/                # WordPress theme
+wpwisebones/                # WordPress theme (parent of every child theme)
 wisebones-shortcodes/       # Companion plugin (17 Bootstrap shortcodes)
-realwise/                   # Child theme - real-estate marketing site + EDD storefront
-aec-forge/                  # Child theme - AEC/BIM marketplace skin
-antivig-child/              # Child theme - sports-analysis membership skin (vendored)
-phx-after-dark-child/       # Child theme - member-only event guide skin (vendored)
+wisebones-industry-kit/     # Companion plugin - listings, projects, leads, schema, starter site
+child-themes/               # The child theme library (16 themes, see child-themes/README.md)
+  wisebones-*/              #   12 industry themes - real estate, construction, design
+  realwise/                 #   real-estate marketing site + EDD storefront
+  aec-forge/                #   AEC/BIM marketplace skin
+  antivig-child/            #   sports-analysis membership skin (vendored)
+  phx-after-dark-child/     #   member-only event guide skin (vendored)
+  library.json              #   machine-readable catalog
+  aec-forge-theme.zip       #   distributable AEC Forge zip
 docs/                       # Documentation site (GitHub Pages)
 tools/docs-screenshots/     # Renders the themes and shortcodes for the doc screenshots
+tools/build-library.sh      # Zips the library themes and the Industry Kit into dist/
 wpwisebones.zip             # Distributable theme zip (built via npm run zip)
 wisebones-shortcodes.zip    # Distributable plugin zip
-aec-forge-theme.zip         # Distributable child theme zip
 LICENSE                     # GNU GPL v2
 README.md                   # This file
 ```
@@ -31,7 +36,7 @@ README.md                   # This file
 
 ## Theme — WPWiseBones
 
-**Version:** 1.0.17  
+**Version:** 1.1.0  
 **Folder / Text Domain / Slug:** `wpwisebones`  
 **PHP Prefix:** `wpwisebones_` (functions) · `WPWISEBONES_` (constants) · `wpb-` (CSS/HTML)  
 **License:** GPL-2.0-or-later  
@@ -108,18 +113,46 @@ branch and no constant to switch, which is what WordPress.org Guideline 8 requir
 
 ---
 
-## Child Themes
+## Child Theme Library
 
-Four ready-made skins keep WPWiseBones as the parent — each adds a brand layer on top of it;
-two of them also ship a marketing front page and build the rest of the site in one click.
-Full details on the [documentation site](https://ibuilder.github.io/WPWiseBones/child-themes.html).
+Sixteen child themes live in [`child-themes/`](child-themes/), all with WPWiseBones as the
+parent. Full details, the config reference and how to add a vertical are in
+[`child-themes/README.md`](child-themes/README.md) and on the
+[documentation site](https://ibuilder.github.io/WPWiseBones/child-themes.html).
+
+### Industry themes
+
+Twelve themes for real estate, construction and design firms, built on one shared
+framework: the parent renders the front page from sections
+(`wpwisebones/template-parts/industry/`), each theme supplies brand tokens and an
+`industry-config.php`, and the **WiseBones Industry Kit** plugin supplies the content.
+
+| Real estate | Construction & trades | Design |
+|---|---|---|
+| `wisebones-residential` | `wisebones-general-contractor` | `wisebones-architecture` |
+| `wisebones-commercial` | `wisebones-remodeling` | `wisebones-interiors` |
+| `wisebones-property-management` | `wisebones-trades` (roofing / HVAC / plumbing / electrical) | |
+| `wisebones-mortgage` | `wisebones-landscaping` | |
+| `wisebones-title-escrow` | | |
+| `wisebones-home-builder` | | |
+
+### WiseBones Industry Kit (plugin) — 1.0.0
+
+Listings, projects, services, team, testimonials and service areas (switched on per
+theme); seven lead forms (`contact`, `quote`, `showing`, `valuation`, `prequal`, `owner`,
+`order`) stored under **Leads** and emailed, with nonce, honeypot, timing and rate-limit
+spam protection; schema.org business and listing markup; `[wbik_*]` grid shortcodes; and
+**Appearance → Starter Site**, which builds the theme's pages, menu, services and areas
+and removes them again in one click.
+
+### Brand themes
 
 | Theme | Version | What it is |
 |-------|---------|------------|
-| [`realwise/`](realwise/) | 1.3.4 | Navy/amber real-estate marketing site. Its importer (auto-run on activation, re-runnable from Appearance → RealWise Demo) builds the pages, menus, hero mods and an Easy Digital Downloads storefront. |
-| [`aec-forge/`](aec-forge/) | 1.1.2 | Charcoal/orange marketplace skin for AEC, BIM and Excel tooling. Appearance → AEC Forge Setup builds the promo pages and menus; reads live data from the AEC Market plugin when it is active. |
-| [`antivig-child/`](antivig-child/) | 0.4.2 | Navy/amber skin for a paid sports-analysis membership — brand, board typography, self-hosted webfonts and an installable web app. Brands the parent through its `theme_mod_wpwisebones_*` filters rather than restyling it. The board, ledger and paywall live in the `antivig-engine` / `antivig-membership` plugins, which are not in this repo. Requires WP 6.5 / PHP 8.1. **Vendored** from its own repository — the canonical source lives there. |
-| [`phx-after-dark-child/`](phx-after-dark-child/) | 1.1.1 | Night-palette skin for a private, member-only Phoenix metro event guide. Flips Bootstrap 5.3 into its own dark mode via `data-bs-theme="dark"` on the `<html>` element rather than overriding components, and ships two block patterns. The catalogue, membership and event templates live in the `phx-events-membership` plugin, which is not in this repo. Requires WP 6.4 / PHP 8.1. **Vendored** from its own repository — the canonical source lives there. |
+| [`realwise/`](child-themes/realwise/) | 1.3.4 | Navy/amber real-estate marketing site. Its importer (auto-run on activation, re-runnable from Appearance → RealWise Demo) builds the pages, menus, hero mods and an Easy Digital Downloads storefront. |
+| [`aec-forge/`](child-themes/aec-forge/) | 1.1.2 | Charcoal/orange marketplace skin for AEC, BIM and Excel tooling. Appearance → AEC Forge Setup builds the promo pages and menus; reads live data from the AEC Market plugin when it is active. |
+| [`antivig-child/`](child-themes/antivig-child/) | 0.4.2 | Navy/amber skin for a paid sports-analysis membership — brand, board typography, self-hosted webfonts and an installable web app. Brands the parent through its `theme_mod_wpwisebones_*` filters rather than restyling it. The board, ledger and paywall live in the `antivig-engine` / `antivig-membership` plugins, which are not in this repo. Requires WP 6.5 / PHP 8.1. **Vendored** from its own repository — the canonical source lives there. |
+| [`phx-after-dark-child/`](child-themes/phx-after-dark-child/) | 1.1.1 | Night-palette skin for a private, member-only Phoenix metro event guide. Flips Bootstrap 5.3 into its own dark mode via `data-bs-theme="dark"` on the `<html>` element rather than overriding components, and ships two block patterns. The catalogue, membership and event templates live in the `phx-events-membership` plugin, which is not in this repo. Requires WP 6.4 / PHP 8.1. **Vendored** from its own repository — the canonical source lives there. |
 
 ---
 
@@ -207,10 +240,16 @@ All REQUIRED and RECOMMENDED checks from the [Theme Review Guidelines](https://m
 
 Full, per-release changelogs live with each package, where WordPress.org reads them:
 
-- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.0.17**)
+- Theme — [`wpwisebones/readme.txt`](wpwisebones/readme.txt) (current: **1.1.0**)
 - Plugin — [`wisebones-shortcodes/readme.txt`](wisebones-shortcodes/readme.txt) (current: **1.0.9**)
+- Industry Kit — [`wisebones-industry-kit/readme.txt`](wisebones-industry-kit/readme.txt) (current: **1.0.0**)
 
 Most recent entries:
+
+### Theme 1.1.0
+- Added: the industry framework (`inc/industry.php`, `template-parts/industry/`, `assets/css/industry.css`, `assets/js/industry.js`). A child theme that ships an `industry-config.php` gets a section-based front page, a *Front Page Sections* Customizer panel, a header call to action and branded footer columns. Nothing changes for the parent or for child themes without a config.
+- Added: two action hooks, `wpwisebones_header_fallback` (runs instead of the header search form when no header widgets are set, if hooked) and `wpwisebones_footer_widgets_fallback` (runs when no footer widgets are set).
+- Changed: the child theme stylesheet now also depends on the industry stylesheet when it is loaded, so the child's tokens always come last.
 
 ### Theme 1.0.17
 

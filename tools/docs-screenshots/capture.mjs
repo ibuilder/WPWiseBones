@@ -4,7 +4,7 @@
  * Usage: node capture.mjs <build-dir> <docs-img-dir>
  */
 import { chromium } from 'playwright';
-import { mkdir, readFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 
@@ -74,6 +74,18 @@ for (const theme of themes) {
 console.log('Theme pages (mobile):');
 for (const theme of themes) {
   await shootPage(`theme-${theme}.html`, `theme-${theme}-mobile`, { width: 414, height: 860 });
+}
+
+// The library: one 1200x900 shot per industry theme, which is also the size
+// WordPress wants for a theme's screenshot.png. Copy them into each theme with
+//   for t in child-themes/wisebones-*; do cp docs/assets/img/lib-$(basename $t).png $t/screenshot.png; done
+const library = (await readdir(buildDir))
+  .map((f) => f.match(/^theme-(wisebones-.+)\.html$/))
+  .filter(Boolean)
+  .map((m) => m[1]);
+console.log('Library themes:');
+for (const theme of library) {
+  await shootPage(`theme-${theme}.html`, `lib-${theme}`, { width: 1200, height: 900, scale: 1 });
 }
 
 console.log('Shortcodes:');

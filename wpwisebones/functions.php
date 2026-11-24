@@ -6,7 +6,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'WPWISEBONES_VERSION', '1.0.17' );
+define( 'WPWISEBONES_VERSION', '1.1.0' );
 define( 'WPWISEBONES_DIR', get_template_directory() );
 define( 'WPWISEBONES_URI', get_template_directory_uri() );
 define( 'WPWISEBONES_INC', WPWISEBONES_DIR . '/inc/' );
@@ -36,6 +36,7 @@ $wpwisebones_includes = array(
 	'woocommerce.php',
 	'dashboard-widget.php',
 	'companion-plugin.php',
+	'industry.php',
 );
 
 foreach ( $wpwisebones_includes as $wpwisebones_file ) {

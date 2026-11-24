@@ -10,6 +10,7 @@
 
 	<file>wpwisebones</file>
 	<file>wisebones-shortcodes</file>
+	<file>wisebones-industry-kit</file>
 
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/assets/vendor/*</exclude-pattern>
@@ -31,6 +32,6 @@
 	<rule ref="WordPress.WP.GlobalVariablesOverride"/>
 	<rule ref="WordPress.PHP.NoSilencedErrors"/>
 
-	<config name="text_domain" value="wpwisebones,wisebones-shortcodes"/>
+	<config name="text_domain" value="wpwisebones,wisebones-shortcodes,wisebones-industry-kit"/>
 	<config name="minimum_wp_version" value="6.0"/>
 </ruleset>

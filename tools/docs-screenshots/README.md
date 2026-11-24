@@ -44,6 +44,11 @@ CHROMIUM_PATH=/path/to/chromium node tools/docs-screenshots/capture.mjs build do
 
 ## Notes
 
+- `render.php` also renders every `child-themes/wisebones-*` library theme, and
+  `capture.mjs` shoots each one at 1200×900 as `lib-<slug>.png` — the size WordPress
+  wants for a theme's `screenshot.png`. Library renders show the owner-only samples
+  (`current_user_can()` returns true for them), and use a fictional business name.
+
 - Screenshots are taken with `reducedMotion: 'reduce'`, so the child themes' own
   `prefers-reduced-motion` rules disable the scroll-reveal animation and off-screen
   sections are captured fully visible.

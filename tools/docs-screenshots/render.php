@@ -20,7 +20,11 @@ $target  = isset( $argv[2] ) ? $argv[2] : 'all';
 $ph = wpb_placeholders( $out_dir . '/img' );
 
 if ( in_array( $target, array( 'all', 'themes' ), true ) ) {
-	foreach ( array( 'wpwisebones', 'realwise', 'aec-forge', 'antivig', 'phx-after-dark' ) as $theme ) {
+	$wpb_themes = array( 'wpwisebones', 'realwise', 'aec-forge', 'antivig', 'phx-after-dark' );
+	foreach ( glob( $repo . '/child-themes/wisebones-*', GLOB_ONLYDIR ) as $wpb_dir ) {
+		$wpb_themes[] = basename( $wpb_dir );
+	}
+	foreach ( $wpb_themes as $theme ) {
 		$cmd = escapeshellarg( PHP_BINARY ) . ' ' . escapeshellarg( __DIR__ . '/render-theme.php' )
 			. ' ' . escapeshellarg( $out_dir ) . ' ' . escapeshellarg( $theme );
 		passthru( $cmd, $code );

@@ -1,0 +1,49 @@
+/*
+Theme Name:        WiseBones Interiors
+Theme URI:         https://wprealwise.com/wpwisebones/child-themes/wisebones-interiors/
+Template:          wpwisebones
+Author:            WPWiseBones
+Author URI:        https://wprealwise.com
+Description:       Interior design and home staging theme for WPWiseBones: a light editorial hero, portfolio of spaces, design and staging packages, the client process and a consultation request form. Pair with the WiseBones Industry Kit plugin.
+Version:           1.0.0
+Requires at least: 6.0
+Tested up to:      7.1
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       wisebones-interiors
+Tags:              portfolio, business, custom-colors, custom-logo, custom-menu, featured-images, full-width-template, one-column, two-columns, translation-ready
+*/
+
+/*
+ * WiseBones Interiors — part of the WPWiseBones child theme library.
+ *
+ * The page structure, sections and Customizer controls come from the parent
+ * (wpwisebones/inc/industry.php); the copy and starter site come from
+ * industry-config.php. This file only re-skins: change the tokens below and
+ * the whole front page follows. --ind-primary follows the Customizer colour.
+ */
+
+:root {
+	--ind-primary-ink: #fff;
+	--ind-accent: #b07d6b;
+	--ind-ink: #2b2b2b;
+	--ind-muted: #6f6763;
+	--ind-surface: #f7f2ef;
+	--ind-hero-bg: linear-gradient(135deg, #f3ebe6 0%, #ead9d0 100%);
+	--ind-cta-bg: #3b3a3a;
+	--ind-radius: 2px;
+	--ind-radius-sm: 2px;
+	--ind-heading-weight: 500;
+	--ind-hero-ink: #2b2b2b;
+	--ind-hero-muted: #6f6763;
+	--ind-heading-font: Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+
+body.wpb-industry {
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	color: var(--ind-ink);
+}
+
+.wpb-industry .wpb-ind-hero__title { font-style: italic; }
+.wpb-industry .wpb-ind-media { aspect-ratio: 4 / 5; }

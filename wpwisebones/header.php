@@ -72,6 +72,8 @@ $wpwisebones_container    = get_theme_mod( 'wpwisebones_container_width', 'conta
 				<div class="header-widget-area d-flex align-items-center">
 					<?php dynamic_sidebar( 'header-widgets' ); ?>
 				</div>
+			<?php elseif ( has_action( 'wpwisebones_header_fallback' ) ) : ?>
+				<?php do_action( 'wpwisebones_header_fallback' ); ?>
 			<?php else : ?>
 				<?php get_search_form(); ?>
 			<?php endif; ?>

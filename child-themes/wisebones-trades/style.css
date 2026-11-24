@@ -1,0 +1,50 @@
+/*
+Theme Name:        WiseBones Trades
+Theme URI:         https://wprealwise.com/wpwisebones/child-themes/wisebones-trades/
+Template:          wpwisebones
+Author:            WPWiseBones
+Author URI:        https://wprealwise.com
+Description:       Specialty trade contractor theme for WPWiseBones with presets for roofing, HVAC, plumbing and electrical: an emergency-call header, instant estimate form, services, service areas, licensing badges and the matching schema type (RoofingContractor, HVACBusiness, Plumber, Electrician). Pair with the WiseBones Industry Kit plugin.
+Version:           1.0.0
+Requires at least: 6.0
+Tested up to:      7.1
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       wisebones-trades
+Tags:              business, custom-colors, custom-logo, custom-menu, featured-images, full-width-template, one-column, two-columns, translation-ready
+*/
+
+/*
+ * WiseBones Trades — part of the WPWiseBones child theme library.
+ *
+ * The page structure, sections and Customizer controls come from the parent
+ * (wpwisebones/inc/industry.php); the copy and starter site come from
+ * industry-config.php. This file only re-skins: change the tokens below and
+ * the whole front page follows. --ind-primary follows the Customizer colour.
+ */
+
+:root {
+	--ind-primary-ink: #fff;
+	--ind-accent: #ffb300;
+	--ind-ink: #1a1a1a;
+	--ind-muted: #5c5c5c;
+	--ind-surface: #f4f4f4;
+	--ind-hero-bg: linear-gradient(160deg, #141414 0%, #262626 100%);
+	--ind-cta-bg: var(--ind-primary);
+	--ind-radius: 8px;
+	--ind-heading-weight: 800;
+	--ind-heading-font: "Arial Narrow", "Roboto Condensed", "Helvetica Neue", Arial, sans-serif;
+}
+
+body.wpb-industry {
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	color: var(--ind-ink);
+}
+
+.wpb-industry .wpb-ind-hero__title { text-transform: uppercase; }
+.wpb-industry .wpb-ind-badge .dot { animation: wpb-trades-pulse 1.6s ease-in-out infinite; }
+@keyframes wpb-trades-pulse { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--ind-accent) 10%, transparent); } }
+@media (prefers-reduced-motion: reduce) { .wpb-industry .wpb-ind-badge .dot { animation: none; } }
+.wpb-industry .wpb-ind-header-actions .wpb-ind-phone { font-size: 1.05rem; color: var(--ind-primary); }
+.navbar-dark .wpb-ind-header-actions .wpb-ind-phone { color: var(--ind-accent); }

@@ -1,0 +1,42 @@
+/*
+Theme Name:        WiseBones Remodeling
+Theme URI:         https://wprealwise.com/wpwisebones/child-themes/wisebones-remodeling/
+Template:          wpwisebones
+Author:            WPWiseBones
+Author URI:        https://wprealwise.com
+Description:       Remodeling and design-build theme for WPWiseBones: kitchens, baths, additions and whole-home renovations, a before-and-after project portfolio, a clear design-build process, financing call-out and an in-home consultation form. Pair with the WiseBones Industry Kit plugin.
+Version:           1.0.0
+Requires at least: 6.0
+Tested up to:      7.1
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       wisebones-remodeling
+Tags:              business, portfolio, custom-colors, custom-logo, custom-menu, featured-images, full-width-template, one-column, two-columns, translation-ready
+*/
+
+/*
+ * WiseBones Remodeling — part of the WPWiseBones child theme library.
+ *
+ * The page structure, sections and Customizer controls come from the parent
+ * (wpwisebones/inc/industry.php); the copy and starter site come from
+ * industry-config.php. This file only re-skins: change the tokens below and
+ * the whole front page follows. --ind-primary follows the Customizer colour.
+ */
+
+:root {
+	--ind-primary-ink: #fff;
+	--ind-accent: #c5883e;
+	--ind-ink: #1f2a2c;
+	--ind-muted: #5d6a6c;
+	--ind-surface: #f5f1ea;
+	--ind-hero-bg: linear-gradient(135deg, #18312f 0%, #2f5d62 100%);
+	--ind-cta-bg: linear-gradient(135deg, #2f5d62 0%, #3b7076 100%);
+	--ind-radius: 10px;
+	--ind-heading-font: Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+
+body.wpb-industry {
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	color: var(--ind-ink);
+}

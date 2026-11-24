@@ -40,12 +40,17 @@ function wpwisebones_enqueue_assets() {
 	/* -- Custom theme CSS ------------------------------------------ */
 	wp_enqueue_style( 'wpwisebones-main', WPWISEBONES_URI . '/assets/css/main.css', array( 'wpwisebones-style' ), $v );
 
+	/* -- Industry sections, for child themes that ship a config ---- */
+	if ( function_exists( 'wpwisebones_industry_enqueue' ) ) {
+		wpwisebones_industry_enqueue();
+	}
+
 	/* -- Child theme stylesheet, last so it can override ----------- */
 	if ( is_child_theme() ) {
 		wp_enqueue_style(
 			'wpwisebones-child-style',
 			get_stylesheet_uri(),
-			array( 'wpwisebones-main' ),
+			wp_style_is( 'wpwisebones-industry', 'enqueued' ) ? array( 'wpwisebones-main', 'wpwisebones-industry' ) : array( 'wpwisebones-main' ),
 			wp_get_theme()->get( 'Version' )
 		);
 	}

@@ -15,6 +15,7 @@
 
 	<file>wpwisebones</file>
 	<file>wisebones-shortcodes</file>
+	<file>wisebones-industry-kit</file>
 
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/assets/vendor/*</exclude-pattern>
@@ -29,6 +30,7 @@
 				<element value="wpwisebones"/>
 				<element value="wisebones"/>
 				<element value="wpbs"/>
+				<element value="wbik"/>
 			</property>
 		</properties>
 	</rule>

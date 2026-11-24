@@ -1,0 +1,42 @@
+/*
+Theme Name:        WiseBones Title & Escrow
+Theme URI:         https://wprealwise.com/wpwisebones/child-themes/wisebones-title-escrow/
+Template:          wpwisebones
+Author:            WPWiseBones
+Author URI:        https://wprealwise.com
+Description:       Title, escrow and settlement company theme for WPWiseBones: open-an-order form, closing checklist, services for agents, lenders, buyers and sellers, office locations and team. Pair with the WiseBones Industry Kit plugin.
+Version:           1.0.0
+Requires at least: 6.0
+Tested up to:      7.1
+Requires PHP:      7.4
+License:           GNU General Public License v2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:       wisebones-title-escrow
+Tags:              real-estate, business, custom-colors, custom-logo, custom-menu, featured-images, full-width-template, one-column, two-columns, translation-ready
+*/
+
+/*
+ * WiseBones Title & Escrow — part of the WPWiseBones child theme library.
+ *
+ * The page structure, sections and Customizer controls come from the parent
+ * (wpwisebones/inc/industry.php); the copy and starter site come from
+ * industry-config.php. This file only re-skins: change the tokens below and
+ * the whole front page follows. --ind-primary follows the Customizer colour.
+ */
+
+:root {
+	--ind-primary-ink: #fff;
+	--ind-accent: #c8a165;
+	--ind-ink: #2a1a20;
+	--ind-muted: #6a5a60;
+	--ind-surface: #f8f4f1;
+	--ind-hero-bg: linear-gradient(135deg, #3f1020 0%, #6b1f38 70%, #7b2440 100%);
+	--ind-cta-bg: linear-gradient(135deg, #7b2440 0%, #8f2d4c 100%);
+	--ind-radius: 10px;
+	--ind-heading-font: Georgia, "Iowan Old Style", "Times New Roman", serif;
+}
+
+body.wpb-industry {
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	color: var(--ind-ink);
+}
